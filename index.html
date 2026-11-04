@@ -410,6 +410,43 @@ function articlePlainText(value){
  }
  return raw.replace(/\s+/g," ").trim();
 }
+ async function loadArticles(){
+  const box = $("articles");
+  box.textContent = "Loading articles...";
+
+  try {
+    const {data,error} = await db
+      .from("articles")
+      .select("id,title,author_name,category,content,created_at")
+      .eq("status","approved")
+      .order("created_at",{ascending:false});
+
+    if(error) throw error;
+
+    approvedArticles = data || [];
+    renderArticles();
+
+  } catch(error) {
+    box.textContent = "Could not load articles: " + error.message;
+  }
+}
+
+$("searchInput").addEventListener("input",renderArticles);
+$("categoryFilter").addEventListener("change",renderArticles);
+
+$("categoryTiles").querySelectorAll("[data-category]").forEach(button=>{
+  button.addEventListener("click",()=>{
+    $("categoryFilter").value =
+      $("categoryFilter").value === button.dataset.category
+        ? ""
+        : button.dataset.category;
+    renderArticles();
+  });
+});
+
+document.querySelectorAll("#refreshBtn").forEach(button=>{
+  button.addEventListener("click",loadArticles);
+});
 function renderArticles(){
  const term=($("searchInput")?.value||"").trim().toLowerCase();
  const selectedCategory=$("categoryFilter").value;
