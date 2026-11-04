@@ -59,17 +59,28 @@ const dateText = value => {
 await fs.rm(OUT, { recursive: true, force: true });
 await fs.mkdir(OUT, { recursive: true });
 
-// Copy the existing site unchanged; generated SEO pages are added alongside it.
-await fs.cp(ROOT, OUT, {
-  recursive: true,
-  filter(source) {
-    const rel = path.relative(ROOT, source).split(path.sep);
-    if (rel[0] === "_site" || rel[0] === "node_modules" || rel[0] === ".git" ||
-        rel[0] === ".github" || rel[0] === "scripts" ||
-        rel[0] === "package.json" || rel[0] === "package-lock.json") return false;
-    return true;
-  }
-});
+// Copy website files without copying the output folder into itself.
+const entries = await fs.readdir(ROOT, { withFileTypes: true });
+
+for (const entry of entries) {
+  const name = entry.name;
+
+  if ([
+    "_site",
+    "node_modules",
+    ".git",
+    ".github",
+    "scripts",
+    "package.json",
+    "package-lock.json"
+  ].includes(name)) continue;
+
+  await fs.cp(
+    path.join(ROOT, name),
+    path.join(OUT, name),
+    { recursive: true }
+  );
+}
 
 const endpoint = `${SUPABASE_URL}/rest/v1/articles?select=id,title,author_name,category,content,created_at&status=eq.approved&order=created_at.desc`;
 const response = await fetch(endpoint, {
