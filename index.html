@@ -435,26 +435,25 @@ function renderArticles(){
  $("articles").querySelectorAll("[data-open-article]").forEach(b=>b.onclick=()=>openArticle(b.dataset.openArticle));
 }
 function openArticle(id){
- const a=approvedArticles.find(x=>String(x.id)===String(id));if(!a)return;
- const image=articleImage(a.content);
- $("featuredArea").innerHTML="";
- $("articles").innerHTML=`<article class="article-full"><button class="back-btn" type="button" id="backToLibrary">← Back to articles</button><h2>${esc(a.title)}</h2><div class="reading-meta">${esc(gbText("by"))}: ${esc(a.author_name)} · ${esc(a.category)} · ${new Date(a.created_at).toLocaleDateString()}</div><div class="article-body">${articleContentHTML(a.content)}</div></article>`;
- $("backToLibrary").onclick=renderArticles;
- $("articles").scrollIntoView({behavior:"smooth",block:"start"});
+  const a = approvedArticles.find(
+    x => String(x.id) === String(id)
+  );
+
+  if (!a) return;
+
+  const slugify = value => String(value || "article")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 70) || "article";
+
+  const slug = `${slugify(a.title)}-${slugify(a.id)}`;
+
+  window.location.href =
+    `https://rahulsng-create.github.io/gyanbhoomi/articles/${slug}/index.html`;
 }
-window.gbRefreshDynamicText=()=>{if(approvedArticles.length || $("searchInput").value)renderArticles();};
-async function loadArticles(){
- $("articles").textContent=gbText("loading");
- const {data,error}=await db.from("articles").select("id,title,author_name,category,content,created_at").eq("status","approved").order("created_at",{ascending:false});
- if(error){$("articles").textContent=gbText("loadFailed")+error.message;return}
- approvedArticles=data||[];renderArticles();
-}
-$("refreshBtn").onclick=loadArticles;$("searchInput").addEventListener("input",renderArticles);$("categoryFilter").addEventListener("change",renderArticles);
-$("categoryTiles")?.querySelectorAll("[data-category]").forEach(b=>b.addEventListener("click",()=>{
- $("categoryFilter").value=$("categoryFilter").value===b.dataset.category?"":b.dataset.category;
- renderArticles();
- $("library").scrollIntoView({behavior:"smooth",block:"start"});
-}));
 function askGyanBhoomi(){
  const question=$("askInput").value.trim(),status=$("askStatus"),results=$("askResults");
  results.innerHTML="";
