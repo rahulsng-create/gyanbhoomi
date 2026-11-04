@@ -161,7 +161,12 @@ footer{text-align:center;color:#718078;padding:25px;font-size:13px}
   await fs.writeFile(path.join(folder, "index.html"), html, "utf8");
   urls.push(pageUrl);
 }
+const sourceHome = path.join(ROOT, "index.html");
+const outputHome = path.join(OUT, "index.html");
 
+if (!(await fs.stat(outputHome).catch(() => false))) {
+  await fs.copyFile(sourceHome, outputHome);
+}
 // Keep the sitemap restricted to real, publicly published URLs.
 const xml = `<?xml version="1.0" encoding="UTF-8"?>\n` +
   `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
