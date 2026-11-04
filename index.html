@@ -531,8 +531,81 @@ $("askInput").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.
 
 $("submitForm").onsubmit=async e=>{e.preventDefault();let b=$("submitBtn");b.disabled=true;b.textContent=gbText("submitting");let row={title:$("title").value.trim(),author_name:$("author").value.trim(),category:$("category").value,content:(importedArticleHTML?HTML_MARKER+importedArticleHTML:$("content").value.trim()),status:"pending"};let {error}=await db.from("articles").insert(row);if(error)msg($("submitStatus"),gbText("submitFailed")+error.message);else{$("submitForm").reset();importedArticleHTML="";$("htmlImportStatus").textContent="";msg($("submitStatus"),gbText("submitted"),true)}b.disabled=false;b.textContent=gbText("submit")};
 async function loadPending(){ $("pendingArticles").textContent=gbText("loading");let timeout=setTimeout(()=>$("pendingArticles").textContent=gbText("stillWaiting"),12000);let {data,error}=await db.from("articles").select("id,title,author_name,category,content,created_at").eq("status","pending").order("created_at");clearTimeout(timeout);if(error){$("pendingArticles").textContent=gbText("pendingLoadFailed")+error.message;return}if(!data.length){$("pendingArticles").textContent=gbText("pendingEmpty");return}$("pendingArticles").innerHTML=data.map(a=>`<article class="article" data-id="${esc(a.id)}"><h3>${esc(a.title)}</h3><div class="meta">${esc(gbText("by"))}: ${esc(a.author_name)} · ${esc(a.category)}</div><div class="article-body">${articleContentHTML(a.content)}</div><div class="actions"><button class="approve" data-status="approved">${gbText("approve")}</button><button class="reject" data-status="rejected">${gbText("reject")}</button></div></article>`).join("");$("pendingArticles").querySelectorAll("button[data-status]").forEach(b=>b.onclick=async()=>{b.disabled=true;let article=b.closest("[data-id]");let {error}=await db.from("articles").update({status:b.dataset.status}).eq("id",article.dataset.id);if(error){alert("Update failed: "+error.message);b.disabled=false}else{article.remove();if(!$("pendingArticles").querySelector("[data-id]"))$("pendingArticles").textContent=gbText("pendingEmpty")}})}
-async function session(){let {data:{session}}=await db.auth.getSession();$("logoutBtn").classList.toggle("hidden",!session);$("logoutBtn").textContent=gbText("signOut");$("sessionInfo").textContent=session?gbText("signedIn")+session.user.email:gbText("notSignedIn");if(session)loadPending();else $("pendingArticles").textContent=gbText("pendingHelp")}
+async function loadManagedArticles(){
+ const box=$("manageArticlesList");
+ box.textContent="Loading published articles...";
+ const {data,error}=await db.from("articles")
+  .select("id,title,author_name,category,content")
+  .eq("status","approved")
+  .order("created_at",{ascending:false});
+
+ if(error){box.textContent="Loading failed: "+error.message;return}
+ if(!data.length){box.textContent="No published articles found.";return}
+
+ box.innerHTML=data.map(a=>`
+  <article class="article" data-id="${esc(a.id)}">
+   <h3>${esc(a.title)}</h3>
+   <p class="muted">${esc(a.author_name)} · ${esc(a.category)}</p>
+   <button type="button" class="editManaged">Edit</button>
+   <button type="button" class="deleteManaged">Delete</button>
+   <div class="editArea hidden">
+    <label>Title</label>
+    <input class="editTitle" value="${esc(a.title)}">
+    <label>Author</label>
+    <input class="editAuthor" value="${esc(a.author_name)}">
+    <label>Category</label>
+    <select class="editCategory">
+     ${["Science","Technology","History","Education","Health & Lifestyle","Arts & Culture","Environment","Other"].map(c=>`<option ${a.category===c?"selected":""}>${c}</option>`).join("")}
+    </select>
+    <label>Content (HTML articles retain their formatting)</label>
+    <textarea class="editContent" rows="12"></textarea>
+    <button type="button" class="saveManaged">Save changes</button>
+    <button type="button" class="cancelManaged">Cancel</button>
+   </div>
+  </article>`).join("");
+
+ data.forEach(a=>{
+  const card=box.querySelector(`[data-id="${CSS.escape(a.id)}"]`);
+  card.querySelector(".editContent").value=a.content;
+  card.querySelector(".editManaged").onclick=()=>{
+   card.querySelector(".editArea").classList.remove("hidden");
+  };
+  card.querySelector(".cancelManaged").onclick=()=>{
+   card.querySelector(".editArea").classList.add("hidden");
+  };
+  card.querySelector(".saveManaged").onclick=async e=>{
+   const b=e.currentTarget;b.disabled=true;
+   const {error}=await db.from("articles").update({
+    title:card.querySelector(".editTitle").value.trim(),
+    author_name:card.querySelector(".editAuthor").value.trim(),
+    category:card.querySelector(".editCategory").value,
+    content:card.querySelector(".editContent").value
+   }).eq("id",a.id);
+   b.disabled=false;
+   if(error){alert("Save failed: "+error.message);return}
+   alert("Article updated successfully!");
+   loadManagedArticles();
+   loadArticles();
+  };
+  card.querySelector(".deleteManaged").onclick=async()=>{
+   if(!confirm("Permanently delete this article? This cannot be undone."))return;
+   const {error}=await db.from("articles").delete().eq("id",a.id);
+   if(error){alert("Delete failed: "+error.message);return}
+   alert("Article deleted.");
+   loadManagedArticles();
+   loadArticles();
+  };
+ });
+}
+ async function session(){let {data:{session}}=await db.auth.getSession();$("logoutBtn").classList.toggle("hidden",!session);$("logoutBtn").textContent=gbText("signOut");$("sessionInfo").textContent=session?gbText("signedIn")+session.user.email:gbText("notSignedIn");if(session){
+ loadPending();
+ loadManagedArticles();
+}else{
+ $("pendingArticles").textContent=gbText("pendingHelp");
+ $("manageArticlesList").textContent="Sign in as admin to manage articles.";
+}
 $("loginForm").onsubmit=async e=>{e.preventDefault();let b=$("loginBtn");b.disabled=true;let {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error)msg($("loginStatus"),gbText("loginFailed")+error.message);else{msg($("loginStatus"),gbText("loginSuccess"),true);await session()}b.disabled=false};
-$("logoutBtn").onclick=async()=>{await db.auth.signOut();await session()};$("pendingRefresh").onclick=loadPending;loadArticles();session();if(window.gbApplyLanguage)window.gbApplyLanguage();
-})();
+$("manageRefresh").onclick=loadManagedArticles;
+ $("logoutBtn").onclick=async()=>{await db.auth.signOut();await session()};$("pendingRefresh").onclick=loadPending;loadArticles();session();if(window.gbApplyLanguage)window.gbApplyLanguage();
+ }$("manageRefresh").onclick=loadManagedArticles;)();
 </script></body></html>
