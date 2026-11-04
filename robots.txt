@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rahulsng-create.github.io/gyanbhoomi/sitemap.xml
