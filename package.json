@@ -1,0 +1,11 @@
+{
+  "name": "gyanbhoomi-static-seo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-articles.mjs"
+  },
+  "dependencies": {
+    "sanitize-html": "^2.17.0"
+  }
+}
