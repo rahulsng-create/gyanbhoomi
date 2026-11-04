@@ -82,7 +82,13 @@ for (const entry of entries) {
   );
 }
 
-const endpoint = `${SUPABASE_URL}/rest/v1/articles?select=id,title,author_name,category,content,created_at&status=eq.approved&order=created_at.desc`;
+const // Ensure the homepage is included in the published output.
+const sourceHome = path.join(ROOT, "index.html");
+const outputHome = path.join(OUT, "index.html");
+
+if (!(await fs.stat(outputHome).catch(() => false))) {
+  await fs.copyFile(sourceHome, outputHome);
+} = `${SUPABASE_URL}/rest/v1/articles?select=id,title,author_name,category,content,created_at&status=eq.approved&order=created_at.desc`;
 const response = await fetch(endpoint, {
   headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
 });
