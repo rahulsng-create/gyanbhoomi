@@ -478,32 +478,18 @@ function openArticle(id){
 
   if (!a) return;
 
-  $("articles").innerHTML = `
-    <article class="article-full">
-      <button type="button" class="back-btn" id="backToArticles">
-        ← Back to articles
-      </button>
+  const slugify = value => String(value || "article")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 70) || "article";
 
-      <h2>${esc(a.title)}</h2>
+  const slug = `${slugify(a.title)}-${slugify(a.id)}`;
 
-      <div class="reading-meta">
-        ${esc(a.category || "Knowledge")} ·
-        ${esc(gbText("by"))}: ${esc(a.author_name)} ·
-        ${new Date(a.created_at).toLocaleDateString()}
-      </div>
-
-      <div class="article-body">
-        ${articleContentHTML(a.content)}
-      </div>
-    </article>
-  `;
-
-  $("backToArticles").onclick = renderArticles;
-
-  $("articles").scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
+  window.location.href =
+    `https://rahulsng-create.github.io/gyanbhoomi/articles/${slug}/index.html`;
 }
 function askGyanBhoomi(){
  const question=$("askInput").value.trim(),status=$("askStatus"),results=$("askResults");
