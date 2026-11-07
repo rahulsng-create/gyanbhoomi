@@ -268,6 +268,57 @@ for (const article of articles) {
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, "\\u003c")}</script>
 <style>
+.gb-translate-bar{
+ display:flex;
+ gap:9px;
+ align-items:center;
+ flex-wrap:wrap;
+ margin:0 0 18px;
+ padding:12px 14px;
+ border:1px solid var(--line);
+ border-radius:12px;
+ background:#f7faf7;
+}
+.gb-translate-bar label{
+ font-size:14px;
+ font-weight:700;
+ color:var(--green);
+}
+.gb-translate-bar select,
+.gb-translate-bar button{
+ min-height:38px;
+ border:1px solid #b9cbbf;
+ border-radius:8px;
+ padding:7px 11px;
+ background:#fff;
+ color:#173d35;
+ font:600 14px system-ui;
+}
+.gb-translate-bar button{
+ background:var(--green);
+ color:#fff;
+ cursor:pointer;
+}
+.gb-translate-status{
+ font-size:13px;
+ color:#62766c;
+}
+body.gb-night .gb-translate-bar{
+ background:#173b34;
+ border-color:#31564c;
+}
+body.gb-night .gb-translate-bar label,
+body.gb-night .gb-translate-status{
+ color:#e8eee8;
+}
+body.gb-night .gb-translate-bar select{
+ background:#102e2a;
+ color:#e8eee8;
+ border-color:#527267;
+}
+@media print{
+ .gb-translate-bar{display:none!important;}
+}
 :root{--green:#103d36;--gold:#e9b85f;--bg:#f3f6f3;--line:#dfe8e1}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#20332c;font:17px/1.8 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
 header{background:linear-gradient(125deg,#0c302b,#1a5549);color:white;padding:18px}
@@ -341,6 +392,28 @@ body.gb-night .meta,body.gb-night footer{color:#b3c8bd}
 <div class="meta">${esc(article.category || "Knowledge")}${published ? " · " + esc(published) : ""}</div>
 <h1>${esc(title)}</h1>
 <div class="meta">By ${esc(article.author_name || "GyanBhoomi")}</div>
+<div class="gb-translate-bar" role="group" aria-label="Article language translation">
+<label for="gbLanguage">Translate article:</label>
+<select id="gbLanguage">
+<option value="hi">Hindi</option>
+<option value="gu">Gujarati</option>
+<option value="bn">Bengali</option>
+<option value="mr">Marathi</option>
+<option value="ta">Tamil</option>
+<option value="te">Telugu</option>
+<option value="ur">Urdu</option>
+<option value="pa">Punjabi</option>
+<option value="fr">French</option>
+<option value="es">Spanish</option>
+<option value="ar">Arabic</option>
+<option value="de">German</option>
+<option value="pt">Portuguese</option>
+<option value="ru">Russian</option>
+</select>
+<button id="gbTranslate" type="button">Translate</button>
+<button id="gbOriginal" type="button" hidden>Show original</button>
+<span id="gbTranslateStatus" class="gb-translate-status" aria-live="polite"></span>
+</div>
 <div class="body">${body}</div>
 </article></main>
 <footer>© ${new Date().getFullYear()} GyanBhoomi · ज्ञान सबके लिए</footer>
@@ -352,6 +425,80 @@ body.gb-night .meta,body.gb-night footer{color:#b3c8bd}
  const title=document.querySelector("h1")?.textContent.trim()||"GyanBhoomi article";
  const url=location.href;
  const body=document.querySelector(".body");
+ // GyanBhoomi multilingual translation
+const translateButton=$("gbTranslate");
+const originalButton=$("gbOriginal");
+const languageSelect=$("gbLanguage");
+const translateStatus=$("gbTranslateStatus");
+
+let originalNodes=[];
+let translating=false;
+let translated=false;
+
+function collectArticleTextNodes(){
+ const walker=document.createTreeWalker(body,NodeFilter.SHOW_TEXT,{
+  acceptNode(node){
+   if(!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+   if(node.parentElement?.closest("script,style,noscript,svg,button,select,textarea"))
+    return NodeFilter.FILTER_REJECT;
+   return NodeFilter.FILTER_ACCEPT;
+  }
+ });
+ const nodes=[];
+ while(walker.nextNode()) nodes.push(walker.currentNode);
+ return nodes;
+}
+
+async function translateArticleText(text,target){
+ const endpoint="https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl="
+  +encodeURIComponent(target)+"&dt=t&q="+encodeURIComponent(text);
+ const response=await fetch(endpoint);
+ if(!response.ok) throw new Error("Translation failed");
+ const data=await response.json();
+ return data[0].map(part=>part?.[0]||"").join("");
+}
+
+translateButton?.addEventListener("click",async()=>{
+ if(translating||translated) return;
+ const nodes=collectArticleTextNodes();
+ if(!nodes.length) return;
+
+ translating=true;
+ translateButton.disabled=true;
+ languageSelect.disabled=true;
+ originalNodes=nodes.map(node=>({node,text:node.nodeValue}));
+
+ let failed=0;
+ try{
+  for(let i=0;i<originalNodes.length;i++){
+   const item=originalNodes[i];
+   try{
+    const result=await translateArticleText(item.text,languageSelect.value);
+    if(result) item.node.nodeValue=result;
+   }catch(error){failed++;}
+   translateStatus.textContent="Translating "+(i+1)+" of "+originalNodes.length+"…";
+  }
+  translated=true;
+  originalButton.hidden=false;
+  translateStatus.textContent=failed
+   ?"Partially translated. Some text could not be translated."
+   :"Translation complete!";
+ }finally{
+  translating=false;
+  translateButton.disabled=false;
+  languageSelect.disabled=false;
+ }
+});
+
+originalButton?.addEventListener("click",()=>{
+ if(translating) return;
+ for(const item of originalNodes){
+  if(item.node.isConnected) item.node.nodeValue=item.text;
+ }
+ translated=false;
+ originalButton.hidden=true;
+ translateStatus.textContent="Original article restored.";
+});
  const prefs={font:"gb_reader_font",width:"gb_reader_width",theme:"gyanbhoomi_theme",saved:"gb_saved_articles",history:"gb_reading_history"};
  let mode="day";
  try{mode=localStorage.getItem(prefs.theme)||"day"}catch(e){}
