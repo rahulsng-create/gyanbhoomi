@@ -1257,7 +1257,7 @@ const formattedAnswer=answerLines.reduce((html,line)=>{
  const plain=t.replace(/\*\*/g,"");
  const exampleMatch=plain.match(/^(Example|Simple Example):\s*(.*)$/i);
  if(exampleMatch){
-  const rest=clean.replace(/^(Example|Simple Example):\s*/i,"");
+  const rest=clean.replace(/^(?:<strong>)?(?:Example|Simple Example):(?:<\/strong>)?\s*/i,"");
   if(exampleOpen){
    if(rest) html+=`<p>${rest}</p>`;
    return html;
