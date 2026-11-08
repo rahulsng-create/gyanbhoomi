@@ -1327,12 +1327,13 @@ if(!t) return html;
    if(rest) html+=`<p>${rest}</p>`;
    return html;
   }
-  exampleOpen=true;
-  const heading=exampleMatch[1];
-  
-  html+=`<div class="ai-highlight"><div class="ai-highlight-title">${heading}</div>`;
+  if(!rest) return html;
+exampleOpen=true;
+const heading=exampleMatch[1];
 
-  return html;
+html+=`<div class="ai-highlight"><div class="ai-highlight-title">${heading}</div><p>${rest}</p>`;
+
+return html;
  }
 if(exampleOpen){
  if(/^(Key takeaway|Remember|Important):/i.test(plain)||/^#{1,3}\s/.test(plain)||/^\d+\.\s/.test(plain)){
