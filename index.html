@@ -528,6 +528,71 @@ body.gb-night .gb-reading-list-items a{background:#173b34;border-color:#31564c}
 
 /* Remaining new CSS here */
 
+/* GyanBhoomi AI quick visual map */
+#askResults .ai-visual-map{
+ margin:18px 0 22px;
+ padding:16px;
+ border:1px solid #b58e4d;
+ border-radius:15px;
+ background:linear-gradient(145deg,#19483f,#10372f);
+ overflow:hidden;
+}
+#askResults .ai-visual-map-title{
+ color:#ffe3a2;
+ font-size:18px;
+ font-weight:800;
+ margin-bottom:14px;
+}
+#askResults .ai-visual-flow{
+ display:flex;
+ align-items:stretch;
+ gap:8px;
+ overflow-x:auto;
+ padding:2px 2px 10px;
+}
+#askResults .ai-visual-node{
+ flex:0 0 150px;
+ display:flex;
+ flex-direction:column;
+ gap:8px;
+ padding:12px;
+ border:1px solid #527e6e;
+ border-radius:12px;
+ background:#16483f;
+ color:#edf7f1;
+}
+#askResults .ai-visual-number{
+ display:grid;
+ place-items:center;
+ width:27px;
+ height:27px;
+ border-radius:50%;
+ background:#e9bd69;
+ color:#173b32;
+ font-weight:900;
+}
+#askResults .ai-visual-node strong{color:#ffe3a2}
+#askResults .ai-visual-node small{
+ color:#d6e8de;
+ line-height:1.5;
+ font-size:12px;
+}
+#askResults .ai-visual-arrow{
+ align-self:center;
+ color:#f0ca7a;
+ font-size:22px;
+ font-weight:800;
+}
+#askResults .ai-visual-caption{
+ color:#c7ddd2;
+ font-size:12px;
+ margin-top:7px;
+}
+@media(max-width:720px){
+ #askResults .ai-visual-node{flex-basis:138px}
+ #askResults .ai-visual-map{padding:13px}
+}
+
 </style></head><body>
 
 <header class="gb-header">
@@ -1289,7 +1354,27 @@ const formattedAnswer=answerLines.reduce((html,line)=>{
 
 
 
-results.innerHTML=`<article class="article"><h3>GyanBhoomi AI</h3><div class="ai-answer">${formattedAnswer}</div></article>`;
+const visualSteps=data.answer.split("\n").map(line=>{
+ const m=line.trim().match(/^(\d+)\.\s*(?:\*\*)?([^:*\n]{2,48}?)(?:\*\*)?:\s*(.*)$/);
+ return m?{number:m[1],title:m[2].replace(/\*\*/g,"").trim(),detail:m[3].replace(/\*\*/g,"").trim()}:null;
+}).filter(Boolean).slice(0,6);
+
+const visualMap=visualSteps.length>=3
+ ? `<section class="ai-visual-map">
+ <div class="ai-visual-map-title">✦ Quick Visual Map</div>
+ <div class="ai-visual-flow">
+ ${visualSteps.map((step,index)=>`
+ <div class="ai-visual-node">
+ <span class="ai-visual-number">${step.number}</span>
+ <strong>${esc(step.title)}</strong>
+ <small>${esc(step.detail.slice(0,105))}${step.detail.length>105?"…":""}</small>
+ </div>
+ ${index<visualSteps.length-1?'<span class="ai-visual-arrow">→</span>':""}
+ `).join("")}
+ </div>
+ <div class="ai-visual-caption">A quick visual guide to the steps explained below</div>
+ </section>` : "";
+results.innerHTML=`<article class="article"><h3>GyanBhoomi AI</h3>${visualMap}<div class="ai-answer">${formattedAnswer}</div></article>`;
 
  }catch(error){
   console.warn("GyanBhoomi AI unavailable; using article search fallback.",error);
