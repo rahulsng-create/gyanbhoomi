@@ -2010,7 +2010,30 @@ $("gbAccountForm").addEventListener("submit",async e=>{
     button.disabled=false;
   }
 });
-loadArticles();
+// Visitor logout controls
+$("gbAccountOpen").addEventListener("click",async()=>{
+  const {data:{user}}=await db.auth.getUser();
+
+  $("gbAccountForm").classList.toggle("hidden",!!user);
+  $("gbAccountLogout").classList.toggle("hidden",!user);
+
+  if(user)gbAccountMessage("Signed in as "+user.email);
+});
+
+$("gbAccountLogout").addEventListener("click",async()=>{
+  const {error}=await db.auth.signOut();
+
+  if(error){
+    gbAccountMessage(error.message);
+    return;
+  }
+
+  $("gbAccountForm").classList.remove("hidden");
+  $("gbAccountLogout").classList.add("hidden");
+  gbAccountShow("login");
+  gbAccountMessage("You have logged out successfully.");
+});
+ loadArticles();
 session();
 if(window.gbApplyLanguage)window.gbApplyLanguage();
 })();
