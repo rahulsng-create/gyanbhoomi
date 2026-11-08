@@ -1405,20 +1405,95 @@ const diagramMarkup=diagramData&&Array.isArray(diagramData.items)&&diagramData.i
  @keyframes gbArrowPulse{0%,100%{opacity:.45}50%{opacity:1;transform:scale(1.35)}}
  @media(max-width:480px){.gb-diagram.concept .gb-diagram-items{grid-template-columns:1fr}}
  @media(prefers-reduced-motion:reduce){.gb-diagram *{animation:none!important}}
+ /* GyanBhoomi concept mind-map layout */
+.gb-diagram .gb-concept-hub{
+  max-width:440px;
+  margin:0 auto;
+  padding:15px;
+  text-align:center;
+  background:#236052;
+  border:2px solid #f0ca7a;
+  border-radius:13px;
+  font-weight:800;
+}
+.gb-diagram .gb-concept-stem{
+  height:20px;
+  width:2px;
+  margin:0 auto;
+  background:#f0ca7a;
+}
+.gb-diagram .gb-concept-branches{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:24px 12px;
+  padding-top:20px;
+}
+.gb-diagram .gb-concept-branches:before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:25%;
+  right:25%;
+  height:2px;
+  background:#f0ca7a;
+}
+.gb-diagram .gb-concept-branches .gb-diagram-node:before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-21px;
+  height:20px;
+  width:2px;
+  background:#f0ca7a;
+  transform:translateX(-50%);
+}
+.gb-diagram .gb-concept-branches .gb-diagram-node{
+  text-align:center;
+}
+@media(max-width:480px){
+  .gb-diagram .gb-concept-branches{
+    grid-template-columns:1fr;
+    gap:20px;
+    padding-top:0;
+  }
+  .gb-diagram .gb-concept-branches:before{
+    display:none;
+  }
+  .gb-diagram .gb-concept-branches .gb-diagram-node:before{
+    left:20px;
+    top:-21px;
+  }
+  .gb-diagram .gb-concept-branches .gb-diagram-node{
+    text-align:left;
+  }
+}
  </style>
  <h3 style="color:#ffe3a2;margin-top:0">✦ ${esc(diagramData.title)}</h3>
- <div class="gb-diagram-center">${esc(diagramData.center)}</div>
- <div class="gb-diagram-items">
- ${diagramData.items.map((item,index)=>`
- <div class="gb-diagram-node" style="--step-index:${index}">
- <strong>${index+1}. ${esc(item.label)}</strong>
- <p>${esc(item.detail)}</p>
- </div>
- ${index<diagramData.items.length-1
-  ? `<div class="gb-diagram-arrow" style="--step-index:${index}">${diagramRelation==="concept"?"↙":diagramRelation==="cycle"?"↓":"↓"}</div>`
-  : ""}
- `).join("")}
- </div>
+ ${diagramRelation==="concept"
+ ? `<div class="gb-concept-map">
+    <div class="gb-concept-hub">${esc(diagramData.center)}</div>
+    <div class="gb-concept-stem"></div>
+    <div class="gb-concept-branches">
+    ${diagramData.items.map((item,index)=>`
+     <div class="gb-diagram-node" style="--step-index:${index}">
+      <strong>${index+1}. ${esc(item.label)}</strong>
+      <p>${esc(item.detail)}</p>
+     </div>`).join("")}
+    </div>
+   </div>`
+ : `<div class="gb-diagram-center">${esc(diagramData.center)}</div>
+    <div class="gb-diagram-items">
+    ${diagramData.items.map((item,index)=>`
+     <div class="gb-diagram-node" style="--step-index:${index}">
+      <strong>${index+1}. ${esc(item.label)}</strong>
+      <p>${esc(item.detail)}</p>
+     </div>
+     ${index<diagramData.items.length-1
+      ? `<div class="gb-diagram-arrow" style="--step-index:${index}">↓</div>`
+      : ""}
+    `).join("")}
+    </div>`}
  ${diagramRelation==="cycle"?'<div class="gb-cycle-return">↶ Cycle repeats</div>':""}
  <button type="button" class="gb-play" onclick="const d=this.closest('.gb-diagram');d.classList.remove('gb-diagram-playing');void d.offsetWidth;d.classList.add('gb-diagram-playing')">▶ Animate diagram</button>
  <p style="font-size:12px;color:#c7ddd2;margin-bottom:0">Interactive learning diagram · ${esc(diagramRelation)}</p>
