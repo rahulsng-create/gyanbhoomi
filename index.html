@@ -1631,7 +1631,133 @@ async function loadManagedArticles(){
  });
 }
 
-async function session(){
+function kuSafeUrl(value){
+ try{
+  const u=new URL(String(value||""));
+  return ["http:","https:"].includes(u.protocol)?u.href:"";
+ }catch{return ""}
+}
+
+function kuRenderSources(rows){
+ const box=$("kuSources");
+ if(!rows.length){
+  box.textContent="No monitoring sources found.";
+  return;
+ }
+ box.innerHTML=rows.map(x=>`
+  <div class="article" style="margin:8px 0;padding:12px">
+   <strong>${esc(x.name)}</strong>
+   <div class="muted">${esc((x.topic_tags||[]).join(", "))}</div>
+   <div class="muted">${x.enabled?"Enabled":"Disabled"} · Last checked: ${esc(x.last_checked_at?new Date(x.last_checked_at).toLocaleString():"Not checked yet")}</div>
+  </div>`).join("");
+}
+
+function kuRenderProposals(rows){
+ const box=$("kuProposals");
+ if(!rows.length){
+  box.textContent="No proposed changes awaiting review.";
+  return;
+ }
+
+ box.innerHTML=rows.map(p=>{
+  const urls=(p.evidence_urls||[]).map(kuSafeUrl).filter(Boolean);
+  return `
+   <article class="article" style="margin:10px 0;padding:14px" data-ku-id="${esc(p.id)}">
+    <h3>${esc(p.target_label||"Proposed update")}</h3>
+    <div class="meta">${esc(p.target_type)} · Confidence: ${esc(p.confidence==null?"Not provided":Math.round(Number(p.confidence)*100)+"%")}</div>
+    <pre style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(JSON.stringify(p.proposed_change||{},null,2))}</pre>
+    ${p.review_notes?`<p class="muted">${esc(p.review_notes)}</p>`:""}
+    ${urls.length?urls.map((u,i)=>`<p><a href="${esc(u)}" target="_blank" rel="noopener noreferrer">Evidence ${i+1}</a></p>`).join(""):'<p class="muted">No valid evidence link supplied.</p>'}
+    <div class="actions">
+     <button type="button" class="kuApprove">Approve for publication review</button>
+     <button type="button" class="kuReject">Reject</button>
+    </div>
+   </article>`;
+ }).join("");
+
+ box.querySelectorAll("[data-ku-id]").forEach(card=>{
+  const decide=async(status,button)=>{
+   const question=status==="approved"
+    ?"Record approval for a separate publication review? This will NOT publish changes."
+    :"Reject this proposed change?";
+   if(!confirm(question))return;
+   button.disabled=true;
+   try{
+    const {data:{session:active}}=await db.auth.getSession();
+    if(!active||!isAuthorizedAdmin(active.user))
+     throw new Error("Admin sign-in required.");
+
+    const {error}=await db.from("gyanbhoomi_change_proposals")
+     .update({status,reviewed_at:new Date().toISOString()})
+     .eq("id",card.dataset.kuId)
+     .eq("status","pending");
+
+    if(error)throw error;
+    await kuLoad();
+   }catch(error){
+    alert("Could not save review decision: "+error.message);
+    button.disabled=false;
+   }
+  };
+  card.querySelector(".kuApprove").onclick=e=>decide("approved",e.currentTarget);
+  card.querySelector(".kuReject").onclick=e=>decide("rejected",e.currentTarget);
+ });
+}
+
+async function kuLoad(){
+ const {data:{session:active}}=await db.auth.getSession();
+ if(!active||!isAuthorizedAdmin(active.user)){
+  $("kuStatus").textContent="Sign in as the authorised admin to load updates.";
+  return;
+ }
+
+ $("kuStatus").textContent="Loading trusted sources and proposed changes…";
+
+ const [sources,proposals]=await Promise.all([
+  db.from("gyanbhoomi_update_sources")
+   .select("id,name,topic_tags,enabled,last_checked_at")
+   .order("name"),
+  db.from("gyanbhoomi_change_proposals")
+   .select("id,target_type,target_label,proposed_change,evidence_urls,confidence,review_notes,created_at")
+   .eq("status","pending")
+   .order("created_at",{ascending:false})
+   .limit(50)
+ ]);
+
+ if(sources.error||proposals.error){
+  $("kuStatus").textContent="Could not load update centre: "+(sources.error?.message||proposals.error?.message);
+  return;
+ }
+
+ kuRenderSources(sources.data||[]);
+ kuRenderProposals(proposals.data||[]);
+ $("kuStatus").textContent="Loaded "+(sources.data||[]).length+" trusted sources and "+(proposals.data||[]).length+" pending proposals.";
+}
+
+$("kuRefresh").addEventListener("click",async()=>{
+ const button=$("kuRefresh");
+ button.disabled=true;
+ button.textContent="Checking sources…";
+ try{
+  const {data:{session:active}}=await db.auth.getSession();
+  if(!active||!isAuthorizedAdmin(active.user))
+   throw new Error("Sign in as the authorised admin first.");
+
+  $("kuStatus").textContent="Scanning trusted feeds and preparing review proposals…";
+
+  const {data,error}=await db.functions.invoke("gyanbhoomi-knowledge-watch");
+  if(error)throw error;
+
+  await kuLoad();
+  $("kuStatus").textContent="Scan complete. "+(data?.message||"Review the proposals below. Nothing was published.");
+ }catch(error){
+  $("kuStatus").textContent="Update scan failed: "+(error.message||String(error));
+ }finally{
+  button.disabled=false;
+  button.textContent="Refresh Update Centre";
+ }
+});
+ async function session(){
  const {data,error}=await db.auth.getSession();
  if(error)console.error("Could not read admin session:",error);
  let currentSession=data?.session||null;
