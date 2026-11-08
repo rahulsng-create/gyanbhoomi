@@ -1016,7 +1016,26 @@ async function askGyanBhoomi(){
  const button=$("askButton");
  results.innerHTML="";
  if(!question){msg(status,gbText("askEmpty"));return}
- if(!approvedArticles.length){msg(status,"Published articles are still loading. Please wait a few seconds and try again.");return}
+ if(!approvedArticles.length){
+  msg(status,"Loading published articles…");
+  try{
+   const {data,error}=await db.from("articles")
+    .select("id,title,author_name,category,content,created_at")
+    .eq("status","approved")
+    .order("created_at",{ascending:false});
+   if(error) throw error;
+   approvedArticles=data||[];
+   renderArticles();
+  }catch(loadError){
+   console.warn("Could not load published articles:",loadError);
+   msg(status,"Could not load published articles. Please refresh and try again.");
+   return;
+  }
+ }
+ if(!approvedArticles.length){
+  msg(status,"No published articles are available yet.");
+  return;
+}
 
  const stop=new Set(["what","who","when","where","why","how","is","are","the","a","an","of","in","on","and","for","to","का","की","के","है","हैं","क्या","कौन","कब","कहाँ","क्यों","कैसे","और","में","से"]);
  const words=[...new Set(question.toLowerCase().match(/[\p{L}\p{N}]+/gu)||[])].filter(w=>w.length>1&&!stop.has(w));
