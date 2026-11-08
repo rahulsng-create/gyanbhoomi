@@ -355,6 +355,60 @@ body.gb-night .reader-toolbar button{background:#173b34;color:#f0cf82;border-col
 body.gb-night{background:#071d1b;color:#e8eee8}
 body.gb-night article{background:#102e2a;border-color:#31564c;color:#e8eee8}
 body.gb-night h1,body.gb-night .body h2,body.gb-night .body h3,body.gb-night .body h4{color:#f0cf82}
+/* GyanBhoomi article pages: match the main dark teal theme */
+:root{
+ --green:#f0cf82;
+ --gold:#e9b85f;
+ --bg:#071d1b;
+ --line:#31564c;
+}
+body{
+ background:#071d1b;
+ color:#e8eee8;
+}
+article{
+ background:linear-gradient(145deg,#123c3b,#0b2c32);
+ border:1px solid #397269;
+ color:#edf7ef;
+}
+h1,.body h2,.body h3,.body h4{
+ color:#f0cf82;
+}
+.meta,footer{
+ color:#b3c8bd;
+}
+.body p,.body li,.body td,.body figcaption{
+ color:#e8eee8;
+}
+.body blockquote{
+ background:#17483f;
+ color:#e8eee8;
+ border-left:4px solid #e9b85f;
+ padding:12px 16px;
+ border-radius:8px;
+}
+.body th{
+ background:#1a5147;
+ color:#f0cf82;
+}
+.body pre,.body code{
+ background:#082925;
+ color:#f4e5bd;
+ border:1px solid #376b60;
+ border-radius:8px;
+}
+.gb-translate-bar{
+ background:#173b34;
+ border-color:#31564c;
+}
+.gb-translate-bar label,.gb-translate-status{
+ color:#e8eee8;
+}
+.gb-translate-bar select{
+ background:#102e2a;
+ color:#e8eee8;
+ border-color:#527267;
+}
 body.gb-night .meta,body.gb-night footer{color:#b3c8bd}
 @media(max-width:520px){.header-actions{align-items:center}.header-nav{gap:8px}.header-icon,.download-pdf{width:40px;height:40px}}
 @media print{
