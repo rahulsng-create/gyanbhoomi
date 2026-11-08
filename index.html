@@ -1994,6 +1994,7 @@ $("gbAccountForm").addEventListener("submit",async e=>{
       if(data.session){
         gbAccountMessage("Account created successfully!");
         gbModal.classList.add("hidden");
+     await gbUpdateDrawerLogout();
       }else{
         gbAccountMessage("Account created. Please check your email to confirm it.");
       }
@@ -2008,7 +2009,8 @@ $("gbAccountForm").addEventListener("submit",async e=>{
 
       gbAccountMessage("Login successful!");
       gbModal.classList.add("hidden");
-      await session();
+await session();
+await gbUpdateDrawerLogout();
     }
 
   }catch(error){
