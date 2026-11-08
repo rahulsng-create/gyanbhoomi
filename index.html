@@ -1068,32 +1068,7 @@ async function askGyanBhoomi(){
 }
 $("askButton").addEventListener("click",askGyanBhoomi);
 $("askInput").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();askGyanBhoomi()}});
- const question=$("askInput").value.trim(),status=$("askStatus"),results=$("askResults");
- results.innerHTML="";
- if(!question){msg(status,gbText("askEmpty"));return}
- if(!approvedArticles.length){msg(status,"Published articles are still loading. Please wait a few seconds and try again.");return}
- const stop=new Set(["what","who","when","where","why","how","is","are","the","a","an","of","in","on","and","for","to","का","की","के","है","हैं","क्या","कौन","कब","कहाँ","क्यों","कैसे","और","में","से"]);
- const words=[...new Set(question.toLowerCase().match(/[\p{L}\p{N}]+/gu)||[])].filter(w=>w.length>1&&!stop.has(w));
- if(!words.length){msg(status,gbText("askEmpty"));return}
- const ranked=approvedArticles.map(a=>{
-  const title=String(a.title||"").toLowerCase(),category=String(a.category||"").toLowerCase(),content=String(a.content||"").toLowerCase(),author=String(a.author_name||"").toLowerCase();
-  let score=0;
-  for(const w of words){if(title.includes(w))score+=6;if(category.includes(w))score+=3;if(author.includes(w))score+=1;score+=Math.min(content.split(w).length-1,8)}
-  return {article:a,score};
- }).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,5);
- if(!ranked.length){msg(status,gbText("askNoMatch"));return}
- status.className="status ok";status.textContent=gbText("askFound");
- results.innerHTML=ranked.map(({article:a})=>{
-  const body=String(a.content||"");
-  const paragraphs=body.split(/\\n\\s*\\n/).map(x=>x.trim()).filter(Boolean);
-  const matched=paragraphs.filter(p=>words.some(w=>p.toLowerCase().includes(w)));
-  const answerText=(matched.length?matched:paragraphs).slice(0,2).join("\\n\\n");
-  const excerpt=(answerText||body).length>900?(answerText||body).slice(0,900).trim()+"…":(answerText||body);
-  return `<article class="article"><h3>${esc(a.title)}</h3><div class="meta">${esc(gbText("by"))}: ${esc(a.author_name)} · ${esc(a.category)}</div><p>${esc(excerpt)}</p></article>`;
- }).join("");
-}
-$("askButton").addEventListener("click",askGyanBhoomi);
-$("askInput").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();askGyanBhoomi()}});
+
 
 $("submitForm").onsubmit=async e=>{e.preventDefault();let b=$("submitBtn");b.disabled=true;b.textContent=gbText("submitting");let row={title:$("title").value.trim(),author_name:$("author").value.trim(),category:$("category").value,content:(importedArticleHTML?HTML_MARKER+importedArticleHTML:$("content").value.trim()),status:"pending"};let {error}=await db.from("articles").insert(row);if(error)msg($("submitStatus"),gbText("submitFailed")+error.message);else{$("submitForm").reset();importedArticleHTML="";$("htmlImportStatus").textContent="";msg($("submitStatus"),gbText("submitted"),true)}b.disabled=false;b.textContent=gbText("submit")};
 async function loadPending(){ $("pendingArticles").textContent=gbText("loading");let timeout=setTimeout(()=>$("pendingArticles").textContent=gbText("stillWaiting"),12000);let {data,error}=await db.from("articles").select("id,title,author_name,category,content,created_at").eq("status","pending").order("created_at");clearTimeout(timeout);if(error){$("pendingArticles").textContent=gbText("pendingLoadFailed")+error.message;return}if(!data.length){$("pendingArticles").textContent=gbText("pendingEmpty");return}$("pendingArticles").innerHTML=data.map(a=>`<article class="article" data-id="${esc(a.id)}"><h3>${esc(a.title)}</h3><div class="meta">${esc(gbText("by"))}: ${esc(a.author_name)} · ${esc(a.category)}</div><div class="article-body">${articleContentHTML(a.content)}</div><div class="actions"><button class="approve" data-status="approved">${gbText("approve")}</button><button class="reject" data-status="rejected">${gbText("reject")}</button></div></article>`).join("");$("pendingArticles").querySelectorAll("button[data-status]").forEach(b=>b.onclick=async()=>{b.disabled=true;let article=b.closest("[data-id]");let {error}=await db.from("articles").update({status:b.dataset.status}).eq("id",article.dataset.id);if(error){alert("Update failed: "+error.message);b.disabled=false}else{article.remove();if(!$("pendingArticles").querySelector("[data-id]"))$("pendingArticles").textContent=gbText("pendingEmpty")}})}
