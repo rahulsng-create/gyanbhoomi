@@ -2031,7 +2031,7 @@ db.auth.onAuthStateChange((_event,session)=>{
   $("gbDrawerLogout").classList.toggle("hidden",!session?.user);
 });
 $("gbAccountOpen").addEventListener("click",gbUpdateDrawerLogout);
-
+$("gbMenuToggle").addEventListener("click",gbUpdateDrawerLogout);
 $("gbDrawerLogout").addEventListener("click",async()=>{
   const {error}=await db.auth.signOut();
 
