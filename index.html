@@ -595,7 +595,100 @@ min-width:0;
  #askResults .ai-visual-node{width:100%}
  #askResults .ai-visual-map{padding:13px}
 }
-
+/* GyanBhoomi premium account and Ask Gyani */
+.gb-account-icon{
+ width:42px;
+ height:42px;
+ min-width:42px;
+ border-radius:50%;
+ display:grid;
+ place-items:center;
+ color:#f0ca7a;
+ background:linear-gradient(145deg,#155b50,#082d2b);
+ border:1px solid #d9b45f;
+ font-size:23px;
+ box-shadow:0 4px 14px #0005;
+ cursor:pointer;
+}
+.gb-account-modal{
+ position:fixed;
+ inset:0;
+ z-index:1400;
+ display:grid;
+ place-items:center;
+ padding:18px;
+ background:#001b19bb;
+ backdrop-filter:blur(7px);
+}
+.gb-account-modal.hidden{display:none!important}
+.gb-account-card{
+ width:min(100%,420px);
+ padding:24px;
+ border-radius:22px;
+ color:#f5f4e9;
+ background:linear-gradient(145deg,#10453d,#062b29);
+ border:1px solid #d9b45f;
+ box-shadow:0 20px 60px #0009;
+}
+.gb-account-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:12px;
+}
+.gb-account-head h2{color:#f0ca7a}
+.gb-account-card input{
+ width:100%;
+ box-sizing:border-box;
+ padding:13px;
+ margin:7px 0;
+ border-radius:10px;
+ border:1px solid #b9cfc3;
+ background:#f7faf7;
+ color:#173c34;
+}
+.gb-account-card button{
+ padding:11px 16px;
+ border-radius:10px;
+ cursor:pointer;
+}
+.gb-account-switch{
+ display:flex;
+ gap:10px;
+ margin:16px 0;
+}
+.gb-account-switch button{
+ flex:1;
+ color:#f0ca7a;
+ background:#ffffff12;
+ border:1px solid #d9b45f;
+}
+.gb-account-card button[type=submit]{
+ width:100%;
+ background:#e6bd68;
+ color:#173c34;
+ font-weight:800;
+}
+#gbAccountStatus{color:#f0ca7a}
+.gb-ask-float{
+ position:fixed;
+ right:18px;
+ bottom:22px;
+ z-index:1200;
+ padding:14px 21px;
+ border-radius:50px;
+ color:#fff4d7;
+ background:linear-gradient(135deg,#176b5c,#073b36);
+ border:1px solid #e8c879;
+ box-shadow:0 8px 25px #0008;
+ font-weight:800;
+ font-size:15px;
+ cursor:pointer;
+}
+.gb-ask-float:active{transform:scale(.97)}
+@media(max-width:480px){
+ .gb-ask-float{right:13px;bottom:16px;padding:12px 17px}
+ }
 </style></head><body>
 
 <header class="gb-header">
@@ -609,8 +702,9 @@ min-width:0;
     </div>
     <div><h1>Gyan<span>Bhoomi</span></h1><div class="gb-tagline">The Universal Knowledge Library</div><div class="gb-motto">Learn · Explore · Discover · In Your Language</div></div>
    </div>
+  </div><div class="gb-actions">
+<button type="button" class="gb-account-icon" id="gbAccountOpen" aria-label="Login or signup" title="Login / Signup">♙</button>
   </div>
-  <div class="gb-actions"><button class="gb-ai-btn" type="button" data-open-tab="ask" aria-label="Ask GyanBhoomi AI" title="Ask GyanBhoomi AI">🤖 <span>Ask AI</span></button></div>
   <button type="button" id="languageToggle" class="hidden" aria-hidden="true" tabindex="-1">हिन्दी</button>
  </div>
  <div class="gb-menu-backdrop hidden" id="gbMenuBackdrop" aria-hidden="true"></div>
@@ -676,7 +770,34 @@ min-width:0;
 </div>
 
 </header>
-<main>
+<div class="gb-account-modal hidden" id="gbAccountModal">
+  <div class="gb-account-card">
+    <div class="gb-account-head">
+      <h2>Welcome to GyanBhoomi</h2>
+      <button type="button" id="gbAccountClose">×</button>
+    </div>
+    <p>Create an account to save your reading journey.</p>
+
+    <div class="gb-account-switch">
+      <button type="button" id="gbShowLogin">Login</button>
+      <button type="button" id="gbShowSignup">Sign up</button>
+    </div>
+
+    <form id="gbAccountForm">
+      <input id="gbAccountName" type="text" placeholder="Your name" class="hidden">
+      <input id="gbAccountEmail" type="email" placeholder="Email address" required>
+      <input id="gbAccountPassword" type="password" placeholder="Password (8 characters minimum)" minlength="8" required>
+      <button type="submit" id="gbAccountSubmit">Login</button>
+    </form>
+
+    <p id="gbAccountStatus" role="status"></p>
+  </div>
+</div>
+
+<button type="button" class="gb-ask-float" data-open-tab="ask">
+  ✦ Ask Gyani
+</button>
+ <main>
 <section id="library" class="tab">
  <div class="gb-home-hero">
   <div class="gb-hero-copy">
