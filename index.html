@@ -2034,7 +2034,7 @@ $("gbDrawerLogout").addEventListener("click",async()=>{
     return;
   }
 
-  $("gbDrawerLogout").hidden=true;
+  $("gbDrawerLogout").classList.add("hidden");
   $("gbAccountForm").classList.remove("hidden");
   gbAccountShow("login");
   $("gbAccountModal").classList.add("hidden");
