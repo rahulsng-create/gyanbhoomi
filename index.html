@@ -2025,8 +2025,8 @@ async function gbUpdateDrawerLogout(){
 }
 gbUpdateDrawerLogout();
 
-db.auth.onAuthStateChange(()=>{
-  gbUpdateDrawerLogout();
+db.auth.onAuthStateChange((_event,session)=>{
+  $("gbDrawerLogout").classList.toggle("hidden",!session?.user);
 });
 $("gbAccountOpen").addEventListener("click",gbUpdateDrawerLogout);
 
