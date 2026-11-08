@@ -1383,7 +1383,43 @@ const visualMap=visualSteps.length>=3
  <div class="ai-visual-caption">A quick visual guide to the steps explained below</div>
  </section>` : "";
 results.innerHTML=`<article class="article"><h3>GyanBhoomi AI</h3>${visualMap}<div class="ai-answer">${formattedAnswer}</div></article>`;
+const pdfButton=document.createElement("button");
+pdfButton.type="button";
+pdfButton.textContent="📄 Download Answer as PDF";
+pdfButton.style.marginTop="14px";
 
+pdfButton.onclick=()=>{
+ const printWindow=window.open("","_blank");
+ if(!printWindow){
+  alert("Please allow pop-ups to download your answer.");
+  return;
+ }
+ printWindow.document.write(`
+ <!DOCTYPE html>
+ <html>
+ <head>
+ <title>GyanBhoomi AI Answer</title>
+ <style>
+ body{font-family:Arial,sans-serif;padding:25px;line-height:1.7;color:#222}
+ h3{color:#16483f}
+ .ai-visual-map,.ai-highlight,.ai-step{margin:15px 0;padding:14px;border:1px solid #aaa;border-radius:10px}
+ .ai-visual-node{margin:10px 0;padding:12px;border:1px solid #aaa;border-radius:8px}
+ .ai-visual-arrow{text-align:center}
+ @media print{body{padding:10px}}
+ </style>
+ </head>
+ <body>
+ ${results.innerHTML}
+ </body>
+ </html>`);
+ printWindow.onload=()=>{
+ printWindow.focus();
+ printWindow.print();
+};
+printWindow.document.close();
+};
+
+results.appendChild(pdfButton);
  }catch(error){
   console.warn("GyanBhoomi AI unavailable; using article search fallback.",error);
   showAskLibraryFallback(question,status,results);
