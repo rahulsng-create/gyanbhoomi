@@ -2021,7 +2021,7 @@ $("gbAccountForm").addEventListener("submit",async e=>{
 // Hamburger menu visitor logout
 async function gbUpdateDrawerLogout(){
   const {data:{user}}=await db.auth.getUser();
-  $("gbDrawerLogout").hidden=!user;
+  $("gbDrawerLogout").classList.toggle("hidden",!user);
 }
 
 $("gbAccountOpen").addEventListener("click",gbUpdateDrawerLogout);
