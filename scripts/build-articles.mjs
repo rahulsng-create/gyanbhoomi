@@ -430,7 +430,22 @@ const translateButton=$("gbTranslate");
 const originalButton=$("gbOriginal");
 const languageSelect=$("gbLanguage");
 const translateStatus=$("gbTranslateStatus");
+// Remember visitor's preferred article language
+const languagePreferenceKey="gb_article_language";
 
+try{
+ const savedLanguage=localStorage.getItem(languagePreferenceKey);
+ if(savedLanguage && Array.from(languageSelect.options)
+  .some(option=>option.value===savedLanguage)){
+  languageSelect.value=savedLanguage;
+ }
+}catch(error){}
+
+languageSelect?.addEventListener("change",()=>{
+ try{
+  localStorage.setItem(languagePreferenceKey,languageSelect.value);
+ }catch(error){}
+});
 let originalNodes=[];
 let translating=false;
 let translated=false;
