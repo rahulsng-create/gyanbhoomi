@@ -1357,8 +1357,7 @@ if(exampleOpen){
   return html+`<p>${clean.replace(/^([^:]{1,35}):\s/,"<strong>$1:</strong> ")}</p>`;
  return html+`<p>${clean}</p>`;
 },"");
-
-
+ if(exampleOpen) formattedAnswer+="</div>";
 
 const visualSteps=data.answer.split("\n").map(line=>{
  const m=line.trim().match(/^(\d+)\.\s*(?:\*\*)?([^:*\n]{2,48}?)(?:\*\*)?:\s*(.*)$/);
