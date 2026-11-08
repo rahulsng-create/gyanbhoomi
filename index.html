@@ -1923,7 +1923,91 @@ $("logoutBtn").addEventListener("click",async()=>{
  await session();
 });
 $("pendingRefresh").addEventListener("click",loadPending);
+// GyanBhoomi visitor account system
+let gbAccountMode="login";
 
+const gbModal=$("gbAccountModal");
+const gbStatus=$("gbAccountStatus");
+
+function gbAccountMessage(message){
+  gbStatus.textContent=message;
+}
+
+function gbAccountShow(mode){
+  gbAccountMode=mode;
+  $("gbAccountName").classList.toggle("hidden",mode!=="signup");
+  $("gbAccountSubmit").textContent=mode==="signup"?"Create account":"Login";
+  gbAccountMessage("");
+}
+
+$("gbAccountOpen").addEventListener("click",()=>{
+  gbModal.classList.remove("hidden");
+  gbAccountShow("login");
+});
+
+$("gbAccountClose").addEventListener("click",()=>{
+  gbModal.classList.add("hidden");
+});
+
+$("gbShowLogin").addEventListener("click",()=>{
+  gbAccountShow("login");
+});
+
+$("gbShowSignup").addEventListener("click",()=>{
+  gbAccountShow("signup");
+});
+
+gbModal.addEventListener("click",e=>{
+  if(e.target===gbModal)gbModal.classList.add("hidden");
+});
+
+$("gbAccountForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+
+  const button=$("gbAccountSubmit");
+  const email=$("gbAccountEmail").value.trim();
+  const password=$("gbAccountPassword").value;
+  const name=$("gbAccountName").value.trim();
+
+  button.disabled=true;
+  gbAccountMessage("Please wait...");
+
+  try{
+    if(gbAccountMode==="signup"){
+      const {data,error}=await db.auth.signUp({
+        email,
+        password,
+        options:{data:{display_name:name}}
+      });
+
+      if(error)throw error;
+
+      if(data.session){
+        gbAccountMessage("Account created successfully!");
+        gbModal.classList.add("hidden");
+      }else{
+        gbAccountMessage("Account created. Please check your email to confirm it.");
+      }
+
+    }else{
+      const {error}=await db.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if(error)throw error;
+
+      gbAccountMessage("Login successful!");
+      gbModal.classList.add("hidden");
+      await session();
+    }
+
+  }catch(error){
+    gbAccountMessage(error.message||"Something went wrong. Please try again.");
+  }finally{
+    button.disabled=false;
+  }
+});
 loadArticles();
 session();
 if(window.gbApplyLanguage)window.gbApplyLanguage();
