@@ -1382,7 +1382,23 @@ const visualMap=visualSteps.length>=3
  </div>
  <div class="ai-visual-caption">A quick visual guide to the steps explained below</div>
  </section>` : "";
-results.innerHTML=`<article class="article"><h3>GyanBhoomi AI</h3>${visualMap}<div class="ai-answer">${formattedAnswer}</div></article>`;
+  const diagramData=data.diagram;
+const diagramMarkup=diagramData&&Array.isArray(diagramData.items)&&diagramData.items.length>=3
+ ? `<section class="ai-generated-diagram" style="margin:18px 0;padding:16px;border:1px solid #b58e4d;border-radius:15px;background:#16483f;color:#edf7f1">
+ <h3 style="color:#ffe3a2;margin-top:0">✦ ${esc(diagramData.title)}</h3>
+ <div style="text-align:center;padding:12px;background:#236052;border:2px solid #f0ca7a;border-radius:12px;font-weight:800;margin-bottom:14px">
+ ${esc(diagramData.center)}
+ </div>
+ <div style="display:grid;grid-template-columns:1fr;gap:10px">
+ ${diagramData.items.map((item,index)=>`
+ <div style="padding:12px;border:1px solid #527e6e;border-radius:10px;background:#195044">
+ <strong style="color:#ffe3a2">${index+1}. ${esc(item.label)}</strong>
+ <p style="margin:6px 0 0;color:#d6e8de">${esc(item.detail)}</p>
+ </div>`).join("")}
+ </div>
+ <p style="font-size:12px;color:#c7ddd2;margin-bottom:0">Visual learning diagram · ${esc(diagramData.relation)}</p>
+ </section>` : "";
+results.innerHTML=`<article class="article"><h3>GyanBhoomi AI</h3>${visualMap}${diagramMarkup}<div class="ai-answer">${formattedAnswer}</div></article>`;
 const pdfButton=document.createElement("button");
 pdfButton.type="button";
 pdfButton.textContent="📄 Download Answer as PDF";
