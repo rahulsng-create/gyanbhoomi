@@ -1318,7 +1318,6 @@ let exampleOpen=false;
 let formattedAnswer=answerLines.reduce((html,line)=>{
  const t=line.trim();
 if(!t) return html;
- }
  const clean=t.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>");
  const plain=t.replace(/\*\*/g,"");
  const exampleMatch=plain.match(/^(Example|Simple Example):\s*(.*)$/i);
