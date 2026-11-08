@@ -2018,16 +2018,15 @@ $("gbAccountForm").addEventListener("submit",async e=>{
   }
 });
 // Visitor logout controls
-$("gbAccountOpen").addEventListener("click",async()=>{
+// Hamburger menu visitor logout
+async function gbUpdateDrawerLogout(){
   const {data:{user}}=await db.auth.getUser();
+  $("gbDrawerLogout").hidden=!user;
+}
 
-  $("gbAccountForm").classList.toggle("hidden",!!user);
-  $("gbAccountLogout").classList.toggle("hidden",!user);
+$("gbAccountOpen").addEventListener("click",gbUpdateDrawerLogout);
 
-  if(user)gbAccountMessage("Signed in as "+user.email);
-});
-
-$("gbAccountLogout").addEventListener("click",async()=>{
+$("gbDrawerLogout").addEventListener("click",async()=>{
   const {error}=await db.auth.signOut();
 
   if(error){
@@ -2035,10 +2034,12 @@ $("gbAccountLogout").addEventListener("click",async()=>{
     return;
   }
 
+  $("gbDrawerLogout").hidden=true;
   $("gbAccountForm").classList.remove("hidden");
-  $("gbAccountLogout").classList.add("hidden");
   gbAccountShow("login");
-  gbAccountMessage("You have logged out successfully.");
+  $("gbAccountModal").classList.add("hidden");
+  await session();
+  alert("You have successfully logged out.");
 });
  loadArticles();
 session();
