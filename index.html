@@ -1315,7 +1315,7 @@ async function askGyanBhoomi(){
 
 const answerLines=esc(data.answer).split("\n");
 let exampleOpen=false;
-const formattedAnswer=answerLines.reduce((html,line)=>{
+let formattedAnswer=answerLines.reduce((html,line)=>{
  const t=line.trim();
 if(!t) return html;
  }
