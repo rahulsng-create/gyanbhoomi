@@ -1101,7 +1101,7 @@ function showAskLibraryFallback(question,status,results){
  const stop=new Set(["what","who","when","where","why","how","is","are","the","a","an","of","in","on","and","for","to","का","की","के","है","हैं","क्या","कौन","कब","कहाँ","क्यों","कैसे","और","में","से"]);
  const words=[...new Set(question.toLowerCase().match(/[\p{L}\p{N}]+/gu)||[])].filter(w=>w.length>1&&!stop.has(w));
  const ranked=approvedArticles.map(a=>{
-  const title=String(a.title||"").toLowerCase(),category=String(a.category||"").toLowerCase(),content=String(a.content||"").toLowerCase(),author=String(a.author_name||"").toLowerCase();
+  const title=String(a.title||"").toLowerCase(),category=String(a.category||"").toLowerCase(),content=articlePlainText(a.content).toLowerCase(),author=String(a.author_name||"").toLowerCase();
   let score=0;
   for(const w of words){if(title.includes(w))score+=6;if(category.includes(w))score+=3;if(author.includes(w))score+=1;score+=Math.min(content.split(w).length-1,8)}
   return {article:a,score};
@@ -1109,7 +1109,7 @@ function showAskLibraryFallback(question,status,results){
  if(!ranked.length){msg(status,gbText("askNoMatch"));return}
  status.className="status ok";status.textContent=gbText("askFound");
  results.innerHTML=ranked.map(({article:a})=>{
-  const body=String(a.content||"");
+  const body=articlePlainText(a.content);
   const paragraphs=body.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
   const matched=paragraphs.filter(p=>words.some(w=>p.toLowerCase().includes(w)));
   const answerText=(matched.length?matched:paragraphs).slice(0,2).join("\n\n");
@@ -1186,9 +1186,9 @@ async function askGyanBhoomi(){
   results.innerHTML=`<article class="article"><h3>GyanBhoomi AI</h3><div style="white-space:pre-wrap;line-height:1.7">${esc(data.answer)}</div></article>`;
  }catch(error){
   console.warn("GyanBhoomi AI unavailable; using article search fallback.",error);
-  status.className="status";
-  status.textContent="AI is temporarily unavailable. Showing matching GyanBhoomi articles instead.";
   showAskLibraryFallback(question,status,results);
+status.className="status err";
+status.textContent="AI is temporarily unavailable. These are related articles, not an AI-generated answer. Please try again.";
  }finally{
   button.disabled=false;
   button.textContent=originalLabel;
