@@ -758,7 +758,7 @@ min-width:0;
    <button type="button" class="gb-theme-toggle" id="gbResetSettings">
     <span class="gb-theme-icon" aria-hidden="true">↺</span><span class="gb-theme-copy"><strong>Reset preferences</strong><small>Restore default settings</small></span>
    </button>
-   <button type="button" class="gb-theme-toggle" id="gbDrawerLogout" hidden>
+   <button type="button" class="gb-theme-toggle hidden" id="gbDrawerLogout">
   <span class="gb-theme-icon" aria-hidden="true">↪</span>
   <span class="gb-theme-copy">
     <strong>Logout</strong>
@@ -2023,7 +2023,11 @@ async function gbUpdateDrawerLogout(){
   const {data:{user}}=await db.auth.getUser();
   $("gbDrawerLogout").classList.toggle("hidden",!user);
 }
+gbUpdateDrawerLogout();
 
+db.auth.onAuthStateChange(()=>{
+  gbUpdateDrawerLogout();
+});
 $("gbAccountOpen").addEventListener("click",gbUpdateDrawerLogout);
 
 $("gbDrawerLogout").addEventListener("click",async()=>{
