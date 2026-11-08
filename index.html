@@ -1257,12 +1257,16 @@ const formattedAnswer=answerLines.reduce((html,line)=>{
  const plain=t.replace(/\*\*/g,"");
  const exampleMatch=plain.match(/^(Example|Simple Example):\s*(.*)$/i);
  if(exampleMatch){
-  if(exampleOpen) html+="</div>";
+  const rest=clean.replace(/^(Example|Simple Example):\s*/i,"");
+  if(exampleOpen){
+   if(rest) html+=`<p>${rest}</p>`;
+   return html;
+  }
   exampleOpen=true;
   const heading=exampleMatch[1];
-  const rest=clean.replace(/^(Example|Simple Example):\s*/i,"");
+  
   html+=`<div class="ai-highlight"><div class="ai-highlight-title">${heading}</div>`;
-  if(rest) html+=`<p>${rest}</p>`;
+
   return html;
  }
  if(exampleOpen){html+=`<p>${clean}</p>`;return html;}
