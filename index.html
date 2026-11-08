@@ -1383,20 +1383,45 @@ const visualMap=visualSteps.length>=3
  <div class="ai-visual-caption">A quick visual guide to the steps explained below</div>
  </section>` : "";
   const diagramData=data.diagram;
+const diagramRelation=["cycle","sequence","concept"].includes(diagramData?.relation)
+ ? diagramData.relation : "sequence";
+
 const diagramMarkup=diagramData&&Array.isArray(diagramData.items)&&diagramData.items.length>=3
- ? `<section class="ai-generated-diagram" style="margin:18px 0;padding:16px;border:1px solid #b58e4d;border-radius:15px;background:#16483f;color:#edf7f1">
+ ? `<section class="ai-generated-diagram gb-diagram ${diagramRelation}" style="margin:18px 0;padding:16px;border:1px solid #b58e4d;border-radius:15px;background:#16483f;color:#edf7f1">
+ <style>
+ .gb-diagram .gb-diagram-center{padding:13px;text-align:center;background:#236052;border:2px solid #f0ca7a;border-radius:12px;font-weight:800;margin-bottom:15px}
+ .gb-diagram .gb-diagram-items{display:grid;grid-template-columns:1fr;gap:9px}
+ .gb-diagram .gb-diagram-node{padding:13px;border:1px solid #527e6e;border-radius:11px;background:#195044}
+ .gb-diagram .gb-diagram-node strong{color:#ffe3a2}
+ .gb-diagram .gb-diagram-node p{margin:6px 0 0;color:#d6e8de}
+ .gb-diagram .gb-diagram-arrow{text-align:center;color:#f0ca7a;font-size:25px;font-weight:bold;line-height:1.2}
+ .gb-diagram.concept .gb-diagram-items{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .gb-diagram.concept .gb-diagram-node{text-align:center}
+ .gb-diagram .gb-cycle-return{text-align:center;color:#ffe3a2;font-weight:bold;font-size:22px;margin-top:8px}
+ .gb-diagram .gb-play{margin-top:13px;background:#e9b85f;color:#103d36;border-radius:9px;padding:10px 15px;font-weight:bold}
+ .gb-diagram.gb-diagram-playing .gb-diagram-node{animation:gbNodePulse .7s ease both;animation-delay:calc(var(--step-index)*.35s)}
+ .gb-diagram.gb-diagram-playing .gb-diagram-arrow{animation:gbArrowPulse .7s ease both;animation-delay:calc(var(--step-index)*.35s)}
+ @keyframes gbNodePulse{0%{transform:scale(.96);opacity:.45}70%{transform:scale(1.025)}100%{transform:scale(1);opacity:1}}
+ @keyframes gbArrowPulse{0%,100%{opacity:.45}50%{opacity:1;transform:scale(1.35)}}
+ @media(max-width:480px){.gb-diagram.concept .gb-diagram-items{grid-template-columns:1fr}}
+ @media(prefers-reduced-motion:reduce){.gb-diagram *{animation:none!important}}
+ </style>
  <h3 style="color:#ffe3a2;margin-top:0">✦ ${esc(diagramData.title)}</h3>
- <div style="text-align:center;padding:12px;background:#236052;border:2px solid #f0ca7a;border-radius:12px;font-weight:800;margin-bottom:14px">
- ${esc(diagramData.center)}
- </div>
- <div style="display:grid;grid-template-columns:1fr;gap:10px">
+ <div class="gb-diagram-center">${esc(diagramData.center)}</div>
+ <div class="gb-diagram-items">
  ${diagramData.items.map((item,index)=>`
- <div style="padding:12px;border:1px solid #527e6e;border-radius:10px;background:#195044">
- <strong style="color:#ffe3a2">${index+1}. ${esc(item.label)}</strong>
- <p style="margin:6px 0 0;color:#d6e8de">${esc(item.detail)}</p>
- </div>`).join("")}
+ <div class="gb-diagram-node" style="--step-index:${index}">
+ <strong>${index+1}. ${esc(item.label)}</strong>
+ <p>${esc(item.detail)}</p>
  </div>
- <p style="font-size:12px;color:#c7ddd2;margin-bottom:0">Visual learning diagram · ${esc(diagramData.relation)}</p>
+ ${index<diagramData.items.length-1
+  ? `<div class="gb-diagram-arrow" style="--step-index:${index}">${diagramRelation==="concept"?"↙":diagramRelation==="cycle"?"↓":"↓"}</div>`
+  : ""}
+ `).join("")}
+ </div>
+ ${diagramRelation==="cycle"?'<div class="gb-cycle-return">↶ Cycle repeats</div>':""}
+ <button type="button" class="gb-play" onclick="const d=this.closest('.gb-diagram');d.classList.remove('gb-diagram-playing');void d.offsetWidth;d.classList.add('gb-diagram-playing')">▶ Animate diagram</button>
+ <p style="font-size:12px;color:#c7ddd2;margin-bottom:0">Interactive learning diagram · ${esc(diagramRelation)}</p>
  </section>` : "";
 results.innerHTML=`<article class="article"><h3>GyanBhoomi AI</h3>${visualMap}${diagramMarkup}<div class="ai-answer">${formattedAnswer}</div></article>`;
 const pdfButton=document.createElement("button");
