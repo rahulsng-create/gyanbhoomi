@@ -2941,5 +2941,29 @@ if (splash) {
 
 })();
 </script>
+<script>
+// GyanBhoomi splash emergency fallback
+(function () {
+  const splash = document.getElementById("gbWelcomeSplash");
+  const modal = document.getElementById("gbAccountModal");
 
+  if (!splash) return;
+
+  setTimeout(function () {
+    splash.style.opacity = "0";
+    splash.style.visibility = "hidden";
+    splash.style.pointerEvents = "none";
+
+    setTimeout(function () {
+      if (modal) {
+        modal.classList.remove("hidden");
+
+        const login = document.getElementById("gbShowLogin");
+        if (login) login.click();
+      }
+    }, 1000);
+
+  }, 1500);
+})();
+</script>
 </body></html>
