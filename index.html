@@ -2020,7 +2020,12 @@ $("gbAccountOpen").addEventListener("click",()=>{
   gbModal.classList.remove("hidden");
   gbAccountShow("login");
 });
-
+$("gbContinueGuest").addEventListener("click",()=>{
+  sessionStorage.setItem("gbGuestMode","true");
+  gbModal.classList.add("hidden");
+  document.body.classList.add("gb-guest-mode");
+  gbAccountMessage("");
+});
 $("gbAccountClose").addEventListener("click",()=>{
   gbModal.classList.add("hidden");
 });
