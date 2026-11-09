@@ -2905,16 +2905,34 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
   if($("gbThemeState"))$("gbThemeState").textContent="OFF";
   alert("Reading preferences have been reset.");
  });
- // GyanBhoomi welcome splash
+ 
+// GyanBhoomi welcome splash and automatic login
 {
   const splash = document.getElementById("gbWelcomeSplash");
+  const accountModal = document.getElementById("gbAccountModal");
 
   if (splash) {
     setTimeout(() => {
+      // Start the 3-second cover fade
       splash.classList.add("gb-splash-exit");
+
+      // Open login after the cover transition finishes
+      setTimeout(() => {
+        if (
+          accountModal &&
+          !sessionStorage.getItem("gbGuestMode")
+        ) {
+          accountModal.classList.remove("hidden");
+
+          // Select Login tab
+          document.getElementById("gbShowLogin")?.click();
+        }
+      }, 3000);
+
     }, 1500);
   }
 }
+
 })();
 </script>
 
