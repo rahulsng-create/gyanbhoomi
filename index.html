@@ -908,10 +908,17 @@ min-width:0;
 }
 
 @media(max-width:600px){
- #gbWelcomeSplash img{
-  object-fit:cover;
+  #gbWelcomeSplash{
+    background:#032522;
+  }
+
+  #gbWelcomeSplash img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center;
+  }
  }
-}
 
 @media(prefers-reduced-motion:reduce){
  #gbWelcomeSplash{transition:none}
