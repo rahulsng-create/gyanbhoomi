@@ -1251,7 +1251,7 @@ $("htmlArticleFile").addEventListener("change",async()=>{
  importedArticleHTML="";
  $("htmlImportStatus").textContent="";
  if(!file)return;
- if(file.size>2*1024*1024){$("htmlArticleFile").value="";$("htmlImportStatus").textContent="Please choose an HTML file smaller than 2 MB.";return;}
+ {$("htmlArticleFile").value="";$("htmlImportStatus").textContent="Please choose an HTML file smaller than 2 MB.";return;}
  try{
   const raw=await file.text();
   const parsed=new DOMParser().parseFromString(raw,"text/html");
