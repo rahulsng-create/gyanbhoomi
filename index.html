@@ -1206,24 +1206,28 @@ function cleanArticleHTML(raw){
   const tag=node.tagName;
   if(["SCRIPT","STYLE","IFRAME","OBJECT","EMBED","FORM","INPUT","BUTTON","VIDEO","AUDIO","SVG","MATH"].includes(tag))return document.createDocumentFragment();
   if(tag==="IMG"){
-   let src=node.getAttribute("src")||"";
-   // Accept embedded raster images, including line-wrapped base64 data.
-   src=src.replace(/\s+/g,"");
-   if(!/^data:image\/(?:png|jpe?g|webp|gif);base64,[a-z0-9+/=]+$/i.test(src))return document.createDocumentFragment();
-   const image=document.createElement("img");
-   image.setAttribute("src",src);
-   image.setAttribute("alt",(node.getAttribute("alt")||"Article image").slice(0,180));
-   image.setAttribute("loading","eager");
-   image.setAttribute("decoding","async");
-   image.style.display="block";
-   image.style.width="100%";
-   image.style.maxWidth="100%";
-   image.style.maxHeight="520px";
-   image.style.objectFit="contain";
-   image.style.height="auto";
-   image.style.margin="14px auto";
-   return image;
-  }
+ let src=(node.getAttribute("src")||"").trim();
+ src=src.replace(/\s+/g,"");
+
+ const safeData=/^data:image\/(?:png|jpe?g|webp|gif);base64,[a-z0-9+/=]+$/i.test(src);
+ const safeHttps=/^https:\/\/[^\s"'<>]+$/i.test(src);
+
+ if(!safeData&&!safeHttps)return document.createDocumentFragment();
+
+ const image=document.createElement("img");
+ image.setAttribute("src",src);
+ image.setAttribute("alt",(node.getAttribute("alt")||"Article illustration").slice(0,180));
+ image.setAttribute("loading","lazy");
+ image.setAttribute("decoding","async");
+ image.style.display="block";
+ image.style.width="100%";
+ image.style.maxWidth="100%";
+ image.style.maxHeight="520px";
+ image.style.objectFit="contain";
+ image.style.height="auto";
+ image.style.margin="14px auto";
+ return image;
+ }
   const children=[...node.childNodes].map(copyNode);
   if(!allowed.has(tag)){const frag=document.createDocumentFragment();children.forEach(c=>frag.appendChild(c));return frag;}
   const el=document.createElement(tag.toLowerCase());
