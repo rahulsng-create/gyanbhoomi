@@ -32,7 +32,7 @@ const cleanContent = value => {
     allowedTags: [
       "p","h1","h2","h3","h4","h5","h6","ul","ol","li","strong","b","em","i",
       "u","blockquote","br","hr","pre","code","a","table","thead","tbody",
-      "tfoot","tr","th","td","div","span","sub","sup","img"
+      "tfoot","tr","th","td","div","span","sub","sup","figure","figcaption","img"
     ],
     allowedAttributes: {
       a: ["href","title"], img: ["src","alt","title","width","height"],
