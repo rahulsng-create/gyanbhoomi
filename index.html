@@ -694,6 +694,132 @@ min-width:0;
  font-size:12px;
  margin:8px 0 14px;
 }
+ 
+/* GyanBhoomi premium full-screen login */
+.gb-account-modal{
+  padding:clamp(12px,3vw,32px);
+  background:
+    radial-gradient(ellipse at 15% 15%,#176b58 0%,transparent 45%),
+    radial-gradient(ellipse at 85% 85%,#174e45 0%,transparent 45%),
+    linear-gradient(145deg,#031b20,#052f2b 55%,#061d25);
+  backdrop-filter:blur(10px);
+}
+
+.gb-account-card{
+  width:min(100%,780px);
+  max-height:calc(100dvh - 24px);
+  overflow-y:auto;
+  box-sizing:border-box;
+  padding:clamp(20px,4vw,42px);
+  border-radius:28px;
+  background:linear-gradient(
+    145deg,
+    rgba(5,55,49,.96),
+    rgba(2,35,34,.97)
+  );
+  border:1.5px solid #d9b45f;
+  box-shadow:0 20px 70px #0009;
+}
+
+.gb-account-head{
+  justify-content:center;
+  position:relative;
+  margin-bottom:12px;
+}
+
+.gb-account-head h2{
+  text-align:center;
+  font-size:clamp(25px,4vw,36px);
+  color:#f5d27b;
+}
+
+.gb-account-head #gbAccountClose{
+  position:absolute;
+  right:0;
+  top:0;
+  background:transparent;
+  color:#f5e8c3;
+  border:1px solid #d9b45f;
+  font-size:22px;
+}
+
+.gb-account-card>p:first-of-type{
+  text-align:center;
+  color:#d7e9df;
+  line-height:1.6;
+}
+
+.gb-account-switch{
+  padding:7px;
+  border:1px solid #527f72;
+  border-radius:16px;
+  background:#001d1b88;
+}
+
+.gb-account-switch button{
+  padding:13px;
+  border-radius:30px;
+  font-weight:800;
+  font-size:16px;
+  transition:all .25s ease;
+}
+
+.gb-account-switch button:hover{
+  background:linear-gradient(120deg,#078b72,#00b994);
+  color:white;
+}
+
+.gb-account-card input{
+  background:#ffffff12;
+  color:#fff8e8;
+  border:1px solid #8aab9e;
+  border-radius:13px;
+  padding:15px;
+  font-size:16px;
+}
+
+.gb-account-card input::placeholder{
+  color:#d0dfd8;
+}
+
+.gb-account-card input:focus{
+  outline:2px solid #e9c66f;
+  border-color:#e9c66f;
+}
+
+.gb-account-card button[type=submit]{
+  margin-top:14px;
+  padding:16px;
+  border-radius:30px;
+  background:linear-gradient(110deg,#f6d477,#d99a24);
+  color:#172c20;
+  font-size:18px;
+  box-shadow:0 5px 20px #0004;
+}
+
+.gb-account-card button[type=submit]:active{
+  transform:scale(.98);
+}
+
+.gb-guest-button{
+  border-radius:30px!important;
+  font-size:17px!important;
+  padding:15px!important;
+}
+
+@media(max-width:600px){
+  .gb-account-modal{
+    padding:10px;
+  }
+
+  .gb-account-card{
+    width:100%;
+    max-height:calc(100dvh - 20px);
+    padding:22px 17px;
+    border-radius:22px;
+  }
+}
+
 .gb-ask-float{
  position:fixed;
  right:18px;
