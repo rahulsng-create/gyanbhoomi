@@ -1023,6 +1023,22 @@ min-width:0;
       <input id="gbAccountName" type="text" placeholder="Your name" class="hidden">
       <input id="gbAccountEmail" type="email" placeholder="Email address" required>
       <input id="gbAccountPassword" type="password" placeholder="Password (8 characters minimum)" minlength="8" required>
+     
+<div class="gb-account-options">
+  <label>
+    <input type="checkbox" id="gbRememberMe" checked>
+    Remember me
+  </label>
+
+  <button type="button" id="gbForgotPassword">
+    Forgot password?
+  </button>
+</div>
+
+<button type="button" id="gbTogglePassword">
+  Show password
+</button>
+
       <button type="submit" id="gbAccountSubmit">Login</button>
     </form>
    <button type="button" id="gbContinueGuest" class="gb-guest-button">
