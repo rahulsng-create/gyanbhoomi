@@ -2906,31 +2906,31 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
  });
  
 // GyanBhoomi welcome splash and automatic login
-{
-  const splash = document.getElementById("gbWelcomeSplash");
-  const accountModal = document.getElementById("gbAccountModal");
+const splash = document.getElementById("gbWelcomeSplash");
+const accountModal = document.getElementById("gbAccountModal");
 
-  if (splash) {
+if (splash) {
+  setTimeout(() => {
+    // Fade out the welcome cover
+    splash.classList.add("gb-splash-exit");
+
+    // Open login after the 1-second transition
     setTimeout(() => {
-      // Start the 3-second cover fade
-      splash.classList.add("gb-splash-exit");
+      if (
+        accountModal &&
+        !sessionStorage.getItem("gbGuestMode")
+      ) {
+        accountModal.classList.remove("hidden");
 
-      // Open login after the cover transition finishes
-      setTimeout(() => {
-        if (
-          accountModal &&
-          !sessionStorage.getItem("gbGuestMode")
-        ) {
-          accountModal.classList.remove("hidden");
+        const loginButton =
+          document.getElementById("gbShowLogin");
 
-          // Select Login tab
-          document.getElementById("gbShowLogin")?.click();
-        }
-      }, 1000);
+        if (loginButton) loginButton.click();
+      }
+    }, 1000);
 
-    }, 1500);
-  }
-}
+  }, 1500);
+ }
 
 })();
 </script>
