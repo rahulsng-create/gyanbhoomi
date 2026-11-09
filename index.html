@@ -2365,6 +2365,93 @@ await gbUpdateDrawerLogout();
     button.disabled=false;
   }
 });
+ 
+// GyanBhoomi login enhancements
+
+// Remember email address
+const gbRemember = $("gbRememberMe");
+const gbEmail = $("gbAccountEmail");
+
+try {
+  const savedEmail = localStorage.getItem("gbRememberedEmail");
+  if (savedEmail) {
+    gbEmail.value = savedEmail;
+    gbRemember.checked = true;
+  }
+} catch(e) {}
+
+// Save or clear remembered email on login
+$("gbAccountForm").addEventListener("submit", () => {
+  try {
+    if (gbAccountMode === "login" && gbRemember.checked) {
+      localStorage.setItem("gbRememberedEmail", gbEmail.value.trim());
+    } else if (gbAccountMode === "login") {
+      localStorage.removeItem("gbRememberedEmail");
+    }
+  } catch(e) {}
+});
+
+// Show / hide password
+$("gbTogglePassword").addEventListener("click", () => {
+  const password = $("gbAccountPassword");
+  const visible = password.type === "text";
+
+  password.type = visible ? "password" : "text";
+  $("gbTogglePassword").textContent =
+    visible ? "Show password" : "Hide password";
+});
+
+// Forgot password
+$("gbForgotPassword").addEventListener("click", async () => {
+  const email = gbEmail.value.trim();
+
+  if (!email) {
+    gbAccountMessage("Please enter your email address first.");
+    gbEmail.focus();
+    return;
+  }
+
+  gbAccountMessage("Sending password reset email...");
+
+  const { error } = await db.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + window.location.pathname
+  });
+
+  if (error) {
+    gbAccountMessage(error.message);
+  } else {
+    gbAccountMessage(
+      "Password reset link sent. Please check your email."
+    );
+  }
+});
+
+// Complete password recovery after returning from email link
+db.auth.onAuthStateChange((event) => {
+  if (event === "PASSWORD_RECOVERY") {
+    setTimeout(async () => {
+      const newPassword = window.prompt(
+        "Enter your new password (minimum 8 characters):"
+      );
+
+      if (!newPassword || newPassword.length < 8) {
+        gbAccountMessage("Password must contain at least 8 characters.");
+        return;
+      }
+
+      const { error } = await db.auth.updateUser({
+        password: newPassword
+      });
+
+      if (error) {
+        gbAccountMessage(error.message);
+      } else {
+        gbAccountMessage("Password updated successfully!");
+      }
+    }, 300);
+  }
+});
+
 // Visitor logout controls
 // Hamburger menu visitor logout
 async function gbUpdateDrawerLogout(){
