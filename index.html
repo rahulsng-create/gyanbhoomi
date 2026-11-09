@@ -1252,6 +1252,55 @@ function articleContentHTML(value){
  return "<p>"+esc(text)+"</p>";
 }
 let importedArticleHTML="";
+ $("useArticleTemplate").addEventListener("click",()=>{
+ const template=`
+INTRODUCTION
+[Introduce the topic and explain why it matters.]
+
+TABLE OF CONTENTS
+[List the main sections.]
+
+1. OVERVIEW
+[Give a detailed overview.]
+
+2. BACKGROUND AND HISTORY
+[Explain the origin and background.]
+
+3. DETAILED EXPLANATION
+[Explain the topic thoroughly using as many subsections as needed.]
+
+4. HOW IT WORKS
+[Explain processes, mechanisms or methods.]
+
+5. VISUAL LEARNING
+[Describe diagrams, illustrations, infographics, maps or timelines to include.]
+
+6. EXAMPLES AND CASE STUDIES
+[Add real-world examples.]
+
+7. IMPORTANT FACTS
+[Include verified facts and statistics.]
+
+8. CHALLENGES AND FUTURE
+[Discuss limitations, developments and future possibilities.]
+
+9. KEY TAKEAWAYS
+[Summarise the most important points.]
+
+10. FREQUENTLY ASKED QUESTIONS
+[Add questions and detailed answers.]
+
+11. REFERENCES AND FURTHER READING
+[Add reliable sources and useful links.]
+
+`;
+ const content=$("content");
+ if(content.value.trim()&&!confirm("Insert the template after your existing content?"))return;
+ content.value=content.value.trim()?content.value.trim()+"\n\n"+template:template;
+ content.dispatchEvent(new Event("input",{bubbles:true}));
+ $("htmlImportStatus").textContent="Universal article structure inserted. Expand, remove or add sections as needed.";
+ content.focus();
+});
 $("htmlArticleFile").addEventListener("change",async()=>{
  const file=$("htmlArticleFile").files&&$("htmlArticleFile").files[0];
  importedArticleHTML="";
