@@ -1201,7 +1201,7 @@ function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&l
 const HTML_MARKER="GBHTML1:";
 function cleanArticleHTML(raw){
  const parsed=new DOMParser().parseFromString(String(raw||""),"text/html");
- const allowed=new Set(["P","H1","H2","H3","H4","H5","H6","UL","OL","LI","STRONG","B","EM","I","U","BLOCKQUOTE","BR","HR","PRE","CODE","A","TABLE","THEAD","TBODY","TFOOT","TR","TH","TD","DIV","SPAN","SUB","SUP","IMG"]);
+ const allowed=new Set(["P","H1","H2","H3","H4","H5","H6","UL","OL","LI","STRONG","B","EM","I","U","BLOCKQUOTE","BR","HR","PRE","CODE","A","TABLE","THEAD","TBODY","TFOOT","TR","TH","TD","DIV","SPAN","SUB","SUP","FIGURE","FIGCAPTION","IMG"]);
  function copyNode(node){
   if(node.nodeType===Node.TEXT_NODE)return document.createTextNode(node.nodeValue||"");
   if(node.nodeType!==Node.ELEMENT_NODE)return document.createDocumentFragment();
