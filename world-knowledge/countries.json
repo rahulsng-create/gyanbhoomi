@@ -1,0 +1,2988 @@
+[
+  {
+    "name": "Afghanistan",
+    "slug": "afghanistan",
+    "iso2": "AF",
+    "region": "Asia",
+    "capital": "Kabul",
+    "nativeName": "افغانستان",
+    "areaKm2": 652230,
+    "currencyCodes": [
+      "AFN"
+    ],
+    "languages": [
+      "ps",
+      "uz",
+      "tk"
+    ]
+  },
+  {
+    "name": "Albania",
+    "slug": "albania",
+    "iso2": "AL",
+    "region": "Europe",
+    "capital": "Tirana",
+    "nativeName": "Shqipëria",
+    "areaKm2": 28748,
+    "currencyCodes": [
+      "ALL"
+    ],
+    "languages": [
+      "sq"
+    ]
+  },
+  {
+    "name": "Algeria",
+    "slug": "algeria",
+    "iso2": "DZ",
+    "region": "Africa",
+    "capital": "Algiers",
+    "nativeName": "الجزائر",
+    "areaKm2": 2381741,
+    "currencyCodes": [
+      "DZD"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "Andorra",
+    "slug": "andorra",
+    "iso2": "AD",
+    "region": "Africa",
+    "capital": "",
+    "nativeName": "",
+    "areaKm2": "",
+    "currencyCodes": [],
+    "languages": []
+  },
+  {
+    "name": "Angola",
+    "slug": "angola",
+    "iso2": "AO",
+    "region": "Africa",
+    "capital": "Luanda",
+    "nativeName": "Angola",
+    "areaKm2": 1246700,
+    "currencyCodes": [
+      "AOA"
+    ],
+    "languages": [
+      "pt"
+    ]
+  },
+  {
+    "name": "Antigua and Barbuda",
+    "slug": "antigua-and-barbuda",
+    "iso2": "AG",
+    "region": "North America",
+    "capital": "Saint John's",
+    "nativeName": "Antigua and Barbuda",
+    "areaKm2": 442,
+    "currencyCodes": [
+      "XCD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Argentina",
+    "slug": "argentina",
+    "iso2": "AR",
+    "region": "South America",
+    "capital": "Buenos Aires",
+    "nativeName": "Argentina",
+    "areaKm2": 2780400,
+    "currencyCodes": [
+      "ARS"
+    ],
+    "languages": [
+      "es",
+      "gn"
+    ]
+  },
+  {
+    "name": "Armenia",
+    "slug": "armenia",
+    "iso2": "AM",
+    "region": "Asia",
+    "capital": "Yerevan",
+    "nativeName": "Հայաստան",
+    "areaKm2": 29743,
+    "currencyCodes": [
+      "AMD"
+    ],
+    "languages": [
+      "hy",
+      "ru"
+    ]
+  },
+  {
+    "name": "Australia",
+    "slug": "australia",
+    "iso2": "AU",
+    "region": "Oceania",
+    "capital": "Canberra",
+    "nativeName": "Australia",
+    "areaKm2": 7692024,
+    "currencyCodes": [
+      "AUD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Austria",
+    "slug": "austria",
+    "iso2": "AT",
+    "region": "Europe",
+    "capital": "Vienna",
+    "nativeName": "Österreich",
+    "areaKm2": 83871,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "de"
+    ]
+  },
+  {
+    "name": "Azerbaijan",
+    "slug": "azerbaijan",
+    "iso2": "AZ",
+    "region": "Asia",
+    "capital": "Baku",
+    "nativeName": "Azərbaycan",
+    "areaKm2": 86600,
+    "currencyCodes": [
+      "AZN"
+    ],
+    "languages": [
+      "az",
+      "hy"
+    ]
+  },
+  {
+    "name": "Bahamas",
+    "slug": "bahamas",
+    "iso2": "BS",
+    "region": "Africa",
+    "capital": "",
+    "nativeName": "",
+    "areaKm2": "",
+    "currencyCodes": [],
+    "languages": []
+  },
+  {
+    "name": "Bahrain",
+    "slug": "bahrain",
+    "iso2": "BH",
+    "region": "Asia",
+    "capital": "Manama",
+    "nativeName": "‏البحرين",
+    "areaKm2": 765,
+    "currencyCodes": [
+      "BHD"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "Bangladesh",
+    "slug": "bangladesh",
+    "iso2": "BD",
+    "region": "Asia",
+    "capital": "Dhaka",
+    "nativeName": "বাংলাদেশ",
+    "areaKm2": 147570,
+    "currencyCodes": [
+      "BDT"
+    ],
+    "languages": [
+      "bn"
+    ]
+  },
+  {
+    "name": "Barbados",
+    "slug": "barbados",
+    "iso2": "BB",
+    "region": "North America",
+    "capital": "Bridgetown",
+    "nativeName": "Barbados",
+    "areaKm2": 430,
+    "currencyCodes": [
+      "BBD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Belarus",
+    "slug": "belarus",
+    "iso2": "BY",
+    "region": "Europe",
+    "capital": "Minsk",
+    "nativeName": "Белару́сь",
+    "areaKm2": 207600,
+    "currencyCodes": [
+      "BYR"
+    ],
+    "languages": [
+      "be",
+      "ru"
+    ]
+  },
+  {
+    "name": "Belgium",
+    "slug": "belgium",
+    "iso2": "BE",
+    "region": "Europe",
+    "capital": "Brussels",
+    "nativeName": "België",
+    "areaKm2": 30528,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "nl",
+      "fr",
+      "de"
+    ]
+  },
+  {
+    "name": "Belize",
+    "slug": "belize",
+    "iso2": "BZ",
+    "region": "North America",
+    "capital": "Belmopan",
+    "nativeName": "Belize",
+    "areaKm2": 22966,
+    "currencyCodes": [
+      "BZD"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ]
+  },
+  {
+    "name": "Benin",
+    "slug": "benin",
+    "iso2": "BJ",
+    "region": "Africa",
+    "capital": "Porto-Novo",
+    "nativeName": "Bénin",
+    "areaKm2": 112622,
+    "currencyCodes": [
+      "XOF"
+    ],
+    "languages": [
+      "fr"
+    ]
+  },
+  {
+    "name": "Bhutan",
+    "slug": "bhutan",
+    "iso2": "BT",
+    "region": "Asia",
+    "capital": "Thimphu",
+    "nativeName": "ʼbrug-yul",
+    "areaKm2": 38394,
+    "currencyCodes": [
+      "BTN",
+      "INR"
+    ],
+    "languages": [
+      "dz"
+    ]
+  },
+  {
+    "name": "Bolivia",
+    "slug": "bolivia",
+    "iso2": "BO",
+    "region": "South America",
+    "capital": "Sucre",
+    "nativeName": "Bolivia",
+    "areaKm2": 1098581,
+    "currencyCodes": [
+      "BOB",
+      "BOV"
+    ],
+    "languages": [
+      "es",
+      "ay",
+      "qu"
+    ]
+  },
+  {
+    "name": "Bosnia and Herzegovina",
+    "slug": "bosnia-and-herzegovina",
+    "iso2": "BA",
+    "region": "Europe",
+    "capital": "Sarajevo",
+    "nativeName": "Bosna i Hercegovina",
+    "areaKm2": 51209,
+    "currencyCodes": [
+      "BAM"
+    ],
+    "languages": [
+      "bs",
+      "hr",
+      "sr"
+    ]
+  },
+  {
+    "name": "Botswana",
+    "slug": "botswana",
+    "iso2": "BW",
+    "region": "Africa",
+    "capital": "Gaborone",
+    "nativeName": "Botswana",
+    "areaKm2": 582000,
+    "currencyCodes": [
+      "BWP"
+    ],
+    "languages": [
+      "en",
+      "tn"
+    ]
+  },
+  {
+    "name": "Brazil",
+    "slug": "brazil",
+    "iso2": "BR",
+    "region": "South America",
+    "capital": "Brasília",
+    "nativeName": "Brasil",
+    "areaKm2": 8515767,
+    "currencyCodes": [
+      "BRL"
+    ],
+    "languages": [
+      "pt"
+    ]
+  },
+  {
+    "name": "Brunei",
+    "slug": "brunei",
+    "iso2": "",
+    "region": "Asia",
+    "capital": "Bandar Seri Begawan",
+    "nativeName": "Negara Brunei Darussalam",
+    "areaKm2": 5765,
+    "currencyCodes": [
+      "BND"
+    ],
+    "languages": [
+      "ms"
+    ]
+  },
+  {
+    "name": "Bulgaria",
+    "slug": "bulgaria",
+    "iso2": "BG",
+    "region": "Europe",
+    "capital": "Sofia",
+    "nativeName": "България",
+    "areaKm2": 110879,
+    "currencyCodes": [
+      "BGN"
+    ],
+    "languages": [
+      "bg"
+    ]
+  },
+  {
+    "name": "Burkina Faso",
+    "slug": "burkina-faso",
+    "iso2": "BF",
+    "region": "Africa",
+    "capital": "Ouagadougou",
+    "nativeName": "Burkina Faso",
+    "areaKm2": 272967,
+    "currencyCodes": [
+      "XOF"
+    ],
+    "languages": [
+      "fr",
+      "ff"
+    ]
+  },
+  {
+    "name": "Burundi",
+    "slug": "burundi",
+    "iso2": "BI",
+    "region": "Africa",
+    "capital": "Bujumbura",
+    "nativeName": "Burundi",
+    "areaKm2": 27834,
+    "currencyCodes": [
+      "BIF"
+    ],
+    "languages": [
+      "fr",
+      "rn"
+    ]
+  },
+  {
+    "name": "Cabo Verde",
+    "slug": "cabo-verde",
+    "iso2": "CV",
+    "region": "Africa",
+    "capital": "Praia",
+    "nativeName": "Cabo Verde",
+    "areaKm2": 4033,
+    "currencyCodes": [
+      "CVE"
+    ],
+    "languages": [
+      "pt"
+    ]
+  },
+  {
+    "name": "Cambodia",
+    "slug": "cambodia",
+    "iso2": "KH",
+    "region": "Asia",
+    "capital": "Phnom Penh",
+    "nativeName": "Kâmpŭchéa",
+    "areaKm2": 181035,
+    "currencyCodes": [
+      "KHR"
+    ],
+    "languages": [
+      "km"
+    ]
+  },
+  {
+    "name": "Cameroon",
+    "slug": "cameroon",
+    "iso2": "CM",
+    "region": "Africa",
+    "capital": "Yaoundé",
+    "nativeName": "Cameroon",
+    "areaKm2": 475442,
+    "currencyCodes": [
+      "XAF"
+    ],
+    "languages": [
+      "en",
+      "fr"
+    ]
+  },
+  {
+    "name": "Canada",
+    "slug": "canada",
+    "iso2": "CA",
+    "region": "North America",
+    "capital": "Ottawa",
+    "nativeName": "Canada",
+    "areaKm2": 9984670,
+    "currencyCodes": [
+      "CAD"
+    ],
+    "languages": [
+      "en",
+      "fr"
+    ]
+  },
+  {
+    "name": "Central African Republic",
+    "slug": "central-african-republic",
+    "iso2": "CF",
+    "region": "Africa",
+    "capital": "Bangui",
+    "nativeName": "Ködörösêse tî Bêafrîka",
+    "areaKm2": 622984,
+    "currencyCodes": [
+      "XAF"
+    ],
+    "languages": [
+      "fr",
+      "sg"
+    ]
+  },
+  {
+    "name": "Chad",
+    "slug": "chad",
+    "iso2": "TD",
+    "region": "Africa",
+    "capital": "N'Djamena",
+    "nativeName": "Tchad",
+    "areaKm2": 1284000,
+    "currencyCodes": [
+      "XAF"
+    ],
+    "languages": [
+      "fr",
+      "ar"
+    ]
+  },
+  {
+    "name": "Chile",
+    "slug": "chile",
+    "iso2": "CL",
+    "region": "South America",
+    "capital": "Santiago",
+    "nativeName": "Chile",
+    "areaKm2": 756102,
+    "currencyCodes": [
+      "CLF",
+      "CLP"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "China",
+    "slug": "china",
+    "iso2": "CN",
+    "region": "Asia",
+    "capital": "Beijing",
+    "nativeName": "中国",
+    "areaKm2": 9640011,
+    "currencyCodes": [
+      "CNY"
+    ],
+    "languages": [
+      "zh"
+    ]
+  },
+  {
+    "name": "Colombia",
+    "slug": "colombia",
+    "iso2": "CO",
+    "region": "South America",
+    "capital": "Bogotá",
+    "nativeName": "Colombia",
+    "areaKm2": 1141748,
+    "currencyCodes": [
+      "COP"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Comoros",
+    "slug": "comoros",
+    "iso2": "KM",
+    "region": "Africa",
+    "capital": "Moroni",
+    "nativeName": "Komori",
+    "areaKm2": 1862,
+    "currencyCodes": [
+      "KMF"
+    ],
+    "languages": [
+      "ar",
+      "fr"
+    ]
+  },
+  {
+    "name": "Congo",
+    "slug": "congo",
+    "iso2": "CG",
+    "region": "Africa",
+    "capital": "Brazzaville",
+    "nativeName": "République du Congo",
+    "areaKm2": 342000,
+    "currencyCodes": [
+      "XAF"
+    ],
+    "languages": [
+      "fr",
+      "ln"
+    ]
+  },
+  {
+    "name": "Costa Rica",
+    "slug": "costa-rica",
+    "iso2": "CR",
+    "region": "North America",
+    "capital": "San José",
+    "nativeName": "Costa Rica",
+    "areaKm2": 51100,
+    "currencyCodes": [
+      "CRC"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Côte d’Ivoire",
+    "slug": "c-te-d-ivoire",
+    "iso2": "",
+    "region": "Africa",
+    "capital": "Yamoussoukro",
+    "nativeName": "Côte d'Ivoire",
+    "areaKm2": 322463,
+    "currencyCodes": [
+      "XOF"
+    ],
+    "languages": [
+      "fr"
+    ]
+  },
+  {
+    "name": "Croatia",
+    "slug": "croatia",
+    "iso2": "HR",
+    "region": "Europe",
+    "capital": "Zagreb",
+    "nativeName": "Hrvatska",
+    "areaKm2": 56594,
+    "currencyCodes": [
+      "HRK"
+    ],
+    "languages": [
+      "hr"
+    ]
+  },
+  {
+    "name": "Cuba",
+    "slug": "cuba",
+    "iso2": "CU",
+    "region": "North America",
+    "capital": "Havana",
+    "nativeName": "Cuba",
+    "areaKm2": 109884,
+    "currencyCodes": [
+      "CUC",
+      "CUP"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Cyprus",
+    "slug": "cyprus",
+    "iso2": "CY",
+    "region": "Europe",
+    "capital": "Nicosia",
+    "nativeName": "Κύπρος",
+    "areaKm2": 9251,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "el",
+      "tr",
+      "hy"
+    ]
+  },
+  {
+    "name": "Czechia",
+    "slug": "czechia",
+    "iso2": "CZ",
+    "region": "Europe",
+    "capital": "Prague",
+    "nativeName": "Česká republika",
+    "areaKm2": 78865,
+    "currencyCodes": [
+      "CZK"
+    ],
+    "languages": [
+      "cs",
+      "sk"
+    ]
+  },
+  {
+    "name": "Democratic Republic of the Congo",
+    "slug": "democratic-republic-of-the-congo",
+    "iso2": "",
+    "region": "Africa",
+    "capital": "Kinshasa",
+    "nativeName": "République démocratique du Congo",
+    "areaKm2": 2344858,
+    "currencyCodes": [
+      "CDF"
+    ],
+    "languages": [
+      "fr",
+      "ln",
+      "kg",
+      "sw",
+      "lu"
+    ]
+  },
+  {
+    "name": "Denmark",
+    "slug": "denmark",
+    "iso2": "DK",
+    "region": "Europe",
+    "capital": "Copenhagen",
+    "nativeName": "Danmark",
+    "areaKm2": 43094,
+    "currencyCodes": [
+      "DKK"
+    ],
+    "languages": [
+      "da"
+    ]
+  },
+  {
+    "name": "Djibouti",
+    "slug": "djibouti",
+    "iso2": "DJ",
+    "region": "Africa",
+    "capital": "Djibouti",
+    "nativeName": "Djibouti",
+    "areaKm2": 23200,
+    "currencyCodes": [
+      "DJF"
+    ],
+    "languages": [
+      "fr",
+      "ar"
+    ]
+  },
+  {
+    "name": "Dominica",
+    "slug": "dominica",
+    "iso2": "DM",
+    "region": "North America",
+    "capital": "Roseau",
+    "nativeName": "Dominica",
+    "areaKm2": 751,
+    "currencyCodes": [
+      "XCD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Dominican Republic",
+    "slug": "dominican-republic",
+    "iso2": "DO",
+    "region": "North America",
+    "capital": "Santo Domingo",
+    "nativeName": "República Dominicana",
+    "areaKm2": 48671,
+    "currencyCodes": [
+      "DOP"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Ecuador",
+    "slug": "ecuador",
+    "iso2": "EC",
+    "region": "South America",
+    "capital": "Quito",
+    "nativeName": "Ecuador",
+    "areaKm2": 276841,
+    "currencyCodes": [
+      "USD"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Egypt",
+    "slug": "egypt",
+    "iso2": "EG",
+    "region": "Africa",
+    "capital": "Cairo",
+    "nativeName": "مصر‎",
+    "areaKm2": 1002450,
+    "currencyCodes": [
+      "EGP"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "El Salvador",
+    "slug": "el-salvador",
+    "iso2": "SV",
+    "region": "North America",
+    "capital": "San Salvador",
+    "nativeName": "El Salvador",
+    "areaKm2": 21041,
+    "currencyCodes": [
+      "SVC",
+      "USD"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Equatorial Guinea",
+    "slug": "equatorial-guinea",
+    "iso2": "GQ",
+    "region": "Africa",
+    "capital": "Malabo",
+    "nativeName": "Guinea Ecuatorial",
+    "areaKm2": 28051,
+    "currencyCodes": [
+      "XAF"
+    ],
+    "languages": [
+      "es",
+      "fr"
+    ]
+  },
+  {
+    "name": "Eritrea",
+    "slug": "eritrea",
+    "iso2": "ER",
+    "region": "Africa",
+    "capital": "Asmara",
+    "nativeName": "ኤርትራ",
+    "areaKm2": 117600,
+    "currencyCodes": [
+      "ERN"
+    ],
+    "languages": [
+      "ti",
+      "ar",
+      "en"
+    ]
+  },
+  {
+    "name": "Estonia",
+    "slug": "estonia",
+    "iso2": "EE",
+    "region": "Europe",
+    "capital": "Tallinn",
+    "nativeName": "Eesti",
+    "areaKm2": 45227,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "et"
+    ]
+  },
+  {
+    "name": "Eswatini",
+    "slug": "eswatini",
+    "iso2": "SZ",
+    "region": "Africa",
+    "capital": "Lobamba",
+    "nativeName": "Swaziland",
+    "areaKm2": 17364,
+    "currencyCodes": [
+      "SZL"
+    ],
+    "languages": [
+      "en",
+      "ss"
+    ]
+  },
+  {
+    "name": "Ethiopia",
+    "slug": "ethiopia",
+    "iso2": "ET",
+    "region": "Africa",
+    "capital": "Addis Ababa",
+    "nativeName": "ኢትዮጵያ",
+    "areaKm2": 1104300,
+    "currencyCodes": [
+      "ETB"
+    ],
+    "languages": [
+      "am"
+    ]
+  },
+  {
+    "name": "Fiji",
+    "slug": "fiji",
+    "iso2": "FJ",
+    "region": "Oceania",
+    "capital": "Suva",
+    "nativeName": "Fiji",
+    "areaKm2": 18272,
+    "currencyCodes": [
+      "FJD"
+    ],
+    "languages": [
+      "en",
+      "fj",
+      "hi",
+      "ur"
+    ]
+  },
+  {
+    "name": "Finland",
+    "slug": "finland",
+    "iso2": "FI",
+    "region": "Europe",
+    "capital": "Helsinki",
+    "nativeName": "Suomi",
+    "areaKm2": 338424,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "fi",
+      "sv"
+    ]
+  },
+  {
+    "name": "France",
+    "slug": "france",
+    "iso2": "FR",
+    "region": "Europe",
+    "capital": "Paris",
+    "nativeName": "France",
+    "areaKm2": 640679,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "fr"
+    ]
+  },
+  {
+    "name": "Gabon",
+    "slug": "gabon",
+    "iso2": "GA",
+    "region": "Africa",
+    "capital": "Libreville",
+    "nativeName": "Gabon",
+    "areaKm2": 267668,
+    "currencyCodes": [
+      "XAF"
+    ],
+    "languages": [
+      "fr"
+    ]
+  },
+  {
+    "name": "Gambia",
+    "slug": "gambia",
+    "iso2": "GM",
+    "region": "Africa",
+    "capital": "",
+    "nativeName": "",
+    "areaKm2": "",
+    "currencyCodes": [],
+    "languages": []
+  },
+  {
+    "name": "Georgia",
+    "slug": "georgia",
+    "iso2": "GE",
+    "region": "Asia",
+    "capital": "Tbilisi",
+    "nativeName": "საქართველო",
+    "areaKm2": 69700,
+    "currencyCodes": [
+      "GEL"
+    ],
+    "languages": [
+      "ka"
+    ]
+  },
+  {
+    "name": "Germany",
+    "slug": "germany",
+    "iso2": "DE",
+    "region": "Europe",
+    "capital": "Berlin",
+    "nativeName": "Deutschland",
+    "areaKm2": 357114,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "de"
+    ]
+  },
+  {
+    "name": "Ghana",
+    "slug": "ghana",
+    "iso2": "GH",
+    "region": "Africa",
+    "capital": "Accra",
+    "nativeName": "Ghana",
+    "areaKm2": 238533,
+    "currencyCodes": [
+      "GHS"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Greece",
+    "slug": "greece",
+    "iso2": "GR",
+    "region": "Europe",
+    "capital": "Athens",
+    "nativeName": "Ελλάδα",
+    "areaKm2": 131990,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "el"
+    ]
+  },
+  {
+    "name": "Grenada",
+    "slug": "grenada",
+    "iso2": "GD",
+    "region": "North America",
+    "capital": "St. George's",
+    "nativeName": "Grenada",
+    "areaKm2": 344,
+    "currencyCodes": [
+      "XCD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Guatemala",
+    "slug": "guatemala",
+    "iso2": "GT",
+    "region": "North America",
+    "capital": "Guatemala City",
+    "nativeName": "Guatemala",
+    "areaKm2": 108889,
+    "currencyCodes": [
+      "GTQ"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Guinea",
+    "slug": "guinea",
+    "iso2": "GN",
+    "region": "Africa",
+    "capital": "Conakry",
+    "nativeName": "Guinée",
+    "areaKm2": 245857,
+    "currencyCodes": [
+      "GNF"
+    ],
+    "languages": [
+      "fr",
+      "ff"
+    ]
+  },
+  {
+    "name": "Guinea-Bissau",
+    "slug": "guinea-bissau",
+    "iso2": "GW",
+    "region": "Africa",
+    "capital": "Bissau",
+    "nativeName": "Guiné-Bissau",
+    "areaKm2": 36125,
+    "currencyCodes": [
+      "XOF"
+    ],
+    "languages": [
+      "pt"
+    ]
+  },
+  {
+    "name": "Guyana",
+    "slug": "guyana",
+    "iso2": "GY",
+    "region": "South America",
+    "capital": "Georgetown",
+    "nativeName": "Guyana",
+    "areaKm2": 214969,
+    "currencyCodes": [
+      "GYD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Haiti",
+    "slug": "haiti",
+    "iso2": "HT",
+    "region": "North America",
+    "capital": "Port-au-Prince",
+    "nativeName": "Haïti",
+    "areaKm2": 27750,
+    "currencyCodes": [
+      "HTG",
+      "USD"
+    ],
+    "languages": [
+      "fr",
+      "ht"
+    ]
+  },
+  {
+    "name": "Honduras",
+    "slug": "honduras",
+    "iso2": "HN",
+    "region": "North America",
+    "capital": "Tegucigalpa",
+    "nativeName": "Honduras",
+    "areaKm2": 112492,
+    "currencyCodes": [
+      "HNL"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Hungary",
+    "slug": "hungary",
+    "iso2": "HU",
+    "region": "Europe",
+    "capital": "Budapest",
+    "nativeName": "Magyarország",
+    "areaKm2": 93028,
+    "currencyCodes": [
+      "HUF"
+    ],
+    "languages": [
+      "hu"
+    ]
+  },
+  {
+    "name": "Iceland",
+    "slug": "iceland",
+    "iso2": "IS",
+    "region": "Europe",
+    "capital": "Reykjavik",
+    "nativeName": "Ísland",
+    "areaKm2": 103000,
+    "currencyCodes": [
+      "ISK"
+    ],
+    "languages": [
+      "is"
+    ]
+  },
+  {
+    "name": "India",
+    "slug": "india",
+    "iso2": "IN",
+    "region": "Asia",
+    "capital": "New Delhi",
+    "nativeName": "भारत",
+    "areaKm2": 3287590,
+    "currencyCodes": [
+      "INR"
+    ],
+    "languages": [
+      "hi",
+      "en"
+    ]
+  },
+  {
+    "name": "Indonesia",
+    "slug": "indonesia",
+    "iso2": "ID",
+    "region": "Asia",
+    "capital": "Jakarta",
+    "nativeName": "Indonesia",
+    "areaKm2": 1904569,
+    "currencyCodes": [
+      "IDR"
+    ],
+    "languages": [
+      "id"
+    ]
+  },
+  {
+    "name": "Iran",
+    "slug": "iran",
+    "iso2": "IR",
+    "region": "Asia",
+    "capital": "Tehran",
+    "nativeName": "Irān",
+    "areaKm2": 1648195,
+    "currencyCodes": [
+      "IRR"
+    ],
+    "languages": [
+      "fa"
+    ]
+  },
+  {
+    "name": "Iraq",
+    "slug": "iraq",
+    "iso2": "IQ",
+    "region": "Asia",
+    "capital": "Baghdad",
+    "nativeName": "العراق",
+    "areaKm2": 438317,
+    "currencyCodes": [
+      "IQD"
+    ],
+    "languages": [
+      "ar",
+      "ku"
+    ]
+  },
+  {
+    "name": "Ireland",
+    "slug": "ireland",
+    "iso2": "IE",
+    "region": "Europe",
+    "capital": "Dublin",
+    "nativeName": "Éire",
+    "areaKm2": 70273,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "ga",
+      "en"
+    ]
+  },
+  {
+    "name": "Israel",
+    "slug": "israel",
+    "iso2": "IL",
+    "region": "Asia",
+    "capital": "Jerusalem",
+    "nativeName": "יִשְׂרָאֵל",
+    "areaKm2": 20770,
+    "currencyCodes": [
+      "ILS"
+    ],
+    "languages": [
+      "he",
+      "ar"
+    ]
+  },
+  {
+    "name": "Italy",
+    "slug": "italy",
+    "iso2": "IT",
+    "region": "Europe",
+    "capital": "Rome",
+    "nativeName": "Italia",
+    "areaKm2": 301336,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "it"
+    ]
+  },
+  {
+    "name": "Jamaica",
+    "slug": "jamaica",
+    "iso2": "JM",
+    "region": "North America",
+    "capital": "Kingston",
+    "nativeName": "Jamaica",
+    "areaKm2": 10991,
+    "currencyCodes": [
+      "JMD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Japan",
+    "slug": "japan",
+    "iso2": "JP",
+    "region": "Asia",
+    "capital": "Tokyo",
+    "nativeName": "日本",
+    "areaKm2": 377930,
+    "currencyCodes": [
+      "JPY"
+    ],
+    "languages": [
+      "ja"
+    ]
+  },
+  {
+    "name": "Jordan",
+    "slug": "jordan",
+    "iso2": "JO",
+    "region": "Asia",
+    "capital": "Amman",
+    "nativeName": "الأردن",
+    "areaKm2": 89342,
+    "currencyCodes": [
+      "JOD"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "Kazakhstan",
+    "slug": "kazakhstan",
+    "iso2": "KZ",
+    "region": "Asia",
+    "capital": "Astana",
+    "nativeName": "Қазақстан",
+    "areaKm2": 2724900,
+    "currencyCodes": [
+      "KZT"
+    ],
+    "languages": [
+      "kk",
+      "ru"
+    ]
+  },
+  {
+    "name": "Kenya",
+    "slug": "kenya",
+    "iso2": "KE",
+    "region": "Africa",
+    "capital": "Nairobi",
+    "nativeName": "Kenya",
+    "areaKm2": 580367,
+    "currencyCodes": [
+      "KES"
+    ],
+    "languages": [
+      "en",
+      "sw"
+    ]
+  },
+  {
+    "name": "Kiribati",
+    "slug": "kiribati",
+    "iso2": "KI",
+    "region": "Oceania",
+    "capital": "South Tarawa",
+    "nativeName": "Kiribati",
+    "areaKm2": 811,
+    "currencyCodes": [
+      "AUD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Kuwait",
+    "slug": "kuwait",
+    "iso2": "KW",
+    "region": "Asia",
+    "capital": "Kuwait City",
+    "nativeName": "الكويت",
+    "areaKm2": 17818,
+    "currencyCodes": [
+      "KWD"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "Kyrgyzstan",
+    "slug": "kyrgyzstan",
+    "iso2": "KG",
+    "region": "Asia",
+    "capital": "Bishkek",
+    "nativeName": "Кыргызстан",
+    "areaKm2": 199951,
+    "currencyCodes": [
+      "KGS"
+    ],
+    "languages": [
+      "ky",
+      "ru"
+    ]
+  },
+  {
+    "name": "Laos",
+    "slug": "laos",
+    "iso2": "LA",
+    "region": "Asia",
+    "capital": "Vientiane",
+    "nativeName": "ສປປລາວ",
+    "areaKm2": 236800,
+    "currencyCodes": [
+      "LAK"
+    ],
+    "languages": [
+      "lo"
+    ]
+  },
+  {
+    "name": "Latvia",
+    "slug": "latvia",
+    "iso2": "LV",
+    "region": "Europe",
+    "capital": "Riga",
+    "nativeName": "Latvija",
+    "areaKm2": 64559,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "lv"
+    ]
+  },
+  {
+    "name": "Lebanon",
+    "slug": "lebanon",
+    "iso2": "LB",
+    "region": "Asia",
+    "capital": "Beirut",
+    "nativeName": "لبنان",
+    "areaKm2": 10452,
+    "currencyCodes": [
+      "LBP"
+    ],
+    "languages": [
+      "ar",
+      "fr"
+    ]
+  },
+  {
+    "name": "Lesotho",
+    "slug": "lesotho",
+    "iso2": "LS",
+    "region": "Africa",
+    "capital": "Maseru",
+    "nativeName": "Lesotho",
+    "areaKm2": 30355,
+    "currencyCodes": [
+      "LSL",
+      "ZAR"
+    ],
+    "languages": [
+      "en",
+      "st"
+    ]
+  },
+  {
+    "name": "Liberia",
+    "slug": "liberia",
+    "iso2": "LR",
+    "region": "Africa",
+    "capital": "Monrovia",
+    "nativeName": "Liberia",
+    "areaKm2": 111369,
+    "currencyCodes": [
+      "LRD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Libya",
+    "slug": "libya",
+    "iso2": "LY",
+    "region": "Africa",
+    "capital": "Tripoli",
+    "nativeName": "‏ليبيا",
+    "areaKm2": 1759540,
+    "currencyCodes": [
+      "LYD"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "Liechtenstein",
+    "slug": "liechtenstein",
+    "iso2": "LI",
+    "region": "Europe",
+    "capital": "Vaduz",
+    "nativeName": "Liechtenstein",
+    "areaKm2": 160,
+    "currencyCodes": [
+      "CHF"
+    ],
+    "languages": [
+      "de"
+    ]
+  },
+  {
+    "name": "Lithuania",
+    "slug": "lithuania",
+    "iso2": "LT",
+    "region": "Europe",
+    "capital": "Vilnius",
+    "nativeName": "Lietuva",
+    "areaKm2": 65300,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "lt"
+    ]
+  },
+  {
+    "name": "Luxembourg",
+    "slug": "luxembourg",
+    "iso2": "LU",
+    "region": "Europe",
+    "capital": "Luxembourg",
+    "nativeName": "Luxembourg",
+    "areaKm2": 2586,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "fr",
+      "de",
+      "lb"
+    ]
+  },
+  {
+    "name": "Madagascar",
+    "slug": "madagascar",
+    "iso2": "MG",
+    "region": "Africa",
+    "capital": "Antananarivo",
+    "nativeName": "Madagasikara",
+    "areaKm2": 587041,
+    "currencyCodes": [
+      "MGA"
+    ],
+    "languages": [
+      "fr",
+      "mg"
+    ]
+  },
+  {
+    "name": "Malawi",
+    "slug": "malawi",
+    "iso2": "MW",
+    "region": "Africa",
+    "capital": "Lilongwe",
+    "nativeName": "Malawi",
+    "areaKm2": 118484,
+    "currencyCodes": [
+      "MWK"
+    ],
+    "languages": [
+      "en",
+      "ny"
+    ]
+  },
+  {
+    "name": "Malaysia",
+    "slug": "malaysia",
+    "iso2": "MY",
+    "region": "Asia",
+    "capital": "Kuala Lumpur",
+    "nativeName": "Malaysia",
+    "areaKm2": 330803,
+    "currencyCodes": [
+      "MYR"
+    ],
+    "languages": []
+  },
+  {
+    "name": "Maldives",
+    "slug": "maldives",
+    "iso2": "MV",
+    "region": "Asia",
+    "capital": "Malé",
+    "nativeName": "Maldives",
+    "areaKm2": 300,
+    "currencyCodes": [
+      "MVR"
+    ],
+    "languages": [
+      "dv"
+    ]
+  },
+  {
+    "name": "Mali",
+    "slug": "mali",
+    "iso2": "ML",
+    "region": "Africa",
+    "capital": "Bamako",
+    "nativeName": "Mali",
+    "areaKm2": 1240192,
+    "currencyCodes": [
+      "XOF"
+    ],
+    "languages": [
+      "fr"
+    ]
+  },
+  {
+    "name": "Malta",
+    "slug": "malta",
+    "iso2": "MT",
+    "region": "Europe",
+    "capital": "Valletta",
+    "nativeName": "Malta",
+    "areaKm2": 316,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "mt",
+      "en"
+    ]
+  },
+  {
+    "name": "Marshall Islands",
+    "slug": "marshall-islands",
+    "iso2": "MH",
+    "region": "Oceania",
+    "capital": "Majuro",
+    "nativeName": "M̧ajeļ",
+    "areaKm2": 181,
+    "currencyCodes": [
+      "USD"
+    ],
+    "languages": [
+      "en",
+      "mh"
+    ]
+  },
+  {
+    "name": "Mauritania",
+    "slug": "mauritania",
+    "iso2": "MR",
+    "region": "Africa",
+    "capital": "Nouakchott",
+    "nativeName": "موريتانيا",
+    "areaKm2": 1030700,
+    "currencyCodes": [
+      "MRO"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "Mauritius",
+    "slug": "mauritius",
+    "iso2": "MU",
+    "region": "Africa",
+    "capital": "Port Louis",
+    "nativeName": "Maurice",
+    "areaKm2": 2040,
+    "currencyCodes": [
+      "MUR"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Mexico",
+    "slug": "mexico",
+    "iso2": "MX",
+    "region": "North America",
+    "capital": "Mexico City",
+    "nativeName": "México",
+    "areaKm2": 1964375,
+    "currencyCodes": [
+      "MXN"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Micronesia",
+    "slug": "micronesia",
+    "iso2": "",
+    "region": "Africa",
+    "capital": "",
+    "nativeName": "",
+    "areaKm2": "",
+    "currencyCodes": [],
+    "languages": []
+  },
+  {
+    "name": "Moldova",
+    "slug": "moldova",
+    "iso2": "MD",
+    "region": "Europe",
+    "capital": "Chișinău",
+    "nativeName": "Moldova",
+    "areaKm2": 33846,
+    "currencyCodes": [
+      "MDL"
+    ],
+    "languages": [
+      "ro"
+    ]
+  },
+  {
+    "name": "Monaco",
+    "slug": "monaco",
+    "iso2": "MC",
+    "region": "Europe",
+    "capital": "Monaco",
+    "nativeName": "Monaco",
+    "areaKm2": 2.02,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "fr"
+    ]
+  },
+  {
+    "name": "Mongolia",
+    "slug": "mongolia",
+    "iso2": "MN",
+    "region": "Asia",
+    "capital": "Ulan Bator",
+    "nativeName": "Монгол улс",
+    "areaKm2": 1564110,
+    "currencyCodes": [
+      "MNT"
+    ],
+    "languages": [
+      "mn"
+    ]
+  },
+  {
+    "name": "Montenegro",
+    "slug": "montenegro",
+    "iso2": "ME",
+    "region": "Africa",
+    "capital": "",
+    "nativeName": "",
+    "areaKm2": "",
+    "currencyCodes": [],
+    "languages": []
+  },
+  {
+    "name": "Morocco",
+    "slug": "morocco",
+    "iso2": "MA",
+    "region": "Africa",
+    "capital": "Rabat",
+    "nativeName": "المغرب",
+    "areaKm2": 446550,
+    "currencyCodes": [
+      "MAD"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "Mozambique",
+    "slug": "mozambique",
+    "iso2": "MZ",
+    "region": "Africa",
+    "capital": "Maputo",
+    "nativeName": "Moçambique",
+    "areaKm2": 801590,
+    "currencyCodes": [
+      "MZN"
+    ],
+    "languages": [
+      "pt"
+    ]
+  },
+  {
+    "name": "Myanmar",
+    "slug": "myanmar",
+    "iso2": "MM",
+    "region": "Africa",
+    "capital": "",
+    "nativeName": "",
+    "areaKm2": "",
+    "currencyCodes": [],
+    "languages": []
+  },
+  {
+    "name": "Namibia",
+    "slug": "namibia",
+    "iso2": "NA",
+    "region": "Africa",
+    "capital": "Windhoek",
+    "nativeName": "Namibia",
+    "areaKm2": 825615,
+    "currencyCodes": [
+      "NAD",
+      "ZAR"
+    ],
+    "languages": [
+      "en",
+      "af"
+    ]
+  },
+  {
+    "name": "Nauru",
+    "slug": "nauru",
+    "iso2": "NR",
+    "region": "Oceania",
+    "capital": "Yaren",
+    "nativeName": "Nauru",
+    "areaKm2": 21,
+    "currencyCodes": [
+      "AUD"
+    ],
+    "languages": [
+      "en",
+      "na"
+    ]
+  },
+  {
+    "name": "Nepal",
+    "slug": "nepal",
+    "iso2": "NP",
+    "region": "Asia",
+    "capital": "Kathmandu",
+    "nativeName": "नेपाल",
+    "areaKm2": 147181,
+    "currencyCodes": [
+      "NPR"
+    ],
+    "languages": [
+      "ne"
+    ]
+  },
+  {
+    "name": "Netherlands",
+    "slug": "netherlands",
+    "iso2": "NL",
+    "region": "Europe",
+    "capital": "Amsterdam",
+    "nativeName": "Nederland",
+    "areaKm2": 41850,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "nl"
+    ]
+  },
+  {
+    "name": "New Zealand",
+    "slug": "new-zealand",
+    "iso2": "NZ",
+    "region": "Oceania",
+    "capital": "Wellington",
+    "nativeName": "New Zealand",
+    "areaKm2": 270467,
+    "currencyCodes": [
+      "NZD"
+    ],
+    "languages": [
+      "en",
+      "mi"
+    ]
+  },
+  {
+    "name": "Nicaragua",
+    "slug": "nicaragua",
+    "iso2": "NI",
+    "region": "North America",
+    "capital": "Managua",
+    "nativeName": "Nicaragua",
+    "areaKm2": 130373,
+    "currencyCodes": [
+      "NIO"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Niger",
+    "slug": "niger",
+    "iso2": "NE",
+    "region": "Africa",
+    "capital": "Niamey",
+    "nativeName": "Niger",
+    "areaKm2": 1267000,
+    "currencyCodes": [
+      "XOF"
+    ],
+    "languages": [
+      "fr"
+    ]
+  },
+  {
+    "name": "Nigeria",
+    "slug": "nigeria",
+    "iso2": "NG",
+    "region": "Africa",
+    "capital": "Abuja",
+    "nativeName": "Nigeria",
+    "areaKm2": 923768,
+    "currencyCodes": [
+      "NGN"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "North Korea",
+    "slug": "north-korea",
+    "iso2": "KP",
+    "region": "Asia",
+    "capital": "Pyongyang",
+    "nativeName": "북한",
+    "areaKm2": 120538,
+    "currencyCodes": [
+      "KPW"
+    ],
+    "languages": [
+      "ko"
+    ]
+  },
+  {
+    "name": "North Macedonia",
+    "slug": "north-macedonia",
+    "iso2": "MK",
+    "region": "Africa",
+    "capital": "",
+    "nativeName": "",
+    "areaKm2": "",
+    "currencyCodes": [],
+    "languages": []
+  },
+  {
+    "name": "Norway",
+    "slug": "norway",
+    "iso2": "NO",
+    "region": "Europe",
+    "capital": "Oslo",
+    "nativeName": "Norge",
+    "areaKm2": 323802,
+    "currencyCodes": [
+      "NOK"
+    ],
+    "languages": [
+      "no",
+      "nb",
+      "nn"
+    ]
+  },
+  {
+    "name": "Oman",
+    "slug": "oman",
+    "iso2": "OM",
+    "region": "Asia",
+    "capital": "Muscat",
+    "nativeName": "عمان",
+    "areaKm2": 309500,
+    "currencyCodes": [
+      "OMR"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "Pakistan",
+    "slug": "pakistan",
+    "iso2": "PK",
+    "region": "Asia",
+    "capital": "Islamabad",
+    "nativeName": "Pakistan",
+    "areaKm2": 881912,
+    "currencyCodes": [
+      "PKR"
+    ],
+    "languages": [
+      "en",
+      "ur"
+    ]
+  },
+  {
+    "name": "Palau",
+    "slug": "palau",
+    "iso2": "PW",
+    "region": "Oceania",
+    "capital": "Ngerulmud",
+    "nativeName": "Palau",
+    "areaKm2": 459,
+    "currencyCodes": [
+      "USD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Palestine",
+    "slug": "palestine",
+    "iso2": "PS",
+    "region": "Asia",
+    "capital": "",
+    "nativeName": "",
+    "areaKm2": "",
+    "currencyCodes": [],
+    "languages": []
+  },
+  {
+    "name": "Panama",
+    "slug": "panama",
+    "iso2": "PA",
+    "region": "North America",
+    "capital": "Panama City",
+    "nativeName": "Panamá",
+    "areaKm2": 75417,
+    "currencyCodes": [
+      "PAB",
+      "USD"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Papua New Guinea",
+    "slug": "papua-new-guinea",
+    "iso2": "PG",
+    "region": "Oceania",
+    "capital": "Port Moresby",
+    "nativeName": "Papua Niugini",
+    "areaKm2": 462840,
+    "currencyCodes": [
+      "PGK"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Paraguay",
+    "slug": "paraguay",
+    "iso2": "PY",
+    "region": "South America",
+    "capital": "Asunción",
+    "nativeName": "Paraguay",
+    "areaKm2": 406752,
+    "currencyCodes": [
+      "PYG"
+    ],
+    "languages": [
+      "es",
+      "gn"
+    ]
+  },
+  {
+    "name": "Peru",
+    "slug": "peru",
+    "iso2": "PE",
+    "region": "South America",
+    "capital": "Lima",
+    "nativeName": "Perú",
+    "areaKm2": 1285216,
+    "currencyCodes": [
+      "PEN"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Philippines",
+    "slug": "philippines",
+    "iso2": "PH",
+    "region": "Asia",
+    "capital": "Manila",
+    "nativeName": "Pilipinas",
+    "areaKm2": 342353,
+    "currencyCodes": [
+      "PHP"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Poland",
+    "slug": "poland",
+    "iso2": "PL",
+    "region": "Europe",
+    "capital": "Warsaw",
+    "nativeName": "Polska",
+    "areaKm2": 312679,
+    "currencyCodes": [
+      "PLN"
+    ],
+    "languages": [
+      "pl"
+    ]
+  },
+  {
+    "name": "Portugal",
+    "slug": "portugal",
+    "iso2": "PT",
+    "region": "Europe",
+    "capital": "Lisbon",
+    "nativeName": "Portugal",
+    "areaKm2": 92090,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "pt"
+    ]
+  },
+  {
+    "name": "Qatar",
+    "slug": "qatar",
+    "iso2": "QA",
+    "region": "Asia",
+    "capital": "Doha",
+    "nativeName": "قطر",
+    "areaKm2": 11586,
+    "currencyCodes": [
+      "QAR"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "Romania",
+    "slug": "romania",
+    "iso2": "RO",
+    "region": "Europe",
+    "capital": "Bucharest",
+    "nativeName": "România",
+    "areaKm2": 238391,
+    "currencyCodes": [
+      "RON"
+    ],
+    "languages": [
+      "ro"
+    ]
+  },
+  {
+    "name": "Russia",
+    "slug": "russia",
+    "iso2": "",
+    "region": "Europe",
+    "capital": "Moscow",
+    "nativeName": "Россия",
+    "areaKm2": 17124442,
+    "currencyCodes": [
+      "RUB"
+    ],
+    "languages": [
+      "ru"
+    ]
+  },
+  {
+    "name": "Rwanda",
+    "slug": "rwanda",
+    "iso2": "RW",
+    "region": "Africa",
+    "capital": "Kigali",
+    "nativeName": "Rwanda",
+    "areaKm2": 26338,
+    "currencyCodes": [
+      "RWF"
+    ],
+    "languages": [
+      "rw",
+      "en",
+      "fr"
+    ]
+  },
+  {
+    "name": "Saint Kitts and Nevis",
+    "slug": "saint-kitts-and-nevis",
+    "iso2": "KN",
+    "region": "North America",
+    "capital": "Basseterre",
+    "nativeName": "Saint Kitts and Nevis",
+    "areaKm2": 261,
+    "currencyCodes": [
+      "XCD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Saint Lucia",
+    "slug": "saint-lucia",
+    "iso2": "LC",
+    "region": "North America",
+    "capital": "Castries",
+    "nativeName": "Saint Lucia",
+    "areaKm2": 616,
+    "currencyCodes": [
+      "XCD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Saint Vincent and the Grenadines",
+    "slug": "saint-vincent-and-the-grenadines",
+    "iso2": "VC",
+    "region": "North America",
+    "capital": "Kingstown",
+    "nativeName": "Saint Vincent and the Grenadines",
+    "areaKm2": 389,
+    "currencyCodes": [
+      "XCD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Samoa",
+    "slug": "samoa",
+    "iso2": "WS",
+    "region": "Oceania",
+    "capital": "Apia",
+    "nativeName": "Samoa",
+    "areaKm2": 2842,
+    "currencyCodes": [
+      "WST"
+    ],
+    "languages": [
+      "sm",
+      "en"
+    ]
+  },
+  {
+    "name": "San Marino",
+    "slug": "san-marino",
+    "iso2": "SM",
+    "region": "Europe",
+    "capital": "City of San Marino",
+    "nativeName": "San Marino",
+    "areaKm2": 61,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "it"
+    ]
+  },
+  {
+    "name": "Sao Tome and Principe",
+    "slug": "sao-tome-and-principe",
+    "iso2": "ST",
+    "region": "Africa",
+    "capital": "",
+    "nativeName": "",
+    "areaKm2": "",
+    "currencyCodes": [],
+    "languages": []
+  },
+  {
+    "name": "Saudi Arabia",
+    "slug": "saudi-arabia",
+    "iso2": "SA",
+    "region": "Asia",
+    "capital": "Riyadh",
+    "nativeName": "العربية السعودية",
+    "areaKm2": 2149690,
+    "currencyCodes": [
+      "SAR"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "Senegal",
+    "slug": "senegal",
+    "iso2": "SN",
+    "region": "Africa",
+    "capital": "Dakar",
+    "nativeName": "Sénégal",
+    "areaKm2": 196722,
+    "currencyCodes": [
+      "XOF"
+    ],
+    "languages": [
+      "fr"
+    ]
+  },
+  {
+    "name": "Serbia",
+    "slug": "serbia",
+    "iso2": "RS",
+    "region": "Europe",
+    "capital": "Belgrade",
+    "nativeName": "Srbija",
+    "areaKm2": 49037,
+    "currencyCodes": [
+      "RSD"
+    ],
+    "languages": [
+      "rs"
+    ]
+  },
+  {
+    "name": "Seychelles",
+    "slug": "seychelles",
+    "iso2": "SC",
+    "region": "Africa",
+    "capital": "Victoria",
+    "nativeName": "Seychelles",
+    "areaKm2": 452,
+    "currencyCodes": [
+      "SCR"
+    ],
+    "languages": [
+      "fr",
+      "en"
+    ]
+  },
+  {
+    "name": "Sierra Leone",
+    "slug": "sierra-leone",
+    "iso2": "SL",
+    "region": "Africa",
+    "capital": "Freetown",
+    "nativeName": "Sierra Leone",
+    "areaKm2": 71740,
+    "currencyCodes": [
+      "SLL"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Singapore",
+    "slug": "singapore",
+    "iso2": "SG",
+    "region": "Asia",
+    "capital": "Singapore",
+    "nativeName": "Singapore",
+    "areaKm2": 710,
+    "currencyCodes": [
+      "SGD"
+    ],
+    "languages": [
+      "en",
+      "ms",
+      "ta",
+      "zh"
+    ]
+  },
+  {
+    "name": "Slovakia",
+    "slug": "slovakia",
+    "iso2": "SK",
+    "region": "Europe",
+    "capital": "Bratislava",
+    "nativeName": "Slovensko",
+    "areaKm2": 49037,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "sk"
+    ]
+  },
+  {
+    "name": "Slovenia",
+    "slug": "slovenia",
+    "iso2": "SI",
+    "region": "Europe",
+    "capital": "Ljubljana",
+    "nativeName": "Slovenija",
+    "areaKm2": 20273,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "sl"
+    ]
+  },
+  {
+    "name": "Solomon Islands",
+    "slug": "solomon-islands",
+    "iso2": "SB",
+    "region": "Oceania",
+    "capital": "Honiara",
+    "nativeName": "Solomon Islands",
+    "areaKm2": 28896,
+    "currencyCodes": [
+      "SBD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Somalia",
+    "slug": "somalia",
+    "iso2": "SO",
+    "region": "Africa",
+    "capital": "Mogadishu",
+    "nativeName": "Soomaaliya",
+    "areaKm2": 637657,
+    "currencyCodes": [
+      "SOS"
+    ],
+    "languages": [
+      "so",
+      "ar"
+    ]
+  },
+  {
+    "name": "South Africa",
+    "slug": "south-africa",
+    "iso2": "ZA",
+    "region": "Africa",
+    "capital": "Pretoria",
+    "nativeName": "South Africa",
+    "areaKm2": 1221037,
+    "currencyCodes": [
+      "ZAR"
+    ],
+    "languages": [
+      "af",
+      "en",
+      "nr",
+      "st",
+      "ss",
+      "tn",
+      "ts",
+      "ve",
+      "xh",
+      "zu"
+    ]
+  },
+  {
+    "name": "South Korea",
+    "slug": "south-korea",
+    "iso2": "KR",
+    "region": "Asia",
+    "capital": "Seoul",
+    "nativeName": "대한민국",
+    "areaKm2": 100210,
+    "currencyCodes": [
+      "KRW"
+    ],
+    "languages": [
+      "ko"
+    ]
+  },
+  {
+    "name": "South Sudan",
+    "slug": "south-sudan",
+    "iso2": "SS",
+    "region": "Africa",
+    "capital": "Juba",
+    "nativeName": "South Sudan",
+    "areaKm2": 619745,
+    "currencyCodes": [
+      "SSP"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Spain",
+    "slug": "spain",
+    "iso2": "ES",
+    "region": "Europe",
+    "capital": "Madrid",
+    "nativeName": "España",
+    "areaKm2": 505992,
+    "currencyCodes": [
+      "EUR"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Sri Lanka",
+    "slug": "sri-lanka",
+    "iso2": "LK",
+    "region": "Asia",
+    "capital": "Colombo",
+    "nativeName": "śrī laṃkāva",
+    "areaKm2": 65610,
+    "currencyCodes": [
+      "LKR"
+    ],
+    "languages": [
+      "si",
+      "ta"
+    ]
+  },
+  {
+    "name": "Sudan",
+    "slug": "sudan",
+    "iso2": "SD",
+    "region": "Africa",
+    "capital": "Khartoum",
+    "nativeName": "السودان",
+    "areaKm2": 1886068,
+    "currencyCodes": [
+      "SDG"
+    ],
+    "languages": [
+      "ar",
+      "en"
+    ]
+  },
+  {
+    "name": "Suriname",
+    "slug": "suriname",
+    "iso2": "SR",
+    "region": "South America",
+    "capital": "Paramaribo",
+    "nativeName": "Suriname",
+    "areaKm2": 163820,
+    "currencyCodes": [
+      "SRD"
+    ],
+    "languages": [
+      "nl"
+    ]
+  },
+  {
+    "name": "Sweden",
+    "slug": "sweden",
+    "iso2": "SE",
+    "region": "Europe",
+    "capital": "Stockholm",
+    "nativeName": "Sverige",
+    "areaKm2": 450295,
+    "currencyCodes": [
+      "SEK"
+    ],
+    "languages": [
+      "sv"
+    ]
+  },
+  {
+    "name": "Switzerland",
+    "slug": "switzerland",
+    "iso2": "CH",
+    "region": "Europe",
+    "capital": "Bern",
+    "nativeName": "Schweiz",
+    "areaKm2": 41284,
+    "currencyCodes": [
+      "CHE",
+      "CHF",
+      "CHW"
+    ],
+    "languages": [
+      "de",
+      "fr",
+      "it"
+    ]
+  },
+  {
+    "name": "Syria",
+    "slug": "syria",
+    "iso2": "SY",
+    "region": "Asia",
+    "capital": "Damascus",
+    "nativeName": "سوريا",
+    "areaKm2": 185180,
+    "currencyCodes": [
+      "SYP"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "Tajikistan",
+    "slug": "tajikistan",
+    "iso2": "TJ",
+    "region": "Asia",
+    "capital": "Dushanbe",
+    "nativeName": "Тоҷикистон",
+    "areaKm2": 143100,
+    "currencyCodes": [
+      "TJS"
+    ],
+    "languages": [
+      "tg",
+      "ru"
+    ]
+  },
+  {
+    "name": "Tanzania",
+    "slug": "tanzania",
+    "iso2": "TZ",
+    "region": "Africa",
+    "capital": "Dodoma",
+    "nativeName": "Tanzania",
+    "areaKm2": 945087,
+    "currencyCodes": [
+      "TZS"
+    ],
+    "languages": [
+      "sw",
+      "en"
+    ]
+  },
+  {
+    "name": "Thailand",
+    "slug": "thailand",
+    "iso2": "TH",
+    "region": "Asia",
+    "capital": "Bangkok",
+    "nativeName": "ประเทศไทย",
+    "areaKm2": 513120,
+    "currencyCodes": [
+      "THB"
+    ],
+    "languages": [
+      "th"
+    ]
+  },
+  {
+    "name": "Timor-Leste",
+    "slug": "timor-leste",
+    "iso2": "TL",
+    "region": "Africa",
+    "capital": "",
+    "nativeName": "",
+    "areaKm2": "",
+    "currencyCodes": [],
+    "languages": []
+  },
+  {
+    "name": "Togo",
+    "slug": "togo",
+    "iso2": "TG",
+    "region": "Africa",
+    "capital": "Lomé",
+    "nativeName": "Togo",
+    "areaKm2": 56785,
+    "currencyCodes": [
+      "XOF"
+    ],
+    "languages": [
+      "fr"
+    ]
+  },
+  {
+    "name": "Tonga",
+    "slug": "tonga",
+    "iso2": "TO",
+    "region": "Oceania",
+    "capital": "Nuku'alofa",
+    "nativeName": "Tonga",
+    "areaKm2": 747,
+    "currencyCodes": [
+      "TOP"
+    ],
+    "languages": [
+      "en",
+      "to"
+    ]
+  },
+  {
+    "name": "Trinidad and Tobago",
+    "slug": "trinidad-and-tobago",
+    "iso2": "TT",
+    "region": "North America",
+    "capital": "Port of Spain",
+    "nativeName": "Trinidad and Tobago",
+    "areaKm2": 5130,
+    "currencyCodes": [
+      "TTD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Tunisia",
+    "slug": "tunisia",
+    "iso2": "TN",
+    "region": "Africa",
+    "capital": "Tunis",
+    "nativeName": "تونس",
+    "areaKm2": 163610,
+    "currencyCodes": [
+      "TND"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "Türkiye",
+    "slug": "t-rkiye",
+    "iso2": "TR",
+    "region": "Asia",
+    "capital": "Ankara",
+    "nativeName": "Türkiye",
+    "areaKm2": 783562,
+    "currencyCodes": [
+      "TRY"
+    ],
+    "languages": [
+      "tr"
+    ]
+  },
+  {
+    "name": "Turkmenistan",
+    "slug": "turkmenistan",
+    "iso2": "TM",
+    "region": "Asia",
+    "capital": "Ashgabat",
+    "nativeName": "Türkmenistan",
+    "areaKm2": 488100,
+    "currencyCodes": [
+      "TMT"
+    ],
+    "languages": [
+      "tk",
+      "ru"
+    ]
+  },
+  {
+    "name": "Tuvalu",
+    "slug": "tuvalu",
+    "iso2": "TV",
+    "region": "Oceania",
+    "capital": "Funafuti",
+    "nativeName": "Tuvalu",
+    "areaKm2": 26,
+    "currencyCodes": [
+      "AUD"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Uganda",
+    "slug": "uganda",
+    "iso2": "UG",
+    "region": "Africa",
+    "capital": "Kampala",
+    "nativeName": "Uganda",
+    "areaKm2": 241550,
+    "currencyCodes": [
+      "UGX"
+    ],
+    "languages": [
+      "en",
+      "sw"
+    ]
+  },
+  {
+    "name": "Ukraine",
+    "slug": "ukraine",
+    "iso2": "UA",
+    "region": "Europe",
+    "capital": "Kiev",
+    "nativeName": "Україна",
+    "areaKm2": 603700,
+    "currencyCodes": [
+      "UAH"
+    ],
+    "languages": [
+      "uk"
+    ]
+  },
+  {
+    "name": "United Arab Emirates",
+    "slug": "united-arab-emirates",
+    "iso2": "AE",
+    "region": "Asia",
+    "capital": "Abu Dhabi",
+    "nativeName": "دولة الإمارات العربية المتحدة",
+    "areaKm2": 83600,
+    "currencyCodes": [
+      "AED"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "United Kingdom",
+    "slug": "united-kingdom",
+    "iso2": "GB",
+    "region": "Europe",
+    "capital": "London",
+    "nativeName": "United Kingdom",
+    "areaKm2": 242900,
+    "currencyCodes": [
+      "GBP"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "United States",
+    "slug": "united-states",
+    "iso2": "US",
+    "region": "North America",
+    "capital": "Washington D.C.",
+    "nativeName": "United States",
+    "areaKm2": 9629091,
+    "currencyCodes": [
+      "USD",
+      "USN",
+      "USS"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Uruguay",
+    "slug": "uruguay",
+    "iso2": "UY",
+    "region": "South America",
+    "capital": "Montevideo",
+    "nativeName": "Uruguay",
+    "areaKm2": 181034,
+    "currencyCodes": [
+      "UYI",
+      "UYU"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Uzbekistan",
+    "slug": "uzbekistan",
+    "iso2": "UZ",
+    "region": "Asia",
+    "capital": "Tashkent",
+    "nativeName": "O‘zbekiston",
+    "areaKm2": 447400,
+    "currencyCodes": [
+      "UZS"
+    ],
+    "languages": [
+      "uz",
+      "ru"
+    ]
+  },
+  {
+    "name": "Vanuatu",
+    "slug": "vanuatu",
+    "iso2": "VU",
+    "region": "Oceania",
+    "capital": "Port Vila",
+    "nativeName": "Vanuatu",
+    "areaKm2": 12189,
+    "currencyCodes": [
+      "VUV"
+    ],
+    "languages": [
+      "bi",
+      "en",
+      "fr"
+    ]
+  },
+  {
+    "name": "Vatican City",
+    "slug": "vatican-city",
+    "iso2": "VA",
+    "region": "Europe",
+    "capital": "",
+    "nativeName": "",
+    "areaKm2": "",
+    "currencyCodes": [],
+    "languages": []
+  },
+  {
+    "name": "Venezuela",
+    "slug": "venezuela",
+    "iso2": "VE",
+    "region": "South America",
+    "capital": "Caracas",
+    "nativeName": "Venezuela",
+    "areaKm2": 916445,
+    "currencyCodes": [
+      "VEF"
+    ],
+    "languages": [
+      "es"
+    ]
+  },
+  {
+    "name": "Vietnam",
+    "slug": "vietnam",
+    "iso2": "VN",
+    "region": "Asia",
+    "capital": "Hanoi",
+    "nativeName": "Việt Nam",
+    "areaKm2": 331212,
+    "currencyCodes": [
+      "VND"
+    ],
+    "languages": [
+      "vi"
+    ]
+  },
+  {
+    "name": "Yemen",
+    "slug": "yemen",
+    "iso2": "YE",
+    "region": "Asia",
+    "capital": "Sana'a",
+    "nativeName": "اليَمَن",
+    "areaKm2": 527968,
+    "currencyCodes": [
+      "YER"
+    ],
+    "languages": [
+      "ar"
+    ]
+  },
+  {
+    "name": "Zambia",
+    "slug": "zambia",
+    "iso2": "ZM",
+    "region": "Africa",
+    "capital": "Lusaka",
+    "nativeName": "Zambia",
+    "areaKm2": 752612,
+    "currencyCodes": [
+      "ZMK"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  {
+    "name": "Zimbabwe",
+    "slug": "zimbabwe",
+    "iso2": "ZW",
+    "region": "Africa",
+    "capital": "Harare",
+    "nativeName": "Zimbabwe",
+    "areaKm2": 390757,
+    "currencyCodes": [
+      "USD"
+    ],
+    "languages": [
+      "en",
+      "sn",
+      "nd"
+    ]
+  }
+]
