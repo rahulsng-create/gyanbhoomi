@@ -1,0 +1,56 @@
+{
+  "slug": "india",
+  "name": "India",
+  "official_name": "Republic of India",
+  "batch": 1,
+  "article_file": "INDIA-Country-Encyclopedia.md",
+  "cover": "images/india-illustrative-cover.jpg",
+  "research_edition": "2026-11-12",
+  "status": "Detailed first encyclopedia draft; publication review and expanded annexures still required",
+  "sections": [
+    "Country overview and identity",
+    "Geography",
+    "Population, people and languages",
+    "History",
+    "Government, Constitution and administration",
+    "Economy",
+    "Culture, heritage and everyday life",
+    "Education, science and technology",
+    "Tourism, monuments and natural wonders",
+    "National identity, institutions and international relations",
+    "Environment and biodiversity",
+    "Education, public health, transport and infrastructure",
+    "Important records and achievements",
+    "60-fact GK bank",
+    "30-question quiz with explanations",
+    "Glossary",
+    "Sources and update policy"
+  ],
+  "quiz_count": 30,
+  "gk_fact_count": 60,
+  "key_data": {
+    "capital": "New Delhi",
+    "area_km2": 3287263,
+    "currency": "Indian rupee",
+    "currency_code": "INR",
+    "time_zone": "UTC+05:30",
+    "states": 28,
+    "union_territories": 8,
+    "population_2025_UN_estimate": 1463866000,
+    "population_census_2011": 1210854977,
+    "UN_membership_date": "1945-10-30"
+  },
+  "official_map_links": {
+    "political": "https://surveyofindia.gov.in/pages/political-map-of-india/hindi",
+    "physical": "https://surveyofindia.gov.in/pages/physical-map-of-india",
+    "state_maps": "https://surveyofindia.gov.in/pages/state-maps"
+  },
+  "editorial_flags": [
+    "Current officeholders intentionally not hard-coded; maintain as separately dated data.",
+    "Population 2025 is an estimate, not a census count.",
+    "No national language or national game is declared by the Constitution.",
+    "Capital arrangements with seasonal/secondary seats are noted.",
+    "Boundary disputes must be represented using official map and legal references.",
+    "Generated cover is illustrative and must not be presented as documentary photography."
+  ]
+}
