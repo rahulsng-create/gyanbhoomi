@@ -1,0 +1,71 @@
+{
+  "edition": "2026-11-12",
+  "states": 28,
+  "union_territories": 8,
+  "district_directory": {
+    "url": "https://igod.gov.in/sg/district/states",
+    "last_updated_checked": "2026-08-10",
+    "note": "Live official directory; use it for district names instead of freezing an unverified count."
+  },
+  "census_2011": {
+    "source": "Reserve Bank of India table sourced to Office of Registrar General and Census Commissioner",
+    "url": "https://www.rbi.org.in/SCRIPTs/PublicationsView.aspx?id=22789",
+    "all_india_population_thousands": 1210855,
+    "note": "Historical 2011 administrative units. Andhra Pradesh undivided; Jammu and Kashmir pre-2019 reorganisation; Dadra and Nagar Haveli and Daman and Diu separate."
+  },
+  "national_parks": {
+    "reported_count": 106,
+    "source_year": 2023,
+    "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=1947432",
+    "note": "Dated official baseline, not asserted as current 2026 live count."
+  },
+  "wildlife_sanctuaries": {
+    "reported_count": 570,
+    "source_year": 2023,
+    "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=1947432",
+    "note": "Dated official baseline."
+  },
+  "tiger_reserves": {
+    "count": 58,
+    "as_of": "2025 NTCA register",
+    "url": "https://ntca.gov.in/tiger-reserves/",
+    "newest_listed": "Madhav Tiger Reserve, Madhya Pradesh (2025)"
+  },
+  "ramsar_sites": {
+    "count": 103,
+    "as_of": "2026-10-15",
+    "url": "https://www.ramsar.org/country-profile/india",
+    "additions": [
+      "Sukhna Wetland",
+      "Sauj Jheel"
+    ]
+  },
+  "unesco_world_heritage": {
+    "count": 45,
+    "as_of": "2026-11-12 live country page",
+    "breakdown": {
+      "cultural": 37,
+      "natural": 7,
+      "mixed": 1
+    },
+    "url": "https://whc.unesco.org/en/statesparties/IN"
+  },
+  "constitution": {
+    "schedules": 12,
+    "historical_original_structure": {
+      "articles": 395,
+      "parts": 22,
+      "schedules": 8
+    },
+    "url": "https://www.legislative.gov.in/documents",
+    "note": "Do not state a fixed current article count without explaining amendments and inserted/omitted provisions."
+  },
+  "space_updates": {
+    "spaDEX": "Docking/undocking and power transfer demonstrated; India fourth country to demonstrate space docking, according to ISRO.",
+    "NISAR": "Launched 2025-07-30; ISRO reports operational.",
+    "shubhanshu_shukla": "First Indian astronaut to board ISS on Axiom-4.",
+    "source": "https://www.isro.gov.in/ISRO_Achievements_FY_2025_2026.html",
+    "additional_2026_source": "https://www.ursc.gov.in/milestones.jsp"
+  },
+  "status": "Expanded reference edition; exhaustive district gazetteer and complete notified park/site registers remain separate follow-up annexes."
+}
