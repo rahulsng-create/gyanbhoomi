@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123b35">
+<meta name="description" content="Explore the GyanBhoomi World GK country directory: 195 countries, flags, geography, history, culture, economy and country encyclopedias.">
+<title>World General Knowledge | GyanBhoomi</title>
+<style>
+:root{--g:#123b35;--g2:#1d5148;--g3:#267568;--gold:#e8b65b;--bg:#f7f5ef;--ink:#1d2926;--muted:#66736d;--line:#e2e8e1;--cream:#fff8e9;--white:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Arial,sans-serif}a{color:inherit}
+.site-head{background:linear-gradient(120deg,#102f2b,#1d5148 65%,#0d3c35);color:#fff;border-bottom:3px solid var(--gold)}
+.nav{max-width:1180px;margin:auto;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brand{font-size:20px;font-weight:850;letter-spacing:.1px}.brand small{display:block;font-size:10px;letter-spacing:1.4px;color:#e8c77d;font-weight:500}.navlinks{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.navlinks a{color:#f5f4e9;text-decoration:none;font-size:13px;padding:8px 11px;border-radius:99px}.navlinks a.active{border:1px solid #e8b65b;background:#ffffff12;color:#ffe3a2}.navlinks a:hover{background:#ffffff18}
+.hero{background:radial-gradient(ellipse at 70% 5%,#e8b65b35,transparent 35%),radial-gradient(ellipse at 20% 80%,#2b897933,transparent 36%),linear-gradient(125deg,#082b29,#0e4039 62%,#092f2d);color:#fff;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#e8b65b77 1px,transparent 1px);background-size:31px 31px;opacity:.15;mask-image:linear-gradient(90deg,transparent,#000 25%,#000 85%,transparent)}
+.hero-inner{max-width:1180px;margin:auto;padding:38px 18px 30px;display:grid;grid-template-columns:1fr 1.08fr;gap:24px;align-items:center;position:relative}
+.kicker{color:#f1c875;font-size:11px;font-weight:850;letter-spacing:2px}.hero h1{font:700 clamp(34px,5.5vw,59px)/1.08 Georgia,serif;margin:9px 0 10px;color:#fff}.hero p{color:#e2eee7;max-width:570px;margin:0 0 17px}.hero-tags{display:flex;gap:8px;flex-wrap:wrap}.hero-tags span{border:1px solid #ffffff44;border-radius:99px;padding:6px 10px;color:#f8e6bd;font-size:12px}
+
+.world-map-art{width:100%;border:1px solid #d8bd79;border-radius:18px;overflow:hidden;background:#123b35;box-shadow:0 16px 36px #001b1a66}.world-map-art img{display:block;width:100%;height:auto;object-fit:contain}.stats{max-width:1180px;margin:-1px auto 0;padding:0 18px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;position:relative;z-index:2}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 7px 22px #123b350b}.stat b{display:block;color:var(--g);font:700 24px Georgia,serif}.stat span{font-size:12px;color:var(--muted)}
+.main{max-width:1180px;margin:auto;padding:26px 18px 55px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:5px 0 13px}.section-head h2{margin:0;color:var(--g);font:700 27px Georgia,serif}.section-head p{margin:3px 0 0;color:var(--muted);font-size:13px}
+.controls{display:grid;grid-template-columns:minmax(180px,1fr) auto;gap:10px;margin:16px 0 12px}.search{position:relative}.search input{width:100%;padding:13px 14px 13px 42px;border:1px solid #d5dfd6;border-radius:12px;background:#fff;font:inherit;outline:none}.search input:focus,.select:focus{border-color:var(--g3);box-shadow:0 0 0 3px #26756820}.search:before{content:"⌕";position:absolute;left:14px;top:4px;font-size:27px;color:var(--g)}
+.select{border:1px solid #d5dfd6;background:#fff;border-radius:12px;padding:0 13px;font:inherit;color:var(--ink)}
+.regions{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.chip{border:1px solid #d3dfd5;border-radius:99px;background:#fff;color:var(--g);padding:8px 12px;font-size:12px;font-weight:750;cursor:pointer}.chip.active{background:var(--g);color:#fff;border-color:var(--g)}
+.countline{display:flex;justify-content:space-between;align-items:center;margin:14px 0 12px;color:var(--muted);font-size:13px}.countline strong{color:var(--g)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.country{background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden;min-width:0;transition:.18s;display:flex;flex-direction:column}.country.available{border-color:#c5a45c;box-shadow:0 5px 20px #123b3512}.country:hover{transform:translateY(-2px);box-shadow:0 9px 24px #123b3515}
+.country-top{height:88px;background:linear-gradient(135deg,#123b35,#267568);display:flex;align-items:center;justify-content:center;position:relative}.flag{font-size:49px;filter:drop-shadow(0 3px 4px #0004)}.status{position:absolute;top:9px;right:9px;border-radius:99px;background:#ffffffeb;color:var(--g);font-size:10px;font-weight:800;padding:4px 8px}.status.live{background:#e9f6e9;color:#17633d;border:1px solid #c8e7cf}.country-body{padding:12px 13px 13px;display:flex;flex-direction:column;gap:5px;flex:1}.country-body h3{margin:0;color:var(--g);font-size:15px;line-height:1.3}.native{font-size:11px;color:var(--muted);min-height:15px}.meta{font-size:11px;color:#718078}.open{margin-top:8px;border:0;border-radius:9px;padding:8px 10px;background:var(--g);color:#fff;text-decoration:none;text-align:center;font-size:12px;font-weight:800}.soon{margin-top:8px;border-radius:9px;padding:8px 10px;background:#f3f5f1;color:#738078;text-align:center;font-size:11px;font-weight:800}
+.empty{display:none;background:#fff;border:1px dashed #cbd8cd;padding:24px;text-align:center;border-radius:14px;color:var(--muted)}
+.cta{margin:26px 0 0;background:linear-gradient(120deg,#123b35,#1d5148);color:#fff;border-radius:16px;padding:19px 21px;display:flex;justify-content:space-between;align-items:center;gap:15px}.cta h3{margin:0;font:700 20px Georgia,serif}.cta p{margin:4px 0 0;color:#e2eee7;font-size:13px}.cta a{background:var(--gold);color:#342b17;border-radius:99px;padding:10px 15px;text-decoration:none;font-size:12px;font-weight:850;white-space:nowrap}
+footer{text-align:center;padding:22px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-inner{grid-template-columns:1fr 1.08fr}.world-map-art{max-width:100%}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.nav{align-items:flex-start}.navlinks{gap:2px;justify-content:flex-end}.navlinks a{font-size:11px;padding:6px 8px}.brand{font-size:17px}.hero-inner{grid-template-columns:1fr;padding-top:28px}.world-map-art{max-width:100%}.stats{padding:0 12px;gap:7px}.stat{padding:11px}.stat b{font-size:20px}.main{padding:22px 12px 40px}.controls{grid-template-columns:1fr}.select{padding:12px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.country-top{height:76px}.flag{font-size:40px}.country-body{padding:10px}.country-body h3{font-size:13px}.section-head{display:block}.cta{align-items:flex-start;flex-direction:column}.cta a{white-space:normal}}
+</style>
+</head>
+<body>
+<header class="site-head">
+ <nav class="nav"><div class="brand">🌿 GyanBhoomi <small>KNOWLEDGE LIBRARY · ज्ञान की भूमि</small></div>
+ <div class="navlinks"><a href="../">Home</a><a href="../">Articles</a><a class="active" href="./">🌍 World GK</a><a href="../#contribute">Contribute</a></div></nav>
+</header>
+<section class="hero"><div class="hero-inner">
+ <div><span class="kicker">EXPLORE THE WORLD · COUNTRY BY COUNTRY</span><h1>World General Knowledge</h1><p>Discover the world's countries through detailed encyclopedias, maps, history, geography, government, economy, culture, science, tourism and rich GK quizzes.</p>
+ <div class="hero-tags"><span>📚 Detailed country profiles</span><span>🧠 GK facts & quizzes</span><span>🗺️ Maps & illustrations</span></div></div>
+ <div class="world-map-art"><img src="assets/world-political-map.png" alt="World political map showing country boundaries, major countries and oceans"></div>
+</div></section>
+<section class="stats">
+ <div class="stat"><b>195</b><span>Countries in this directory</span></div><div class="stat"><b id="publishedCount">1</b><span>Country encyclopedia published</span></div><div class="stat"><b id="comingCount">194</b><span>Country profiles coming soon</span></div><div class="stat"><b>6</b><span>World regions</span></div>
+</section>
+<main class="main">
+ <div class="section-head"><div><span class="kicker">START YOUR JOURNEY</span><h2>Explore Countries</h2><p>India is the first published country. More detailed country encyclopedias will be added progressively.</p></div></div>
+ <div class="controls"><div class="search"><input id="search" type="search" placeholder="Search a country… e.g. India, France, Brazil" aria-label="Search country name"></div><select class="select" id="sort" aria-label="Sort countries"><option value="az">Sort: A–Z</option><option value="za">Sort: Z–A</option></select></div>
+ <div class="regions" id="regions"></div>
+ <div class="countline"><span id="resultCount">Showing 195 countries</span><strong>India 🇮🇳 · Now available</strong></div>
+ <div class="grid" id="countryGrid"></div><div class="empty" id="empty">No countries match your search. Try another name or region.</div>
+ <section class="cta"><div><h3>Begin with India 🇮🇳</h3><p>Explore the first GyanBhoomi country encyclopedia, including expanded state and Union Territory annexures.</p></div><a href="india/">Explore India Encyclopedia →</a></section>
+</main>
+<footer>GyanBhoomi · Learn · Explore · Discover<br>World GK directory · 195 country entries · India published first</footer>
+<script>
+(()=>{'use strict';
+const REGIONS=['All','Africa','Asia','Europe','North America','South America','Oceania'];
+const DATA_URL='countries.json';
+const INDIA_SLUG='india';
+let countries=[],region='All';
+const $=id=>document.getElementById(id);
+const flag=code=>{if(!code||code.length!==2)return '🌐';return String.fromCodePoint(...[...code.toUpperCase()].map(c=>127397+c.charCodeAt(0)));};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function drawRegions(){ $('regions').innerHTML=REGIONS.map(r=>`<button class="chip ${r===region?'active':''}" data-region="${esc(r)}">${r==='All'?'All countries':r}</button>`).join('');}
+function draw(){
+ const q=$('search').value.trim().toLowerCase(),sort=$('sort').value;
+ let list=countries.filter(c=>(region==='All'||c.region===region)&&(!q||c.name.toLowerCase().includes(q)||String(c.nativeName||'').toLowerCase().includes(q)));
+ list.sort((a,b)=>sort==='az'?a.name.localeCompare(b.name):b.name.localeCompare(a.name));
+ // Keep India first only in default all/A-Z view.
+ if(!q&&region==='All'&&sort==='az') list.sort((a,b)=>(a.slug===INDIA_SLUG?-1:b.slug===INDIA_SLUG?1:a.name.localeCompare(b.name)));
+ $('resultCount').textContent=`Showing ${list.length} of ${countries.length} countries`;
+ $('countryGrid').innerHTML=list.map(c=>{
+  const available=c.slug===INDIA_SLUG;
+  return `<article class="country ${available?'available':''}">
+   <div class="country-top"><span class="flag" aria-hidden="true">${flag(c.iso2)}</span><span class="status ${available?'live':''}">${available?'✓ Available':'Coming soon'}</span></div>
+   <div class="country-body"><h3>${esc(c.name)}</h3><div class="native">${esc(c.nativeName||'')}</div><div class="meta">${esc(c.region)}${c.capital?' · Capital: '+esc(Array.isArray(c.capital)?c.capital.join(', '):c.capital):''}</div>
+   ${available?'<a class="open" href="india/">Open India Encyclopedia →</a>':'<div class="soon">🔒 Detailed profile coming soon</div>'}</div></article>`;
+ }).join('');
+ $('empty').style.display=list.length?'none':'block';
+}
+$('search').addEventListener('input',draw);$('sort').addEventListener('change',draw);
+$('regions').addEventListener('click',e=>{const b=e.target.closest('[data-region]');if(!b)return;region=b.dataset.region;drawRegions();draw();});
+fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('Country directory could not be loaded');return r.json();}).then(d=>{countries=d;$('publishedCount').textContent='1';$('comingCount').textContent=String(countries.length-1);drawRegions();draw();}).catch(()=>{$('countryGrid').innerHTML='<div class="empty" style="display:block">The country directory could not be loaded. Please refresh the page.</div>';});
+})();
+</script>
+</body></html>
