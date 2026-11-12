@@ -1,0 +1,4 @@
+World political map artwork generated for GyanBhoomi using Basemap's bundled Natural Earth-derived geographic boundary data.
+The map is an educational overview at small scale. Small islands and disputed boundaries may be generalized; it is not a legal or navigational map.
+Natural Earth data reference: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/
+Natural Earth describes its country polygons as de facto boundaries by default. GyanBhoomi should avoid treating this small-scale overview as a definitive statement on disputed sovereignty.
