@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GyanBhoomi Quiz Arena | Learn, Play & Explore</title>
+<meta name="description" content="Explore topic-wise quizzes in GyanBhoomi Quiz Arena. Learn science, history, geography and more with explanations.">
+<meta name="theme-color" content="#0b3c2d">
+<style>
+:root{--green:#073d2e;--green2:#0d6843;--gold:#d7a52b;--gold2:#f4d77d;--cream:#fff9e9;--paper:#fffdf6;--ink:#142b20;--muted:#617064;--line:#e5dac0;--pale:#f6efd9;--shadow:0 12px 34px #153d2917}
+*{box-sizing:border-box}body{margin:0;background:#f4f0e4;color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}
+.topbar{height:76px;background:linear-gradient(100deg,#052d23,#0c563b);color:#fff;display:flex;align-items:center;gap:22px;padding:0 24px;box-shadow:0 3px 14px #092d2240;position:sticky;top:0;z-index:20}
+.brand{display:flex;align-items:center;gap:10px;min-width:300px}.brand-mark{font-size:38px;color:var(--gold2)}.brand-name{font: bold 29px Georgia,serif;color:#fff0c5;line-height:1}.brand-sub{font-size:10px;letter-spacing:1.5px;margin-top:5px}
+.hamb{border:1px solid #b9a45e;background:#ffffff10;color:white;border-radius:10px;width:42px;height:42px;font-size:23px}
+.nav{display:flex;align-items:center;justify-content:center;gap:8px;flex:1}.nav a{padding:10px 14px;border-radius:12px;text-align:center;font-size:13px}.nav a.active{border:2px solid var(--gold2);background:#ffffff10;color:#ffe6a0}.nav span{display:block;font-size:19px;margin-bottom:2px}.top-actions{display:flex;gap:16px;font-size:22px}
+.hero{height:190px;color:white;padding:20px 4vw;display:flex;align-items:center;justify-content:space-between;gap:18px;position:relative;overflow:hidden;background:linear-gradient(100deg,#063b2cdd,#0b5a3cdd),url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1800&q=85') center/cover}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 17% 60%,#c59b2e55,transparent 24%),radial-gradient(circle at 85% 15%,#e5c45c44,transparent 22%)}
+.hero>*{position:relative}.hero-left{display:flex;align-items:center;gap:22px}.cup{font-size:92px;filter:drop-shadow(0 8px 10px #0008)}.hero h1{font: bold clamp(34px,5vw,58px) Georgia,serif;color:#ffe5a0;margin:0;text-shadow:0 3px 4px #0008}.hero h2{font: bold 25px Georgia,serif;margin:0 0 2px}.hero p{margin:5px 0 0;font-size:16px}.hero-art{font-size:68px;filter:drop-shadow(0 8px 12px #0008);padding:10px 30px}
+.featurebar{background:#fff8e8;border:1px solid #e9d9b6;border-radius:0 0 18px 18px;display:flex;justify-content:space-around;gap:10px;padding:13px 12px;color:#32250b;box-shadow:var(--shadow)}
+.featurebar div{display:flex;align-items:center;gap:10px;padding:0 14px;border-right:1px solid #e5d7b8}.featurebar div:last-child{border:0}.featurebar b{font-size:23px;color:#a87913}
+.layout{max-width:1500px;margin:18px auto;padding:0 14px;display:grid;grid-template-columns:270px minmax(400px,1fr) 330px;gap:14px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}.panel-head{background:linear-gradient(100deg,#075035,#0b6842);color:white;font-weight:700;padding:12px 16px;font-size:18px}.side-inner{padding:10px}.side-link{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;font-weight:550}.side-link:hover,.side-link.selected{background:#ffedb7}.side-link .ico{width:24px;text-align:center;font-size:19px}.side-sub{padding-left:34px;font-size:14px;color:#334a3b}
+.center{min-width:0}.crumb{padding:12px 20px;border-bottom:1px solid var(--line);font-size:13px;color:#4b6655}.quiz-intro{padding:14px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--line)}.quiz-thumb{width:150px;height:90px;border-radius:12px;object-fit:cover;background:#17452e}.quiz-intro h2{margin:0;font-size:23px;color:#102d20}.quiz-intro p{margin:4px 0 0;color:#59665b}.level{margin-left:auto;border:1px solid #cda44a;background:#fff3cf;border-radius:10px;padding:10px;white-space:nowrap}
+.progress-row{padding:14px 20px 10px;display:flex;align-items:center;gap:12px}.progress-track{height:10px;background:#eee5d2;border-radius:30px;overflow:hidden;flex:1}.progress-fill{height:100%;background:linear-gradient(90deg,#1c9d4b,#08713d);width:30%;border-radius:30px}.timer{background:#fff0c5;border-radius:10px;padding:8px 12px;font-weight:700;white-space:nowrap}
+.question{margin:8px 18px 16px;border:1px solid var(--line);border-radius:20px;padding:20px;background:linear-gradient(145deg,#fffdf6,#fff9e9)}.question h3{font-size:22px;margin:0 0 18px}.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}.answer{border:1px solid #cbb98f;background:#fffaf0;border-radius:13px;padding:13px 15px;text-align:left;display:flex;align-items:center;gap:13px;font-size:17px}.answer .letter{width:32px;height:32px;display:grid;place-items:center;background:#f3e4b8;border-radius:50%;font-weight:800}.answer.chosen{background:linear-gradient(100deg,#08753f,#0c8a4a);color:#fff;border-color:#075c34}.answer.chosen .letter{background:#fff1bd;color:#183d29}.answer:disabled{cursor:default}
+.explain{margin-top:18px;background:#e8f5dc;border-radius:16px;padding:15px;display:flex;gap:14px;align-items:center}.explain .bulb{font-size:30px}.explain p{margin:4px 0 0}.explain img{width:110px;height:100px;object-fit:cover;border-radius:12px;margin-left:auto}.controls{display:flex;justify-content:space-between;padding:0 8px 0}.btn{border:1px solid #80652d;background:#fff6df;border-radius:10px;padding:10px 20px;font-weight:650}.btn.primary{background:linear-gradient(100deg,#08703c,#07532f);color:white;border-color:#07532f}.right-stack{display:grid;gap:12px;align-content:start}.stat-body{padding:14px 16px}.score-row{display:flex;align-items:center;gap:18px}.ring{width:112px;height:112px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#078447 0 70%,#e8e0ce 70%);position:relative}.ring:before{content:"";position:absolute;inset:12px;background:#fffdf6;border-radius:50%}.ring strong{z-index:1;text-align:center;font-size:22px}.ring small{display:block;font-size:12px;font-weight:500}.stats{flex:1}.stats div{padding:7px 0;border-bottom:1px solid #eee5d4;display:flex;justify-content:space-between;gap:8px}.stats div:last-child{border:0}.achievements{display:flex;justify-content:space-between;text-align:center;gap:8px;padding:16px 12px}.badge-medal{font-size:34px}.achievements small{display:block;font-size:12px}.locked{filter:grayscale(1);opacity:.55}
+.drawer-backdrop{position:fixed;inset:0;background:#00170fc0;z-index:29;display:none}.drawer{position:fixed;z-index:30;inset:0 auto 0 0;width:min(330px,86vw);background:#fff9e9;box-shadow:10px 0 30px #0004;transform:translateX(-110%);transition:.25s;padding:18px;overflow:auto}.drawer.open{transform:translateX(0)}.drawer-backdrop.open{display:block}.drawer-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.drawer-title{font: bold 24px Georgia;color:#075035}.drawer button.close{border:0;background:none;font-size:28px}.drawer-item{display:flex;align-items:center;gap:13px;padding:14px 12px;border-radius:11px;font-weight:600}.drawer-item.quiz{background:#ffedb7;border:1px solid #d9b34f;color:#075035}.drawer-item .ico{font-size:22px;width:28px;text-align:center}
+.footer{text-align:center;color:#6e796e;font-size:12px;padding:18px}
+@media(max-width:1050px){.layout{grid-template-columns:220px minmax(0,1fr)}.right-stack{grid-column:1/-1;grid-template-columns:repeat(3,1fr)}.nav a{padding:8px}.brand{min-width:auto}.nav{gap:0}}
+@media(max-width:720px){.topbar{height:64px;padding:0 12px;gap:10px}.brand-mark{font-size:30px}.brand-name{font-size:21px}.brand-sub{font-size:8px}.nav{display:none}.top-actions{margin-left:auto}.hero{height:auto;min-height:155px;padding:20px 14px}.cup{font-size:54px}.hero-art{font-size:40px;padding:0}.hero h1{font-size:34px}.hero h2{font-size:19px}.hero p{font-size:12px}.featurebar{overflow:auto;justify-content:flex-start}.featurebar div{min-width:max-content;font-size:12px}.layout{display:flex;flex-direction:column}.layout>.panel:first-child{display:none}.right-stack{display:grid;grid-template-columns:1fr 1fr}.right-stack .panel:last-child{grid-column:1/-1}.quiz-intro{padding:12px;gap:10px}.quiz-thumb{width:94px;height:76px}.quiz-intro h2{font-size:18px}.quiz-intro p{font-size:12px}.level{font-size:12px;padding:7px}.crumb{padding:10px 12px}.progress-row{padding:12px;flex-wrap:wrap}.question{margin:8px;padding:14px}.question h3{font-size:18px}.answers{gap:8px}.answer{padding:9px 8px;font-size:14px;gap:8px}.answer .letter{width:27px;height:27px}.explain{align-items:flex-start}.explain img{width:78px;height:80px}.controls{padding:0 4px 10px}.btn{padding:9px 12px;font-size:13px}}
+
+:root{--green:#062d22;--green2:#0b4d36;--gold:#c99b35;--gold2:#f0d17a;--cream:#e8dfc4;--paper:#123e30;--ink:#f4e9c9;--muted:#c6c1a8;--line:#42634d;--pale:#1b4a38;--shadow:0 12px 34px #00180f66}
+body{background:#092f24;color:var(--ink)}
+.featurebar{background:linear-gradient(100deg,#173f2e,#0c3024);color:#f1e2b8;border:1px solid #9a7835}
+.featurebar div{border-right-color:#826a36}.featurebar b{color:#e4bd58}
+.panel{background:linear-gradient(145deg,#123f30,#0d3529);border:1px solid #9a7835}
+.panel-head{background:linear-gradient(100deg,#8a6825,#b58a37);color:#fff5d6}
+.side-inner{background:#103a2c}.side-link{color:#efe3bf}
+.side-link:hover,.side-link.selected{background:#806329;color:#fff0bd}
+.side-sub{color:#c9c6a8}
+.crumb{background:#0a3327;color:#d6c99f;border-bottom-color:#42634d}
+.quiz-intro{background:linear-gradient(110deg,#174b37,#103a2c);border-bottom-color:#42634d}
+.quiz-intro h2{color:#f5df9c}.quiz-intro p{color:#d4d0b7}
+.level{background:#254b35;color:#ffe6a0;border-color:#cda44a}
+.progress-row{background:#103a2c;color:#e8dbb4}
+.progress-track{background:#365743}
+.timer{background:#57451e;color:#ffe7a2;border:1px solid #b38a34}
+.question{background:linear-gradient(145deg,#1a4b37,#103728);border-color:#947432;box-shadow:inset 0 1px #ffffff0c}
+.question h3{color:#f4e5bd}
+.answer{background:linear-gradient(135deg,#214d39,#173e2e);color:#f4e8c5;border-color:#9a7b3e}
+.answer .letter{background:#d7b65e;color:#183525}
+.answer.chosen{background:linear-gradient(100deg,#987126,#c49a3d);color:#fff9e8;border-color:#f0d17a}
+.explain{background:linear-gradient(110deg,#294f35,#1c432f);border:1px solid #a58a46;color:#f4e9c9}
+.explain p{color:#e1d5b0}
+.stat-body,.stats,.achievements{color:#eee2bf}
+.stats div{border-bottom-color:#42634d}
+.ring{background:conic-gradient(#d7ad48 0 70%,#365744 70%)}
+.ring:before{background:#123e30}.ring strong{color:#f6e7bf}
+.controls{background:#103a2c;padding-bottom:12px}
+.btn{background:#254a35;color:#f5e7c4;border-color:#b18a39}
+.btn.primary{background:linear-gradient(100deg,#b58a31,#806020);color:#fff8e5;border-color:#e0bd61}
+.drawer{background:linear-gradient(160deg,#0b3c2d,#06291f);color:#f4e7c2}
+.drawer-title{color:#f0d17a}.drawer button.close{color:#f4e6c4}
+.drawer-item{color:#f0e4c3}.drawer-item.quiz{background:#735a22;border-color:#e1bc59;color:#fff0bd}
+.footer{color:#c6bd9d}
+
+
+/* Quiz Arena professional refresh */
+.topbar{height:72px;padding:0 clamp(14px,3vw,42px);gap:18px}.home-icon{width:42px;height:42px;display:grid;place-items:center;border:1px solid #d6b45f;border-radius:13px;background:#ffffff12;flex:none}.home-icon svg{width:23px;height:23px;fill:none;stroke:#f4d889;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.brand{min-width:0}.brand-mark{font-size:32px;filter:drop-shadow(0 2px 5px #0005)}.top-spacer{flex:1}.top-tag{font-size:10px;letter-spacing:2px;color:#e9d59f;font-weight:800}.hero{min-height:230px;height:auto;padding:30px clamp(22px,6vw,86px);background:radial-gradient(ellipse at 78% 40%,#c69d3b36,transparent 30%),linear-gradient(105deg,#062d23,#0d563d 70%,#123f31)}.hero:before{background:radial-gradient(circle at 15% 80%,#d4aa4d26,transparent 30%)}.hero-left{gap:0}.hero-kicker,.eyebrow{font-size:10px;letter-spacing:2.3px;font-weight:900;color:#e5c477}.hero h1{font:800 clamp(38px,5.5vw,62px)/1.08 system-ui,sans-serif;letter-spacing:-1.8px;color:#fff1c5}.hero p{font-size:15px;color:#e3e8d8;margin-top:12px}.globe-art{width:180px;height:170px;position:relative;display:grid;place-items:center;flex:none;margin-right:5vw}.globe-sphere{width:116px;height:116px;border-radius:50%;position:relative;display:grid;place-items:center;background:radial-gradient(circle at 32% 27%,#f9e9a8 0 3%,#d7b35a 4% 10%,#1e816b 11% 35%,#0a4c43 65%,#052b29 100%);border:2px solid #f1d58c;box-shadow:inset -13px -12px 22px #001c1a99,0 0 32px #d9b85c55}.globe-sphere:before{content:"";position:absolute;inset:15px 25px;border:1px solid #e6d28c88;border-radius:50%;transform:rotate(-28deg) scaleX(.62)}.globe-sphere:after{content:"";position:absolute;inset:30px 8px;border:1px solid #e6d28c88;border-radius:50%;transform:rotate(28deg)}.globe-sphere span{color:#ffe8a1;font-size:25px;z-index:1}.globe-orbit{position:absolute;border:1px solid #e9ca7a88;border-radius:50%;width:165px;height:65px;transform:rotate(-24deg)}.orbit-two{width:175px;height:85px;transform:rotate(52deg);border-color:#b9d8c388}.globe-star{position:absolute;color:#f8dc8a;font-style:normal}.star-one{top:9px;right:24px}.star-two{bottom:12px;left:20px;font-size:21px}.featurebar{border-radius:0 0 18px 18px;max-width:1400px;margin:auto}.layout{grid-template-columns:235px minmax(420px,1fr) 290px;max-width:1440px}.side-link,.side-sub{cursor:pointer}.side-link.active-topic,.side-sub.active-topic{background:#806329;color:#fff0bd;border-radius:10px}.quiz-intro{gap:16px}.quiz-symbol{width:54px;height:54px;border-radius:16px;background:linear-gradient(145deg,#e8c36e,#9b742b);display:grid;place-items:center;color:#123a2b;font-size:27px;flex:none}.intro-copy{min-width:0}.intro-copy .eyebrow{font-size:9px;color:#e4c16f}.quiz-intro h2{font-size:clamp(18px,2vw,24px);font-weight:800;letter-spacing:-.4px}.quiz-intro p{font-size:13px}.level{max-width:150px;min-width:130px}.topic-picker{display:flex;gap:8px;flex-wrap:wrap;padding:13px 18px;border-bottom:1px solid #42634d;background:#0d382b}.topic-chip{border:1px solid #9c8044;background:#173f30;color:#f3e5bd;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:700;box-shadow:none}.topic-chip.active{background:linear-gradient(120deg,#e8c878,#b98932);color:#183b2e;border-color:#f0d17a}.question h3{line-height:1.4}.answer{min-height:58px;transition:transform .14s,border-color .14s,background .14s}.answer:hover{transform:translateY(-1px);border-color:#e7c56d}.answer:focus-visible,.btn:focus-visible,.topic-chip:focus-visible,.home-icon:focus-visible{outline:3px solid #f4d17e;outline-offset:2px}.explain{min-height:95px}.explain img{display:none}.control-actions{display:flex;gap:9px}.controls{align-items:center}.btn:disabled{opacity:.45;cursor:not-allowed}.achievements{flex-wrap:wrap}.achievements>div{flex:1 1 38%;padding:7px;border:1px solid #45634d;border-radius:12px}.achievements small{color:#e7d9ad}.achievements .unlocked{border-color:#d9b65b;background:#5e4b22}.live-note{font-size:11px;color:#c9d6c8;padding:0 16px 13px}.status-pill{display:inline-flex;align-items:center;gap:6px;color:#bfe3c7;font-size:11px}.status-dot{width:7px;height:7px;border-radius:50%;background:#6ad18b;display:inline-block}.question-empty{padding:28px;text-align:center;color:#e4d6ae}.right-stack .panel-head{font-size:15px}.timer{font-variant-numeric:tabular-nums}
+@media(max-width:1050px){.layout{grid-template-columns:200px minmax(0,1fr)}.right-stack{grid-column:1/-1;grid-template-columns:repeat(3,1fr)}}
+@media(max-width:720px){.topbar{height:62px;gap:11px}.home-icon{width:38px;height:38px}.brand-mark{font-size:26px}.brand-name{font-size:20px}.brand-sub{font-size:7px}.top-tag{font-size:8px;letter-spacing:1px}.hero{min-height:180px;padding:23px 18px}.globe-art{width:110px;height:120px;margin:0}.globe-sphere{width:78px;height:78px}.globe-orbit{width:110px;height:45px}.orbit-two{width:115px;height:58px}.hero h1{font-size:36px}.hero p{font-size:12px;max-width:230px}.hero-kicker{font-size:8px}.featurebar{overflow:auto;justify-content:flex-start}.layout{display:flex;flex-direction:column}.layout>.panel:first-child{display:block}.layout>.panel:first-child .side-inner{display:flex;flex-wrap:wrap;gap:5px}.side-link,.side-sub{padding:7px 9px;font-size:12px}.side-sub{padding-left:9px}.quiz-intro{flex-wrap:wrap}.quiz-symbol{width:42px;height:42px}.level{margin-left:auto}.topic-picker{padding:10px;gap:6px}.topic-chip{font-size:11px;padding:7px 10px}.right-stack{display:grid;grid-template-columns:1fr 1fr}.right-stack .panel:last-child{grid-column:1/-1}.answers{grid-template-columns:1fr 1fr}.controls{gap:8px}.control-actions{gap:6px}.btn{padding:9px 10px}.globe-star{display:none}}
+
+
+/* Sequential, focused quiz layout */
+.featurebar,.layout>.panel:first-child,.crumb{display:none!important}
+.layout{display:flex;flex-direction:column;max-width:900px;margin:22px auto;padding:0 18px;gap:16px}
+.center{width:100%;border-radius:20px}
+.hero{min-height:155px;padding:22px clamp(18px,5vw,56px)}
+.globe-art{width:140px;height:130px;margin-right:2vw}.globe-sphere{width:92px;height:92px}.globe-orbit{width:135px;height:55px}.orbit-two{width:145px;height:70px}
+.quiz-intro{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:22px 24px}
+.quiz-intro .level{grid-column:1/-1;width:100%;max-width:none;margin:4px 0 0;padding:13px 15px;font-size:15px}
+.quiz-symbol{width:46px;height:46px}
+.topic-picker{display:block;padding:16px 24px}
+.topic-picker:before{content:'STEP 1  ·  CHOOSE A TOPIC';display:block;font-size:11px;font-weight:800;letter-spacing:1.8px;color:#e6c979;margin-bottom:9px}
+.topic-picker select{width:100%;padding:14px 15px;border:1px solid #b28d43;border-radius:12px;background:#173f30;color:#fff0c5;font:600 15px system-ui;outline:none}
+.quiz-intro:after{content:'STEP 2  ·  SELECT DIFFICULTY';grid-column:1/-1;grid-row:2;font-size:11px;letter-spacing:1.8px;color:#e6c979;font-weight:800}
+.quiz-intro .level{grid-row:3}
+.progress-row{padding:16px 24px;display:flex;flex-wrap:wrap;gap:10px}
+.progress-row #questionCount{font-weight:700;min-width:130px}.progress-track{min-width:80px}
+.question{margin:10px 18px 16px;padding:24px;border-radius:16px}
+.question:before{content:'STEP 3  ·  ANSWER THE QUESTION';display:block;font-size:11px;font-weight:800;letter-spacing:1.8px;color:#e6c979;margin-bottom:12px}
+.question h3{font-size:clamp(19px,3vw,24px);margin-bottom:20px}
+.answers{grid-template-columns:1fr;gap:10px}.answer{min-height:54px;width:100%;font-size:16px}
+.controls{padding:0 18px 20px;gap:10px}.btn{padding:12px 18px}
+.right-stack{display:none;grid-template-columns:1fr;max-width:900px;width:calc(100% - 36px);margin:0 auto 18px;gap:12px}
+.right-stack.show-summary{display:grid}.right-stack .panel{border-radius:16px}.right-stack .panel:last-child{grid-column:auto}
+.score-row{align-items:center}.achievements{justify-content:flex-start}
+.footer{padding:22px 16px}
+@media(max-width:720px){.topbar{padding:0 12px}.top-tag{display:none}.hero{min-height:145px;padding:18px 15px}.hero h1{font-size:32px}.hero p{font-size:12px}.globe-art{width:92px;height:96px}.globe-sphere{width:68px;height:68px}.globe-orbit{width:94px;height:40px}.orbit-two{width:100px;height:48px}.layout{margin:12px auto;padding:0 10px;gap:12px}.quiz-intro{padding:17px 15px}.topic-picker{padding:14px 15px}.progress-row{padding:12px 15px}.question{margin:8px 10px 14px;padding:17px 14px}.controls{padding:0 12px 16px}.btn{padding:11px 13px;font-size:14px}.right-stack{width:calc(100% - 20px)}.score-row{gap:12px}.ring{width:88px;height:88px}.stats div{font-size:13px}}
+
+</style>
+
+<style id="gb-quiz-professional-polish">
+/* GyanBhoomi Quiz Arena — focused, sequential mobile-first presentation */
+:root{
+  --gb-bg:#062e23;--gb-panel:#103e30;--gb-panel2:#164936;
+  --gb-gold:#d9b45c;--gb-gold-light:#f4dfa0;--gb-cream:#f5edcf;
+}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(ellipse at 82% 16%,rgba(190,150,58,.13),transparent 27rem),
+    radial-gradient(ellipse at 8% 55%,rgba(34,130,91,.14),transparent 30rem),
+    var(--gb-bg);
+  color:var(--gb-cream);
+}
+.topbar{
+  background:linear-gradient(105deg,#05291f,#0b4b36 68%,#0b3c2d);
+  border-bottom:1px solid rgba(226,190,102,.35);
+}
+.brand-name{color:#f7e7b2}
+.brand-sub{color:#e3d7b1;letter-spacing:2px}
+.hero{
+  min-height:245px;
+  padding:34px clamp(20px,7vw,100px);
+  background:
+    radial-gradient(circle at 78% 48%,rgba(220,184,94,.20),transparent 17rem),
+    linear-gradient(110deg,#082f24,#0d503a 72%,#123d30);
+  border-bottom:1px solid rgba(215,177,87,.4);
+}
+.hero h1{font-size:clamp(38px,6vw,66px);letter-spacing:-1.8px;color:#f7e8b7}
+.hero p{font-size:clamp(14px,2vw,18px);color:#e3e8d8;max-width:520px;line-height:1.65}
+.hero-kicker{color:#e8c979}
+.globe-art{width:205px;height:190px;margin-right:2vw}
+.globe-sphere{width:130px;height:130px;background:
+  radial-gradient(circle at 32% 26%,#fff0b8 0 3%,#d8b75e 4% 10%,#287d68 11% 38%,#0c5044 68%,#052c29 100%);
+  box-shadow:inset -16px -15px 25px #001b1888,0 0 38px #d9b85c55,0 0 0 8px #d9b85c12;
+}
+.globe-sphere span{font-size:31px}
+.globe-orbit{border-color:#e9ca7a99}
+.featurebar{display:none!important}
+.layout{
+  display:block!important;
+  max-width:980px;
+  margin:28px auto 40px;
+  padding:0 18px;
+}
+.layout>aside:first-child{display:none!important}
+.center{
+  width:100%;
+  overflow:hidden;
+  border:1px solid rgba(214,177,87,.68);
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(19,68,49,.98),rgba(8,48,36,.98));
+  box-shadow:0 22px 60px #00170f66, inset 0 1px 0 #ffffff0c;
+}
+.crumb{display:none!important}
+.quiz-intro{
+  display:grid!important;
+  grid-template-columns:58px minmax(0,1fr)!important;
+  gap:14px!important;
+  padding:26px clamp(18px,4vw,34px) 20px!important;
+  background:linear-gradient(110deg,#174b37,#103a2c)!important;
+  border:0!important;
+}
+.quiz-symbol{
+  width:58px;height:58px;border-radius:18px;
+  box-shadow:0 8px 20px #0003;
+  background:linear-gradient(145deg,#f0d58b,#b88b34);
+  font-size:28px;
+}
+.quiz-intro .eyebrow{font-size:10px;letter-spacing:2.2px;color:#e6c979}
+.quiz-intro h2{font-size:clamp(21px,3vw,29px);line-height:1.2;color:#fff0bd}
+.quiz-intro p{font-size:14px;line-height:1.6;color:#d8dfd0;max-width:620px}
+.quiz-intro:after{
+  content:"STEP 2  ·  CHOOSE DIFFICULTY";
+  grid-column:1/-1;grid-row:2;
+  margin-top:7px;padding-top:17px;
+  border-top:1px solid #ffffff18;
+  color:#e6c979;font-size:10px;font-weight:850;letter-spacing:1.8px;
+}
+.quiz-intro .level{
+  grid-column:1/-1!important;grid-row:3!important;
+  width:100%;max-width:none;margin:0!important;
+  min-height:48px;padding:12px 15px!important;
+  color:#fff0bd;background:#123f30;
+  border:1px solid #b99549;border-radius:13px;
+}
+.topic-picker{
+  display:block!important;
+  padding:19px clamp(18px,4vw,34px)!important;
+  background:#0c382a!important;
+  border-top:1px solid #ffffff12;
+  border-bottom:1px solid #ffffff12;
+}
+.topic-picker:before{
+  content:"STEP 1  ·  CHOOSE YOUR TOPIC";
+  display:block;margin:0 0 10px;
+  color:#e6c979;font-size:10px;font-weight:850;letter-spacing:1.8px;
+}
+.topic-picker select{
+  width:100%;min-height:50px;padding:12px 44px 12px 15px;
+  border:1px solid #b99549;border-radius:13px;
+  background:#143f30;color:#fff0bd;font:600 15px system-ui;
+  outline:none;
+}
+.progress-row{
+  padding:18px clamp(18px,4vw,34px) 8px!important;
+  gap:12px;color:#e9dfc0;
+}
+.progress-track{height:8px;background:#ffffff20}
+.progress-fill{background:linear-gradient(90deg,#d6ad50,#f1d98d)}
+.timer{background:#4e4122;color:#ffe6a0;border:1px solid #b38c3e;border-radius:12px}
+.question{
+  margin:12px clamp(12px,3vw,28px) 18px!important;
+  padding:clamp(18px,4vw,30px)!important;
+  border:1px solid #9c8148!important;
+  border-radius:20px!important;
+  background:linear-gradient(145deg,#164a37,#103b2d)!important;
+  box-shadow:inset 0 1px 0 #ffffff0b;
+}
+.question h3{font-size:clamp(19px,3vw,25px);line-height:1.5;color:#fff0c4;margin-bottom:20px}
+.answers{grid-template-columns:1fr!important;gap:10px!important}
+.answer{
+  min-height:58px!important;padding:12px 15px!important;
+  border:1px solid #54715a!important;border-radius:13px!important;
+  background:#174633!important;color:#f4e9c9!important;
+  font-size:15px!important;
+}
+.answer .letter{background:#d5b15b!important;color:#173c2c!important}
+.answer.chosen{background:linear-gradient(100deg,#8a692b,#b58b3a)!important;color:#fff8e4!important;border-color:#f1d58b!important}
+.answer.chosen .letter{background:#fff0bd!important;color:#173c2c!important}
+.explain{
+  background:#e8dfbd!important;color:#183b2c!important;
+  border:1px solid #d0b36a;border-radius:15px!important;
+}
+.explain strong{color:#17432f}
+.controls{
+  padding:0 clamp(14px,3vw,28px) 24px!important;
+  display:flex;gap:10px;align-items:center;
+}
+.btn{border:1px solid #a98b4b;background:#173f30;color:#f2e4bb;border-radius:12px;padding:12px 17px}
+.btn.primary{background:linear-gradient(110deg,#d8b15b,#a87b2e);color:#173b2c;border:1px solid #f1d58b;box-shadow:0 7px 18px #0002}
+.btn:active{transform:scale(.98)}
+.control-actions{margin-left:auto}
+.right-stack{display:none!important}
+.right-stack.show-summary{
+  display:grid!important;
+  max-width:980px;margin:18px auto 0;padding:0 18px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.right-stack.show-summary .panel:last-child{grid-column:1/-1}
+.right-stack .panel{border:1px solid #a98b4b;border-radius:18px}
+.right-stack .panel-head{background:linear-gradient(100deg,#8b6827,#b78c39);color:#fff4d5}
+.right-stack .stat-body{color:#f3e8c8}
+.achievements>div{border:1px solid #58735a;border-radius:13px}
+.achievements .unlocked{background:#6c5425;border-color:#e2c36e}
+.footer{color:#c4c5a9;padding:26px 15px}
+.question-empty{background:#143f30;border:1px solid #9c8148;border-radius:16px}
+@media(max-width:720px){
+  .topbar{height:66px;padding:0 13px}
+  .brand-mark{font-size:27px}
+  .brand-name{font-size:21px}
+  .brand-sub{font-size:7px;letter-spacing:1.3px}
+  .hero{min-height:165px;padding:22px 17px}
+  .hero h1{font-size:35px}
+  .hero p{font-size:12px;max-width:235px}
+  .globe-art{width:100px;height:105px;margin:0}
+  .globe-sphere{width:72px;height:72px}
+  .globe-orbit{width:104px;height:42px}
+  .orbit-two{width:110px;height:54px}
+  .layout{margin:14px auto 28px;padding:0 10px}
+  .quiz-intro{padding:19px 15px 16px!important;grid-template-columns:44px minmax(0,1fr)!important;gap:11px!important}
+  .quiz-symbol{width:44px;height:44px;border-radius:14px;font-size:22px}
+  .quiz-intro h2{font-size:20px}
+  .quiz-intro p{font-size:12px}
+  .topic-picker{padding:16px 15px!important}
+  .progress-row{padding:14px 15px 7px!important;font-size:12px;flex-wrap:nowrap}
+  .timer{padding:7px 9px;font-size:12px}
+  .question{margin:10px 9px 14px!important;padding:17px 14px!important}
+  .question h3{font-size:18px}
+  .answer{min-height:54px!important;font-size:14px!important}
+  .controls{padding:0 10px 17px!important}
+  .btn{padding:10px 12px;font-size:13px}
+  .right-stack.show-summary{display:flex!important;flex-direction:column;margin:12px auto;padding:0 10px}
+}
+</style>
+
+</head>
+<body>
+<header class="topbar">
+<a class="home-icon" href="../" aria-label="GyanBhoomi homepage" title="GyanBhoomi homepage"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></a>
+<div class="brand"><div class="brand-mark">🌐</div><div><div class="brand-name">GyanBhoomi</div><div class="brand-sub">THE UNIVERSAL KNOWLEDGE LIBRARY</div></div></div>
+<div class="top-spacer"></div><div class="top-tag">LEARN · EXPLORE · EXCEL</div>
+</header>
+<section class="hero">
+<div class="hero-left"><div class="hero-copy"><div class="hero-kicker">THE KNOWLEDGE CHALLENGE</div><h1>Quiz Arena</h1><p>Explore every subject. Challenge your knowledge. Grow every day.</p></div></div>
+<div class="globe-art" role="img" aria-label="Illustrated globe of knowledge"><div class="globe-orbit orbit-one"></div><div class="globe-orbit orbit-two"></div><div class="globe-sphere"><span>✦</span></div><i class="globe-star star-one">✦</i><i class="globe-star star-two">✧</i></div>
+</section>
+<section class="featurebar"><div><b>◎</b>Topic-wise Quizzes</div><div><b>▥</b>Multiple Levels<br>(Easy · Medium · Hard)</div><div><b>ϟ</b>Instant Explanations</div><div><b>↗</b>Track Your Progress</div><div><b>🏅</b>Earn Badges & Points</div></section>
+<main class="layout">
+<aside class="panel"><div class="panel-head">▦ &nbsp; Quiz Sections</div><div class="side-inner">
+<div class="side-link selected"><span class="ico">⌂</span>All Quizzes</div><div class="side-link"><span class="ico">▤</span>By Subject　⌄</div>
+<div class="side-sub">⚗ Science</div><div class="side-sub">🏛 History</div><div class="side-sub">🌐 Geography</div><div class="side-sub">π Mathematics</div><div class="side-sub">🍃 Environment</div><div class="side-sub">♡ Health & Lifestyle</div><div class="side-sub">▣ Technology</div>
+<div class="side-link">🎓 By Class (NCERT)　›</div><hr style="border:0;border-top:1px solid #e8dec9"><div class="side-link">▣ My Quizzes</div><div class="side-link">▥ My Progress</div><div class="side-link">🏆 Achievements</div>
+</div></aside>
+<section class="panel center">
+<div class="crumb">⌂ &nbsp; Home　›　Quiz Arena　›　Science　›　The Solar System</div>
+<div class="quiz-intro"><div class="quiz-symbol">✦</div><div class="intro-copy"><div class="eyebrow" id="topicEyebrow">FEATURED TOPIC</div><h2 id="quizTitle">The Solar System – Quick Quiz</h2><p id="quizDesc">Choose a subject and difficulty to begin your learning challenge.</p></div><select class="level" id="difficulty" aria-label="Difficulty"><option value="medium">Medium Level</option><option value="easy">Easy Level</option><option value="hard">Hard Level</option></select></div>
+<div class="topic-picker" id="topicPicker" aria-label="Quiz topics"></div>
+<div class="progress-row"><span id="questionCount">Question 1 of 10</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span id="progressText">33% Complete</span><span class="timer">◴ <span id="timer">--:--</span></span></div>
+<div class="question"><h3 id="questionText">Choose a topic to begin.</h3><div class="answers" id="answers"></div><div class="explain" id="explanation"><div class="bulb">💡</div><div><strong>Explanation</strong><p>Select an answer to see a learning explanation.</p></div></div></div>
+<div class="controls"><button class="btn" id="prevBtn" disabled>← Previous</button><div class="control-actions"><button class="btn" id="skipBtn">Skip</button><button class="btn primary" id="nextBtn">Start Quiz →</button></div></div>
+</section>
+<aside class="right-stack">
+<section class="panel"><div class="panel-head">▥ &nbsp; Your Progress</div><div class="stat-body"><div class="score-row"><div class="ring"><strong id="score">0%<small>Score</small></strong></div><div class="stats"><div>🟢 <b id="correct">0</b> Correct</div><div>🔴 <b id="incorrect">0</b> Incorrect</div><div>◷ <b id="timeSpent">0</b> Saved quizzes</div></div></div></div></section>
+<section class="panel"><div class="panel-head">▤ &nbsp; This Quiz</div><div class="stat-body"><div class="stats"><div>☷ Total Questions <b id="totalQuestions">10</b></div><div>▥ Difficulty <b id="difficultyLabel">Medium</b></div><div>★ Points <b id="points">0</b></div></div></div></section>
+<section class="panel"><div class="panel-head">🏆 &nbsp; Your Achievements</div><div class="achievements" id="achievements"><div><div class="badge-medal">🏅</div><small>Quiz Starter</small></div><div class="locked"><div class="badge-medal">📖</div><small>5 Quizzes</small></div><div class="locked"><div class="badge-medal">🎯</div><small>Explorer</small></div><div class="locked"><div class="badge-medal">🏆</div><small>Quiz Master</small></div></div></section>
+</aside>
+</main>
+<div class="footer">GyanBhoomi Quiz Arena · Interactive Quiz Arena preview · Sample questions and demo progress</div>
+<script>
+/* Language packs use the same language codes as GyanBhoomi's
+   gyanbhoomi_language setting. To add a future language, add one pack here;
+   the page will automatically use it whenever the homepage saves that code. */
+const languagePacks={
+ en:{nav:['Home','Articles','Dictionary','GayniKids','Quiz Arena','Ask Gyani'],hero:'Read • Learn • Take a Quiz • Track Your Progress',features:['Topic-wise Quizzes','Multiple Levels','Instant Explanations','Track Your Progress','Earn Badges & Points'],sections:'Quiz Sections',all:'All Quizzes',subject:'By Subject',subjects:['Science','History','Geography','Mathematics','Environment','Health & Lifestyle','Technology'],byClass:'By Class (NCERT)',myQuizzes:'My Quizzes',myProgress:'My Progress',achievements:'Achievements',crumb:'Home　›　Quiz Arena　›　Science　›　The Solar System',quizTitle:'The Solar System – Quick Quiz',quizDesc:'Test your knowledge about the Sun, planets, moons and other objects in our solar system.',difficulty:['Medium Level','Easy Level','Hard Level'],question:'Question',complete:'Complete',explanation:'Explanation:',previous:'← Previous',next:'Next Question →',finish:'Finish Quiz ✓',progress:'Your Progress',score:'Score',correct:'Correct',incorrect:'Incorrect',demo:'Demo',time:'Time',thisQuiz:'This Quiz',total:'Total Questions',level:'Difficulty',points:'Points',yourAchievements:'Your Achievements',starter:'Quiz Starter',five:'5 Quizzes',explorer:'Science Explorer',master:'History Master',footer:'GyanBhoomi Quiz Arena · Interactive Quiz Arena preview · Sample questions and demo progress',home:'GyanBhoomi Home',library:'Knowledge Library',dictionary:'Universal Dictionary',settings:'Settings',close:'Close menu',open:'Open menu',done:'Quiz complete! You scored {score} out of {total}. This is a preview; account-based saving and leaderboards will be added later.',questions:[['Which is the largest planet in our solar system?',['Earth','Jupiter','Saturn','Mars'],'Jupiter is the largest planet in our solar system. It is a gas giant and has a diameter of about 1,39,820 km, roughly 11 times that of Earth.'],['Which planet is known for its prominent ring system?',['Venus','Mercury','Saturn','Mars'],'Saturn is famous for its extensive ring system, made mainly of ice particles, rocky debris and dust.'],['What is the name of the star at the centre of our solar system?',['Sirius','Polaris','The Sun','Proxima Centauri'],'The Sun is the star at the centre of our solar system. Its gravity keeps the planets in orbit.']]},
+ hi:{nav:['होम','लेख','शब्दकोश','ज्ञानीकिड्स','क्विज़ एरीना','आस्क ज्ञानी'],hero:'पढ़ें • सीखें • क्विज़ खेलें • अपनी प्रगति देखें',features:['विषय-आधारित क्विज़','कई स्तर','तुरंत व्याख्या','अपनी प्रगति देखें','बैज और अंक जीतें'],sections:'क्विज़ अनुभाग',all:'सभी क्विज़',subject:'विषय के अनुसार',subjects:['विज्ञान','इतिहास','भूगोल','गणित','पर्यावरण','स्वास्थ्य और जीवनशैली','प्रौद्योगिकी'],byClass:'कक्षा के अनुसार (NCERT)',myQuizzes:'मेरे क्विज़',myProgress:'मेरी प्रगति',achievements:'उपलब्धियाँ',crumb:'होम　›　क्विज़ एरीना　›　विज्ञान　›　सौर मंडल',quizTitle:'सौर मंडल – त्वरित क्विज़',quizDesc:'सूर्य, ग्रहों, चंद्रमाओं और सौर मंडल की अन्य वस्तुओं के बारे में अपना ज्ञान परखें।',difficulty:['मध्यम स्तर','आसान स्तर','कठिन स्तर'],question:'प्रश्न',complete:'पूरा',explanation:'व्याख्या:',previous:'← पिछला',next:'अगला प्रश्न →',finish:'क्विज़ समाप्त करें ✓',progress:'आपकी प्रगति',score:'स्कोर',correct:'सही',incorrect:'गलत',demo:'डेमो',time:'समय',thisQuiz:'यह क्विज़',total:'कुल प्रश्न',level:'कठिनाई',points:'अंक',yourAchievements:'आपकी उपलब्धियाँ',starter:'क्विज़ की शुरुआत',five:'5 क्विज़',explorer:'विज्ञान खोजकर्ता',master:'इतिहास विशेषज्ञ',footer:'ज्ञानभूमि क्विज़ एरीना · इंटरैक्टिव क्विज़ का पूर्वावलोकन · नमूना प्रश्न और डेमो प्रगति',home:'ज्ञानभूमि होम',library:'ज्ञान पुस्तकालय',dictionary:'विश्व शब्दकोश',settings:'सेटिंग्स',close:'मेनू बंद करें',open:'मेनू खोलें',done:'क्विज़ पूरा हुआ! आपने {total} में से {score} अंक प्राप्त किए। यह एक पूर्वावलोकन है; अकाउंट में सेव करने और लीडरबोर्ड की सुविधा बाद में जोड़ी जाएगी।',questions:[['हमारे सौर मंडल का सबसे बड़ा ग्रह कौन-सा है?',['पृथ्वी','बृहस्पति','शनि','मंगल'],'बृहस्पति हमारे सौर मंडल का सबसे बड़ा ग्रह है। यह एक गैसीय दानव है और इसका व्यास लगभग 1,39,820 किमी है, जो पृथ्वी से करीब 11 गुना है।'],['कौन-सा ग्रह अपनी प्रमुख वलय प्रणाली के लिए जाना जाता है?',['शुक्र','बुध','शनि','मंगल'],'शनि अपनी विस्तृत वलय प्रणाली के लिए प्रसिद्ध है, जो मुख्य रूप से बर्फ के कणों, चट्टानी मलबे और धूल से बनी है।'],['हमारे सौर मंडल के केंद्र में स्थित तारे का नाम क्या है?',['सीरियस','पोलारिस','सूर्य','प्रॉक्सिमा सेंटॉरी'],'सूर्य हमारे सौर मंडल के केंद्र में स्थित तारा है। इसका गुरुत्वाकर्षण ग्रहों को कक्षा में बनाए रखता है।']]},
+ gu:{nav:['હોમ','લેખો','શબ્દકોશ','જ્ઞાનીકિડ્સ','ક્વિઝ એરીના','આસ્ક જ્ઞાની'],hero:'વાંચો • શીખો • ક્વિઝ રમો • પ્રગતિ જુઓ',features:['વિષયવાર ક્વિઝ','વિવિધ સ્તરો','તાત્કાલિક સમજૂતી','પ્રગતિ ટ્રૅક કરો','બેજ અને પોઇન્ટ મેળવો'],sections:'ક્વિઝ વિભાગો',all:'બધી ક્વિઝ',subject:'વિષય પ્રમાણે',subjects:['વિજ્ઞાન','ઇતિહાસ','ભૂગોળ','ગણિત','પર્યાવરણ','આરોગ્ય અને જીવનશૈલી','ટેકનોલોજી'],byClass:'ધોરણ પ્રમાણે (NCERT)',myQuizzes:'મારી ક્વિઝ',myProgress:'મારી પ્રગતિ',achievements:'સિદ્ધિઓ',crumb:'હોમ　›　ક્વિઝ એરીના　›　વિજ્ઞાન　›　સૌરમંડળ',quizTitle:'સૌરમંડળ – ઝડપી ક્વિઝ',quizDesc:'સૂર્ય, ગ્રહો, ચંદ્રો અને સૌરમંડળની અન્ય વસ્તુઓ વિશેનું તમારું જ્ઞાન ચકાસો.',difficulty:['મધ્યમ સ્તર','સરળ સ્તર','કઠિન સ્તર'],question:'પ્રશ્ન',complete:'પૂર્ણ',explanation:'સમજૂતી:',previous:'← અગાઉનો',next:'આગળનો પ્રશ્ન →',finish:'ક્વિઝ પૂર્ણ કરો ✓',progress:'તમારી પ્રગતિ',score:'સ્કોર',correct:'સાચા',incorrect:'ખોટા',demo:'ડેમો',time:'સમય',thisQuiz:'આ ક્વિઝ',total:'કુલ પ્રશ્નો',level:'કઠિનતા',points:'પોઇન્ટ',yourAchievements:'તમારી સિદ્ધિઓ',starter:'ક્વિઝ શરૂઆત',five:'5 ક્વિઝ',explorer:'વિજ્ઞાન શોધક',master:'ઇતિહાસ નિષ્ણાત',footer:'જ્ઞાનભૂમિ ક્વિઝ એરીના · ઇન્ટરેક્ટિવ ક્વિઝ પૂર્વાવલોકન · નમૂનાના પ્રશ્નો અને ડેમો પ્રગતિ',home:'જ્ઞાનભૂમિ હોમ',library:'જ્ઞાન પુસ્તકાલય',dictionary:'વિશ્વ શબ્દકોશ',settings:'સેટિંગ્સ',close:'મેનૂ બંધ કરો',open:'મેનૂ ખોલો',done:'ક્વિઝ પૂર્ણ! તમે {total} માંથી {score} ગુણ મેળવ્યા. આ પૂર્વાવલોકન છે; એકાઉન્ટમાં સેવ અને લીડરબોર્ડની સુવિધા પછી ઉમેરવામાં આવશે.',questions:[['આપણા સૌરમંડળનો સૌથી મોટો ગ્રહ કયો છે?',['પૃથ્વી','ગુરુ','શનિ','મંગળ'],'ગુરુ આપણા સૌરમંડળનો સૌથી મોટો ગ્રહ છે. તે વાયુથી બનેલો વિશાળ ગ્રહ છે અને તેનો વ્યાસ આશરે 1,39,820 કિમી છે, જે પૃથ્વી કરતાં લગભગ 11 ગણો છે.'],['કયો ગ્રહ તેની વિશાળ વલય પ્રણાલી માટે જાણીતો છે?',['શુક્ર','બુધ','શનિ','મંગળ'],'શનિ તેની વિશાળ વલય પ્રણાલી માટે જાણીતો છે, જે મુખ્યત્વે બરફના કણો, ખડકના ટુકડાઓ અને ધૂળથી બનેલી છે.'],['આપણા સૌરમંડળના કેન્દ્રમાં આવેલા તારાનું નામ શું છે?',['સિરિયસ','પોલારિસ','સૂર્ય','પ્રોક્સિમા સેન્ટોરી'],'સૂર્ય આપણા સૌરમંડળના કેન્દ્રમાં આવેલો તારો છે. તેનું ગુરુત્વાકર્ષણ ગ્રહોને તેમની કક્ષામાં રાખે છે.']]},
+ mr:{nav:['मुख्यपृष्ठ','लेख','शब्दकोश','ज्ञानीकिड्स','क्विझ एरिना','आस्क ज्ञानी'],hero:'वाचा • शिका • क्विझ खेळा • प्रगती पाहा',features:['विषयानुसार क्विझ','अनेक स्तर','तात्काळ स्पष्टीकरण','प्रगतीचा मागोवा','बॅज आणि गुण मिळवा'],sections:'क्विझ विभाग',all:'सर्व क्विझ',subject:'विषयानुसार',subjects:['विज्ञान','इतिहास','भूगोल','गणित','पर्यावरण','आरोग्य आणि जीवनशैली','तंत्रज्ञान'],byClass:'इयत्तेनुसार (NCERT)',myQuizzes:'माझे क्विझ',myProgress:'माझी प्रगती',achievements:'यश',crumb:'मुख्यपृष्ठ　›　क्विझ एरिना　›　विज्ञान　›　सौरमाला',quizTitle:'सौरमाला – झटपट क्विझ',quizDesc:'सूर्य, ग्रह, चंद्र आणि आपल्या सौरमालेतील इतर वस्तूंबद्दलचे ज्ञान तपासा.',difficulty:['मध्यम स्तर','सोपा स्तर','कठीण स्तर'],question:'प्रश्न',complete:'पूर्ण',explanation:'स्पष्टीकरण:',previous:'← मागील',next:'पुढील प्रश्न →',finish:'क्विझ पूर्ण करा ✓',progress:'तुमची प्रगती',score:'गुण',correct:'बरोबर',incorrect:'चूक',demo:'डेमो',time:'वेळ',thisQuiz:'हा क्विझ',total:'एकूण प्रश्न',level:'कठीणपणा',points:'गुण',yourAchievements:'तुमची यशोगाथा',starter:'क्विझची सुरुवात',five:'5 क्विझ',explorer:'विज्ञान शोधक',master:'इतिहास तज्ज्ञ',footer:'ज्ञानभूमी क्विझ एरिना · परस्परसंवादी क्विझ पूर्वावलोकन · नमुना प्रश्न आणि डेमो प्रगती',home:'ज्ञानभूमी मुख्यपृष्ठ',library:'ज्ञान ग्रंथालय',dictionary:'जागतिक शब्दकोश',settings:'सेटिंग्ज',close:'मेनू बंद करा',open:'मेनू उघडा',done:'क्विझ पूर्ण! तुम्हाला {total} पैकी {score} गुण मिळाले. हे पूर्वावलोकन आहे; खाते-आधारित सेव्हिंग आणि लीडरबोर्ड नंतर जोडले जातील.',questions:[['आपल्या सौरमालेतील सर्वात मोठा ग्रह कोणता?',['पृथ्वी','गुरू','शनी','मंगळ'],'गुरू हा आपल्या सौरमालेतील सर्वात मोठा ग्रह आहे. तो वायुरूप महाकाय ग्रह असून त्याचा व्यास सुमारे 1,39,820 किमी आहे, म्हणजे पृथ्वीच्या जवळपास 11 पट.'],['कोणता ग्रह त्याच्या ठळक कडी प्रणालीसाठी ओळखला जातो?',['शुक्र','बुध','शनी','मंगळ'],'शनी त्याच्या विस्तृत कडी प्रणालीसाठी प्रसिद्ध आहे. ती प्रामुख्याने बर्फाचे कण, खडकांचे तुकडे आणि धूळ यांपासून बनलेली आहे.'],['आपल्या सौरमालेच्या केंद्रातील ताऱ्याचे नाव काय आहे?',['सिरियस','पोलारिस','सूर्य','प्रॉक्सिमा सेंटॉरी'],'सूर्य हा आपल्या सौरमालेच्या केंद्रातील तारा आहे. त्याचे गुरुत्वाकर्षण ग्रहांना त्यांच्या कक्षेत ठेवते.']]},
+ bn:{nav:['হোম','প্রবন্ধ','অভিধান','জ্ঞানীকিডস','কুইজ এরিনা','আস্ক জ্ঞানি'],hero:'পড়ুন • শিখুন • কুইজ খেলুন • অগ্রগতি দেখুন',features:['বিষয়ভিত্তিক কুইজ','বিভিন্ন স্তর','তাৎক্ষণিক ব্যাখ্যা','অগ্রগতি অনুসরণ','ব্যাজ ও পয়েন্ট অর্জন'],sections:'কুইজ বিভাগ',all:'সব কুইজ',subject:'বিষয় অনুযায়ী',subjects:['বিজ্ঞান','ইতিহাস','ভূগোল','গণিত','পরিবেশ','স্বাস্থ্য ও জীবনযাপন','প্রযুক্তি'],byClass:'শ্রেণি অনুযায়ী (NCERT)',myQuizzes:'আমার কুইজ',myProgress:'আমার অগ্রগতি',achievements:'অর্জন',crumb:'হোম　›　কুইজ এরিনা　›　বিজ্ঞান　›　সৌরজগৎ',quizTitle:'সৌরজগৎ – দ্রুত কুইজ',quizDesc:'সূর্য, গ্রহ, চাঁদ এবং আমাদের সৌরজগতের অন্যান্য বস্তু সম্পর্কে আপনার জ্ঞান যাচাই করুন।',difficulty:['মাঝারি স্তর','সহজ স্তর','কঠিন স্তর'],question:'প্রশ্ন',complete:'সম্পূর্ণ',explanation:'ব্যাখ্যা:',previous:'← আগের',next:'পরের প্রশ্ন →',finish:'কুইজ শেষ করুন ✓',progress:'আপনার অগ্রগতি',score:'স্কোর',correct:'সঠিক',incorrect:'ভুল',demo:'ডেমো',time:'সময়',thisQuiz:'এই কুইজ',total:'মোট প্রশ্ন',level:'কঠিনতা',points:'পয়েন্ট',yourAchievements:'আপনার অর্জন',starter:'কুইজের শুরু',five:'৫টি কুইজ',explorer:'বিজ্ঞান অনুসন্ধানকারী',master:'ইতিহাস বিশেষজ্ঞ',footer:'জ্ঞানভূমি কুইজ এরিনা · ইন্টার‌্যাকটিভ কুইজের পূর্বরূপ · নমুনা প্রশ্ন ও ডেমো অগ্রগতি',home:'জ্ঞানভূমি হোম',library:'জ্ঞান লাইব্রেরি',dictionary:'সর্বজনীন অভিধান',settings:'সেটিংস',close:'মেনু বন্ধ করুন',open:'মেনু খুলুন',done:'কুইজ সম্পূর্ণ! {total}টির মধ্যে আপনি {score} পেয়েছেন। এটি একটি পূর্বরূপ; অ্যাকাউন্টে সংরক্ষণ ও লিডারবোর্ড পরে যোগ করা হবে।',questions:[['আমাদের সৌরজগতের বৃহত্তম গ্রহ কোনটি?',['পৃথিবী','বৃহস্পতি','শনি','মঙ্গল'],'বৃহস্পতি আমাদের সৌরজগতের বৃহত্তম গ্রহ। এটি একটি গ্যাসীয় দানব এবং এর ব্যাস প্রায় ১,৩৯,৮২০ কিমি, যা পৃথিবীর প্রায় ১১ গুণ।'],['কোন গ্রহটি তার সুস্পষ্ট বলয় ব্যবস্থার জন্য পরিচিত?',['শুক্র','বুধ','শনি','মঙ্গল'],'শনি তার বিস্তৃত বলয় ব্যবস্থার জন্য বিখ্যাত, যা মূলত বরফের কণা, পাথুরে ধ্বংসাবশেষ ও ধুলো দিয়ে তৈরি।'],['আমাদের সৌরজগতের কেন্দ্রে থাকা নক্ষত্রটির নাম কী?',['সিরিয়াস','পোলারিস','সূর্য','প্রক্সিমা সেন্টরি'],'সূর্য আমাদের সৌরজগতের কেন্দ্রে থাকা নক্ষত্র। এর মহাকর্ষ বল গ্রহগুলোকে কক্ষপথে রাখে।']]}
+};
+
+// Broad, reusable starter bank. Each record is tagged by subject and difficulty.
+const BANK=[
+['Science','easy','Which gas do plants absorb during photosynthesis?',['Oxygen','Carbon dioxide','Nitrogen','Hydrogen'],1,'Plants absorb carbon dioxide and use light energy to make sugars, releasing oxygen.'],
+['Science','medium','Which particle has a negative electric charge?',['Proton','Neutron','Electron','Photon'],2,'Electrons carry a negative electric charge; protons are positive and neutrons are neutral.'],
+['Science','hard','What is the SI unit of electric capacitance?',['Tesla','Farad','Weber','Henry'],1,'Capacitance is measured in farads, named after physicist Michael Faraday.'],
+['Science','easy','Which is the largest planet in our solar system?',['Earth','Jupiter','Saturn','Mars'],1,'Jupiter is the largest planet in our solar system.'],
+['Science','medium','Which planet is famous for its prominent ring system?',['Venus','Mercury','Saturn','Mars'],2,'Saturn’s rings are made mainly of countless icy particles with rocky material and dust.'],
+['Science','hard','Which layer of the Sun is visible as its surface?',['Core','Radiative zone','Photosphere','Corona'],2,'The photosphere is the visible layer from which most of the Sun’s light escapes.'],
+['History','easy','Who was the first Mughal emperor in India?',['Akbar','Babur','Humayun','Shah Jahan'],1,'Babur founded the Mughal Empire in India after the First Battle of Panipat in 1526.'],
+['History','medium','In which year did the Dandi March begin?',['1920','1928','1930','1942'],2,'Mahatma Gandhi began the Salt March in March 1930 as a protest against the British salt tax.'],
+['History','hard','The Treaty of Seringapatam followed which Anglo-Mysore War?',['Second','Third','Fourth','First'],1,'The 1792 Treaty of Seringapatam ended the Third Anglo-Mysore War.'],
+['History','easy','Who is popularly known as the Iron Man of India?',['Subhas Chandra Bose','Sardar Vallabhbhai Patel','B. R. Ambedkar','Lal Bahadur Shastri'],1,'Sardar Vallabhbhai Patel played a central role in integrating princely states after independence.'],
+['Geography','easy','Which is the largest ocean on Earth?',['Atlantic','Indian','Arctic','Pacific'],3,'The Pacific Ocean is the largest and deepest ocean on Earth.'],
+['Geography','medium','Which Indian state has the longest coastline?',['Gujarat','Tamil Nadu','Andhra Pradesh','Maharashtra'],0,'Gujarat has the longest coastline among Indian states.'],
+['Geography','hard','The Atacama Desert is primarily located in which country?',['Peru','Chile','Argentina','Bolivia'],1,'The Atacama Desert lies mainly in northern Chile along the Pacific coast.'],
+['Geography','easy','What is the capital of Japan?',['Kyoto','Osaka','Tokyo','Hiroshima'],2,'Tokyo is the capital of Japan.'],
+['Mathematics','easy','What is 15 × 6?',['80','90','95','100'],1,'15 multiplied by 6 equals 90.'],
+['Mathematics','medium','What is the sum of the interior angles of a triangle?',['90°','180°','270°','360°'],1,'The interior angles of every Euclidean triangle add up to 180 degrees.'],
+['Mathematics','hard','What is the derivative of x² with respect to x?',['x','2x','x³','2'],1,'Using the power rule, d(x²)/dx = 2x.'],
+['Environment','easy','Which energy source is renewable?',['Coal','Petroleum','Solar','Natural gas'],2,'Solar energy is renewable because it comes from sunlight.'],
+['Environment','medium','What does biodiversity describe?',['Variety of life','Air pressure','Soil acidity','Ocean depth'],0,'Biodiversity refers to the variety of living organisms at genetic, species and ecosystem levels.'],
+['Environment','hard','Which international agreement focuses on limiting global warming?',['Montreal Protocol','Paris Agreement','Ramsar Convention','Basel Convention'],1,'The Paris Agreement aims to limit the rise in global average temperature.'],
+['Health & Lifestyle','easy','Which nutrient is the body’s main immediate energy source?',['Carbohydrate','Vitamin C','Calcium','Water'],0,'Carbohydrates are broken down into glucose, an important energy source for cells.'],
+['Health & Lifestyle','medium','Which vitamin can the skin produce with sunlight exposure?',['Vitamin A','Vitamin B12','Vitamin C','Vitamin D'],3,'UVB exposure enables the skin to synthesise vitamin D.'],
+['Health & Lifestyle','hard','Which blood component is primarily responsible for clotting?',['Red cells','Platelets','Plasma proteins only','White cells'],1,'Platelets gather at an injury and help form a clot to reduce bleeding.'],
+['Technology','easy','What does CPU stand for?',['Central Processing Unit','Computer Power Utility','Core Program Upload','Central Print Unit'],0,'The CPU executes instructions and performs core processing tasks in a computer.'],
+['Technology','medium','Which technology underpins most cryptocurrencies?',['Bluetooth','Blockchain','Optical fibre','NFC'],1,'Blockchain is a distributed ledger technology used by many cryptocurrencies.'],
+['Technology','hard','What does HTTPS add to HTTP?',['Image compression','Encrypted transport using TLS','Offline storage','Faster DNS'],1,'HTTPS protects data in transit using TLS encryption and server authentication.'],
+['Civics & Constitution','easy','When did the Constitution of India come into effect?',['15 August 1947','26 January 1950','2 October 1950','26 November 1949'],1,'The Constitution of India came into effect on 26 January 1950.'],
+['Civics & Constitution','medium','Which part of the Indian Constitution contains Fundamental Rights?',['Part II','Part III','Part IV','Part V'],1,'Fundamental Rights are set out in Part III of the Constitution.'],
+['Civics & Constitution','hard','Which article provides the constitutional remedy for enforcement of Fundamental Rights?',['Article 14','Article 19','Article 32','Article 51A'],2,'Article 32 empowers people to approach the Supreme Court for enforcement of Fundamental Rights.'],
+['Literature & Language','easy','Who wrote the Indian national anthem Jana Gana Mana?',['Bankim Chandra Chatterjee','Rabindranath Tagore','Sarojini Naidu','Munshi Premchand'],1,'Rabindranath Tagore wrote Jana Gana Mana.'],
+['Literature & Language','medium','Who wrote the novel Godan?',['R. K. Narayan','Mulk Raj Anand','Munshi Premchand','Harivansh Rai Bachchan'],2,'Godan is a celebrated Hindi novel by Munshi Premchand, published in 1936.'],
+['Sports','easy','How many players from one team are on the field in a standard football match?',['9','10','11','12'],2,'A standard association football team has 11 players on the field.'],
+['Sports','medium','The Thomas Cup is associated with which sport?',['Tennis','Badminton','Hockey','Table tennis'],1,'The Thomas Cup is the international team championship in men’s badminton.'],
+['Sports','hard','In which athletics event is the Fosbury Flop technique used?',['Long jump','High jump','Pole vault','Triple jump'],1,'The Fosbury Flop is a back-first technique used in the high jump.'],
+['India General Knowledge','easy','Which city is known as the Pink City of India?',['Udaipur','Jaipur','Jodhpur','Bikaner'],1,'Jaipur is widely known as the Pink City.'],
+['India General Knowledge','medium','Which organisation operates India’s NavIC satellite navigation system?',['DRDO','ISRO','HAL','BIS'],1,'NavIC is India’s regional satellite navigation system developed by ISRO.'],
+['India General Knowledge','hard','Which schedule of the Indian Constitution lists recognised languages?',['Fifth','Sixth','Eighth','Tenth'],2,'The Eighth Schedule lists the officially recognised scheduled languages.']
+].map((r,i)=>({id:'gbq'+(i+1),topic:r[0],level:r[1],q:r[2],options:r[3],correct:r[4],why:r[5]}));
+const TOPICS=['All Topics','Science','History','Geography','Mathematics','Environment','Health & Lifestyle','Technology','Civics & Constitution','Literature & Language','Sports','India General Knowledge'];
+const TOPIC_ICONS={'All Topics':'✦','Science':'⚗','History':'🏛','Geography':'🌍','Mathematics':'π','Environment':'🍃','Health & Lifestyle':'♡','Technology':'▣','Civics & Constitution':'⚖','Literature & Language':'📚','Sports':'🏅','India General Knowledge':'🇮🇳'};
+const DB_URL='https://opqgrhfweyppcxvzkttp.supabase.co',DB_KEY='sb_publishable_M6SPrnOO7UFsBgG7qjlYHQ_d1tA1YAn';
+let db=null,activeUser=null,sessionRows=[],topic='All Topics',quiz=[],current=0,answers={},startedAt=0,timerHandle=null,remaining=0,finished=false,quizStarted=false;
+const $=id=>document.getElementById(id);
+let languageCode=localStorage.getItem('gyanbhoomi_language')||'en';
+function getLang(){return languagePacks[languageCode]||languagePacks.en;}
+function safeText(el,value){if(el)el.textContent=value;}
+function shuffled(a){return [...a].sort(()=>Math.random()-.5);}
+function filteredBank(){const lvl=$('difficulty').value;return BANK.filter(q=>(topic==='All Topics'||q.topic===topic)&&q.level===lvl);}
+const LABELS={en:{start:'Start Quiz →',next:'Next Question →',prev:'← Previous',skip:'Skip',finish:'Finish Quiz ✓',correct:'Correct!',learn:'Learning note',ready:'Your quiz is ready. Press Start Quiz to begin.',complete:'Complete',topics:'All Topics'},hi:{start:'क्विज़ शुरू करें →',next:'अगला प्रश्न →',prev:'← पिछला',skip:'छोड़ें',finish:'क्विज़ समाप्त करें ✓',correct:'सही!',learn:'जानकारी',ready:'क्विज़ तैयार है। शुरू करने के लिए बटन दबाएँ।',complete:'पूर्ण',topics:'सभी विषय'},gu:{start:'ક્વિઝ શરૂ કરો →',next:'આગળનો પ્રશ્ન →',prev:'← અગાઉનો',skip:'છોડો',finish:'ક્વિઝ પૂર્ણ કરો ✓',correct:'સાચું!',learn:'સમજૂતી',ready:'ક્વિઝ તૈયાર છે. શરૂ કરવા માટે બટન દબાવો.',complete:'પૂર્ણ',topics:'બધા વિષયો'},mr:{start:'क्विझ सुरू करा →',next:'पुढील प्रश्न →',prev:'← मागील',skip:'वगळा',finish:'क्विझ पूर्ण करा ✓',correct:'बरोबर!',learn:'स्पष्टीकरण',ready:'क्विझ तयार आहे. सुरू करण्यासाठी बटण दाबा.',complete:'पूर्ण',topics:'सर्व विषय'},bn:{start:'কুইজ শুরু করুন →',next:'পরের প্রশ্ন →',prev:'← আগের',skip:'এড়িয়ে যান',finish:'কুইজ শেষ করুন ✓',correct:'সঠিক!',learn:'ব্যাখ্যা',ready:'কুইজ প্রস্তুত। শুরু করতে বোতাম চাপুন।',complete:'সম্পূর্ণ',topics:'সব বিষয়'}};
+function labels(){return LABELS[languageCode]||LABELS.en;}
+function buildTopicPicker(){const host=$('topicPicker');host.innerHTML=`<select id="topicSelect" aria-label="Choose quiz topic">${TOPICS.map(x=>`<option value="${x}" ${x===topic?'selected':''}>${TOPIC_ICONS[x]} ${x==='All Topics'?labels().topics:x}</option>`).join('')}</select>`;host.querySelector('#topicSelect').addEventListener('change',e=>{topic=e.target.value;startNewQuiz();});}
+function applyLanguage(){const t=getLang();document.documentElement.lang=languageCode;const hero=document.querySelector('.hero p');if(hero)hero.textContent=t.hero;const feat=document.querySelectorAll('.featurebar div');t.features.forEach((v,i)=>{if(feat[i])feat[i].lastChild.textContent=v;});const heads=document.querySelectorAll('.right-stack .panel-head');if(heads[0])heads[0].textContent='▥　'+t.progress;if(heads[1])heads[1].textContent='▤　'+t.thisQuiz;if(heads[2])heads[2].textContent='🏆　'+t.yourAchievements;safeText(document.querySelector('.footer'),t.footer);$('prevBtn').textContent=labels().prev;$('skipBtn').textContent=labels().skip;if(!quizStarted)$('nextBtn').textContent=labels().start;buildTopicPicker();renderQuestion();}
+function startNewQuiz(){document.querySelector('.right-stack').classList.remove('show-summary');clearInterval(timerHandle);quizStarted=false;quiz=shuffled(filteredBank());if(!quiz.length){quiz=shuffled(BANK.filter(q=>topic==='All Topics'||q.topic===topic));}quiz=quiz.slice(0,10);if(!quiz.length)quiz=shuffled(BANK).slice(0,10);current=0;answers={};finished=false;startedAt=Date.now();remaining=Math.max(60,quiz.length*35);$('score').innerHTML='0%<small>Score</small>';$('correct').textContent='0';$('incorrect').textContent='0';$('points').textContent='0';$('totalQuestions').textContent=quiz.length;$('nextBtn').textContent=labels().start;$('nextBtn').disabled=false;$('prevBtn').disabled=true;$('explanation').style.display='none';$('questionText').textContent=labels().ready;$('answers').innerHTML='';$('questionCount').textContent=`${quiz.length} questions`; $('progressText').textContent='Ready';$('progressFill').style.width='0%';$('timer').textContent=formatTime(remaining);$('quizTitle').textContent=(topic==='All Topics'?'Mixed Knowledge':topic)+' – '+$('difficulty').selectedOptions[0].text+' Quiz';$('quizDesc').textContent=`${quiz.length} questions selected from ${topic==='All Topics'?'all subjects':topic}. Each answer includes a short explanation.`;$('topicEyebrow').textContent=topic.toUpperCase()+' · '+$('difficulty').value.toUpperCase();buildTopicPicker();updatePersonalStats();}
+function formatTime(s){return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;}
+function beginTimer(){clearInterval(timerHandle);timerHandle=setInterval(()=>{if(finished)return;remaining=Math.max(0,remaining-1);$('timer').textContent=formatTime(remaining);if(!remaining)finishQuiz(true);},1000);}
+function renderQuestion(){if(!quiz.length)return;const q=quiz[current];$('questionText').textContent=`${current+1}. ${q.q}`;$('questionCount').textContent=`Question ${current+1} of ${quiz.length}`;const pct=Math.round(current/quiz.length*100);$('progressText').textContent=`${pct}% Complete`;$('progressFill').style.width=pct+'%';$('answers').innerHTML=q.options.map((v,i)=>`<button class="answer ${answers[current]===i?'chosen':''}" data-i="${i}"><span class="letter">${'ABCD'[i]}</span>${v}${answers[current]===i?'<b style="margin-left:auto">✓</b>':''}</button>`).join('');$('answers').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{if(finished)return;answers[current]=+b.dataset.i;renderQuestion();}));const answered=answers[current]!==undefined;$('explanation').style.display=answered?'flex':'none';if(answered){const correct=answers[current]===q.correct;$('explanation').innerHTML=`<div class="bulb">${correct?'✓':'💡'}</div><div><strong>${correct?labels().correct:labels().learn}</strong><p>${q.why}</p></div>`;}$('prevBtn').disabled=current===0;$('nextBtn').textContent=current===quiz.length-1?labels().finish:labels().next;$('difficultyLabel').textContent=$('difficulty').selectedOptions[0].text.replace(' Level','');}
+function updatePersonalStats(){const done=sessionRows.filter(x=>x.activity_type==='quiz_completed');const attempts=done.length;$('achievements').querySelectorAll(':scope > div').forEach((el,i)=>{const unlock=[attempts>=1,attempts>=5,done.some(x=>x.metadata?.topics?.includes('Science')),attempts>=20][i];el.classList.toggle('unlocked',!!unlock);el.classList.toggle('locked',!unlock);});const correct=done.reduce((n,x)=>n+(Number(x.score)||0),0),total=done.reduce((n,x)=>n+(Number(x.total_questions)||0),0);$('timeSpent').textContent=String(attempts);$('liveStatus').textContent=activeUser?'Synced to your account':'Saved on this device';$('liveDot').style.background=activeUser?'#6ad18b':'#d9b65b';}
+async function loadPersonalActivity(){try{const local=JSON.parse(localStorage.getItem('gb_quiz_history')||'[]');sessionRows=local;if(!db){updatePersonalStats();return;}const {data:{session}}=await db.auth.getSession();activeUser=session?.user||null;if(!activeUser){updatePersonalStats();return;}const {data,error}=await db.from('gb_learning_activity').select('activity_type,item_id,item_title,score,total_questions,metadata,created_at').eq('user_id',activeUser.id).eq('activity_type','quiz_completed').order('created_at',{ascending:false}).limit(100);if(error)throw error;sessionRows=data||[];updatePersonalStats();db.channel('quiz-progress-'+activeUser.id).on('postgres_changes',{event:'*',schema:'public',table:'gb_learning_activity',filter:'user_id=eq.'+activeUser.id},payload=>{if(payload.new?.activity_type==='quiz_completed'){sessionRows.unshift(payload.new);updatePersonalStats();}}).subscribe();}catch(e){console.warn('Quiz progress sync unavailable:',e);$('liveStatus').textContent='Local progress mode';}}
+async function saveQuizResult(correct,total,elapsed){const result={activity_type:'quiz_completed',item_id:'quiz-arena-'+topic.toLowerCase().replace(/[^a-z0-9]+/g,'-'),item_title:topic+' · '+$('difficulty').value+' quiz',score:correct,total_questions:total,metadata:{topics:[topic],difficulty:$('difficulty').value,points:correct*10,elapsed_seconds:elapsed,source:'quiz_arena'}};const local=JSON.parse(localStorage.getItem('gb_quiz_history')||'[]');local.unshift({...result,created_at:new Date().toISOString()});localStorage.setItem('gb_quiz_history',JSON.stringify(local.slice(0,100)));if(db&&activeUser){try{const {error}=await db.from('gb_learning_activity').insert({...result,user_id:activeUser.id});if(error)throw error;sessionRows.unshift(result);updatePersonalStats();$('liveStatus').textContent='Saved to your GyanBhoomi profile';}catch(e){console.warn('Could not sync quiz result:',e);$('liveStatus').textContent='Saved on this device · sync unavailable';}}else{$('liveStatus').textContent='Saved on this device · sign in to sync';}}
+async function finishQuiz(auto=false){if(finished)return;finished=true;document.querySelector('.right-stack').classList.add('show-summary');quizStarted=false;clearInterval(timerHandle);const correct=quiz.reduce((n,q,i)=>n+(answers[i]===q.correct?1:0),0),total=quiz.length,elapsed=Math.max(0,Math.round((Date.now()-startedAt)/1000)),pct=Math.round(correct/total*100);$('score').innerHTML=`${pct}%<small>Score</small>`;$('correct').textContent=correct;$('incorrect').textContent=total-correct;$('points').textContent=correct*10;$('progressText').textContent='100% Complete';$('progressFill').style.width='100%';$('questionText').textContent=auto?'Time is up! Quiz complete.':'Quiz complete!';$('answers').innerHTML=`<div class="question-empty"><h3>${pct}% · ${correct}/${total} correct</h3><p>${correct*10} points earned. Your result has been saved.</p><button class="btn primary" id="againBtn">Try another quiz</button></div>`;$('againBtn').addEventListener('click',startNewQuiz);$('explanation').style.display='none';$('nextBtn').disabled=true;await saveQuizResult(correct,total,elapsed);}
+function startOrNext(){if(!quizStarted){quizStarted=true;startedAt=Date.now();$('nextBtn').textContent=labels().next;$('explanation').style.display='none';renderQuestion();beginTimer();return;}if(current<quiz.length-1){current++;renderQuestion();}else finishQuiz();}
+function skipQuestion(){if(current<quiz.length-1){current++;renderQuestion();}else finishQuiz();}
+$('nextBtn').addEventListener('click',startOrNext);$('prevBtn').addEventListener('click',()=>{if(current>0){current--;renderQuestion();}});$('skipBtn').addEventListener('click',skipQuestion);$('difficulty').addEventListener('change',startNewQuiz);
+// Sidebar category entries are functional filters; personal links open a concise in-page status.
+document.querySelectorAll('.side-sub').forEach(el=>el.addEventListener('click',()=>{const label=el.textContent.replace(/^[^A-Za-z]+/,'').trim();const match=TOPICS.find(x=>x.toLowerCase()===label.toLowerCase())||label;topic=TOPICS.includes(match)?match:'All Topics';startNewQuiz();}));document.querySelectorAll('.side-link').forEach(el=>el.addEventListener('click',()=>{if(el.textContent.includes('Progress')){alert('Your saved quiz activity and achievements are shown in the right-hand progress panels. Sign in to sync across devices.');}else if(el.textContent.includes('Achievements')){alert('Achievements unlock as you complete quizzes: Starter, 5 Quizzes, Explorer and Quiz Master.');}else if(el.textContent.includes('Quizzes')){topic='All Topics';startNewQuiz();}}));
+window.addEventListener('storage',e=>{if(e.key==='gyanbhoomi_language'&&e.newValue){languageCode=e.newValue;applyLanguage();}});
+(async()=>{try{if(window.supabase?.createClient){db=window.supabase.createClient(DB_URL,DB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});await loadPersonalActivity();}}catch(e){console.warn('Supabase not ready; using local progress.',e);}})();
+// Tiny optional Supabase live-status indicator; no public/global counts are fabricated.
+const statusPanel=document.createElement('div');statusPanel.className='live-note';statusPanel.innerHTML='<span class="status-pill"><i class="status-dot" id="liveDot"></i><span id="liveStatus">Loading progress…</span></span>';document.querySelector('.right-stack .panel .stat-body').append(statusPanel);
+applyLanguage();startNewQuiz();
+</script>
+</body></html>
