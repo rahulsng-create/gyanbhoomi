@@ -411,6 +411,15 @@ h1,.body h2,.body h3,.body h4{
 }
 body.gb-night .meta,body.gb-night footer{color:#b3c8bd}
 @media(max-width:520px){.header-actions{align-items:center}.header-nav{gap:8px}.header-icon,.download-pdf{width:40px;height:40px}}
+.gb-related{margin-top:34px;padding:22px;border:1px solid #397269;border-radius:16px;background:linear-gradient(135deg,#103b37,#12332f)}
+.gb-related h2{margin:0 0 14px;color:#f0cf82;font-size:21px;line-height:1.3}
+.gb-related ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:10px}
+.gb-related li{margin:0;min-width:0}
+.gb-related a{display:block;height:100%;padding:13px 15px;border:1px solid #397269;border-radius:11px;background:#17483f;color:#edf7ef;text-decoration:none;font-weight:650;line-height:1.45;transition:background .18s ease,border-color .18s ease,transform .18s ease}
+.gb-related a:hover{background:#20594e;border-color:#e9b85f;transform:translateY(-2px)}
+.gb-related a:focus-visible{outline:3px solid #e9b85f;outline-offset:3px}
+@media(max-width:520px){.gb-related{padding:16px}.gb-related h2{font-size:19px}.gb-related ul{grid-template-columns:1fr}}
+@media print{.gb-related{break-inside:avoid;background:#fff;border:1px solid #aaa}.gb-related h2,.gb-related a{color:#111!important;background:#fff!important;border-color:#aaa!important}}
 @media print{
   @page{margin:16mm}
   body{background:#fff!important;color:#111!important;font-size:11pt;line-height:1.55}
