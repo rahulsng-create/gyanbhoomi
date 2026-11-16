@@ -3281,7 +3281,7 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
      const html=await response.text(),doc=new DOMParser().parseFromString(html,"text/html");
      const title=(doc.querySelector("title")?.textContent||doc.querySelector("h1")?.textContent||"GyanBhoomi page").trim();
      const description=doc.querySelector('meta[name="description"]')?.content||"";
-     const body=(doc.body?.innerText||doc.body?.textContent||"").replace(/\s+/g," ").trim();
+     const body=(doc.body?.innerText||doc.body?.textContent||"")+" "+[...doc.querySelectorAll("script:not([src])")].map(script=>script.textContent||"").join(" ");
      const links=[...doc.querySelectorAll("a[href]")];
      pages.push({url:clean,title,description,text:(title+" "+description+" "+body).slice(0,180000)});
      for(const a of links){
@@ -3322,7 +3322,7 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    catch(error){console.warn("GyanBhoomi search provider failed:",provider.name,error);return {name:provider.name,items:[]};}
   }));
   if(run!==globalSearchRun)return;
-  const labels={dictionary:"📖 Dictionary", "world-knowledge":"🌍 World Knowledge", "quiz-arena":"🏆 Quiz Arena"};
+  const labels={dictionary:"📖 Dictionary", "world-knowledge":"🌍 World Knowledge", "quiz-arena":"🏆 Quiz Arena", "site-pages":"🌐 All Website Pages"};
   let html='<div class="gb-global-extra">';
   for(const group of resultGroups){
    const items=Array.isArray(group.items)?group.items:[];
