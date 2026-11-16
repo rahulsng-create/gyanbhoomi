@@ -2072,6 +2072,16 @@ function articlePlainText(value){
  }
  return raw.replace(/\s+/g," ").trim();
 }
+// Parse article HTML once and reuse its text, image and excerpt during filtering/rendering.
+const articleViewCache=new WeakMap();
+function articleView(a){
+ let cached=articleViewCache.get(a);
+ if(cached)return cached;
+ const plain=articlePlainText(a.content);
+ cached={plain,searchText:[a.title,a.author_name,a.category,plain].map(v=>String(v||"").toLocaleLowerCase()).join(" "),image:articleImage(a.content),excerpt:plain.slice(0,190)};
+ articleViewCache.set(a,cached);
+ return cached;
+}
  async function loadArticles(){
   if(gbArticlesLoadPromise)return gbArticlesLoadPromise;
   const box=$("articles");
@@ -2128,12 +2138,12 @@ function renderArticles(){
   if(pending){pending.classList.remove("hidden");pending.innerHTML='<div class="gb-global-empty">Searching published articles…</div>';}
   return;
  }
- const found=approvedArticles.filter(a=>(!selectedCategory||a.category===selectedCategory)&&[a.title,a.author_name,a.category,articlePlainText(a.content)].some(v=>String(v||"").toLowerCase().includes(term)));
+ const found=approvedArticles.filter(a=>(!selectedCategory||a.category===selectedCategory)&&articleView(a).searchText.includes(term));
  $("searchCount").textContent=term?`${found.length} ${gbText("results")} “${$("searchInput").value.trim()}”`:`${found.length} ${gbText("publishedCount")}`;
  const featured=$("featuredArea");
  if(featured){
   if(!term&&!selectedCategory&&approvedArticles.length){
-   const a=approvedArticles[0],image=articleImage(a.content),excerpt=articlePlainText(a.content).slice(0,190);
+   const a=approvedArticles[0],view=articleView(a),image=view.image,excerpt=view.excerpt;
    featured.innerHTML=`<div class="featured-label">✦ EDITOR'S PICK · FEATURED ARTICLE</div><div class="featured-card"><div class="featured-visual">${image?`<img src="${image}" alt="">`:`<span class="featured-placeholder">${categoryIcon(a.category)}</span>`}</div><div class="featured-copy"><span class="eyebrow">${esc(a.category||"Knowledge")}</span><h2>${esc(a.title)}</h2><p>${esc(excerpt)}${excerpt.length>=190?"…":""}</p><button type="button" data-open-featured="${esc(a.id)}">Explore article →</button></div></div>`;
    featured.querySelector("[data-open-featured]").onclick=()=>openArticle(a.id);
   }else if(!term&&!selectedCategory){
@@ -2147,7 +2157,7 @@ function renderArticles(){
  if(homepageResults)homepageResults.classList.remove("hidden");
  if(!found.length){output.innerHTML=(homepageResults?`<h3 class="gb-search-results-title">0 results for “${esc($("searchInput").value.trim())}”</h3>`:"")+`<div class="no-articles">${esc(term?gbText("noMatches"):gbText("noArticles"))}</div>`;return}
  output.innerHTML=(homepageResults?`<h3 class="gb-search-results-title">${found.length} ${gbText("results")} for “${esc($("searchInput").value.trim())}”</h3>`:"")+`<div class="article-grid">${found.map(a=>{
-  const image=articleImage(a.content),plain=articlePlainText(a.content),excerpt=plain.slice(0,165);
+  const view=articleView(a),image=view.image,plain=view.plain,excerpt=plain.slice(0,165);
   return `<article class="article-card"><div class="article-thumb">${image?`<img src="${image}" alt="" loading="lazy">`:`<span class="fallback">${categoryIcon(a.category)}</span>`}</div><div class="article-card-content"><div class="meta">${esc(a.category||"Knowledge")} · ${new Date(a.created_at).toLocaleDateString()}</div><h3>${esc(a.title)}</h3><div class="meta">${esc(gbText("by"))}: ${esc(a.author_name)}</div><p class="excerpt">${esc(excerpt)}${plain.length>165?"…":""}</p><button class="read-btn" type="button" data-open-article="${esc(a.id)}">Read article →</button></div></article>`;
  }).join("")}</div>`;
  output.querySelectorAll("[data-open-article]").forEach(b=>b.onclick=()=>openArticle(b.dataset.openArticle));
