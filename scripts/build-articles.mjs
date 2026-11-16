@@ -250,6 +250,14 @@ for (const article of articles) {
     mainEntityOfPage: pageUrl,
     datePublished: published || undefined
   };
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "GyanBhoomi", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: title, item: pageUrl }
+    ]
+  };
   const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -267,6 +275,7 @@ for (const article of articles) {
 <meta property="og:url" content="${esc(pageUrl)}">
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, "\\u003c")}</script>
+<script type="application/ld+json">${JSON.stringify(breadcrumbLd).replace(/</g, "\\u003c")}</script>
 <style>
 .gb-translate-bar{
  display:flex;
