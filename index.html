@@ -3257,6 +3257,64 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    return hits.slice(0,8);
   }catch(error){console.warn("GyanBhoomi Quiz Arena search:",error);return [];}
  });
+
+ // Search every discoverable GyanBhoomi HTML page, not only selected section providers.
+ // Pages are discovered from the homepage and recursively from their internal links,
+ // so newly linked sections/pages become searchable automatically.
+ let gbSitePageIndex=null,gbSitePageIndexPromise=null;
+ async function buildGbSitePageIndex(){
+  if(gbSitePageIndex)return gbSitePageIndex;
+  if(gbSitePageIndexPromise)return gbSitePageIndexPromise;
+  gbSitePageIndexPromise=(async()=>{
+   const base="https://rahulsng-create.github.io/gyanbhoomi/";
+   const queue=[{url:base,depth:0}],seen=new Set(),pages=[];
+   while(queue.length&&seen.size<120){
+    const next=queue.shift(),url=new URL(next.url,base);
+    url.hash="";url.search="";
+    if(url.origin!==new URL(base).origin||!url.pathname.startsWith("/gyanbhoomi/"))continue;
+    const clean=url.href.replace(/index\.html$/,"");
+    if(seen.has(clean)||next.depth>5)continue;
+    seen.add(clean);
+    try{
+     const response=await fetch(clean,{cache:"no-cache"});
+     if(!response.ok)continue;
+     const html=await response.text(),doc=new DOMParser().parseFromString(html,"text/html");
+     const title=(doc.querySelector("title")?.textContent||doc.querySelector("h1")?.textContent||"GyanBhoomi page").trim();
+     const description=doc.querySelector('meta[name="description"]')?.content||"";
+     const body=(doc.body?.innerText||doc.body?.textContent||"").replace(/\s+/g," ").trim();
+     const links=[...doc.querySelectorAll("a[href]")];
+     pages.push({url:clean,title,description,text:(title+" "+description+" "+body).slice(0,180000)});
+     for(const a of links){
+      try{
+       const target=new URL(a.getAttribute("href"),clean);
+       if(target.origin!==new URL(base).origin||!target.pathname.startsWith("/gyanbhoomi/"))continue;
+       if(/\.(?:png|jpe?g|gif|webp|svg|css|js|pdf|zip|mp4|mp3|json)$/i.test(target.pathname))continue;
+       if(target.pathname.includes("/assets/"))continue;
+       target.hash="";target.search="";
+       const href=target.href.replace(/index\.html$/,"");
+       if(!seen.has(href))queue.push({url:href,depth:next.depth+1});
+      }catch(_){}
+     }
+    }catch(error){console.warn("GyanBhoomi page indexing:",clean,error);}
+   }
+   gbSitePageIndex=pages;
+   return pages;
+  })();
+  try{return await gbSitePageIndexPromise;}
+  finally{gbSitePageIndexPromise=null;}
+ }
+ window.gyanBhoomiSearch.register("site-pages",async query=>{
+  const pages=await buildGbSitePageIndex(),needle=query.toLocaleLowerCase();
+  const matches=[];
+  for(const page of pages){
+   const text=page.text.toLocaleLowerCase(),at=text.indexOf(needle);
+   if(at<0)continue;
+   const start=Math.max(0,at-90),end=Math.min(page.text.length,at+query.length+150);
+   const context=page.text.slice(start,end);
+   matches.push(gbSearchItem(page.title,context,page.url,"Website Page","🌐"));
+  }
+  return matches.slice(0,15);
+ });
  async function searchExtraSections(query,run){
   if(query.length<2)return;
   const resultGroups=await Promise.all(gbSearchProviders.map(async provider=>{
