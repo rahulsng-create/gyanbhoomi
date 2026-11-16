@@ -235,7 +235,7 @@ footer{text-align:center;padding:28px 16px;color:#738078;font-size:13px;border-t
 .gb-search-results .article-card h3{color:#f3d184}
 .gb-search-results .article-card .meta{color:#c4d9cf}
 .gb-search-results .article-card .excerpt{color:#e1eee7}
-.gb-search-results .no-articles{background:#17483f;color:#edf7ef}
+.gb-search-results .no-articles{background:#17483f;color:#edf7ef}.gb-global-extra{margin-top:14px}.gb-global-group{margin-top:14px;padding-top:12px;border-top:1px solid #ffffff30}.gb-global-group h4{margin:0 0 8px;color:#f3d184;font-size:14px}.gb-global-item{display:block;padding:9px 11px;margin:6px 0;border:1px solid #ffffff25;border-radius:10px;color:#edf7ef;text-decoration:none;background:#ffffff09}.gb-global-item strong{display:block;color:#f3d184}.gb-global-item small{display:block;color:#c4d9cf;margin-top:2px}.gb-global-empty{color:#c4d9cf;font-size:13px}
 .gb-search-wrap{position:relative;z-index:4;margin:0 auto 22px;max-width:980px}.gb-global-search{display:flex;align-items:center;gap:12px;background:#fff;border:2px solid #e9c56f;border-radius:99px;padding:7px 8px 7px 19px;box-shadow:0 8px 24px #092f2922}.gb-global-search>span{font-size:31px;color:#1b5c50;line-height:1}.gb-global-search input{border:0!important;box-shadow:none!important;background:transparent;min-width:0;padding:9px 3px}.gb-global-search button{background:linear-gradient(120deg,#0c5549,#16816d);border-radius:99px;padding:13px 23px}
 .gb-language-row{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin-top:13px}.gb-language-picker{position:relative}.gb-language-picker>button{border:1px solid #e9c66e;background:linear-gradient(120deg,#0b4038,#176e5d);border-radius:99px;padding:12px 23px;color:white;box-shadow:0 5px 16px #0b403833}.gb-language-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);z-index:20;width:min(360px,88vw);max-height:330px;overflow:auto;padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#fff;border:1px solid #dce8df;border-radius:16px;box-shadow:0 15px 35px #092c2833}.gb-language-menu button{background:#f3f8f4;color:#16483e;text-align:left;padding:9px 10px;box-shadow:none;border:1px solid #e1ece3}.gb-language-menu small{display:block;color:#9b7a37;font-size:10px}.gb-language-note{font-size:12px;color:#6c7b73}
 .gb-dictionary-promo{display:grid;grid-template-columns:.8fr 1.4fr .7fr;align-items:center;gap:14px;overflow:hidden;padding:19px 22px;margin:0 0 22px;border:1px solid #d8b66a;border-radius:22px;background:radial-gradient(circle at 85% 50%,#1b7465,transparent 40%),linear-gradient(115deg,#082f2d,#0b4a42 62%,#082d2b);color:#fff;box-shadow:0 14px 30px #0a342d20}.gb-dict-books{display:flex;flex-direction:column;gap:5px;color:#ffe5a5;font-size:13px}.gb-dict-books span{font-size:44px}.gb-dict-books b{border-bottom:1px solid #ffffff26;padding-bottom:4px}.gb-dict-books small{color:#c8e1d7}.gb-dict-promo-copy h2{font:800 clamp(22px,3.3vw,34px)/1.1 Georgia,serif;color:#f7d487;margin:5px 0}.gb-dict-promo-copy p{color:#d5e8df;margin:0 0 12px;font-size:14px}.gb-dict-promo-copy button{background:linear-gradient(120deg,#f5d17e,#dba642);color:#263e31;border-radius:99px;padding:11px 20px}.gb-dict-globe{font-size:78px;text-align:center;filter:drop-shadow(0 8px 12px #0008)}.gb-dict-globe span{display:block;font-size:12px;color:#f9d88c;letter-spacing:3px}
@@ -3187,23 +3187,49 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
  const globalInput=document.getElementById("gbGlobalSearchInput");
  const articleSearch=document.getElementById("searchInput");
  const results=document.getElementById("gbSearchResults");
- function showLiveHomepageResults(){
-  const q=globalInput.value.trim();
-  if(!q){
-   window.gbHomepageSearchActive=false;
-   results.classList.add("hidden");
-   results.innerHTML="";
-   articleSearch.value="";
-   articleSearch.dispatchEvent(new Event("input",{bubbles:true}));
-   return;
-  }
-  window.gbHomepageSearchActive=true;
-  articleSearch.value=q;
-  document.getElementById("categoryFilter").value="";
-  results.classList.remove("hidden");
-  articleSearch.dispatchEvent(new Event("input",{bubbles:true}));
+ let countryIndex=[];
+ let countryIndexReady=false;
+ let globalSearchRun=0;
+ const globalEsc=value=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ async function getCountryIndex(){
+  if(countryIndexReady)return countryIndex;
+  try{const response=await fetch("https://rahulsng-create.github.io/gyanbhoomi/world-knowledge/countries.json");if(!response.ok)throw new Error("Country list unavailable");countryIndex=await response.json();countryIndexReady=true;}
+  catch(error){console.warn("GyanBhoomi country search:",error);}
+  return countryIndex;
  }
- // Update matching articles as the visitor types, without requiring a Search-button tap.
+ async function searchExtraSections(query,run){
+  if(query.length<2)return;
+  let dictionary=[];
+  try{
+   const client=window.gyanBhoomiDB;
+   if(client){
+    const {data,error}=await client.from("dictionary_entries").select("word,translation,meaning,language").ilike("word",`%${query}%`).limit(5);
+    if(!error&&data)dictionary=data;
+    const {data:translated,error:translationError}=await client.from("dictionary_entries").select("word,translation,meaning,language").ilike("translation",`%${query}%`).limit(5);
+    if(!translationError&&translated)dictionary=dictionary.concat(translated);
+   }
+  }catch(error){console.warn("GyanBhoomi dictionary search:",error);}
+  if(run!==globalSearchRun)return;
+  const seen=new Set();
+  dictionary=dictionary.filter(item=>{const key=String(item.word||"").toLowerCase();if(!key||seen.has(key))return false;seen.add(key);return true;}).slice(0,6);
+  const allCountries=await getCountryIndex();
+  if(run!==globalSearchRun)return;
+  const needle=query.toLocaleLowerCase();
+  const matches=allCountries.filter(c=>[c.name,c.nativeName,c.capital,c.region,...(c.currencyCodes||[])].some(v=>String(v||"").toLocaleLowerCase().includes(needle))).slice(0,6);
+  let extra='<div class="gb-global-extra"><section class="gb-global-group"><h4>📖 Dictionary matches</h4>';
+  extra+=dictionary.length?dictionary.map(item=>`<a class="gb-global-item" href="#dictionary" data-global-word="${globalEsc(item.word)}"><strong>${globalEsc(item.word)}</strong><small>${globalEsc(item.translation||item.meaning||"Open dictionary entry")}</small></a>`).join(""):'<div class="gb-global-empty">No matching saved dictionary entries.</div>';
+  extra+='</section><section class="gb-global-group"><h4>🌍 World Knowledge countries</h4>';
+  extra+=matches.length?matches.map(c=>{const live=c.slug==="india";const url=live?"https://rahulsng-create.github.io/gyanbhoomi/world-knowledge/india/":"https://rahulsng-create.github.io/gyanbhoomi/world-knowledge/?q="+encodeURIComponent(c.name);return `<a class="gb-global-item" href="${url}"><strong>${globalEsc(c.name)} · ${live?"Encyclopedia available":"Directory entry"}</strong><small>${globalEsc([c.region,c.capital?"Capital: "+c.capital:""].filter(Boolean).join(" · "))}</small></a>`;}).join(""):'<div class="gb-global-empty">No matching countries found.</div>';
+  extra+='</section></div>';
+  results.insertAdjacentHTML("beforeend",extra);
+  results.querySelectorAll("[data-global-word]").forEach(link=>link.addEventListener("click",event=>{event.preventDefault();const word=link.dataset.globalWord;document.querySelector('#gbMenuPanel [data-tab="dictionary"]')?.click();const field=document.getElementById("dictSearch");if(field){field.value=word;document.getElementById("dictSearchBtn")?.click();}}));
+ }
+ function showLiveHomepageResults(){
+  const q=globalInput.value.trim(),run=++globalSearchRun;
+  if(!q){window.gbHomepageSearchActive=false;results.classList.add("hidden");results.innerHTML="";articleSearch.value="";articleSearch.dispatchEvent(new Event("input",{bubbles:true}));return;}
+  window.gbHomepageSearchActive=true;articleSearch.value=q;document.getElementById("categoryFilter").value="";results.classList.remove("hidden");articleSearch.dispatchEvent(new Event("input",{bubbles:true}));searchExtraSections(q,run);
+ }
+ // Search articles, dictionary entries and World Knowledge country data while typing.
  globalInput?.addEventListener("input",showLiveHomepageResults);
 
  // Daily Discovery: rotate through a small, curated set of evergreen facts.
