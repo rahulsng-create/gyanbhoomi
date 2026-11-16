@@ -34,6 +34,11 @@ jobs:
       - name: Build static article pages
         run: npm run build
 
+      - name: Notify IndexNow about new and changed public pages
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: node scripts/submit-indexnow.mjs
+
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
         with:
