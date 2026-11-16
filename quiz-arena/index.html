@@ -99,6 +99,27 @@ body{background:#092f24;color:var(--ink)}
 .footer{padding:22px 16px}
 @media(max-width:720px){.topbar{padding:0 12px}.top-tag{display:none}.hero{min-height:145px;padding:18px 15px}.hero h1{font-size:32px}.hero p{font-size:12px}.globe-art{width:92px;height:96px}.globe-sphere{width:68px;height:68px}.globe-orbit{width:94px;height:40px}.orbit-two{width:100px;height:48px}.layout{margin:12px auto;padding:0 10px;gap:12px}.quiz-intro{padding:17px 15px}.topic-picker{padding:14px 15px}.progress-row{padding:12px 15px}.question{margin:8px 10px 14px;padding:17px 14px}.controls{padding:0 12px 16px}.btn{padding:11px 13px;font-size:14px}.right-stack{width:calc(100% - 20px)}.score-row{gap:12px}.ring{width:88px;height:88px}.stats div{font-size:13px}}
 
+
+/* Flashcard study mode */
+.flashcard-panel{max-width:1100px;margin:22px auto;padding:0 14px}
+.flashcard-inner{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.flashcard-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 20px;background:linear-gradient(100deg,#075035,#0b6842);color:white}
+.flashcard-head h2{margin:0;color:white;font:700 23px Georgia,serif}
+.flashcard-tools,.flashcard-controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.flashcard-tools select,.flashcard-controls button{min-height:40px;border:1px solid #c7b77f;border-radius:10px;padding:8px 13px;background:#fffdf6;color:#173d35;font-weight:700}
+.flashcard-stage{padding:22px;display:grid;place-items:center;background:linear-gradient(135deg,#f5f0df,#fffaf0)}
+.flashcard{width:min(100%,680px);min-height:245px;border:2px solid #d7bd79;border-radius:20px;background:linear-gradient(145deg,#fffdf5,#f8edcc);color:#183d35;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px;cursor:pointer;box-shadow:0 12px 28px #173d3518;transition:transform .18s ease,box-shadow .18s ease}
+.flashcard:hover{transform:translateY(-2px);box-shadow:0 16px 34px #173d3522}
+.flashcard:focus-visible{outline:3px solid #0b6842;outline-offset:4px}
+.flashcard .flashcard-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#98701d;margin-bottom:15px}
+.flashcard .flashcard-content{font:700 clamp(20px,3.2vw,29px)/1.4 Georgia,serif;white-space:pre-wrap}
+.flashcard .flashcard-hint{font-size:13px;color:#68766c;margin-top:22px}
+.flashcard-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:0 22px 18px;color:#53675b;font-size:13px}
+.flashcard-controls{justify-content:center;padding:0 18px 22px}
+.flashcard-controls button.primary{background:#0b6842;color:#fff;border-color:#0b6842}
+.flashcard-controls button:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:600px){.flashcard-panel{padding:0 10px}.flashcard-stage{padding:14px}.flashcard{min-height:220px;padding:22px}.flashcard-head{padding:14px}.flashcard-head h2{font-size:20px}}
+
 </style>
 
 <style id="gb-quiz-professional-polish">
@@ -319,6 +340,16 @@ body{
 <section class="panel"><div class="panel-head">🏆 &nbsp; Your Achievements</div><div class="achievements" id="achievements"><div><div class="badge-medal">🏅</div><small>Quiz Starter</small></div><div class="locked"><div class="badge-medal">📖</div><small>5 Quizzes</small></div><div class="locked"><div class="badge-medal">🎯</div><small>Explorer</small></div><div class="locked"><div class="badge-medal">🏆</div><small>Quiz Master</small></div></div></section>
 </aside>
 </main>
+
+<section class="flashcard-panel" id="flashcardStudy">
+ <div class="flashcard-inner">
+  <div class="flashcard-head"><h2>🗂 Flashcard Study</h2><div class="flashcard-tools"><label for="flashcardSubject" class="sr-only">Choose flashcard subject</label><select id="flashcardSubject" aria-label="Choose flashcard subject"><option value="All">All subjects</option><option>Science</option><option>History</option><option>Geography</option><option>Mathematics</option><option>Environment</option><option>Technology</option></select></div></div>
+  <div class="flashcard-stage"><button type="button" class="flashcard" id="flashcard" aria-label="Flashcard. Tap to reveal the answer."><span class="flashcard-label" id="flashcardLabel">QUESTION · SCIENCE</span><span class="flashcard-content" id="flashcardContent">Choose a subject and start studying.</span><span class="flashcard-hint" id="flashcardHint">Tap the card to reveal the answer</span></button></div>
+  <div class="flashcard-meta"><span id="flashcardCount">Card 0 of 0</span><span id="flashcardTopic">Choose a subject to begin</span></div>
+  <div class="flashcard-controls"><button type="button" id="flashcardPrev">← Previous</button><button type="button" class="primary" id="flashcardFlip">Reveal answer</button><button type="button" id="flashcardNext">Next →</button><button type="button" id="flashcardShuffle">↻ Shuffle</button></div>
+ </div>
+</section>
+
 <div class="footer">GyanBhoomi Quiz Arena · Interactive Quiz Arena preview · Sample questions and demo progress</div>
 <script>
 /* Language packs use the same language codes as GyanBhoomi's
@@ -404,5 +435,42 @@ window.addEventListener('storage',e=>{if(e.key==='gyanbhoomi_language'&&e.newVal
 // Tiny optional Supabase live-status indicator; no public/global counts are fabricated.
 const statusPanel=document.createElement('div');statusPanel.className='live-note';statusPanel.innerHTML='<span class="status-pill"><i class="status-dot" id="liveDot"></i><span id="liveStatus">Loading progress…</span></span>';document.querySelector('.right-stack .panel .stat-body').append(statusPanel);
 applyLanguage();startNewQuiz();
+
+/* Flashcards reuse the existing reviewed quiz bank; they do not alter quiz progress. */
+(function initFlashcards(){
+ const $=id=>document.getElementById(id);
+ const subject=$("flashcardSubject"),card=$("flashcard"),label=$("flashcardLabel"),content=$("flashcardContent"),hint=$("flashcardHint");
+ if(!subject||!card||!Array.isArray(BANK))return;
+ let deck=[],position=0,revealed=false;
+ const buildDeck=()=>{
+  const selected=subject.value;
+  deck=BANK.filter(item=>selected==="All"||item[0]===selected);
+  position=0;revealed=false;render();
+ };
+ const render=()=>{
+  if(!deck.length){label.textContent="NO CARDS";content.textContent="No flashcards are available for this subject yet.";hint.textContent="Choose another subject";$("flashcardCount").textContent="Card 0 of 0";$("flashcardTopic").textContent="";$("flashcardPrev").disabled=true;$("flashcardNext").disabled=true;$("flashcardFlip").disabled=true;return;}
+  const item=deck[position];
+  label.textContent=revealed?"ANSWER · "+item[0].toUpperCase():"QUESTION · "+item[0].toUpperCase();
+  content.textContent=revealed?item[3][item[4]]+"\n\n"+item[5]:item[2];
+  hint.textContent=revealed?"Tap to see the question again":"Tap the card or Reveal answer";
+  $("flashcardCount").textContent="Card "+(position+1)+" of "+deck.length;
+  $("flashcardTopic").textContent=item[0]+" · "+item[1].charAt(0).toUpperCase()+item[1].slice(1);
+  $("flashcardPrev").disabled=position===0;
+  $("flashcardNext").disabled=position===deck.length-1;
+  $("flashcardFlip").disabled=false;
+  $("flashcardFlip").textContent=revealed?"Show question":"Reveal answer";
+  card.setAttribute("aria-label",(revealed?"Answer: ":"Question: ")+content.textContent+". Tap to "+(revealed?"show the question":"reveal the answer")+".");
+ };
+ const flip=()=>{if(!deck.length)return;revealed=!revealed;render();};
+ const move=delta=>{if(!deck.length)return;position=Math.max(0,Math.min(deck.length-1,position+delta));revealed=false;render();};
+ subject.addEventListener("change",buildDeck);
+ card.addEventListener("click",flip);
+ $("flashcardFlip").addEventListener("click",flip);
+ $("flashcardPrev").addEventListener("click",()=>move(-1));
+ $("flashcardNext").addEventListener("click",()=>move(1));
+ $("flashcardShuffle").addEventListener("click",()=>{for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}position=0;revealed=false;render();});
+ buildDeck();
+})();
+
 </script>
 </body></html>
