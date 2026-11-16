@@ -997,8 +997,7 @@ html.gb-entry-locked body>*:not(#gbWelcomeSplash):not(#gbAccountModal){visibilit
 .gb-image-remember input{appearance:auto!important;position:static!important;width:17px!important;height:17px!important;min-width:17px;padding:0!important;margin:0!important;accent-color:#d8aa4d}
 .gb-image-forgot{left:77.2%;top:52.1%;width:17%;height:2.4%}
 .gb-image-eye{left:89.2%;top:48.65%;width:5%;height:2.65%}
-.gb-image-submit{left:46.1%;top:54.55%;width:48.2%;height:2.9%;border-radius:30px!important}
-.gb-login-image-stage.is-signup .gb-image-submit:after{content:"Create Account";display:grid;place-items:center;width:100%;height:100%;border-radius:30px;background:linear-gradient(110deg,#f5d477,#d99a27);color:#183d35;font:800 clamp(12px,2.6vw,16px)/1 Arial,sans-serif}
+.gb-image-submit{left:46.1%;top:54.55%;width:48.2%;height:2.9%;border-radius:30px!important}.gb-login-image-stage.is-signup .gb-image-submit:after{content:"Create Account";display:grid;place-items:center;width:100%;height:100%;border-radius:30px;background:linear-gradient(110deg,#f5d477,#d99a27);color:#183d35;font:800 clamp(12px,2.6vw,16px)/1 Arial,sans-serif}
 .gb-image-google{left:46.1%;top:60.7%;width:48.2%;height:2.7%;border-radius:30px!important;z-index:6}
 .gb-image-guest{position:absolute;left:46.1%;top:66.5%;width:48.2%;height:3.2%;padding:0!important;margin:0!important;border:1px solid #e8bd65!important;border-radius:30px!important;background:linear-gradient(110deg,#f5d477,#d99a27)!important;color:#173a32!important;font:800 clamp(10px,2.35vw,15px)/1 Arial,sans-serif!important;box-shadow:0 3px 12px #0007!important;z-index:7}
 .gb-image-status{position:absolute;left:46%;top:57.7%;width:48%;min-height:2%;margin:0!important;padding:1px 4px!important;color:#f4d58b!important;text-align:center;font:clamp(8px,1.75vw,12px)/1.25 Arial,sans-serif!important;overflow-wrap:anywhere;pointer-events:none;z-index:8}
@@ -1910,7 +1909,7 @@ if(typeof supabaseFactory!=="function"){
  window.gyanBhoomiDB=null;
  throw new Error("GyanBhoomi sign-in could not start because the Supabase library did not load. Check the network/CDN connection and reload.");
 }
-let db;try{db=supabaseFactory(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});window.gyanBhoomiDB=db;window.gyanBhoomiInitError="";}catch(error){window.gyanBhoomiDB=null;window.gyanBhoomiInitError=String(error?.message||error||"Unknown Supabase initialization error");console.error("GyanBhoomi Supabase initialization failed:",error);throw new Error("GyanBhoomi Supabase initialization failed: "+window.gyanBhoomiInitError);}const $=id=>document.getElementById(id);let approvedArticles=[];
+let db;try{db=supabaseFactory(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});window.gyanBhoomiDB=db;window.gyanBhoomiInitError="";}catch(error){window.gyanBhoomiDB=null;window.gyanBhoomiInitError=String(error?.message||error||"Unknown Supabase initialization error");console.error("GyanBhoomi Supabase initialization failed:",error);throw new Error("GyanBhoomi Supabase initialization failed: "+window.gyanBhoomiInitError);}const $=id=>document.getElementById(id);let approvedArticles=[];let gbArticlesLoaded=false;let gbArticlesLoadPromise=null;let gbArticlesLoadError="";
 const ADMIN_EMAIL="rsngh6934@gmail.com";
 function isAuthorizedAdmin(user){return String(user?.email||"").trim().toLowerCase()===ADMIN_EMAIL;}
 function setAdminVisibility(allowed){const button=$("adminMenuButton");if(button){button.classList.toggle("hidden",!allowed);button.setAttribute("aria-hidden",String(!allowed));button.tabIndex=allowed?0:-1;}}
@@ -1997,7 +1996,6 @@ TABLE OF CONTENTS
 
 6. EXAMPLES AND CASE STUDIES
 [Add real-world examples.]
-
 7. IMPORTANT FACTS
 [Include verified facts and statistics.]
 
@@ -2075,24 +2073,35 @@ function articlePlainText(value){
  return raw.replace(/\s+/g," ").trim();
 }
  async function loadArticles(){
-  const box = $("articles");
-  box.textContent = "Loading articles...";
-
-  try {
-    const {data,error} = await db
-      .from("articles")
-      .select("id,title,author_name,category,content,created_at")
-      .eq("status","approved")
-      .order("created_at",{ascending:false});
-
-    if(error) throw error;
-
-    approvedArticles = data || [];
+  if(gbArticlesLoadPromise)return gbArticlesLoadPromise;
+  const box=$("articles");
+  if(box)box.textContent="Loading articles...";
+  gbArticlesLoadPromise=(async()=>{
+   try{
+    const {data,error}=await db.from("articles")
+     .select("id,title,author_name,category,content,created_at")
+     .eq("status","approved").order("created_at",{ascending:false});
+    if(error)throw error;
+    approvedArticles=data||[];
+    gbArticlesLoaded=true;
+    gbArticlesLoadError="";
     renderArticles();
-
-  } catch(error) {
-    box.textContent = "Could not load articles: " + error.message;
-  }
+    return approvedArticles;
+   }catch(error){
+    gbArticlesLoadError=String(error?.message||error||"Article service unavailable");
+    if(box)box.textContent="Could not load articles: "+gbArticlesLoadError;
+    const resultBox=$("gbSearchResults");
+    if(window.gbHomepageSearchActive&&resultBox){
+     resultBox.classList.remove("hidden");
+     let status=resultBox.querySelector("[data-article-load-status]");
+     if(!status){status=document.createElement("div");status.dataset.articleLoadStatus="true";resultBox.appendChild(status);}
+     status.className="gb-global-empty";
+     status.textContent="Articles could not be loaded. Check your connection and try again.";
+    }
+    return null;
+   }finally{gbArticlesLoadPromise=null;}
+  })();
+  return gbArticlesLoadPromise;
 }
 
 $("searchInput").addEventListener("input",renderArticles);
@@ -2114,6 +2123,11 @@ document.querySelectorAll("#refreshBtn,#refreshBtnSecondary").forEach(button=>{
 function renderArticles(){
  const term=($("searchInput")?.value||"").trim().toLowerCase();
  const selectedCategory=$("categoryFilter").value;
+ if(window.gbHomepageSearchActive&&term&&!gbArticlesLoaded){
+  const pending=$("gbSearchResults");
+  if(pending){pending.classList.remove("hidden");pending.innerHTML='<div class="gb-global-empty">Searching published articles…</div>';}
+  return;
+ }
  const found=approvedArticles.filter(a=>(!selectedCategory||a.category===selectedCategory)&&[a.title,a.author_name,a.category,articlePlainText(a.content)].some(v=>String(v||"").toLowerCase().includes(term)));
  $("searchCount").textContent=term?`${found.length} ${gbText("results")} “${$("searchInput").value.trim()}”`:`${found.length} ${gbText("publishedCount")}`;
  const featured=$("featuredArea");
@@ -2981,8 +2995,7 @@ db.auth.onAuthStateChange((event) => {
       });
 
       if (error) {
-        gbAccountMessage(error.message);
-      } else {
+        gbAccountMessage(error.message);      } else {
         gbAccountMessage("Password updated successfully!");
       }
     }, 300);
@@ -3197,39 +3210,88 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
   catch(error){console.warn("GyanBhoomi country search:",error);}
   return countryIndex;
  }
+ // Extensible global-search registry. New GyanBhoomi sections can register a provider
+ // without changing the main search controller or existing section features.
+ const gbSearchProviders=[];
+ window.gyanBhoomiSearch=window.gyanBhoomiSearch||{};
+ window.gyanBhoomiSearch.register=function(name,searchFn){
+  if(typeof name!=="string"||typeof searchFn!=="function")return false;
+  if(gbSearchProviders.some(provider=>provider.name===name))return false;
+  gbSearchProviders.push({name,search:searchFn});return true;
+ };
+ const gbSearchItem=(title,description,url,kind,icon)=>({title,description,url,kind,icon});
+ window.gyanBhoomiSearch.register("dictionary",async query=>{
+  const client=window.gyanBhoomiDB;if(!client)return [];
+  const columns="word,translation,meaning,language";
+  const [byWord,byTranslation]=await Promise.all([
+   client.from("dictionary_entries").select(columns).ilike("word",`%${query}%`).limit(6),
+   client.from("dictionary_entries").select(columns).ilike("translation",`%${query}%`).limit(6)
+  ]);
+  const rows=[...(byWord.data||[]),...(byTranslation.data||[])],seen=new Set();
+  return rows.filter(item=>{const key=String(item.word||"").toLocaleLowerCase();if(!key||seen.has(key))return false;seen.add(key);return true;}).slice(0,8)
+   .map(item=>gbSearchItem(item.word,item.translation||item.meaning||"Open dictionary entry","#dictionary","Dictionary","📖"));
+ });
+ window.gyanBhoomiSearch.register("world-knowledge",async query=>{
+  const countries=await getCountryIndex(),needle=query.toLocaleLowerCase();
+  return countries.filter(c=>[c.name,c.nativeName,c.capital,c.region,...(c.currencyCodes||[])].some(v=>String(v||"").toLocaleLowerCase().includes(needle))).slice(0,8)
+   .map(c=>gbSearchItem(c.name,[c.region,c.capital?"Capital: "+c.capital:""].filter(Boolean).join(" · ")||"Country profile",c.slug==="india"?"https://rahulsng-create.github.io/gyanbhoomi/world-knowledge/india/":"https://rahulsng-create.github.io/gyanbhoomi/world-knowledge/?q="+encodeURIComponent(c.name),"World Knowledge","🌍"));
+ });
+ window.gyanBhoomiSearch.register("quiz-arena",async query=>{
+  // Read the public Quiz Arena page itself so newly added static quiz links/titles
+  // can be discovered without maintaining a second hard-coded list here.
+  const url="https://rahulsng-create.github.io/gyanbhoomi/quiz-arena/";
+  try{
+   const response=await fetch(url,{cache:"no-cache"});if(!response.ok)throw new Error("Quiz Arena page unavailable");
+   const html=await response.text(),doc=new DOMParser().parseFromString(html,"text/html");
+   const needle=query.toLocaleLowerCase(),hits=[];
+   doc.querySelectorAll("a[href]").forEach(a=>{
+    const title=(a.textContent||a.getAttribute("aria-label")||"").replace(/\s+/g," ").trim();
+    const context=(a.parentElement?.textContent||"").replace(/\s+/g," ").trim();
+    if(title&&(`${title} ${context}`).toLocaleLowerCase().includes(needle)){
+     const href=new URL(a.getAttribute("href"),url).href;
+     if(!hits.some(x=>x.url===href))hits.push(gbSearchItem(title,context.slice(0,180)||"Quiz Arena activity",href,"Quiz Arena","🏆"));
+    }
+   });
+   const pageText=(doc.body?.textContent||"").replace(/\s+/g," ").trim();
+   if(!hits.length&&pageText.toLocaleLowerCase().includes(needle))hits.push(gbSearchItem("Quiz Arena",`Matching content found in Quiz Arena. Search: ${query}`,url+"?q="+encodeURIComponent(query),"Quiz Arena","🏆"));
+   return hits.slice(0,8);
+  }catch(error){console.warn("GyanBhoomi Quiz Arena search:",error);return [];}
+ });
  async function searchExtraSections(query,run){
   if(query.length<2)return;
-  let dictionary=[];
-  try{
-   const client=window.gyanBhoomiDB;
-   if(client){
-    const {data,error}=await client.from("dictionary_entries").select("word,translation,meaning,language").ilike("word",`%${query}%`).limit(5);
-    if(!error&&data)dictionary=data;
-    const {data:translated,error:translationError}=await client.from("dictionary_entries").select("word,translation,meaning,language").ilike("translation",`%${query}%`).limit(5);
-    if(!translationError&&translated)dictionary=dictionary.concat(translated);
-   }
-  }catch(error){console.warn("GyanBhoomi dictionary search:",error);}
+  const resultGroups=await Promise.all(gbSearchProviders.map(async provider=>{
+   try{return {name:provider.name,items:await provider.search(query)};}
+   catch(error){console.warn("GyanBhoomi search provider failed:",provider.name,error);return {name:provider.name,items:[]};}
+  }));
   if(run!==globalSearchRun)return;
-  const seen=new Set();
-  dictionary=dictionary.filter(item=>{const key=String(item.word||"").toLowerCase();if(!key||seen.has(key))return false;seen.add(key);return true;}).slice(0,6);
-  const allCountries=await getCountryIndex();
-  if(run!==globalSearchRun)return;
-  const needle=query.toLocaleLowerCase();
-  const matches=allCountries.filter(c=>[c.name,c.nativeName,c.capital,c.region,...(c.currencyCodes||[])].some(v=>String(v||"").toLocaleLowerCase().includes(needle))).slice(0,6);
-  let extra='<div class="gb-global-extra"><section class="gb-global-group"><h4>📖 Dictionary matches</h4>';
-  extra+=dictionary.length?dictionary.map(item=>`<a class="gb-global-item" href="#dictionary" data-global-word="${globalEsc(item.word)}"><strong>${globalEsc(item.word)}</strong><small>${globalEsc(item.translation||item.meaning||"Open dictionary entry")}</small></a>`).join(""):'<div class="gb-global-empty">No matching saved dictionary entries.</div>';
-  extra+='</section><section class="gb-global-group"><h4>🌍 World Knowledge countries</h4>';
-  extra+=matches.length?matches.map(c=>{const live=c.slug==="india";const url=live?"https://rahulsng-create.github.io/gyanbhoomi/world-knowledge/india/":"https://rahulsng-create.github.io/gyanbhoomi/world-knowledge/?q="+encodeURIComponent(c.name);return `<a class="gb-global-item" href="${url}"><strong>${globalEsc(c.name)} · ${live?"Encyclopedia available":"Directory entry"}</strong><small>${globalEsc([c.region,c.capital?"Capital: "+c.capital:""].filter(Boolean).join(" · "))}</small></a>`;}).join(""):'<div class="gb-global-empty">No matching countries found.</div>';
-  extra+='</section></div>';
-  results.insertAdjacentHTML("beforeend",extra);
-  results.querySelectorAll("[data-global-word]").forEach(link=>link.addEventListener("click",event=>{event.preventDefault();const word=link.dataset.globalWord;document.querySelector('#gbMenuPanel [data-tab="dictionary"]')?.click();const field=document.getElementById("dictSearch");if(field){field.value=word;document.getElementById("dictSearchBtn")?.click();}}));
+  const labels={dictionary:"📖 Dictionary", "world-knowledge":"🌍 World Knowledge", "quiz-arena":"🏆 Quiz Arena"};
+  let html='<div class="gb-global-extra">';
+  for(const group of resultGroups){
+   const items=Array.isArray(group.items)?group.items:[];
+   html+=`<section class="gb-global-group"><h4>${labels[group.name]||globalEsc(group.name)}</h4>`;
+   html+=items.length?items.map(item=>`<a class="gb-global-item" href="${globalEsc(item.url||"#")}" ${group.name==="dictionary"?`data-global-word="${globalEsc(item.title)}"`:""}><strong>${globalEsc(item.icon||"✦")} ${globalEsc(item.title)}</strong><small>${globalEsc(item.description||"")}</small></a>`).join(""):'<div class="gb-global-empty">No matching items in this section.</div>';
+   html+='</section>';
+  }
+  html+='</div>';
+  if(run===globalSearchRun){
+   results.insertAdjacentHTML("beforeend",html);
+   results.querySelectorAll("[data-global-word]").forEach(link=>link.addEventListener("click",event=>{
+    event.preventDefault();const word=link.dataset.globalWord;
+    document.querySelector('#gbMenuPanel [data-tab="dictionary"]')?.click();
+    const field=document.getElementById("dictSearch");
+    if(field){field.value=word;document.getElementById("dictSearchBtn")?.click();}
+   }));
+  }
  }
+
  function showLiveHomepageResults(){
   const q=globalInput.value.trim(),run=++globalSearchRun;
   if(!q){window.gbHomepageSearchActive=false;results.classList.add("hidden");results.innerHTML="";articleSearch.value="";articleSearch.dispatchEvent(new Event("input",{bubbles:true}));return;}
-  window.gbHomepageSearchActive=true;articleSearch.value=q;document.getElementById("categoryFilter").value="";results.classList.remove("hidden");articleSearch.dispatchEvent(new Event("input",{bubbles:true}));searchExtraSections(q,run);
+  window.gbHomepageSearchActive=true;articleSearch.value=q;document.getElementById("categoryFilter").value="";results.classList.remove("hidden");articleSearch.dispatchEvent(new Event("input",{bubbles:true}));
+  if(!gbArticlesLoaded){loadArticles().then(()=>{if(run===globalSearchRun&&globalInput.value.trim()===q)searchExtraSections(q,run);});}
+  else searchExtraSections(q,run);
  }
- // Search articles, dictionary entries and World Knowledge country data while typing.
+ // Search articles plus registered section providers (dictionary, Quiz Arena, World Knowledge and future modules).
  globalInput?.addEventListener("input",showLiveHomepageResults);
 
  // Daily Discovery: rotate through a small, curated set of evergreen facts.
@@ -3932,8 +3994,7 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
  function interests(){const values=$("gbProfileInterests").value.split(/[,،]/).map(x=>x.trim()).filter(Boolean).slice(0,12),host=$("gbProfileInterestTags");host.replaceChildren();if(!values.length){const span=document.createElement("span");span.textContent="Add your favourite subjects above";host.append(span);return}values.forEach(v=>{const span=document.createElement("span");span.textContent=v;host.append(span)})}
  async function openProfile(){
   let user=null;try{const result=db?.auth?await db.auth.getUser():null;user=result?.data?.user||null}catch(error){console.warn("GyanBhoomi profile opened in local guest mode:",error)}
-  activeUser=user;window.gbProfileActiveUserId=user?.id||"";backdrop.classList.remove("hidden");document.body.style.overflow="hidden";setStatus(user?"Loading your profile…":"Guest profile · changes are saved on this device");
-  const meta=user?.user_metadata||{};
+  activeUser=user;window.gbProfileActiveUserId=user?.id||"";backdrop.classList.remove("hidden");document.body.style.overflow="hidden";setStatus(user?"Loading your profile…":"Guest profile · changes are saved on this device");  const meta=user?.user_metadata||{};
   let profile=null,profileError=null;
   if(user){const result=await db.from("gb_profiles").select("display_name,username,avatar_url,bio,preferred_language,interests,created_at,updated_at").eq("user_id",user.id).maybeSingle();profile=result.data;profileError=result.error;}
   else{try{profile=JSON.parse(localStorage.getItem("gb_profile_guest")||"null")}catch(error){profile=null}}
@@ -4423,4 +4484,6 @@ html.gb-gate-open,html.gb-gate-open body{
  };
 })();
 </script>
-\n</body>\n</html>\n
+
+</body>
+</html>
