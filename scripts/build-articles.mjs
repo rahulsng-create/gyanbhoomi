@@ -710,10 +710,31 @@ const keywordIndex = articleIndex.map(item => ({ title: item.title, url: item.ur
 await fs.writeFile(path.join(OUT, "keyword-index.json"), JSON.stringify({ generatedAt: new Date().toISOString(), articleCount: keywordIndex.length, articles: keywordIndex, dictionaryCount: dictionaryIndex.length, dictionary: dictionaryIndex }, null, 2), "utf8");
 for (const entry of dictionaryIndex) urls.push(entry.url);
 
+// Add every standalone public HTML page copied into the build, not only generated articles.
+const excludedPath = /(?:^|\/)(?:admin|login|logout|private|drafts|preview|_site|node_modules)(?:\/|$)/i;
+async function addPublicHtmlPages(directory, relative = "") {
+  const children = await fs.readdir(directory, { withFileTypes: true });
+  for (const child of children) {
+    const rel = relative ? path.posix.join(relative, child.name) : child.name;
+    if (excludedPath.test(rel) || child.name.startsWith(".")) continue;
+    const absolute = path.join(directory, child.name);
+    if (child.isDirectory()) { await addPublicHtmlPages(absolute, rel); continue; }
+    if (!child.isFile() || !/\.html?$/i.test(child.name) || /^404\.html?$/i.test(child.name)) continue;
+    const normalized = rel.split(path.sep).join("/");
+    const url = normalized.toLowerCase() === "index.html" ? `${SITE_URL}/`
+      : normalized.toLowerCase().endsWith("/index.html")
+        ? `${SITE_URL}/${normalized.slice(0, -"index.html".length)}`
+        : `${SITE_URL}/${normalized}`;
+    urls.push(url);
+  }
+}
+await addPublicHtmlPages(OUT);
+const publicUrls = [...new Set(urls)];
+
 // Keep the sitemap restricted to real, publicly published URLs.
 const xml = `<?xml version="1.0" encoding="UTF-8"?>\n` +
   `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-  urls.map(url => `  <url><loc>${esc(url)}</loc></url>`).join("\n") +
+  publicUrls.map(url => `  <url><loc>${esc(url)}</loc></url>`).join("\n") +
   `\n</urlset>\n`;
 await fs.writeFile(path.join(OUT, "sitemap.xml"), xml, "utf8");
 
@@ -727,4 +748,4 @@ if (!home.includes('name="robots"')) home = home.replace("</head>", '<meta name=
 if (!home.includes('sitemap.xml')) home = home.replace("</head>", `<link rel="sitemap" type="application/xml" href="${SITE_URL}/sitemap.xml">\n</head>`);
 await fs.writeFile(homePath, home, "utf8");
 
-console.log(`Generated ${articleIndex.length} approved article pages and ${dictionaryIndex.length} dictionary pages; sitemap contains ${urls.length} URLs.`);
+console.log(`Generated ${articleIndex.length} approved article pages and ${dictionaryIndex.length} dictionary pages; sitemap contains ${publicUrls.length} URLs.`);
