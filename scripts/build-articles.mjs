@@ -234,7 +234,7 @@ for (const article of articles) {
   const description = shortDescription(article.content, title);
   const body = cleanContent(article.content);
   const keywords = extractKeywords(title, String(article.content || ""), article.category);
-  articleIndex.push({ id, title, category: article.category || "Knowledge", url: pageUrl, description, keywords });
+  articleIndex.push({ id, title, author: article.author_name || "GyanBhoomi", category: article.category || "Knowledge", url: pageUrl, description, keywords });
   const published = dateText(article.created_at);
   const folder = path.join(OUT, "articles", slug);
   await fs.mkdir(folder, { recursive: true });
@@ -347,6 +347,16 @@ h1{color:var(--green);font-size:clamp(30px,5vw,44px);line-height:1.2;margin:8px 
 .body table{border-collapse:collapse;display:block;max-width:100%;overflow-x:auto}
 .body th,.body td{border:1px solid var(--line);padding:8px 11px}
 footer{text-align:center;color:#718078;padding:25px;font-size:13px}
+.gb-author-link{color:#f0cf82;text-decoration:underline;text-decoration-color:#e9b85f;text-underline-offset:3px;font-weight:700}
+.gb-author-link:hover{color:#fff0bd}
+.gb-contributor{margin:0 0 16px;padding:22px;border:1px solid #397269;border-radius:16px;background:linear-gradient(145deg,#123c3b,#0b2c32);color:#edf7ef}
+.gb-contributor h2{margin:0 0 8px;color:#f0cf82;font-size:22px}
+.gb-contributor p{margin:6px 0;color:#d6e5dc}
+.gb-contributor-list{display:grid;gap:12px;margin-top:18px}
+.gb-contributor-item{padding:16px;border:1px solid #397269;border-radius:12px;background:#123c3b}
+.gb-contributor-item a{color:#f0cf82;font-weight:700;text-decoration:none}
+.gb-contributor-item a:hover{text-decoration:underline}
+
 .reader-progress{position:fixed;top:0;left:0;height:4px;width:0;background:#e9b85f;z-index:1000}
 .reader-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .reader-tool{display:inline-grid;place-items:center;min-width:40px;height:40px;padding:0 10px;border:1px solid #e9b85f;border-radius:999px;background:#ffffff10;color:#f6d58d;cursor:pointer;font:600 13px system-ui}
@@ -463,7 +473,7 @@ body.gb-night .meta,body.gb-night footer{color:#b3c8bd}
 <main><article>
 <div class="meta">${esc(article.category || "Knowledge")}${published ? " · " + esc(published) : ""}</div>
 <h1>${esc(title)}</h1>
-<div class="meta">By ${esc(article.author_name || "GyanBhoomi")}</div>
+<div class="meta">By <a class="gb-author-link" href="${SITE_URL}/contributors/${slugify(article.author_name || "GyanBhoomi")}/">${esc(article.author_name || "GyanBhoomi")}</a></div>
 <div class="gb-translate-bar" role="group" aria-label="Article language translation">
 <label for="gbLanguage">Translate article:</label>
 <select id="gbLanguage">
@@ -658,6 +668,29 @@ originalButton?.addEventListener("click",()=>{
 </body></html>`;
   await fs.writeFile(path.join(folder, "index.html"), html, "utf8");
   urls.push(pageUrl);
+}
+
+// Generate public contributor pages from authors of approved articles only.
+const contributors = new Map();
+for (const item of articleIndex) {
+  const name = String(item.author || "GyanBhoomi").trim() || "GyanBhoomi";
+  const slug = slugify(name);
+  if (!contributors.has(slug)) contributors.set(slug, { name, slug, articles: [] });
+  contributors.get(slug).articles.push(item);
+}
+for (const contributor of contributors.values()) {
+  const contributorUrl = `${SITE_URL}/contributors/${contributor.slug}/`;
+  const contributorFolder = path.join(OUT, "contributors", contributor.slug);
+  await fs.mkdir(contributorFolder, { recursive: true });
+  const articleLinks = contributor.articles
+    .sort((a,b) => a.title.localeCompare(b.title))
+    .map(item => `<article class="gb-contributor-item"><a href="${esc(item.url)}">${esc(item.title)}</a><p>${esc(item.category)}</p><p>${esc(item.description)}</p></article>`)
+    .join("");
+  const categories = [...new Set(contributor.articles.map(item => item.category))].sort();
+  const description = `${contributor.name} has shared ${contributor.articles.length} published article${contributor.articles.length===1?"":"s"} on GyanBhoomi.`;
+  const contributorHtml = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(contributor.name)} — Contributor | GyanBhoomi</title><meta name="description" content="${esc(description)}"><meta name="robots" content="index,follow"><link rel="canonical" href="${esc(contributorUrl)}"><meta property="og:site_name" content="GyanBhoomi"><meta property="og:title" content="${esc(contributor.name)} — GyanBhoomi Contributor"><meta property="og:description" content="${esc(description)}"><script type="application/ld+json">${JSON.stringify({"@context":"https://schema.org","@type":"ProfilePage","mainEntity":{"@type":"Person","name":contributor.name,"description":description,"url":contributorUrl}}).replace(/</g,"\\u003c")}</script><style>*{box-sizing:border-box}body{margin:0;background:#071d1b;color:#e8eee8;font:17px/1.7 system-ui,Arial,sans-serif}.top{background:linear-gradient(120deg,#0c302b,#1a5549);padding:20px;color:#fff}.wrap{max-width:900px;margin:auto}main{max-width:900px;margin:28px auto;padding:0 16px}.panel{padding:clamp(20px,5vw,38px);border:1px solid #397269;border-radius:18px;background:linear-gradient(145deg,#123c3b,#0b2c32)}h1{margin:0 0 8px;color:#f0cf82;font-size:clamp(30px,5vw,42px)}.muted{color:#b3c8bd}.gb-contributor-item{margin:12px 0;padding:16px;border:1px solid #397269;border-radius:12px;background:#123c3b}.gb-contributor-item a{color:#f0cf82;font-weight:700;text-decoration:none}.gb-contributor-item p{margin:5px 0;color:#d6e5dc}.back{display:inline-block;margin-top:20px;color:#f0cf82}footer{text-align:center;padding:25px;color:#b3c8bd;font-size:13px}</style></head><body><header class="top"><div class="wrap"><strong><a href="${SITE_URL}/" style="color:#f0cf82;text-decoration:none">GyanBhoomi</a> · Community Contributors</strong></div></header><main><section class="panel"><h1>${esc(contributor.name)}</h1><p class="muted">GyanBhoomi Contributor · ${contributor.articles.length} published article${contributor.articles.length===1?"":"s"}</p><p>${esc(categories.join(" · ") || "Knowledge")}</p><h2>Published contributions</h2>${articleLinks}<a class="back" href="${SITE_URL}/">← Back to GyanBhoomi</a></section></main><footer>© ${new Date().getFullYear()} GyanBhoomi · ज्ञान सबके लिए</footer></body></html>`;
+  await fs.writeFile(path.join(contributorFolder, "index.html"), contributorHtml, "utf8");
+  urls.push(contributorUrl);
 }
 
 // Build related-article recommendations from shared meaningful phrases and add crawlable links.
