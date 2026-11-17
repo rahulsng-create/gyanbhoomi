@@ -1,0 +1,1 @@
+Health & Lifestyle article added to Supabase (approved). Article ID: 7d8c4c22-9d31-4c0f-8a65-3f1d1f7b5a92. Trigger Pages rebuild so the existing site article pipeline refreshes. No other site features changed.
