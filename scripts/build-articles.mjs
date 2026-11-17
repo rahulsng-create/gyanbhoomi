@@ -1,3 +1,4 @@
+// Rebuild trigger: reprocess approved Supabase articles after a controlled article restore.
 import fs from "node:fs/promises";
 import path from "node:path";
 import sanitizeHtml from "sanitize-html";
