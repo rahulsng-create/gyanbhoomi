@@ -1921,7 +1921,7 @@ const HTML_MARKER="GBHTML1:";
 function cleanArticleHTML(raw){
  const parsed=new DOMParser().parseFromString(String(raw||""),"text/html");
  const allowed=new Set(["P","H1","H2","H3","H4","H5","H6","UL","OL","LI","STRONG","B","EM","I","U","BLOCKQUOTE","BR","HR","PRE","CODE","A","TABLE","THEAD","TBODY","TFOOT","TR","TH","TD","DIV","SPAN","SUB","SUP","FIGURE","FIGCAPTION","IMG","SVG","G","DEFS","LINEARGRADIENT","STOP","RECT","CIRCLE","PATH"]);
- function copyNode(node){
+ function copyNode(node,parentIsSvg=false){
   if(node.nodeType===Node.TEXT_NODE)return document.createTextNode(node.nodeValue||"");
   if(node.nodeType!==Node.ELEMENT_NODE)return document.createDocumentFragment();
   const tag=node.tagName;
@@ -1949,12 +1949,19 @@ function cleanArticleHTML(raw){
  image.style.margin="14px auto";
  return image;
  }
-  const children=[...node.childNodes].map(copyNode);
+  const children=[...node.childNodes].map(child=>copyNode(child,parentIsSvg||tag==="SVG"));
   if(!allowed.has(tag)){const frag=document.createDocumentFragment();children.forEach(c=>frag.appendChild(c));return frag;}
-  const el=document.createElementNS(tag==="SVG"?"http://www.w3.org/2000/svg":"http://www.w3.org/1999/xhtml",tag.toLowerCase());
+  const svgTags=new Set(["SVG","G","DEFS","LINEARGRADIENT","STOP","RECT","CIRCLE","PATH"]);\n  const svgNames={SVG:"svg",G:"g",DEFS:"defs",LINEARGRADIENT:"linearGradient",STOP:"stop",RECT:"rect",CIRCLE:"circle",PATH:"path"};\n  const el=svgTags.has(tag)||parentIsSvg?document.createElementNS("http://www.w3.org/2000/svg",svgNames[tag]||tag.toLowerCase()):document.createElement(tag.toLowerCase());
   if(["SVG","G","DEFS","LINEARGRADIENT","STOP","RECT","CIRCLE","PATH"].includes(tag)){
    const safeAttrs=new Set(["viewBox","role","aria-label","xmlns","width","height","fill","stroke","stroke-width","stroke-linecap","stroke-linejoin","cx","cy","r","d","transform","x","y","rx","opacity","offset","stop-color","x1","x2","y1","y2","id"]);
-   for(const attr of [...node.attributes])if(safeAttrs.has(attr.name))el.setAttribute(attr.name,attr.value);
+   for(const attr of [...node.attributes]){
+    if(!safeAttrs.has(attr.name))continue;
+    const v=attr.value.trim();
+    if(["fill","stroke","stop-color"].includes(attr.name)&&!/^(?:none|currentColor|#[0-9a-f]{3,8}|[a-z]{1,20}|url\\(#[a-zA-Z0-9_-]+\\))$/i.test(v))continue;
+    if(attr.name==="d"&&!/^[MmLlHhVvCcSsQqTtAaZz0-9.,+\\-\\s]+$/.test(v))continue;
+    if(attr.name==="transform"&&!/^[a-zA-Z0-9(),.\\s+\\-]+$/.test(v))continue;
+    el.setAttribute(attr.name,v);
+   }
   }
   if(tag==="A"){
    const href=node.getAttribute("href")||"";
