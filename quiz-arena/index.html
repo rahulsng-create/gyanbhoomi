@@ -455,6 +455,7 @@ body{
 
 <div class="footer">GyanBhoomi Quiz Arena · Learn · Practise · Improve</div>
 <script src="question-bank-extra.js"></script>
+<script src="question-bank-extra-2.js"></script>
 <script>
 /* Language packs use the same language codes as GyanBhoomi's
    gyanbhoomi_language setting. To add a future language, add one pack here;
@@ -691,6 +692,7 @@ const BANK=[
 ["India General Knowledge","hard","Which Indian classical music tradition is primarily associated with North India?",["Carnatic","Hindustani","Dhrupad only from the South","Baul"],1,"Hindustani classical music is the major classical tradition of North India."]
 ].map((r,i)=>({id:'gbq'+(i+1),topic:r[0],level:r[1],q:r[2],options:r[3],correct:r[4],why:r[5]}));
 if(Array.isArray(window.GB_EXTRA_QUIZ_QUESTIONS))BANK.push(...window.GB_EXTRA_QUIZ_QUESTIONS);
+if(Array.isArray(window.GB_EXTRA_QUIZ_QUESTIONS_2))BANK.push(...window.GB_EXTRA_QUIZ_QUESTIONS_2);
 const TOPICS=['All Topics','Science','History','Geography','Mathematics','Environment','Health & Lifestyle','Technology','Civics & Constitution','Literature & Language','Sports','India General Knowledge'];
 const TOPIC_ICONS={'All Topics':'✦','Science':'⚗','History':'🏛','Geography':'🌍','Mathematics':'π','Environment':'🍃','Health & Lifestyle':'♡','Technology':'▣','Civics & Constitution':'⚖','Literature & Language':'📚','Sports':'🏅','India General Knowledge':'🇮🇳'};
 const TOPIC_VISUALS={'Science':'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80','History':'https://images.unsplash.com/photo-1566127992631-137a642a90f4?auto=format&fit=crop&w=1200&q=80','Geography':'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80','Mathematics':'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80','Environment':'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80','Health & Lifestyle':'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1200&q=80','Technology':'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80','Civics & Constitution':'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80','Literature & Language':'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=80','Sports':'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80','India General Knowledge':'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80'};
