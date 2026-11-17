@@ -61,7 +61,7 @@ const cleanContent = value => {
         for (const [key,value] of Object.entries(attribs)) {
           if (!allowed.includes(key)) continue;
           const v=String(value).trim();
-          if (["fill","stroke","stop-color"].includes(key) && !/^(?:none|currentColor|#[0-9a-f]{3,8}|[a-z]{1,20}|url\\(#[a-zA-Z0-9_-]+\\))$/i.test(v)) continue;
+          if (["fill","stroke","stop-color"].includes(key) && !/^(?:none|currentColor|#[0-9a-f]{3,8}|[a-z]{1,20}|url\(#[a-zA-Z0-9_-]+\))$/i.test(v)) continue;
           if (key==="d" && !/^[MmLlHhVvCcSsQqTtAaZz0-9.,+\\-\\s]+$/.test(v)) continue;
           if (key==="transform" && !/^[a-zA-Z0-9(),.\\s+\\-]+$/.test(v)) continue;
           clean[key]=v;
