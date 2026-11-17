@@ -456,6 +456,7 @@ body{
 <div class="footer">GyanBhoomi Quiz Arena · Learn · Practise · Improve</div>
 <script src="question-bank-extra.js"></script>
 <script src="question-bank-extra-2.js"></script>
+<script src="question-bank-ncert.js"></script>
 <script>
 /* Language packs use the same language codes as GyanBhoomi's
    gyanbhoomi_language setting. To add a future language, add one pack here;
@@ -769,47 +770,54 @@ $('nextBtn').addEventListener('click',startOrNext);$('pauseQuizBtn').addEventLis
 
 /* NCERT learning hub: class navigation and official textbook access.
    Quiz questions are only shown when a class-tagged bank is actually available. */
+
 function openNcertLearningHub(){
  let dialog=$('ncertLearningDialog');
  if(!dialog){
   dialog=document.createElement('dialog');dialog.id='ncertLearningDialog';
-  dialog.style.cssText='width:min(94vw,820px);max-height:88vh;border:1px solid #c8ad65;border-radius:20px;padding:0;background:#fffdf6;color:#183d2e;box-shadow:0 22px 70px #102c1f66';
-  dialog.innerHTML=`
-   <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px 20px;background:linear-gradient(120deg,#0b563b,#174b37);color:#fff4cf">
-    <div><div style="font-size:11px;letter-spacing:2px;font-weight:800;color:#e7ca7b">GYANBHOOMI · SCHOOL LEARNING</div><strong style="font:700 23px Georgia,serif">NCERT Class Explorer</strong></div>
-    <button type="button" id="closeNcertHub" aria-label="Close NCERT explorer" style="border:1px solid #d6bd76;border-radius:10px;background:transparent;color:white;padding:8px 12px">Close ✕</button>
-   </div>
-   <div style="padding:18px 20px 22px">
-    <p style="margin:0 0 15px;color:#526458;line-height:1.55">Choose your class to open the learning space. Textbook links go to NCERT's official catalogue; chapter quizzes will be enabled only when verified class-and-chapter questions are available.</p>
-    <label for="ncertClassSelect" style="display:block;font-weight:800;margin-bottom:7px">Select class</label>
-    <select id="ncertClassSelect" style="width:100%;padding:12px;border:1px solid #c8d7ca;border-radius:11px;background:white;color:#183d2e;font-size:16px">
-     <option value="1">Class 1</option><option value="2">Class 2</option><option value="3">Class 3</option><option value="4">Class 4</option><option value="5">Class 5</option><option value="6" selected>Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option>
-    </select>
-    <div id="ncertClassSummary" style="margin:15px 0;padding:15px;border:1px solid #e4d8bb;border-radius:14px;background:#fffaf0">
-     <div style="font-size:11px;letter-spacing:1.4px;color:#8a6a25;font-weight:800">YOUR LEARNING SPACE</div>
-     <h3 id="ncertClassHeading" style="margin:5px 0 8px;font:700 21px Georgia,serif">Class 6</h3>
-     <p id="ncertClassDescription" style="margin:0;color:#53645a;line-height:1.5">Explore the official textbook catalogue and choose the exact subject and edition used by your school.</p>
-     <div style="display:flex;flex-wrap:wrap;gap:9px;margin-top:14px">
-      <a id="ncertOfficialLink" href="https://ncert.nic.in/textbook.php" target="_blank" rel="noopener" style="display:inline-block;padding:10px 13px;border-radius:10px;background:#0b563b;color:#fff4cf;text-decoration:none;font-weight:700">Open NCERT textbooks ↗</a>
-      <a href="https://epathshala.nic.in/" target="_blank" rel="noopener" style="display:inline-block;padding:10px 13px;border-radius:10px;border:1px solid #b8c9b9;color:#174b37;text-decoration:none;font-weight:700">Open ePathshala ↗</a>
-     </div>
-    </div>
-    <div style="padding:13px 14px;border-left:4px solid #d3ad4e;background:#f5f1e5;border-radius:8px;color:#586458;font-size:13px;line-height:1.55">
-     <strong style="color:#284a37">Chapter-wise quiz status</strong><br>
-     Verified NCERT chapter question sets are being added separately. This page will not mix general subject questions into a class syllabus or show made-up chapter progress.
-    </div>
-    <p style="font-size:12px;color:#758078;margin:13px 0 0">NCERT notes that its textbooks are copyrighted. GyanBhoomi links to official reading sources and uses original practice questions rather than republishing textbook pages.</p>
-   </div>`;
+  dialog.style.cssText='width:min(94vw,850px);max-height:90vh;overflow:auto;border:1px solid #c8ad65;border-radius:20px;padding:0;background:#fffdf6;color:#183d2e;box-shadow:0 22px 70px #102c1f66';
+  dialog.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px 20px;background:linear-gradient(120deg,#0b563b,#174b37);color:#fff4cf"><div><div style="font-size:11px;letter-spacing:2px;font-weight:800;color:#e7ca7b">GYANBHOOMI · SCHOOL LEARNING</div><strong style="font:700 23px Georgia,serif">NCERT Class Explorer</strong></div><button type="button" id="closeNcertHub" style="border:1px solid #d6bd76;border-radius:10px;background:transparent;color:white;padding:8px 12px">Close ✕</button></div><div style="padding:18px 20px 22px"><p style="margin:0 0 15px;color:#526458;line-height:1.55">Choose a class, subject and chapter to practise. Questions are original and aligned to the current textbook chapter titles.</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px"><label style="font-weight:800">Class<select id="ncertClassSelect" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #c8d7ca;border-radius:10px;background:white;color:#183d2e"><option value="1">Class 1</option><option value="2">Class 2</option><option value="3">Class 3</option><option value="4">Class 4</option><option value="5">Class 5</option><option value="6" selected>Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option></select></label><label style="font-weight:800">Subject<select id="ncertSubjectSelect" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #c8d7ca;border-radius:10px;background:white;color:#183d2e"><option>Science</option><option>Mathematics</option></select></label></div><label style="display:block;font-weight:800;margin-top:13px">Chapter<select id="ncertChapterSelect" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #c8d7ca;border-radius:10px;background:white;color:#183d2e"></select></label><div id="ncertStatus" style="margin:12px 0;padding:12px 14px;border-radius:10px;background:#f5f1e5;color:#526458;font-size:13px;line-height:1.5"></div><div style="display:flex;flex-wrap:wrap;gap:9px;margin:12px 0"><button id="ncertStartBtn" type="button" style="padding:11px 16px;border:0;border-radius:10px;background:#0b563b;color:#fff4cf;font-weight:800">Start chapter quiz</button><a href="https://ncert.nic.in/textbook.php" target="_blank" rel="noopener" style="display:inline-block;padding:11px 14px;border:1px solid #b8c9b9;border-radius:10px;color:#174b37;text-decoration:none;font-weight:700">Official NCERT textbooks ↗</a><a href="https://epathshala.nic.in/" target="_blank" rel="noopener" style="display:inline-block;padding:11px 14px;border:1px solid #b8c9b9;border-radius:10px;color:#174b37;text-decoration:none;font-weight:700">ePathshala ↗</a></div><section id="ncertQuizArea" style="display:none;margin-top:16px;padding:16px;border:1px solid #e4d8bb;border-radius:14px;background:#fffaf0"><div id="ncertQuizMeta" style="font-size:12px;color:#8a6a25;font-weight:800;letter-spacing:1px"></div><h3 id="ncertQuestion" style="font:700 19px Georgia,serif;line-height:1.45"></h3><div id="ncertAnswers" style="display:grid;gap:8px"></div><div id="ncertExplanation" style="display:none;margin-top:12px;padding:12px;border-radius:10px;background:#eaf3e9;color:#234b35;line-height:1.5"></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:14px"><span id="ncertScore" style="align-self:center;font-weight:700"></span><button id="ncertNextBtn" type="button" disabled style="padding:10px 16px;border:0;border-radius:9px;background:#0b563b;color:#fff4cf;font-weight:800">Next question →</button></div></section><p style="font-size:12px;color:#758078;margin:14px 0 0">Available now: Class 6 Science (Curiosity, 12 chapters) and Mathematics (Ganita Prakash, 10 chapters). Other classes will appear as their verified chapter banks are added. Use the textbook edition prescribed by your school.</p></div>';
   document.body.append(dialog);
-  dialog.querySelector('#closeNcertHub').addEventListener('click',()=>dialog.close());
-  const select=dialog.querySelector('#ncertClassSelect');
-  const update=()=>{
-   const grade=select.value;
-   dialog.querySelector('#ncertClassHeading').textContent='Class '+grade;
-   dialog.querySelector('#ncertClassDescription').textContent='Explore the official textbook catalogue for Class '+grade+'. Select the exact subject, language and edition currently prescribed by your school.';
-   dialog.querySelector('#ncertOfficialLink').href='https://ncert.nic.in/textbook.php';
+  const $d=id=>dialog.querySelector('#'+id);
+  let active=[],position=0,score=0,answered=false;
+  const bank=Array.isArray(window.GB_NCERT_QUESTIONS)?window.GB_NCERT_QUESTIONS:[];
+  const refresh=()=>{
+   const grade=$d('ncertClassSelect').value,subject=$d('ncertSubjectSelect').value;
+   const rows=bank.filter(q=>q.grade===Number(grade)&&q.subject===subject);
+   const chapters=[...new Map(rows.map(q=>[q.chapterNo,q.chapter])).entries()].sort((a,b)=>a[0]-b[0]);
+   $d('ncertChapterSelect').innerHTML=chapters.map(c=>'<option value="'+c[0]+'">Chapter '+c[0]+': '+c[1]+'</option>').join('');
+   const available=grade==='6'&&rows.length>0;
+   $d('ncertStartBtn').disabled=!available;
+   $d('ncertStartBtn').style.opacity=available?'1':'.5';
+   $d('ncertStatus').textContent=available?(rows.length+' original practice questions available across '+chapters.length+' chapters for Class 6 '+subject+'. Select a chapter to begin.'):'Verified chapter-wise questions for Class '+grade+' '+subject+' are not added yet. This class is marked coming soon rather than showing unrelated questions.';
+   $d('ncertQuizArea').style.display='none';
   };
-  select.addEventListener('change',update);update();
+  const render=()=>{
+   const q=active[position];answered=false;
+   $d('ncertQuizMeta').textContent='CLASS 6 · '+q.subject.toUpperCase()+' · CHAPTER '+q.chapterNo+' · QUESTION '+(position+1)+' OF '+active.length;
+   $d('ncertQuestion').textContent=q.q;
+   $d('ncertAnswers').innerHTML=q.options.map((v,i)=>'<button type="button" data-answer="'+i+'" style="text-align:left;padding:12px;border:1px solid #d7dfd4;border-radius:10px;background:#fff;color:#183d2e;font-size:14px">'+String.fromCharCode(65+i)+'. '+v+'</button>').join('');
+   $d('ncertAnswers').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered)return;answered=true;const choice=Number(b.dataset.answer),correct=choice===q.correct;if(correct)score++;
+    $d('ncertAnswers').querySelectorAll('button').forEach((el,i)=>{el.disabled=true;el.style.borderColor=i===q.correct?'#37875a':i===choice?'#c65a4c':'#d7dfd4';el.style.background=i===q.correct?'#e7f4e9':i===choice?'#fff0ed':'#fff';});
+    $d('ncertExplanation').style.display='block';$d('ncertExplanation').textContent=(correct?'✓ Correct. ':'Not quite. Correct answer: '+q.options[q.correct]+'. ')+q.why;
+    $d('ncertScore').textContent='Score: '+score+'/'+active.length;$d('ncertNextBtn').disabled=false;
+    $d('ncertNextBtn').textContent=position===active.length-1?'See result':'Next question →';
+   }));
+   $d('ncertExplanation').style.display='none';$d('ncertScore').textContent='Score: '+score+'/'+active.length;$d('ncertNextBtn').disabled=true;$d('ncertNextBtn').textContent='Next question →';
+  };
+  $d('ncertStartBtn').addEventListener('click',()=>{
+   const grade=$d('ncertClassSelect').value,subject=$d('ncertSubjectSelect').value,chapter=Number($d('ncertChapterSelect').value);
+   active=bank.filter(q=>q.grade===Number(grade)&&q.subject===subject&&q.chapterNo===chapter);
+   if(!active.length)return;position=0;score=0;$d('ncertQuizArea').style.display='block';render();
+  });
+  $d('ncertNextBtn').addEventListener('click',()=>{
+   if(!answered)return;
+   if(position<active.length-1){position++;render();return;}
+   $d('ncertQuizMeta').textContent='CHAPTER COMPLETE';$d('ncertQuestion').textContent='You scored '+score+' out of '+active.length+'.';$d('ncertAnswers').innerHTML='<p style="color:#526458">Review the explanations and try again to strengthen your understanding.</p>';$d('ncertExplanation').style.display='none';$d('ncertNextBtn').textContent='Try again';$d('ncertNextBtn').disabled=false;$d('ncertNextBtn').onclick=()=>{$d('ncertNextBtn').onclick=null;position=0;score=0;render();};
+  });
+  $d('ncertClassSelect').addEventListener('change',refresh);$d('ncertSubjectSelect').addEventListener('change',refresh);
+  $d('closeNcertHub').addEventListener('click',()=>dialog.close());refresh();
  }
  if(typeof dialog.showModal==='function')dialog.showModal();else dialog.setAttribute('open','');
 }
