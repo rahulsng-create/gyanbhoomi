@@ -32,10 +32,16 @@ const cleanContent = value => {
     allowedTags: [
       "p","h1","h2","h3","h4","h5","h6","ul","ol","li","strong","b","em","i",
       "u","blockquote","br","hr","pre","code","a","table","thead","tbody",
-      "tfoot","tr","th","td","div","span","sub","sup","figure","figcaption","img"
+      "tfoot","tr","th","td","div","span","sub","sup","figure","figcaption","img","svg","g","defs","lineargradient","stop","rect","circle","path"
     ],
     allowedAttributes: {
       a: ["href","title"], img: ["src","alt","title","width","height"],
+      svg: ["viewBox","role","aria-label","xmlns","width","height"],
+      g: ["transform","fill","stroke","stroke-width","stroke-linecap","stroke-linejoin","opacity"],
+      defs: [], lineargradient: ["id","x1","x2","y1","y2"], stop: ["offset","stop-color"],
+      rect: ["x","y","width","height","rx","fill","opacity"],
+      circle: ["cx","cy","r","fill","stroke","stroke-width","opacity"],
+      path: ["d","fill","stroke","stroke-width","stroke-linecap","stroke-linejoin","opacity"],
       "*": ["class"]
     },
     allowedSchemes: ["http","https","mailto","data"],
