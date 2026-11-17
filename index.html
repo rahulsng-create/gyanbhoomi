@@ -2080,7 +2080,13 @@ function articleImage(value){
 function articlePlainText(value){
  const raw=String(value||"");
  if(raw.startsWith(HTML_MARKER)){
-  const doc=new DOMParser().parseFromString(raw.slice(HTML_MARKER.length),"text/html");
+  // Strip non-reading blocks before DOM parsing, then remove them again from the parsed tree.
+  const readable=raw.slice(HTML_MARKER.length)
+   .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi," ")
+   .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi," ")
+   .replace(/<svg\b[^>]*>[\s\S]*?<\/svg\s*>/gi," ")
+   .replace(/<!--[\s\S]*?-->/g," ");
+  const doc=new DOMParser().parseFromString(readable,"text/html");
   doc.querySelectorAll("script,style,svg,noscript,nav,header,footer,button").forEach(node=>node.remove());
   return (doc.body.textContent||"").replace(/\s+/g," ").trim();
  }
