@@ -2081,6 +2081,7 @@ function articlePlainText(value){
  const raw=String(value||"");
  if(raw.startsWith(HTML_MARKER)){
   const doc=new DOMParser().parseFromString(raw.slice(HTML_MARKER.length),"text/html");
+  doc.querySelectorAll("script,style,svg,noscript,nav,header,footer,button").forEach(node=>node.remove());
   return (doc.body.textContent||"").replace(/\s+/g," ").trim();
  }
  return raw.replace(/\s+/g," ").trim();
