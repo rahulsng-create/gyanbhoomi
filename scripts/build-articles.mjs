@@ -23,6 +23,46 @@ const slugify = value => String(value || "article")
   .normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
   .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")
   .slice(0, 70) || "article";
+const healthArt = [
+ [/balanced diet/i,'<circle cx="160" cy="94" r="58" fill="#f4e4bd"/><path d="M160 36a58 58 0 0 1 58 58h-58z" fill="#e7b65d"/><path d="M160 94v58a58 58 0 0 1-58-58z" fill="#72a98a"/><path d="M160 94h58a58 58 0 0 1-58 58z" fill="#d87978"/>'],
+ [/carbohydrates/i,'<path d="M160 150V40m0 27q-34-31-48-7q18 28 48 30m0 18q34-31 48-7q-18 28-48 30" stroke="#e7b65d" stroke-width="10" fill="none" stroke-linecap="round"/>'],
+ [/protein/i,'<path d="M160 38c-48 0-62 45-37 87q16 25 37 37q21-12 37-37c25-42 11-87-37-87" fill="#f0d28d"/><path d="M128 91q32-28 64 0m-64 22q32 28 64 0" stroke="#a65b43" stroke-width="8" fill="none"/>'],
+ [/dietary fats/i,'<path d="M160 34c-20 31-53 65-53 96a53 53 0 0 0 106 0c0-31-33-65-53-96" fill="#e5b85c"/><path d="M132 130q9 20 28 20" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round"/>'],
+ [/fruits, vegetables/i,'<path d="M160 69c-43-34-83 7-60 51q22 42 60 55q38-13 60-55c23-44-17-85-60-51" fill="#df7557"/><path d="M160 69q-4-31 30-38q-3 29-30 38" fill="#72a98a"/>'],
+ [/hydration/i,'<path d="M160 34c-20 32-52 65-52 96a52 52 0 0 0 104 0c0-31-32-64-52-96" fill="#72b8c7"/><path d="M132 132q9 19 28 19" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round"/>'],
+ [/food safety|hygiene|screening|vaccination/i,'<path d="M160 35l57 21v43q0 43-57 68q-57-25-57-68V56z" fill="#72a98a"/><path d="M128 98l22 22 44-49" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'],
+ [/physical activity|exercise/i,'<circle cx="166" cy="48" r="16" fill="#e7b65d"/><path d="M157 70l-24 37 30 20 26-30m-56 10l-28 32m28-32-5 42m35-22 28 22" stroke="#f6e7c2" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'],
+ [/strength/i,'<path d="M105 95h110" stroke="#e5b85c" stroke-width="14" stroke-linecap="round"/><path d="M105 68v54m-18-42v30m128-42v54m18-42v30" stroke="#72a98a" stroke-width="11" stroke-linecap="round"/>'],
+ [/sleep/i,'<path d="M188 42a59 59 0 1 0 40 91a51 51 0 0 1-40-91" fill="#829acb"/><path d="M112 55l5 13 13 5-13 5-5 13-5-13-13-5 13-5z" fill="#f3d68d"/>'],
+ [/mental health|stress/i,'<path d="M160 145s-67-39-67-79q0-31 33-31q21 0 34 24q13-24 34-24q33 0 33 31q0 40-67 79" fill="#d87978"/><path d="M119 91h24l12-20 17 40 13-20h17" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round"/>'],
+ [/social connection|relationships/i,'<circle cx="116" cy="65" r="18" fill="#e5b85c"/><circle cx="160" cy="48" r="18" fill="#d87978"/><circle cx="204" cy="65" r="18" fill="#72b8a1"/><path d="M78 145q0-48 38-48t38 48m-13 0q0-48 38-48t38 48" stroke="#f6e7c2" stroke-width="12" fill="none" stroke-linecap="round"/>'],
+ [/heart health|blood pressure/i,'<path d="M160 145s-67-39-67-79q0-31 33-31q21 0 34 24q13-24 34-24q33 0 33 31q0 40-67 79" fill="#d96b68"/><path d="M105 94h28l13-20 17 40 14-20h39" stroke="#fff" stroke-width="7" fill="none"/>'],
+ [/diabetes/i,'<path d="M160 35c-18 28-48 59-48 88a48 48 0 0 0 96 0c0-29-30-60-48-88" fill="#d87978"/><path d="M135 118l18 18 35-39" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round"/>'],
+ [/lungs|tobacco/i,'<path d="M155 55v49q-22-33-39-18q-19 17-18 55q1 18 21 13q31-7 36-35m10-64v49q22-33 39-18q19 17 18 55q-1 18-21 13q-31-7-36-35" fill="#d87978" stroke="#f7e5b4" stroke-width="5"/>'],
+ [/bone|joint/i,'<path d="M116 60q-19-20-30-4q-11 16 7 27l60 58q-4 21 13 24q17 3 22-14q19-6 14-23q-5-17-24-12l-60-56q6-17-2-24" fill="#f1d9a2" stroke="#b88d58" stroke-width="5"/>'],
+ [/gut health|digestive/i,'<path d="M126 49q-23 0-23 23v17q0 17 17 17h11v25q0 20 21 20h18q21 0 21-21v-16q0-17-17-17h-12V74q0-25-25-25z" fill="none" stroke="#d87978" stroke-width="14" stroke-linecap="round"/>'],
+ [/immunity/i,'<path d="M160 35l57 21v43q0 43-57 68q-57-25-57-68V56z" fill="#72a98a"/><path d="M160 67v64m-27-32h54" stroke="#fff" stroke-width="10" stroke-linecap="round"/>'],
+ [/children|teenagers/i,'<circle cx="160" cy="55" r="20" fill="#e5b85c"/><path d="M160 78v51m-1-34-35 22m36-22 35 22m-35 12-25 33m25-33 25 33" stroke="#72a98a" stroke-width="11" fill="none" stroke-linecap="round"/>'],
+ [/healthy ageing/i,'<circle cx="160" cy="50" r="18" fill="#e5b85c"/><path d="M160 73v61m0-38-27 24m27-24 25 17m-25 21-25 28m25-28 25 28" stroke="#f6e7c2" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M205 78v78" stroke="#72b8c7" stroke-width="7"/>'],
+ [/pregnancy|breastfeeding/i,'<circle cx="160" cy="49" r="18" fill="#e5b85c"/><path d="M145 73q-28 21-12 57q11 26 38 20q23-7 19-34q-3-27-24-43" fill="#d87978"/><circle cx="185" cy="121" r="15" fill="#f3d9a2"/>'],
+ [/warning signs/i,'<path d="M160 35l69 120H91z" fill="#e5b85c"/><path d="M160 75v38m0 18v2" stroke="#8a493d" stroke-width="11" stroke-linecap="round"/>'],
+ [/evaluate health information/i,'<circle cx="147" cy="82" r="42" fill="none" stroke="#72b8c7" stroke-width="12"/><path d="M178 113l39 39" stroke="#e5b85c" stroke-width="14" stroke-linecap="round"/><path d="M127 82l14 14 28-30" stroke="#72a98a" stroke-width="8" fill="none"/>'],
+ [/30-day habit-building|weekly wellness plan/i,'<rect x="102" y="44" width="116" height="111" rx="13" fill="#f3e5c5"/><path d="M102 75h116M130 35v24m60-24v24" stroke="#a65b43" stroke-width="8" stroke-linecap="round"/><path d="M126 102h10m16 0h10m16 0h10m-62 27h10m16 0h10m16 0h10" stroke="#72a98a" stroke-width="9" stroke-linecap="round"/>'],
+ [/frequently asked questions/i,'<circle cx="160" cy="94" r="57" fill="#72b8c7"/><path d="M140 76q2-24 24-24q25 0 25 22q0 16-21 26q-8 4-8 15" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"/><circle cx="160" cy="133" r="6" fill="#fff"/>'],
+ [/key takeaways/i,'<path d="M160 145s-67-39-67-79q0-31 33-31q21 0 34 24q13-24 34-24q33 0 33 31q0 40-67 79" fill="#d87978"/><path d="M128 94l21 21 43-47" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"/>']
+];
+const enrichHealthIllustrations = html => {
+ let index = 0;
+ return html.replace(/(<figure\b[^>]*class=["'][^"']*\bgb-health-illustration\b[^"']*["'][^>]*>)([\s\S]*?)<svg\b[^>]*>[\s\S]*?<\/svg>([\s\S]*?<figcaption[^>]*>)([\s\S]*?)(<\/figcaption>)/gi,
+  (whole, open, before, capOpen, caption, close) => {
+   const label = caption.replace(/\s*[—-]\s*original GyanBhoomi.*$/i,"").trim();
+   const art = healthArt.find(([pattern]) => pattern.test(label));
+   if (!art) return whole;
+   const palette = [["#123f3b","#e5b85c"],["#173d4a","#72b8c7"],["#21463c","#d87978"],["#263d55","#f3d9a2"]][index++ % 4];
+   const svg = '<svg viewBox="0 0 320 190" role="img" aria-label="' + label.replace(/[&<>"]/g," ") + '" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="314" height="184" rx="24" fill="' + palette[0] + '"/><circle cx="38" cy="35" r="18" fill="' + palette[1] + '" opacity=".18"/><circle cx="280" cy="152" r="28" fill="' + palette[1] + '" opacity=".13"/>' + art[1] + '</svg>';
+   return open + before + svg + capOpen + caption + close;
+  });
+};
 const cleanContent = value => {
   const raw = String(value || "");
   if (!raw.startsWith(MARKER)) {
@@ -74,6 +114,7 @@ const cleanContent = value => {
   // The page template already prints the article title as its single H1.
   // Remove only the duplicate H1 inside this article's cover figure.
   let output = sanitized.replace(/(<figure\b[^>]*class=["'][^"']*\bgb-cover\b[^"']*["'][^>]*>[\s\S]*?)<h1\b[^>]*>[\s\S]*?<\/h1>/i, "$1");
+  if (raw.includes("The Complete Guide to Healthy Living")) output = enrichHealthIllustrations(output);
   // Convert the sanitized cover SVG to an image data URI so browsers render
   // the complete illustration consistently on generated static article pages.
   output = output.replace(/(<figure\b[^>]*class=["'][^"']*\bgb-cover\b[^"']*["'][^>]*>)([\s\S]*?)<svg\b[^>]*>[\s\S]*?<\/svg>([\s\S]*?<\/figure>)/i, (match, open, before, after) => {
