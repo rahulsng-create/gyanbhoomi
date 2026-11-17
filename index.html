@@ -1951,7 +1951,9 @@ function cleanArticleHTML(raw){
  }
   const children=[...node.childNodes].map(child=>copyNode(child,parentIsSvg||tag==="SVG"));
   if(!allowed.has(tag)){const frag=document.createDocumentFragment();children.forEach(c=>frag.appendChild(c));return frag;}
-  const svgTags=new Set(["SVG","G","DEFS","LINEARGRADIENT","STOP","RECT","CIRCLE","PATH"]);\n  const svgNames={SVG:"svg",G:"g",DEFS:"defs",LINEARGRADIENT:"linearGradient",STOP:"stop",RECT:"rect",CIRCLE:"circle",PATH:"path"};\n  const el=svgTags.has(tag)||parentIsSvg?document.createElementNS("http://www.w3.org/2000/svg",svgNames[tag]||tag.toLowerCase()):document.createElement(tag.toLowerCase());
+  const svgTags=new Set(["SVG","G","DEFS","LINEARGRADIENT","STOP","RECT","CIRCLE","PATH"]);
+  const svgNames={SVG:"svg",G:"g",DEFS:"defs",LINEARGRADIENT:"linearGradient",STOP:"stop",RECT:"rect",CIRCLE:"circle",PATH:"path"};
+  const el=svgTags.has(tag)||parentIsSvg?document.createElementNS("http://www.w3.org/2000/svg",svgNames[tag]||tag.toLowerCase()):document.createElement(tag.toLowerCase());
   if(["SVG","G","DEFS","LINEARGRADIENT","STOP","RECT","CIRCLE","PATH"].includes(tag)){
    const safeAttrs=new Set(["viewBox","role","aria-label","xmlns","width","height","fill","stroke","stroke-width","stroke-linecap","stroke-linejoin","cx","cy","r","d","transform","x","y","rx","opacity","offset","stop-color","x1","x2","y1","y2","id"]);
    for(const attr of [...node.attributes]){
