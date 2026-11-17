@@ -2079,18 +2079,18 @@ function articleImage(value){
 }
 function articlePlainText(value){
  const raw=String(value||"");
- if(raw.startsWith(HTML_MARKER)){
-  // Strip non-reading blocks before DOM parsing, then remove them again from the parsed tree.
-  const readable=raw.slice(HTML_MARKER.length)
-   .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi," ")
-   .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi," ")
-   .replace(/<svg\b[^>]*>[\s\S]*?<\/svg\s*>/gi," ")
-   .replace(/<!--[\s\S]*?-->/g," ");
-  const doc=new DOMParser().parseFromString(readable,"text/html");
-  doc.querySelectorAll("script,style,svg,noscript,nav,header,footer,button").forEach(node=>node.remove());
-  return (doc.body.textContent||"").replace(/\s+/g," ").trim();
- }
- return raw.replace(/\s+/g," ").trim();
+ if(!raw.startsWith(HTML_MARKER))return raw.replace(/\s+/g," ").trim();
+ // Work on the source string first: style/SVG contents must never become visible card text.
+ let readable=raw.slice(HTML_MARKER.length);
+ readable=readable
+  .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi," ")
+  .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi," ")
+  .replace(/<svg\b[^>]*>[\s\S]*?<\/svg\s*>/gi," ")
+  .replace(/<!--[\s\S]*?-->/g," ")
+  .replace(/<[^>]*>/g," ");
+ const holder=document.createElement("div");
+ holder.innerHTML=readable;
+ return (holder.textContent||"").replace(/\s+/g," ").trim();
 }
 // Parse article HTML once and reuse its text, image and excerpt during filtering/rendering.
 const articleViewCache=new WeakMap();
