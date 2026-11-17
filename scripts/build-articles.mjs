@@ -48,6 +48,26 @@ const cleanContent = value => {
     allowedSchemesByTag: { img: ["https","data"] },
     allowProtocolRelative: false,
     transformTags: {
+      ...Object.fromEntries(["svg","g","defs","lineargradient","stop","rect","circle","path"].map(tag => [tag, (tagName, attribs) => {
+        const allowed = {
+          svg:["viewBox","role","aria-label","xmlns","width","height"],
+          g:["transform","fill","stroke","stroke-width","stroke-linecap","stroke-linejoin","opacity"],
+          defs:[], lineargradient:["id","x1","x2","y1","y2"], stop:["offset","stop-color"],
+          rect:["x","y","width","height","rx","fill","opacity"],
+          circle:["cx","cy","r","fill","stroke","stroke-width","opacity"],
+          path:["d","fill","stroke","stroke-width","stroke-linecap","stroke-linejoin","opacity"]
+        }[tag];
+        const clean = {};
+        for (const [key,value] of Object.entries(attribs)) {
+          if (!allowed.includes(key)) continue;
+          const v=String(value).trim();
+          if (["fill","stroke","stop-color"].includes(key) && !/^(?:none|currentColor|#[0-9a-f]{3,8}|[a-z]{1,20}|url\\(#[a-zA-Z0-9_-]+\\))$/i.test(v)) continue;
+          if (key==="d" && !/^[MmLlHhVvCcSsQqTtAaZz0-9.,+\\-\\s]+$/.test(v)) continue;
+          if (key==="transform" && !/^[a-zA-Z0-9(),.\\s+\\-]+$/.test(v)) continue;
+          clean[key]=v;
+        }
+        return {tagName,attribs:clean};
+      }])),
       a: sanitizeHtml.simpleTransform("a", { rel: "noopener noreferrer", target: "_blank" })
     }
   });
