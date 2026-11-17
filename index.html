@@ -2037,9 +2037,9 @@ $("htmlArticleFile").addEventListener("change",async()=>{
  importedArticleHTML="";
  $("htmlImportStatus").textContent="";
  if(!file)return;
- if(file.size > 2 * 1024 * 1024){
+ if(file.size > 10 * 1024 * 1024){
   $("htmlArticleFile").value="";
-  $("htmlImportStatus").textContent="This HTML file is larger than 2 MB. Please choose a smaller file.";
+  $("htmlImportStatus").textContent="This HTML file is larger than 10 MB. Please choose a smaller file.";
   return;
  }
  try{
