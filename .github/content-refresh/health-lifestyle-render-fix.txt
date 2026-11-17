@@ -1,0 +1,1 @@
+Rebuild approved article pages from Supabase. The Health & Lifestyle article now uses the GBHTML1: marker expected by the existing article renderer. No shared website features changed.
