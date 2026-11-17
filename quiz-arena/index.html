@@ -138,6 +138,54 @@ body{background:#092f24;color:var(--ink)}
 .question-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.question-heading h3{flex:1}.bookmark-question{flex:none;border:1px solid #c8b98f;border-radius:9px;background:#fff8e8;color:#765b20;padding:8px 11px;font-weight:700;font-size:12px}.bookmark-question[aria-pressed="true"]{background:#f2e5bd;border-color:#a98736}.saved-questions{margin-top:15px;padding:15px 17px;border:1px solid #e4d9b8;border-radius:13px;background:#fffdf5}.question-tools{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.question-tools .bookmark-question[aria-pressed=true]{background:#fff0c5;border-color:#bd9137;color:#684b13}.saved-questions .mistake-review-actions{display:flex;align-items:center;gap:9px}.saved-questions .mistake-count{background:#f1ead3;color:#735b24}@media(max-width:650px){.question-heading{align-items:flex-start}.bookmark-question{padding:7px 8px}.saved-questions .mistake-review-head{align-items:flex-start;flex-direction:column}}
 body.quiz-high-contrast{background:#fff!important;color:#000!important}body.quiz-high-contrast .panel,body.quiz-high-contrast .question,body.quiz-high-contrast .learning-block,body.quiz-high-contrast .flashcard-panel{background:#fff!important;color:#000!important;border:2px solid #000!important;box-shadow:none!important}body.quiz-high-contrast .panel-head,body.quiz-high-contrast .hero,body.quiz-high-contrast .topbar{background:#000!important;color:#fff!important}body.quiz-high-contrast .question h3,body.quiz-high-contrast .quiz-intro h2,body.quiz-high-contrast .learning-block h3,body.quiz-high-contrast .question p,body.quiz-high-contrast .subject-row,body.quiz-high-contrast .stat-body,body.quiz-high-contrast .learning-block p{color:#000!important}body.quiz-high-contrast .answer,body.quiz-high-contrast .btn,body.quiz-high-contrast select,body.quiz-high-contrast input{background:#fff!important;color:#000!important;border:2px solid #000!important}body.quiz-high-contrast .answer.chosen,body.quiz-high-contrast .btn.primary{background:#000!important;color:#fff!important;border:2px solid #000!important}body.quiz-high-contrast .answer:focus-visible,body.quiz-high-contrast button:focus-visible,body.quiz-high-contrast select:focus-visible{outline:4px solid #005fcc!important;outline-offset:3px}body.quiz-high-contrast .progress-track,body.quiz-high-contrast .subject-track{background:#ddd!important;border:1px solid #000}body.quiz-high-contrast .progress-fill,body.quiz-high-contrast .subject-track span{background:#000!important}body.quiz-high-contrast .crumb,body.quiz-high-contrast .featurebar,body.quiz-high-contrast .side-inner{background:#fff!important;color:#000!important}body.quiz-high-contrast .hero h1,body.quiz-high-contrast .hero h2,body.quiz-high-contrast .hero p{color:#fff!important}body.quiz-high-contrast .muted,body.quiz-high-contrast small{color:#222!important}
 </style>
+<style id="gb-quiz-mobile-fix">
+
+/* Mobile refinement: keep the question readable and controls orderly */
+.question-heading{display:block!important;min-width:0}
+.question-heading h3{display:block;width:100%;max-width:100%;margin:0 0 18px;overflow-wrap:anywhere}
+.question-tools{display:flex;justify-content:flex-start;align-items:center;gap:8px;flex-wrap:wrap;width:100%;margin:0 0 16px}
+.question-tools .bookmark-question{flex:1 1 auto;min-width:0;min-height:42px;padding:9px 11px;white-space:normal}
+.question .answers{width:100%;min-width:0}
+.question .answer{width:100%;text-align:left;overflow-wrap:anywhere}
+.controls{flex-wrap:wrap}
+.control-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.learning-dashboard{box-shadow:0 14px 36px #00170f22}
+.learning-dashboard .learning-block{background:#fffdf7;border-color:#e4dac5}
+.learning-dashboard .learning-block h3{color:#214b35}
+.learning-dashboard .subject-row{color:#344b3b}
+.learning-dashboard .subject-row>span:first-child{color:#344b3b;font-weight:650}
+.learning-dashboard .subject-row strong{color:#174b34}
+.learning-dashboard .subject-progress p,.learning-dashboard .learning-block p{color:#665f52!important}
+.flashcard-panel{margin-top:24px;margin-bottom:28px}
+.flashcard-inner{box-shadow:0 16px 40px #00170f30}
+.flashcard-meta{color:#e4d8b5}
+.flashcard:disabled{cursor:not-allowed;opacity:.7}
+@media(max-width:720px){
+ .question-heading{display:block!important}
+ .question-heading h3{font-size:clamp(20px,5.5vw,25px)!important;line-height:1.42!important;margin:0 0 16px!important}
+ .question-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 16px}
+ .question-tools .bookmark-question{width:100%;min-height:44px;font-size:12px;padding:9px 6px}
+ .progress-row{display:grid!important;grid-template-columns:auto 1fr auto;align-items:center;gap:9px!important}
+ .progress-row .progress-track{grid-column:1/3;grid-row:2;width:100%}
+ .progress-row #progressText{grid-column:3;grid-row:2;text-align:right}
+ .progress-row .timer{grid-column:3;grid-row:1}
+ .controls{display:flex;align-items:stretch;gap:8px}
+ .controls>.btn{flex:1 1 30%;min-height:44px}
+ .control-actions{flex:1 1 100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0}
+ .control-actions .btn{min-width:0;padding:11px 7px}
+ .learning-dashboard{margin:0 10px 18px;border-radius:18px}
+ .learning-dashboard .learning-stats>div{min-width:0}
+ .flashcard-panel{margin:18px 10px 24px;padding:0}
+ .flashcard-stage{padding:14px}
+ .flashcard{min-height:225px}
+}
+@media(max-width:380px){
+ .question-tools{grid-template-columns:1fr 1fr}
+ .control-actions{grid-template-columns:1fr 1fr}
+ .control-actions #nextBtn{grid-column:1/-1}
+ .progress-row{font-size:11px}
+}
+</style>
 
 <style id="gb-quiz-professional-polish">
 /* GyanBhoomi Quiz Arena — focused, sequential mobile-first presentation */
@@ -403,7 +451,7 @@ body{
  </div>
 </section>
 
-<div class="footer">GyanBhoomi Quiz Arena · Interactive Quiz Arena preview · Sample questions and demo progress</div>
+<div class="footer">GyanBhoomi Quiz Arena · Learn · Practise · Improve</div>
 <script>
 /* Language packs use the same language codes as GyanBhoomi's
    gyanbhoomi_language setting. To add a future language, add one pack here;
@@ -723,6 +771,8 @@ applyLanguage();startNewQuiz();
  const $=id=>document.getElementById(id);
  const subject=$("flashcardSubject"),card=$("flashcard"),label=$("flashcardLabel"),content=$("flashcardContent"),hint=$("flashcardHint");
  if(!subject||!card||!Array.isArray(BANK))return;
+ const availableSubjects=[...new Set(BANK.map(item=>Array.isArray(item)?item[0]:item.topic).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+ subject.innerHTML=[new Option("All subjects","All"),...availableSubjects.map(name=>new Option(name,name))].map(option=>option.outerHTML).join("");
  let deck=[],position=0,revealed=false;
  const buildDeck=()=>{
   const selected=subject.value;
