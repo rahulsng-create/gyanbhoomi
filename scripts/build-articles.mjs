@@ -73,11 +73,11 @@ const cleanContent = value => {
   });
   // The page template already prints the article title as its single H1.
   // Remove only the duplicate H1 inside this article's cover figure.
-  let output = sanitized.replace(/(<figure\\b[^>]*class=["'][^"']*\\bgb-cover\\b[^"']*["'][^>]*>[\\s\\S]*?)<h1\\b[^>]*>[\\s\\S]*?<\\/h1>/i, "$1");
+  let output = sanitized.replace(/(<figure\b[^>]*class=["'][^"']*\bgb-cover\b[^"']*["'][^>]*>[\s\S]*?)<h1\b[^>]*>[\s\S]*?<\/h1>/i, "$1");
   // Convert the sanitized cover SVG to an image data URI so browsers render
   // the complete illustration consistently on generated static article pages.
-  output = output.replace(/(<figure\\b[^>]*class=["'][^"']*\\bgb-cover\\b[^"']*["'][^>]*>)([\\s\\S]*?)<svg\\b[^>]*>[\\s\\S]*?<\\/svg>([\\s\\S]*?<\\/figure>)/i, (match, open, before, after) => {
-    const svg = match.match(/<svg\\b[^>]*>[\\s\\S]*?<\\/svg>/i)?.[0];
+  output = output.replace(/(<figure\b[^>]*class=["'][^"']*\bgb-cover\b[^"']*["'][^>]*>)([\s\S]*?)<svg\b[^>]*>[\s\S]*?<\/svg>([\s\S]*?<\/figure>)/i, (match, open, before, after) => {
+    const svg = match.match(/<svg\b[^>]*>[\s\S]*?<\/svg>/i)?.[0];
     if (!svg) return match;
     const image = '<img src="data:image/svg+xml;base64,' + Buffer.from(svg, "utf8").toString("base64") + '" alt="Illustration of healthy living with food, movement and wellbeing" />';
     return open + before + image + after;
