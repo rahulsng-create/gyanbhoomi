@@ -28,7 +28,7 @@ const cleanContent = value => {
   if (!raw.startsWith(MARKER)) {
     return `<p>${esc(raw).replace(/\r?\n/g, "<br>")}</p>`;
   }
-  return sanitizeHtml(raw.slice(MARKER.length), {
+  const sanitized = sanitizeHtml(raw.slice(MARKER.length), {
     allowedTags: [
       "p","h1","h2","h3","h4","h5","h6","ul","ol","li","strong","b","em","i",
       "u","blockquote","br","hr","pre","code","a","table","thead","tbody",
@@ -71,6 +71,9 @@ const cleanContent = value => {
       a: sanitizeHtml.simpleTransform("a", { rel: "noopener noreferrer", target: "_blank" })
     }
   });
+  // The page template already prints the article title as its single H1.
+  // Remove only the duplicate H1 inside this article's cover figure.
+  return sanitized.replace(/(<figure\b[^>]*class=["'][^"']*\bgb-cover\b[^"']*["'][^>]*>[\s\S]*?)<h1\b[^>]*>[\s\S]*?<\/h1>/i, "$1");
 };
 
 const STOP_WORDS = new Set((`
