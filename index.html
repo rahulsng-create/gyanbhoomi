@@ -1920,12 +1920,12 @@ function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&l
 const HTML_MARKER="GBHTML1:";
 function cleanArticleHTML(raw){
  const parsed=new DOMParser().parseFromString(String(raw||""),"text/html");
- const allowed=new Set(["P","H1","H2","H3","H4","H5","H6","UL","OL","LI","STRONG","B","EM","I","U","BLOCKQUOTE","BR","HR","PRE","CODE","A","TABLE","THEAD","TBODY","TFOOT","TR","TH","TD","DIV","SPAN","SUB","SUP","FIGURE","FIGCAPTION","IMG"]);
+ const allowed=new Set(["P","H1","H2","H3","H4","H5","H6","UL","OL","LI","STRONG","B","EM","I","U","BLOCKQUOTE","BR","HR","PRE","CODE","A","TABLE","THEAD","TBODY","TFOOT","TR","TH","TD","DIV","SPAN","SUB","SUP","FIGURE","FIGCAPTION","IMG","SVG","G","DEFS","LINEARGRADIENT","STOP","RECT","CIRCLE","PATH"]);
  function copyNode(node){
   if(node.nodeType===Node.TEXT_NODE)return document.createTextNode(node.nodeValue||"");
   if(node.nodeType!==Node.ELEMENT_NODE)return document.createDocumentFragment();
   const tag=node.tagName;
-  if(["SCRIPT","STYLE","IFRAME","OBJECT","EMBED","FORM","INPUT","BUTTON","VIDEO","AUDIO","SVG","MATH"].includes(tag))return document.createDocumentFragment();
+  if(["SCRIPT","STYLE","IFRAME","OBJECT","EMBED","FORM","INPUT","BUTTON","VIDEO","AUDIO","MATH"].includes(tag))return document.createDocumentFragment();
   if(tag==="IMG"){
  let src=(node.getAttribute("src")||"").trim();
  src=src.replace(/\s+/g,"");
@@ -1951,7 +1951,11 @@ function cleanArticleHTML(raw){
  }
   const children=[...node.childNodes].map(copyNode);
   if(!allowed.has(tag)){const frag=document.createDocumentFragment();children.forEach(c=>frag.appendChild(c));return frag;}
-  const el=document.createElement(tag.toLowerCase());
+  const el=document.createElementNS(tag==="SVG"?"http://www.w3.org/2000/svg":"http://www.w3.org/1999/xhtml",tag.toLowerCase());
+  if(["SVG","G","DEFS","LINEARGRADIENT","STOP","RECT","CIRCLE","PATH"].includes(tag)){
+   const safeAttrs=new Set(["viewBox","role","aria-label","xmlns","width","height","fill","stroke","stroke-width","stroke-linecap","stroke-linejoin","cx","cy","r","d","transform","x","y","rx","opacity","offset","stop-color","x1","x2","y1","y2","id"]);
+   for(const attr of [...node.attributes])if(safeAttrs.has(attr.name))el.setAttribute(attr.name,attr.value);
+  }
   if(tag==="A"){
    const href=node.getAttribute("href")||"";
    if(/^https?:\/\//i.test(href)||href.startsWith("mailto:")){
