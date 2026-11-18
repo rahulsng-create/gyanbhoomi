@@ -1373,27 +1373,15 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
         <div id="gbSignupProfileFields" class="hidden">
           <label>Date of birth<input id="gbVisitorDob" type="date" autocomplete="bday"></label>
           <div class="gb-address-fields">
-            <label>House / Flat No.<input id="gbVisitorHouse" type="text" autocomplete="address-line1" placeholder="House or flat number"></label>
-            <label>Landmark <small>(optional)</small><input id="gbVisitorLandmark" type="text" autocomplete="off" placeholder="Nearby landmark"></label>
-            <label>Area / Locality / Village<input id="gbVisitorArea" type="text" autocomplete="address-line2" placeholder="Area, locality or village"></label>
             <label>Country<select id="gbVisitorCountry" autocomplete="country-name" required><option value="">Loading countries…</option></select></label>
-            <label>City / Town<select id="gbVisitorCity" autocomplete="address-level2" required disabled><option value="">Select country first</option></select></label>
+            <label>State / Province<select id="gbVisitorState" autocomplete="address-level1" required disabled><option value="">Select country first</option></select></label>
+            <label>City / Town<select id="gbVisitorCity" autocomplete="address-level2" required disabled><option value="">Select state first</option></select></label>
             <label>PIN / Postal code<input id="gbVisitorPincode" type="text" autocomplete="postal-code" inputmode="numeric" placeholder="PIN / postal code"></label>
           </div>
           <label>Preferred language
             <select id="gbVisitorLanguage">
               <option value="English" selected>English</option>
               <option value="Hindi">हिन्दी</option>
-            </select>
-          </label>
-          <label>Learning interests
-            <select id="gbVisitorGoal">
-              <option value="All topics" selected>Explore all topics</option>
-              <option value="NCERT learning">NCERT learning</option>
-              <option value="General knowledge">General knowledge</option>
-              <option value="Competitive exams">Competitive exams</option>
-              <option value="Science and technology">Science and technology</option>
-              <option value="History and culture">History and culture</option>
             </select>
           </label>
           <label>Mobile number<input id="gbVisitorPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+91 98765 43210"></label>
@@ -3732,7 +3720,26 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
      names.forEach(n=>city.add(new Option(n,n)));city.disabled=false;
    }catch(e){city.replaceChildren(new Option("Could not load cities",""));city.disabled=true;}
  };
- $("gbVisitorCountry")?.addEventListener("change",e=>{if(e.target.value)gbLoadCities(e.target.value);else{$("gbVisitorCity").replaceChildren(new Option("Select country first",""));$("gbVisitorCity").disabled=true;}});
+ const gbLoadStates=async name=>{
+   const state=$("gbVisitorState"),city=$("gbVisitorCity");if(!state)return;
+   state.disabled=true;state.replaceChildren(new Option("Loading states…",""));
+   city.disabled=true;city.replaceChildren(new Option("Select state first",""));
+   try{
+     const r=await fetch("https://countriesnow.space/api/v0.1/countries/states",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({country:name})});
+     const j=await r.json();const names=(j.data?.states||[]).map(x=>typeof x==="string"?x:x.name).filter(Boolean).sort((a,b)=>a.localeCompare(b));
+     state.replaceChildren(new Option(names.length?"Select state / province":"No states listed — continue",""));
+     names.forEach(n=>state.add(new Option(n,n)));
+     if(!names.length){state.add(new Option("Not applicable","Not applicable"));state.value="Not applicable";}
+     state.disabled=false;
+   }catch(e){state.replaceChildren(new Option("Could not load states — retry country",""));state.disabled=true;}
+ };
+ $("gbVisitorCountry")?.addEventListener("change",e=>{
+   const country=e.target.value;
+   $("gbVisitorState").replaceChildren(new Option(country?"Loading states…":"Select country first",""));
+   $("gbVisitorCity").replaceChildren(new Option(country?"Select state first":"Select country first",""));
+   $("gbVisitorState").disabled=!country;$("gbVisitorCity").disabled=true;
+   if(country){gbLoadStates(country);gbLoadCities(country);}
+ });
  const showMode=next=>{
    mode=next==="signup"?"signup":"login";
    const signup=mode==="signup";
@@ -3742,7 +3749,7 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    $("gbVisitorNameLabel").classList.toggle("hidden",!signup);
    $("gbVisitorName").required=signup;
    $("gbSignupProfileFields").classList.toggle("hidden",!signup);
-   ["gbVisitorDob","gbVisitorHouse","gbVisitorArea","gbVisitorCity","gbVisitorCountry","gbVisitorPincode","gbVisitorPhone"].forEach(id=>$(id).required=signup);
+   ["gbVisitorDob","gbVisitorCountry","gbVisitorState","gbVisitorCity","gbVisitorPincode","gbVisitorPhone"].forEach(id=>$(id).required=signup);
    if(signup)gbLoadCountries();
    $("gbTermsRow").classList.toggle("hidden",!signup);
    $("gbTermsAgree").required=signup;
@@ -3883,15 +3890,14 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    if(!validEmail(email)){message("Please enter a valid email address.","error");$("gbVisitorEmail").focus();return;}
    if(mode==="signup"&&!name){message("Please enter your full name.","error");$("gbVisitorName").focus();return;}
    if(mode==="signup"){
-     const dob=$("gbVisitorDob").value,house=$("gbVisitorHouse").value.trim(),landmark=$("gbVisitorLandmark").value.trim(),area=$("gbVisitorArea").value.trim(),city=$("gbVisitorCity").value.trim(),country=$("gbVisitorCountry").value.trim(),pincode=$("gbVisitorPincode").value.trim(),phone=$("gbVisitorPhone").value.trim();
+     const dob=$("gbVisitorDob").value,country=$("gbVisitorCountry").value.trim(),state=$("gbVisitorState").value.trim(),city=$("gbVisitorCity").value.trim(),pincode=$("gbVisitorPincode").value.trim(),phone=$("gbVisitorPhone").value.trim();
      if(!dob){message("Please enter your date of birth.","error");$("gbVisitorDob").focus();return;}
-     if(!house){message("Please enter your house or flat number.","error");$("gbVisitorHouse").focus();return;}
-     if(!area){message("Please enter your area, locality or village.","error");$("gbVisitorArea").focus();return;}
      if(!country){message("Please select your country.","error");$("gbVisitorCountry").focus();return;}
+     if(!state){message("Please select your state or province.","error");$("gbVisitorState").focus();return;}
      if(!city){message("Please select your city or town.","error");$("gbVisitorCity").focus();return;}
      if(!pincode){message("Please enter your PIN or postal code.","error");$("gbVisitorPincode").focus();return;}
      if(!phone){message("Please enter your mobile number.","error");$("gbVisitorPhone").focus();return;}
-     const address=[house,landmark,area,city,country,pincode].filter(Boolean).join(", ");
+     const address=[city,state,country,pincode].filter(Boolean).join(", ");
      if(password.length<8||!/[A-Z]/.test(password)||!/[a-z]/.test(password)||!/[0-9]/.test(password)||!/[!@#$%^&*(),.?":{}|<>_\-\[\]\\/+=~`;'']/g.test(password)){
        message("Use a strong password: 8+ characters, uppercase, lowercase, number and symbol.","error");$("gbVisitorPassword").focus();return;
      }
@@ -3906,10 +3912,9 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
            full_name:name,display_name:name,
            date_of_birth:$("gbVisitorDob").value,
            address,
-           house_flat_no:house,landmark,area_locality:area,city,country,postal_code:pincode,
+           city,state,country,postal_code:pincode,
            phone:$("gbVisitorPhone").value.trim(),
            preferred_language:$("gbVisitorLanguage").value,
-           learning_interest:$("gbVisitorGoal").value,
            terms_accepted_at:new Date().toISOString()
          }}
        });
