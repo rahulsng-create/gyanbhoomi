@@ -1651,8 +1651,8 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
 </div></section>
 <section id="contribute" class="tab hidden"><div class="card"><h2>Share your knowledge</h2><p class="muted">Your article will be reviewed before it appears publicly.</p><form id="submitForm">
 <label>Article title</label><input id="title" maxlength="180" required placeholder="Enter a clear title"><label>Your name</label><input id="author" maxlength="100" required placeholder="Name to display"><label>Category</label><select id="category" required><option value="">Choose a category</option><option value="Science" data-en="Science" data-hi="विज्ञान">Science</option><option value="Technology" data-en="Technology" data-hi="प्रौद्योगिकी">Technology</option><option value="History" data-en="History" data-hi="इतिहास">History</option><option value="Education" data-en="Education" data-hi="शिक्षा">Education</option><option value="Health & Lifestyle" data-en="Health & Lifestyle" data-hi="स्वास्थ्य और जीवनशैली">Health & Lifestyle</option><option value="Arts & Culture" data-en="Arts & Culture" data-hi="कला और संस्कृति">Arts & Culture</option><option value="Environment" data-en="Environment" data-hi="पर्यावरण">Environment</option><option value="Other" data-en="Other" data-hi="अन्य">Other</option></select><label>Article content</label>
-<p class="muted">Write here, or upload an .html file. This box previews the text; supported images and formatting appear in the published article.</p>
-<input id="htmlArticleFile" type="file" accept=".html,.htm,text/html" aria-label="Choose an HTML article file">
+<p class="muted">Write here, or upload HTML, Markdown or text. Images may be embedded or linked; supported formats include SVG, PNG, JPEG, WEBP, GIF, AVIF and BMP.</p>
+<input id="htmlArticleFile" type="file" accept=".html,.htm,.md,.markdown,.txt,text/html,text/markdown,text/plain" aria-label="Choose an HTML article file">
 <p id="htmlImportStatus" class="muted" aria-live="polite"></p>
  <button type="button" id="useArticleTemplate">✦ Insert Universal Article Structure</button>
 <p class="muted">Use our professional article structure as a starting point. Add unlimited sections, detailed explanations, illustrations, diagrams, infographics and tables as your topic requires.</p>
@@ -1930,7 +1930,7 @@ function cleanArticleHTML(raw){
  let src=(node.getAttribute("src")||"").trim();
  src=src.replace(/\s+/g,"");
 
- const safeData=/^data:image\/(?:png|jpe?g|webp|gif);base64,[a-z0-9+/=]+$/i.test(src);
+ const safeData=/^data:image\/(?:png|jpe?g|webp|gif|avif|bmp|x-icon|vnd\.microsoft\.icon|tiff|svg\+xml)(?:;charset=[^;,]+)?(?:;base64)?,[a-z0-9+/=%]+$/i.test(src);
  const safeHttps=/^https:\/\/[^\s"'<>]+$/i.test(src);
 
  if(!safeData&&!safeHttps)return document.createDocumentFragment();
@@ -2032,34 +2032,28 @@ TABLE OF CONTENTS
  $("htmlImportStatus").textContent="Universal article structure inserted. Expand, remove or add sections as needed.";
  content.focus();
 });
+function markdownToArticleHTML(markdown){
+ const fmt=v=>esc(v).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>");
+ const lines=String(markdown||"").replace(/\r/g,"").split("\n"),out=[];let para=[],list="";
+ const flush=()=>{if(para.length){out.push("<p>"+para.map(fmt).join("<br>")+"</p>");para=[];}};
+ for(const line of lines){const t=line.trim();if(!t){flush();if(list){out.push("</"+list+">");list="";}continue;}
+ const h=t.match(/^(#{1,6})\s+(.+)$/);if(h){flush();if(list){out.push("</"+list+">");list="";}out.push("<h"+h[1].length+">"+fmt(h[2])+"</h"+h[1].length+">");continue;}
+ const li=t.match(/^[-*+]\s+(.+)$/);if(li){flush();if(list!=="ul"){if(list)out.push("</"+list+">");list="ul";out.push("<ul>");}out.push("<li>"+fmt(li[1])+"</li>");continue;}
+ const ol=t.match(/^\d+[.)]\s+(.+)$/);if(ol){flush();if(list!=="ol"){if(list)out.push("</"+list+">");list="ol";out.push("<ol>");}out.push("<li>"+fmt(ol[1])+"</li>");continue;}
+ if(list){out.push("</"+list+">");list="";}para.push(t);}
+ flush();if(list)out.push("</"+list+">");return out.join("\n");
+}
 $("htmlArticleFile").addEventListener("change",async()=>{
- const file=$("htmlArticleFile").files&&$("htmlArticleFile").files[0];
- importedArticleHTML="";
- $("htmlImportStatus").textContent="";
- if(!file)return;
- if(file.size > 10 * 1024 * 1024){
-  $("htmlArticleFile").value="";
-  $("htmlImportStatus").textContent="This HTML file is larger than 10 MB. Please choose a smaller file.";
-  return;
- }
- try{
-  const raw=await file.text();
-  const parsed=new DOMParser().parseFromString(raw,"text/html");
-  const articleRoot=parsed.querySelector("main article, main, article")||parsed.body;
-  if(!$("title").value.trim()){
-   const heading=articleRoot.querySelector("h1")?.textContent?.trim()||parsed.querySelector("h1")?.textContent?.trim()||parsed.title?.trim();
-   if(heading)$("title").value=heading.slice(0,180);
-  }
-  importedArticleHTML=cleanArticleHTML(raw);
-  // Build the editable plain-text preview from the article body, not the site header/footer.
-  const textRoot=articleRoot.cloneNode(true);
-  textRoot.querySelectorAll("script,style,nav,header,footer,button").forEach(n=>n.remove());
-  $("content").value=(textRoot.textContent||"").replace(/\\s+/g," ").trim();
-  $("htmlImportStatus").textContent="Article content imported. The text box shows a text preview; embedded images and formatting are preserved for the published article.";
- }catch(error){
-  importedArticleHTML="";
-  $("htmlImportStatus").textContent="Could not read this HTML file. Please try another file.";
- }
+ const file=$("htmlArticleFile").files&&$("htmlArticleFile").files[0];importedArticleHTML="";$("htmlImportStatus").textContent="";if(!file)return;
+ if(file.size>25*1024*1024){$("htmlArticleFile").value="";$("htmlImportStatus").textContent="File exceeds the 25 MB limit.";return;}
+ try{const raw=await file.text(),ext=(file.name.split(".").pop()||"").toLowerCase();let articleHTML="";
+  if(["html","htm"].includes(ext)){const parsed=new DOMParser().parseFromString(raw,"text/html"),articleRoot=parsed.querySelector("main article, main, article")||parsed.body;
+   if(!$("title").value.trim()){const heading=articleRoot.querySelector("h1")?.textContent?.trim()||parsed.title?.trim();if(heading)$("title").value=heading.slice(0,180);}
+   articleHTML=cleanArticleHTML(raw);const textRoot=articleRoot.cloneNode(true);textRoot.querySelectorAll("script,style,nav,header,footer,button").forEach(n=>n.remove());$("content").value=(textRoot.textContent||"").replace(/\s+/g," ").trim();
+  }else{const converted=ext==="md"||ext==="markdown"?markdownToArticleHTML(raw):"<p>"+esc(raw).replace(/\r?\n/g,"<br>")+"</p>";articleHTML=cleanArticleHTML(converted);$("content").value=raw.trim();
+   if(!$("title").value.trim()){const first=raw.split(/\r?\n/).find(x=>x.trim());if(first)$("title").value=first.replace(/^#+\s*/,"").slice(0,180);}}
+  importedArticleHTML=articleHTML;$("htmlImportStatus").textContent="Imported successfully. HTML formatting and supported embedded images are preserved; Markdown and text are converted into article content.";
+ }catch(error){importedArticleHTML="";$("htmlImportStatus").textContent="Could not read this file. Please try a valid HTML, Markdown or text file.";}
 });
 $("content").addEventListener("input",()=>{if(importedArticleHTML){importedArticleHTML="";$("htmlImportStatus").textContent="Manual text editing selected; imported HTML formatting will not be used.";}});
 
