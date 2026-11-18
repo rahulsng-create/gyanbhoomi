@@ -1405,6 +1405,7 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
         <button type="submit" id="gbVisitorSubmit" class="gb-auth-primary">Log In</button>
       </form>
       <div id="gbAuthMessage" role="status" aria-live="polite" class="gb-auth-message"></div>
+      <button type="button" id="gbResendConfirmation" class="gb-text-button hidden" style="display:none;margin:4px auto 0">Resend confirmation email</button>
       <div class="gb-auth-divider"><span>or continue with</span></div>
       <button type="button" id="gbGoogleAuth" class="gb-auth-google"><b>G</b> Continue with Google</button>
       <button type="button" id="gbGuestAuth" class="gb-auth-guest">Continue as Guest</button>
@@ -3676,6 +3677,10 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    el.textContent=text;
    el.className="gb-auth-message "+type;
  };
+ const showResendConfirmation=show=>{
+   const button=$("gbResendConfirmation");
+   if(button){button.classList.toggle("hidden",!show);button.style.display=show?"block":"none";}
+ };
  const getAuth=()=>window.gyanBhoomiDB?.auth||null;
  const authDiagnostics=()=>({
    library:typeof window.supabase,
@@ -3831,6 +3836,7 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    $("gbAuthFootSignup")?.addEventListener("click",()=>showMode("signup"));
    $("gbAuthFootLogin")?.addEventListener("click",()=>showMode("login"));
    message("");
+   showResendConfirmation(false);
  };
  const revealLogin=()=>{
    if(!cover)return;
@@ -3880,6 +3886,20 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    const remembered=localStorage.getItem("gbVisitorRememberedEmail");
    if(remembered){$("gbVisitorEmail").value=remembered;$("gbRemember").checked=true;}
  }catch(e){console.warn("Remembered email is unavailable:",e);}
+
+ $("gbResendConfirmation")?.addEventListener("click",async()=>{
+   if(busy)return;
+   const email=$("gbVisitorEmail").value.trim();
+   if(!validEmail(email)){message("Enter the same valid email address you used to create the account.","error");$("gbVisitorEmail").focus();return;}
+   try{
+     setBusy(true,"Sending confirmation email…");
+     const {error}=await requireAuth().resend({type:"signup",email,options:{emailRedirectTo:location.origin+location.pathname}});
+     if(error)throw error;
+     message("If this account is awaiting confirmation, a new confirmation email has been sent. Check Inbox and Spam.","success");
+     showResendConfirmation(false);
+   }catch(e){message(e.message||"Could not resend the confirmation email. Please try again later.","error");}
+   finally{setBusy(false);}
+ });
 
  $("gbForgot").addEventListener("click",async()=>{
    if(busy)return;
@@ -4003,8 +4023,9 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
          message("Your account is ready. Welcome to GyanBhoomi!","success");
          window.setTimeout(closeGate,700);
        }else{
-         message("Account created. Check your email to confirm it, then log in.","success");
          showMode("login");
+         message("Account created, but email confirmation is still pending. Use the button below to resend the confirmation email.","success");
+         showResendConfirmation(true);
        }
      }else{
        const {data,error}=await requireAuth().signInWithPassword({email,password});
@@ -4020,7 +4041,8 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
      }
    }catch(e){
      const invalidLogin=mode==="login"&&/invalid login credentials|invalid credentials|email not confirmed/i.test(String(e.message||""));
-     message(invalidLogin?"Invalid credentials. Check your email and password and try again.":(e.message||"Authentication failed. Please check your details and try again."),"error");
+     message(invalidLogin?"Login failed. If you have not confirmed your email yet, request a new confirmation email below. Otherwise check your email and password.":(e.message||"Authentication failed. Please check your details and try again."),"error");
+     if(invalidLogin)showResendConfirmation(true);
    }finally{
      setBusy(false);
    }
