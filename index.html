@@ -1391,7 +1391,7 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
               <option value="Hindi">हिन्दी</option>
             </select>
           </label>
-          <label>Mobile number<input id="gbVisitorPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+91 98765 43210"></label>
+          <label>Mobile number<input id="gbVisitorPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="Select country first"></label>
         </div>
         <label>Email address<input id="gbVisitorEmail" type="email" autocomplete="email" required placeholder="you@example.com"></label>
         <label>Password<div class="gb-password-wrap"><input id="gbVisitorPassword" type="password" autocomplete="current-password" required minlength="8" placeholder="Enter your password"><button type="button" id="gbPasswordToggle" class="gb-password-toggle" aria-label="Show password" aria-pressed="false">Show</button></div></label>
@@ -3731,6 +3731,26 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
      names.forEach(n=>country.add(new Option(n,n)));country.dataset.loaded="yes";
    }catch(e){country.replaceChildren(new Option("Could not load countries",""));}
  };
+ const gbCountryCodes={"India":"+91","United States":"+1","United Kingdom":"+44","Canada":"+1","Australia":"+61","United Arab Emirates":"+971","Saudi Arabia":"+966","Nepal":"+977","Pakistan":"+92","Bangladesh":"+880","Sri Lanka":"+94","Singapore":"+65","Malaysia":"+60","Germany":"+49","France":"+33","Italy":"+39","Spain":"+34","Japan":"+81","China":"+86","New Zealand":"+64","South Africa":"+27","Nigeria":"+234","Brazil":"+55","Mexico":"+52","Afghanistan":"+93","Qatar":"+974","Kuwait":"+965","Oman":"+968","Bahrain":"+973"};
+ const gbSetPhonePrefix=async name=>{
+   const phone=$("gbVisitorPhone");if(!phone)return;
+   phone.placeholder="Loading country code…";
+   let code=gbCountryCodes[name]||"";
+   try{const r=await fetch("https://restcountries.com/v3.1/name/"+encodeURIComponent(name)+"?fields=name,idd");if(r.ok){const d=await r.json(),idd=d?.[0]?.idd;if(idd?.root)code=idd.root+(Array.isArray(idd.suffixes)&&idd.suffixes.length===1?idd.suffixes[0]:"");}}catch(e){console.warn("Country code lookup:",e);}
+   if(code){const old=phone.dataset.countryCode||"",value=phone.value.trim();if(!value||(old&&value.startsWith(old)))phone.value=code+" ";phone.dataset.countryCode=code;phone.placeholder=code+" mobile number";}
+   else{phone.dataset.countryCode="";phone.placeholder="Enter mobile number with country code";}
+ };
+ const gbLookupPostalCode=async()=>{
+   const name=$("gbVisitorCountry").value,postal=$("gbVisitorPincode").value.trim(),city=$("gbVisitorCity"),state=$("gbVisitorState");if(!name||!postal)return;
+   city.disabled=true;city.replaceChildren(new Option("Finding city from postal code…",""));
+   try{
+     let names=[];
+     if(name==="India"){const r=await fetch("https://api.postalpincode.in/pincode/"+encodeURIComponent(postal));if(!r.ok)throw new Error("Postal lookup failed");const d=await r.json();names=[...new Set((d?.[0]?.PostOffice||[]).map(x=>x.District||x.Block||x.Name).filter(Boolean))];}
+     else{const codes={"United States":"us","United Kingdom":"gb","Canada":"ca","Australia":"au","Germany":"de","France":"fr","Japan":"jp","Brazil":"br","Mexico":"mx","South Africa":"za","New Zealand":"nz"};const cc=codes[name];if(!cc)throw new Error("Postal lookup not supported for this country");const r=await fetch("https://api.zippopotam.us/"+cc+"/"+encodeURIComponent(postal));if(!r.ok)throw new Error("Postal code not found");const d=await r.json();names=[...new Set((d.places||[]).map(x=>x["place name"]).filter(Boolean))];}
+     if(!names.length)throw new Error("No city found");
+     city.replaceChildren(new Option("Select city / town",""));names.forEach(n=>city.add(new Option(n,n)));if(names.length===1)city.value=names[0];city.disabled=false;
+   }catch(e){console.warn("Postal lookup:",e);city.replaceChildren(new Option("City not found — select manually",""));city.disabled=false;}
+ };
  const gbLoadCities=async(name,stateName)=>{
    const city=$("gbVisitorCity");if(!city)return;
    city.disabled=true;city.replaceChildren(new Option("Loading cities…",""));
@@ -3776,8 +3796,10 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    $("gbVisitorState").replaceChildren(new Option(country?"Loading states…":"Select country first",""));
    $("gbVisitorCity").replaceChildren(new Option(country?"Select state first":"Select country first",""));
    $("gbVisitorState").disabled=!country;$("gbVisitorCity").disabled=true;
-   if(country){gbLoadStates(country);}
+   if(country){gbLoadStates(country);gbSetPhonePrefix(country);}
  });
+ $("gbVisitorPincode")?.addEventListener("change",gbLookupPostalCode);
+ $("gbVisitorPincode")?.addEventListener("blur",gbLookupPostalCode);
  $("gbVisitorState")?.addEventListener("change",()=>{
    const country=$("gbVisitorCountry").value,state=$("gbVisitorState").value;
    if(country&&state&&state!=="Not applicable")gbLoadCities(country,state);
