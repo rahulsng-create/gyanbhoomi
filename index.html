@@ -1194,6 +1194,13 @@ html.gb-gate-open #gbWelcomeSplash{display:none!important;visibility:hidden!impo
 
 </style><style id="gb-entry-auth-enhancements">
 .gb-password-guidance{margin:5px 0 8px;color:#f7dda0;font-size:11px;line-height:1.45}
+.gb-password-meter{display:grid;gap:6px;margin:-5px 0 10px;color:#e8d5a0;font-size:11px;font-weight:700}
+.gb-password-meter-track{height:6px;overflow:hidden;border-radius:20px;background:#ffffff25}
+.gb-password-meter-track span{display:block;width:0;height:100%;border-radius:20px;background:#d95b52;transition:width .2s ease,background .2s ease}
+.gb-password-meter[data-strength="weak"] .gb-password-meter-track span{width:25%;background:#d95b52}
+.gb-password-meter[data-strength="fair"] .gb-password-meter-track span{width:50%;background:#e5a64a}
+.gb-password-meter[data-strength="good"] .gb-password-meter-track span{width:75%;background:#a9bd65}
+.gb-password-meter[data-strength="strong"] .gb-password-meter-track span{width:100%;background:#5fbd86}
 .gb-terms-row{display:flex!important;align-items:flex-start;gap:8px;color:#f5dda4!important;font-size:11px!important;line-height:1.45}
 .gb-terms-row input{width:16px;height:16px;flex:none;margin:1px 0 0;accent-color:#e9b85f}
 .gb-terms-row.hidden{display:none!important}
@@ -1389,6 +1396,10 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
         <label>Email address<input id="gbVisitorEmail" type="email" autocomplete="email" required placeholder="you@example.com"></label>
         <label>Password<div class="gb-password-wrap"><input id="gbVisitorPassword" type="password" autocomplete="current-password" required minlength="8" placeholder="Enter your password"><button type="button" id="gbPasswordToggle" class="gb-password-toggle" aria-label="Show password" aria-pressed="false">Show</button></div></label>
         <p id="gbPasswordGuidance" class="gb-password-guidance hidden">Strong password tip: use at least 8 characters with uppercase and lowercase letters, a number and a symbol. Avoid names and common words.</p>
+        <div id="gbPasswordMeter" class="gb-password-meter hidden" aria-live="polite">
+          <div class="gb-password-meter-track"><span id="gbPasswordMeterFill"></span></div>
+          <span id="gbPasswordMeterText">Password strength: enter a password</span>
+        </div>
         <label id="gbTermsRow" class="gb-terms-row hidden"><input type="checkbox" id="gbTermsAgree"> I agree to the Terms of Service and Privacy Policy.</label>
         <div class="gb-auth-options" id="gbAuthOptions"><label class="gb-remember"><input type="checkbox" id="gbRemember" checked> Remember me</label><button type="button" id="gbForgot" class="gb-text-button">Forgot Password?</button></div>
         <button type="submit" id="gbVisitorSubmit" class="gb-auth-primary">Log In</button>
@@ -3776,6 +3787,8 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    $("gbTermsRow").classList.toggle("hidden",!signup);
    $("gbTermsAgree").required=signup;
    $("gbPasswordGuidance").classList.toggle("hidden",!signup);
+   $("gbPasswordMeter").classList.toggle("hidden",!signup);
+   updatePasswordMeter();
    $("gbVisitorPassword").minLength=signup?8:6;
    $("gbVisitorPassword").autocomplete=signup?"new-password":"current-password";
    $("gbAuthOptions").classList.toggle("hidden",signup);
@@ -3808,6 +3821,17 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
  $("gbAuthSignupTab").addEventListener("click",()=>showMode("signup"));
  $("gbAuthFootSignup")?.addEventListener("click",()=>showMode("signup"));
 
+ const updatePasswordMeter=()=>{
+   const value=$("gbVisitorPassword").value;
+   const meter=$("gbPasswordMeter"),fill=$("gbPasswordMeterFill"),label=$("gbPasswordMeterText");
+   const checks=[value.length>=8,/[A-Z]/.test(value),/[a-z]/.test(value),/[0-9]/.test(value),/[!@#$%^&*(),.?":{}|<>_\-\[\]\\/+=~`;'']/g.test(value)];
+   const score=checks.filter(Boolean).length;
+   const strength=!value?"":score<=2?"weak":score===3?"fair":score===4?"good":"strong";
+   meter.dataset.strength=strength;
+   fill.style.width=(!value?0:score*20)+"%";
+   label.textContent=!value?"Password strength: enter a password": "Password strength: "+({weak:"Weak",fair:"Fair",good:"Good",strong:"Strong"}[strength])+" · "+score+"/5 checks";
+ };
+ $("gbVisitorPassword")?.addEventListener("input",updatePasswordMeter);
  // Password visibility control.
  $("gbPasswordToggle")?.addEventListener("click",()=>{
    const input=$("gbVisitorPassword"),button=$("gbPasswordToggle");
