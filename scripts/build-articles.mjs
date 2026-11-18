@@ -261,7 +261,7 @@ for (const article of articles) {
   const description = shortDescription(article.content, title);
   const materialized = await materializeInlineImages(cleanContent(article.content), id);
   const body = materialized.html;
-  const coverImage = body.match(/<img\b[^>]*src=["'](https:\\/\\/[^"']+)["']/i)?.[1] || "";
+  const coverImage = body.match(/<img\\b[^>]*src=["']([^"']+)["']/i)?.[1] || "";
   const keywords = extractKeywords(title, String(article.content || ""), article.category);
   articleIndex.push({ id, title, author: article.author_name || "GyanBhoomi", category: article.category || "Knowledge", url: pageUrl, description, keywords });
   const published = dateText(article.created_at);
