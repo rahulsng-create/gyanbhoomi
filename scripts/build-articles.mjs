@@ -880,3 +880,5 @@ if (!home.includes('sitemap.xml')) home = home.replace("</head>", `<link rel="si
 await fs.writeFile(homePath, home, "utf8");
 
 console.log(`Generated ${articleIndex.length} approved article pages and ${dictionaryIndex.length} dictionary pages; sitemap contains ${publicUrls.length} URLs.`);
+
+// Rebuild trigger: publish the newly approved Sleep Science feature article.
