@@ -2073,45 +2073,17 @@ function articleImage(value){
  if(!raw.startsWith(HTML_MARKER))return "";
  try{
   const doc=new DOMParser().parseFromString(raw.slice(HTML_MARKER.length),"text/html");
-  const embedded=doc.querySelector("img[src^='data:image/']");
-  if(embedded)return embedded.getAttribute("src")||"";
-  const svg=doc.querySelector("figure.gb-cover svg");
-  if(!svg)return "";
-  const allowedTags=new Set(["svg","g","defs","lineargradient","stop","rect","circle","path"]);
-  const allowedAttrs={
-   svg:["viewBox","role","aria-label","xmlns","width","height"],
-   g:["transform","fill","stroke","stroke-width","stroke-linecap","stroke-linejoin","opacity"],
-   defs:[],lineargradient:["id","x1","x2","y1","y2"],stop:["offset","stop-color"],
-   rect:["x","y","width","height","rx","fill","opacity"],
-   circle:["cx","cy","r","fill","stroke","stroke-width","opacity"],
-   path:["d","fill","stroke","stroke-width","stroke-linecap","stroke-linejoin","opacity"]
-  };
-  const clean=svg.cloneNode(true);
-  [clean,...clean.querySelectorAll("*")].forEach(node=>{
-   const tag=node.tagName.toLowerCase();
-   if(!allowedTags.has(tag)){node.remove();return;}
-   [...node.attributes].forEach(attr=>{
-    if(!(allowedAttrs[tag]||[]).includes(attr.name))node.removeAttribute(attr.name);
-   });
-  });
-  clean.setAttribute("xmlns","http://www.w3.org/2000/svg");
-  return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(clean.outerHTML);
+  const img=doc.querySelector("img[src^='data:image/']");
+  return img?img.getAttribute("src"):"";
  }catch(e){return ""}
 }
 function articlePlainText(value){
  const raw=String(value||"");
- if(!raw.startsWith(HTML_MARKER))return raw.replace(/\s+/g," ").trim();
- // Work on the source string first: style/SVG contents must never become visible card text.
- let readable=raw.slice(HTML_MARKER.length);
- readable=readable
-  .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi," ")
-  .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi," ")
-  .replace(/<svg\b[^>]*>[\s\S]*?<\/svg\s*>/gi," ")
-  .replace(/<!--[\s\S]*?-->/g," ")
-  .replace(/<[^>]*>/g," ");
- const holder=document.createElement("div");
- holder.innerHTML=readable;
- return (holder.textContent||"").replace(/\s+/g," ").trim();
+ if(raw.startsWith(HTML_MARKER)){
+  const doc=new DOMParser().parseFromString(raw.slice(HTML_MARKER.length),"text/html");
+  return (doc.body.textContent||"").replace(/\s+/g," ").trim();
+ }
+ return raw.replace(/\s+/g," ").trim();
 }
 // Parse article HTML once and reuse its text, image and excerpt during filtering/rendering.
 const articleViewCache=new WeakMap();
