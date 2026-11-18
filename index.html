@@ -2194,24 +2194,33 @@ function renderArticles(){
  output.querySelectorAll("[data-open-article]").forEach(b=>b.onclick=()=>openArticle(b.dataset.openArticle));
 }
 function openArticle(id){
-  const a = approvedArticles.find(
-    x => String(x.id) === String(id)
-  );
-
+  const a = approvedArticles.find(x => String(x.id) === String(id));
   if (!a) return;
 
-  const slugify = value => String(value || "article")
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 70) || "article";
+  const output = $("articles");
+  if (!output) return;
 
-  const slug = `${slugify(a.title)}-${slugify(a.id)}`;
+  const featured = $("featuredArea");
+  if (featured) featured.innerHTML = "";
 
-  window.location.href =
-    `https://rahulsng-create.github.io/gyanbhoomi/articles/${slug}/index.html`;
+  const articleDate = a.created_at
+    ? new Date(a.created_at).toLocaleDateString()
+    : "";
+
+  output.innerHTML = `
+    <article class="article-full">
+      <button type="button" class="back-btn" data-back-to-library>← Back to articles</button>
+      <div class="reading-meta">${esc(a.category || "Knowledge")}${articleDate ? " · " + esc(articleDate) : ""}${a.author_name ? " · " + esc(a.author_name) : ""}</div>
+      <h2>${esc(a.title)}</h2>
+      <div class="article-body">${articleContentHTML(a.content)}</div>
+    </article>`;
+
+  output.querySelector("[data-back-to-library]")?.addEventListener("click", () => {
+    renderArticles();
+    output.scrollIntoView({behavior:"smooth", block:"start"});
+  });
+
+  output.scrollIntoView({behavior:"smooth", block:"start"});
 }
 
 function showAskLibraryFallback(question,status,results){
