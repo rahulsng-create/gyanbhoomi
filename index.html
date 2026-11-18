@@ -3945,15 +3945,16 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    const name=$("gbVisitorName").value.trim();
    if(!validEmail(email)){message("Please enter a valid email address.","error");$("gbVisitorEmail").focus();return;}
    if(mode==="signup"&&!name){message("Please enter your full name.","error");$("gbVisitorName").focus();return;}
+   let address="",city="",state="",country="",pincode="";
    if(mode==="signup"){
-     const dob=$("gbVisitorDob").value,country=$("gbVisitorCountry").value.trim(),state=$("gbVisitorState").value.trim(),city=$("gbVisitorCity").value.trim(),pincode=$("gbVisitorPincode").value.trim(),phone=$("gbVisitorPhone").value.trim();
+     const dob=$("gbVisitorDob").value;country=$("gbVisitorCountry").value.trim();state=$("gbVisitorState").value.trim();city=$("gbVisitorCity").value.trim();pincode=$("gbVisitorPincode").value.trim();const phone=$("gbVisitorPhone").value.trim();
      if(!dob){message("Please enter your date of birth.","error");$("gbVisitorDob").focus();return;}
      if(!country){message("Please select your country.","error");$("gbVisitorCountry").focus();return;}
      if(!state){message("Please select your state or province.","error");$("gbVisitorState").focus();return;}
      if(!city){message("Please select your city or town.","error");$("gbVisitorCity").focus();return;}
      if(!pincode){message("Please enter your PIN or postal code.","error");$("gbVisitorPincode").focus();return;}
      if(!phone){message("Please enter your mobile number.","error");$("gbVisitorPhone").focus();return;}
-     const address=[city,state,country,pincode].filter(Boolean).join(", ");
+     address=[city,state,country,pincode].filter(Boolean).join(", ");
      if(password.length<8||!/[A-Z]/.test(password)||!/[a-z]/.test(password)||!/[0-9]/.test(password)||!/[!@#$%^&*(),.?":{}|<>_\-\[\]\\/+=~`;'']/g.test(password)){
        message("Use a strong password: 8+ characters, uppercase, lowercase, number and symbol.","error");$("gbVisitorPassword").focus();return;
      }
