@@ -53,7 +53,7 @@ async function materializeInlineImages(html, articleId) {
   let index = 0;
   const imageDir = path.join(OUT, "assets", "article-images", slugify(articleId));
   const imageUrlBase = `${SITE_URL}/assets/article-images/${slugify(articleId)}`;
-  const pattern = /src=(["\'])(data:image\\/(?:svg\\+xml|png|jpe?g|webp|gif|avif|bmp|tiff|x-icon|vnd\\.microsoft\\.icon)(?:;charset=[^;,]+)?(?:;base64)?,[^"\']+)\\1/gi;
+  const pattern = /src=(["'])(data:image\/(?:svg\+xml|png|jpe?g|webp|gif|avif|bmp|tiff|x-icon|vnd\.microsoft\.icon)(?:;charset=[^;,]+)?(?:;base64)?,[^"']+)\1/gi;
   let output = "", last = 0;
   for (const match of html.matchAll(pattern)) {
     const dataUrl = match[2], comma = dataUrl.indexOf(",");
