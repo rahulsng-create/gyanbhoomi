@@ -44,7 +44,7 @@ window.GB_NCERT_QUESTIONS.push(...[
 ["10","Science",13,"Our Environment","medium","Which material is most likely to be non-biodegradable?",["Vegetable peels","Paper","Plastic packaging","Cotton cloth"],2,"Many plastics resist decomposition by microorganisms and persist in the environment."],
 
 ["10","Mathematics",1,"Real Numbers","easy","Which of the following is an irrational number?",["0.25","√2","3/5","0.125"],1,"√2 cannot be expressed as a ratio of two integers and is irrational."],
-["10","Mathematics",1,"Real Numbers","medium","The HCF of 26 and 91 is:",["7","13","26","91"],0,"26 = 2 × 13 and 91 = 7 × 13, so their HCF is 13."],
+["10","Mathematics",1,"Real Numbers","medium","The HCF of 26 and 91 is:",["7","13","26","91"],1,"26 = 2 × 13 and 91 = 7 × 13, so their HCF is 13."],
 ["10","Mathematics",1,"Real Numbers","medium","If the HCF of two positive integers is 6 and their product is 216, what is their LCM?",["18","24","36","42"],2,"For two positive integers, HCF × LCM = product; LCM = 216/6 = 36."],
 ["10","Mathematics",2,"Polynomials","easy","What is the degree of the polynomial 5x³ − 2x + 7?",["1","2","3","5"],2,"The highest power of x with a non-zero coefficient is 3."],
 ["10","Mathematics",2,"Polynomials","medium","If α and β are the zeroes of x² − 5x + 6, what is α + β?",["−6","−5","5","6"],2,"For ax² + bx + c, the sum of zeroes is −b/a; here it is 5."],
