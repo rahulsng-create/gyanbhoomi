@@ -3824,7 +3824,7 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
  const updatePasswordMeter=()=>{
    const value=$("gbVisitorPassword").value;
    const meter=$("gbPasswordMeter"),fill=$("gbPasswordMeterFill"),label=$("gbPasswordMeterText");
-   const checks=[value.length>=8,/[A-Z]/.test(value),/[a-z]/.test(value),/[0-9]/.test(value),/[!@#$%^&*(),.?":{}|<>_\-\[\]\\/+=~`;'']/g.test(value)];
+   const checks=[value.length>=8,/[A-Z]/.test(value),/[a-z]/.test(value),/[0-9]/.test(value),/[^A-Za-z0-9]/.test(value)];
    const score=checks.filter(Boolean).length;
    const strength=!value?"":score<=2?"weak":score===3?"fair":score===4?"good":"strong";
    meter.dataset.strength=strength;
