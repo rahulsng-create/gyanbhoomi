@@ -52,7 +52,7 @@ async function materializeInlineImages(html, articleId) {
   let index = 0;
   const imageDir = path.join(OUT, "assets", "article-images", slugify(articleId));
   const imageUrlBase = `${SITE_URL}/assets/article-images/${slugify(articleId)}`;
-  const pattern = /src=(["'])(data:image\\/(?:svg\\+xml|png|jpe?g|webp)(?:;charset=[^;,]+)?(?:;base64)?,[^"']+)\\1/gi;
+  const pattern = /src=(["'])(data:image\/(?:svg\+xml|png|jpe?g|webp)(?:;charset=[^;,]+)?(?:;base64)?,[^"']+)\1/gi;
   let output = "", last = 0;
   for (const match of html.matchAll(pattern)) {
     const dataUrl = match[2], comma = dataUrl.indexOf(",");
@@ -63,7 +63,7 @@ async function materializeInlineImages(html, articleId) {
     catch { continue; }
     const isSvg = header.includes("image/svg+xml");
     const extension = isSvg ? "svg" : header.includes("image/png") ? "png" : header.includes("image/webp") ? "webp" : "jpg";
-    if (isSvg && !/<svg\\b/i.test(bytes.toString("utf8"))) continue;
+    if (isSvg && !/<svg\b/i.test(bytes.toString("utf8"))) continue;
     await fs.mkdir(imageDir, { recursive: true });
     const filename = `image-${++index}.${extension}`;
     await fs.writeFile(path.join(imageDir, filename), bytes);
@@ -261,7 +261,7 @@ for (const article of articles) {
   const description = shortDescription(article.content, title);
   const materialized = await materializeInlineImages(cleanContent(article.content), id);
   const body = materialized.html;
-  const coverImage = body.match(/<img\\b[^>]*src=["'](https:\\/\\/[^"']+)["']/i)?.[1] || "";
+  const coverImage = body.match(/<img\b[^>]*src=["'](https:\\/\\/[^"']+)["']/i)?.[1] || "";
   const keywords = extractKeywords(title, String(article.content || ""), article.category);
   articleIndex.push({ id, title, author: article.author_name || "GyanBhoomi", category: article.category || "Knowledge", url: pageUrl, description, keywords });
   const published = dateText(article.created_at);
