@@ -67,11 +67,16 @@ async function materializeInlineImages(html, articleId) {
     if (isSvg) {
       const svg = bytes.toString("utf8");
       if (!/<svg\\b/i.test(svg)) continue;
-      // Convert SVG illustrations to the same WEBP format used by established GyanBhoomi articles.
       bytes = await sharp(Buffer.from(svg), { density: 144, limitInputPixels: 40000000 })
-        .webp({ quality: 88, effort: 5 })
-        .toBuffer();
+        .webp({ quality: 88, effort: 5 }).toBuffer();
       extension = "webp";
+    } else if (!["png","jpg","webp","gif"].includes(extension)) {
+      // Normalize browser-inconsistent formats (AVIF, BMP, TIFF and icon files) to WEBP.
+      try {
+        bytes = await sharp(bytes, { limitInputPixels: 40000000 })
+          .webp({ quality: 88, effort: 5 }).toBuffer();
+        extension = "webp";
+      } catch { continue; }
     }
     await fs.mkdir(imageDir, { recursive: true });
     const filename = `image-${++index}.${extension}`;
