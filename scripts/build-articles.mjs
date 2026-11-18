@@ -63,7 +63,7 @@ async function materializeInlineImages(html, articleId) {
     try { bytes = header.includes(";base64") ? Buffer.from(payload, "base64") : Buffer.from(decodeURIComponent(payload), "utf8"); }
     catch { continue; }
     const isSvg = header.includes("image/svg+xml");
-    let extension = header.includes("image/png") ? "png" : header.includes("image/webp") ? "webp" : "jpg";
+    let extension = header.includes("image/png") ? "png" : header.includes("image/webp") ? "webp" : header.includes("image/gif") ? "gif" : header.includes("image/avif") ? "avif" : header.includes("image/bmp") ? "bmp" : header.includes("image/tiff") ? "tiff" : header.includes("icon") ? "ico" : "jpg";
     if (isSvg) {
       const svg = bytes.toString("utf8");
       if (!/<svg\\b/i.test(svg)) continue;
