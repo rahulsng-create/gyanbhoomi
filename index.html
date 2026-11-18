@@ -1654,6 +1654,7 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
 <p class="muted">Write here, or upload HTML, Markdown or text. Images may be embedded or linked; supported formats include SVG, PNG, JPEG, WEBP, GIF, AVIF and BMP.</p>
 <input id="htmlArticleFile" type="file" accept=".html,.htm,.md,.markdown,.txt,text/html,text/markdown,text/plain" aria-label="Choose an HTML article file">
 <p id="htmlImportStatus" class="muted" aria-live="polite"></p>
+<label for="articleImageFiles">Add images and illustrations (multiple files)</label><input id="articleImageFiles" type="file" accept="image/*,.svg,.avif,.webp,.gif,.bmp,.tif,.tiff" multiple><p id="imageImportStatus" class="muted" aria-live="polite">Images are embedded in your article and published in web-friendly formats.</p>
  <button type="button" id="useArticleTemplate">✦ Insert Universal Article Structure</button>
 <p class="muted">Use our professional article structure as a starting point. Add unlimited sections, detailed explanations, illustrations, diagrams, infographics and tables as your topic requires.</p>
 <textarea id="content" required minlength="30" placeholder="Write your article (at least 30 characters)…"></textarea><button id="submitBtn">Submit for review</button><div id="submitStatus" class="status"></div></form></div></section>
@@ -2040,6 +2041,20 @@ TABLE OF CONTENTS
  content.dispatchEvent(new Event("input",{bubbles:true}));
  $("htmlImportStatus").textContent="Universal article structure inserted. Expand, remove or add sections as needed.";
  content.focus();
+});
+$("articleImageFiles").addEventListener("change",async()=>{
+ const files=[...($("articleImageFiles").files||[])];if(!files.length)return;
+ const total=files.reduce((n,f)=>n+f.size,0);
+ if(files.some(f=>!f.type.startsWith("image/")&&!/\.(svg|avif|webp|gif|bmp|tif|tiff)$/i.test(f.name))||total>25*1024*1024){
+  $("imageImportStatus").textContent="Choose image files only; the combined image upload limit is 25 MB."; $("articleImageFiles").value="";return;
+ }
+ try{
+  const tags=await Promise.all(files.map(file=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve('<figure><img src="'+reader.result+'" alt="'+esc(file.name.replace(/\.[^.]+$/,""))+'"><figcaption>'+esc(file.name)+'</figcaption></figure>');reader.onerror=reject;reader.readAsDataURL(file);})));
+  const current=importedArticleHTML||cleanArticleHTML("<p>"+esc($("content").value).replace(/\r?\n/g,"<br>")+"</p>");
+  importedArticleHTML=current+tags.join("\n");
+  $("htmlImportStatus").textContent="Article content and images are ready to submit.";
+  $("imageImportStatus").textContent=files.length+" image(s) added. They will be stored with the article.";
+ }catch(error){$("imageImportStatus").textContent="Could not read one or more image files.";}
 });
 function markdownToArticleHTML(markdown){
  const fmt=v=>esc(v).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>");
