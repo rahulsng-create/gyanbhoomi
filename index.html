@@ -1380,6 +1380,23 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
             <label>City / Town<select id="gbVisitorCity" autocomplete="address-level2" required disabled><option value="">Select country first</option></select></label>
             <label>PIN / Postal code<input id="gbVisitorPincode" type="text" autocomplete="postal-code" inputmode="numeric" placeholder="PIN / postal code"></label>
           </div>
+          <label>Preferred language
+            <select id="gbVisitorLanguage">
+              <option value="English" selected>English</option>
+              <option value="Hindi">हिन्दी</option>
+              <option value="Kannada">ಕನ್ನಡ</option>
+            </select>
+          </label>
+          <label>Learning interests
+            <select id="gbVisitorGoal">
+              <option value="All topics" selected>Explore all topics</option>
+              <option value="NCERT learning">NCERT learning</option>
+              <option value="General knowledge">General knowledge</option>
+              <option value="Competitive exams">Competitive exams</option>
+              <option value="Science and technology">Science and technology</option>
+              <option value="History and culture">History and culture</option>
+            </select>
+          </label>
           <label>Mobile number<input id="gbVisitorPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+91 98765 43210"></label>
         </div>
         <label>Email address<input id="gbVisitorEmail" type="email" autocomplete="email" required placeholder="you@example.com"></label>
@@ -3892,6 +3909,8 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
            address,
            house_flat_no:house,landmark,area_locality:area,city,country,postal_code:pincode,
            phone:$("gbVisitorPhone").value.trim(),
+           preferred_language:$("gbVisitorLanguage").value,
+           learning_interest:$("gbVisitorGoal").value,
            terms_accepted_at:new Date().toISOString()
          }}
        });
