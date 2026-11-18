@@ -3710,12 +3710,17 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
      names.forEach(n=>country.add(new Option(n,n)));country.dataset.loaded="yes";
    }catch(e){country.replaceChildren(new Option("Could not load countries",""));}
  };
- const gbLoadCities=async name=>{
+ const gbLoadCities=async(name,stateName)=>{
    const city=$("gbVisitorCity");if(!city)return;
    city.disabled=true;city.replaceChildren(new Option("Loading cities…",""));
    try{
-     const r=await fetch("https://countriesnow.space/api/v0.1/countries/cities",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({country:name})});
-     const j=await r.json();const names=(j.data||[]).filter(Boolean).sort((a,b)=>a.localeCompare(b));
+     const r=await fetch("https://countriesnow.space/api/v0.1/countries/state/cities",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({country:name,state:stateName})});
+     let j=await r.json();let names=(j.data||[]).filter(Boolean);
+     if(!names.length){
+       const fallback=await fetch("https://countriesnow.space/api/v0.1/countries/cities",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({country:name})});
+       const fj=await fallback.json();names=(fj.data||[]).filter(Boolean);
+     }
+     names.sort((a,b)=>a.localeCompare(b));
      city.replaceChildren(new Option(names.length?"Select city / town":"No city list available",""));
      names.forEach(n=>city.add(new Option(n,n)));city.disabled=false;
    }catch(e){city.replaceChildren(new Option("Could not load cities",""));city.disabled=true;}
@@ -3738,7 +3743,12 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    $("gbVisitorState").replaceChildren(new Option(country?"Loading states…":"Select country first",""));
    $("gbVisitorCity").replaceChildren(new Option(country?"Select state first":"Select country first",""));
    $("gbVisitorState").disabled=!country;$("gbVisitorCity").disabled=true;
-   if(country){gbLoadStates(country);gbLoadCities(country);}
+   if(country){gbLoadStates(country);}
+ });
+ $("gbVisitorState")?.addEventListener("change",()=>{
+   const country=$("gbVisitorCountry").value,state=$("gbVisitorState").value;
+   if(country&&state&&state!=="Not applicable")gbLoadCities(country,state);
+   else if(country&&state==="Not applicable")gbLoadCities(country,"");
  });
  const showMode=next=>{
    mode=next==="signup"?"signup":"login";
