@@ -329,3 +329,5 @@ window.GB_NCERT_QUESTIONS.push(...[
 ["9","Hindi",11,"झाँसी की रानी","medium","कविता में रानी लक्ष्मीबाई का कौन-सा गुण प्रमुख है?",["वीरता और देशभक्ति","कायरता","स्वार्थ","आलस्य"],0,"कविता रानी की वीरता और स्वतंत्रता के प्रति समर्पण दिखाती है।"],
 ["9","Hindi",12,"घर की याद","medium","घर की याद किस परिस्थिति में अधिक तीव्र होती है?",["घर से दूर रहने पर","केवल खेलते समय","केवल उत्सव में","परीक्षा के बाद ही"],0,"दूरी और अकेलेपन में घर और परिवार की स्मृतियाँ गहरी हो सकती हैं।"],
 ["9","Hindi",12,"घर की याद","medium","कवि के लिए घर किसका प्रतीक है?",["अपनत्व और पारिवारिक स्नेह","केवल संपत्ति","प्रतिस्पर्धा","अजनबीपन"],0,"घर की स्मृति अपनत्व, सुरक्षा और परिवार के प्रेम से जुड़ी है।"],
+
+["9","Social Science",15,"From Ideas to Startups","medium","Which activity is a common way for a new venture to understand whether customers value its proposed solution?",["Conducting customer interviews and testing a prototype","Avoiding all feedback","Expanding before testing demand","Choosing a price without research"],0,"Customer interviews and prototype tests help entrepreneurs validate a problem and solution before scaling."],
