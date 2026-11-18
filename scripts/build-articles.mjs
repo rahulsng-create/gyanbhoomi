@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import sanitizeHtml from "sanitize-html";
+import sharp from "sharp";
 
 const SITE_URL = "https://rahulsng-create.github.io/gyanbhoomi";
 const SUPABASE_URL = "https://opqgrhfweyppcxvzkttp.supabase.co";
@@ -62,8 +63,16 @@ async function materializeInlineImages(html, articleId) {
     try { bytes = header.includes(";base64") ? Buffer.from(payload, "base64") : Buffer.from(decodeURIComponent(payload), "utf8"); }
     catch { continue; }
     const isSvg = header.includes("image/svg+xml");
-    const extension = isSvg ? "svg" : header.includes("image/png") ? "png" : header.includes("image/webp") ? "webp" : "jpg";
-    if (isSvg && !/<svg\b/i.test(bytes.toString("utf8"))) continue;
+    let extension = header.includes("image/png") ? "png" : header.includes("image/webp") ? "webp" : "jpg";
+    if (isSvg) {
+      const svg = bytes.toString("utf8");
+      if (!/<svg\\b/i.test(svg)) continue;
+      // Convert SVG illustrations to the same WEBP format used by established GyanBhoomi articles.
+      bytes = await sharp(Buffer.from(svg), { density: 144, limitInputPixels: 40000000 })
+        .webp({ quality: 88, effort: 5 })
+        .toBuffer();
+      extension = "webp";
+    }
     await fs.mkdir(imageDir, { recursive: true });
     const filename = `image-${++index}.${extension}`;
     await fs.writeFile(path.join(imageDir, filename), bytes);
