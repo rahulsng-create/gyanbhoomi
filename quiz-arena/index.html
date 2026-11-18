@@ -88,6 +88,17 @@ body{background:#092f24;color:var(--ink)}
 .topic-picker select{width:100%;padding:14px 15px;border:1px solid #b28d43;border-radius:12px;background:#173f30;color:#fff0c5;font:600 15px system-ui;outline:none}
 .quiz-intro:after{content:'STEP 2  ·  SELECT DIFFICULTY';grid-column:1/-1;grid-row:2;font-size:11px;letter-spacing:1.8px;color:#e6c979;font-weight:800}
 .quiz-intro .level{grid-row:3}
+.quiz-intro{display:grid!important;grid-template-columns:46px minmax(0,1fr)!important;align-items:start!important}
+.quiz-intro .quiz-symbol{grid-column:1;grid-row:1}
+.quiz-intro .intro-copy{grid-column:2;grid-row:1}
+.quiz-intro:after{grid-column:1/-1!important;grid-row:2!important}
+.quiz-intro #difficulty{grid-column:1/-1!important;grid-row:3!important}
+.quiz-intro #quizPace{grid-column:1/-1!important;grid-row:4!important}
+.quiz-intro #quizLength{grid-column:1/-1!important;grid-row:5!important}
+.quiz-intro #feedbackMode{grid-column:1/-1!important;grid-row:6!important}
+.quiz-intro #questionTextSize{grid-column:1/-1!important;grid-row:7!important}
+.quiz-intro #displayContrast{grid-column:1/-1!important;grid-row:8!important}
+
 .progress-row{padding:16px 24px;display:flex;flex-wrap:wrap;gap:10px}
 .progress-row #questionCount{font-weight:700;min-width:130px}.progress-track{min-width:80px}
 .question{margin:10px 18px 16px;padding:24px;border-radius:16px}
