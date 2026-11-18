@@ -1966,7 +1966,7 @@ function cleanArticleHTML(raw){
     const split=declaration.indexOf(":");if(split<1)return;
     const property=declaration.slice(0,split).trim().toLowerCase();
     const value=declaration.slice(split+1).trim();
-    if(!safeStyleProperties.has(property)||!value||!/^[#a-z0-9(),.%\\s-]+$/i.test(value)||/url|expression|javascript|var\\(/i.test(value))return;
+    if(!safeStyleProperties.has(property)||!value||!/^[#a-z0-9(),.%\s-]+$/i.test(value)||/url|expression|javascript|var\(/i.test(value))return;
     el.style.setProperty(property,value);
    });
   }
