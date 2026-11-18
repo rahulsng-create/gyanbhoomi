@@ -47,6 +47,33 @@ const cleanContent = value => {
   });
 };
 
+
+async function materializeInlineImages(html, articleId) {
+  let index = 0;
+  const imageDir = path.join(OUT, "assets", "article-images", slugify(articleId));
+  const imageUrlBase = `${SITE_URL}/assets/article-images/${slugify(articleId)}`;
+  const pattern = /src=(["'])(data:image\\/(?:svg\\+xml|png|jpe?g|webp)(?:;charset=[^;,]+)?(?:;base64)?,[^"']+)\\1/gi;
+  let output = "", last = 0;
+  for (const match of html.matchAll(pattern)) {
+    const dataUrl = match[2], comma = dataUrl.indexOf(",");
+    if (comma < 0) continue;
+    const header = dataUrl.slice(0, comma).toLowerCase(), payload = dataUrl.slice(comma + 1);
+    let bytes;
+    try { bytes = header.includes(";base64") ? Buffer.from(payload, "base64") : Buffer.from(decodeURIComponent(payload), "utf8"); }
+    catch { continue; }
+    const isSvg = header.includes("image/svg+xml");
+    const extension = isSvg ? "svg" : header.includes("image/png") ? "png" : header.includes("image/webp") ? "webp" : "jpg";
+    if (isSvg && !/<svg\\b/i.test(bytes.toString("utf8"))) continue;
+    await fs.mkdir(imageDir, { recursive: true });
+    const filename = `image-${++index}.${extension}`;
+    await fs.writeFile(path.join(imageDir, filename), bytes);
+    output += html.slice(last, match.index) + `src="${imageUrlBase}/${filename}"`;
+    last = match.index + match[0].length;
+  }
+  output += html.slice(last);
+  return { html: output, imageCount: index };
+}
+
 const STOP_WORDS = new Set((`
   a an the and or but if then than so of in on at to for from by with without about into over under
   is are was were be been being it its this that these those as we you your our their they them he she
@@ -232,7 +259,9 @@ for (const article of articles) {
   const title = String(article.title);
   const fullText = plainText(article.content);
   const description = shortDescription(article.content, title);
-  const body = cleanContent(article.content);
+  const materialized = await materializeInlineImages(cleanContent(article.content), id);
+  const body = materialized.html;
+  const coverImage = body.match(/<img\\b[^>]*src=["'](https:\\/\\/[^"']+)["']/i)?.[1] || "";
   const keywords = extractKeywords(title, String(article.content || ""), article.category);
   articleIndex.push({ id, title, author: article.author_name || "GyanBhoomi", category: article.category || "Knowledge", url: pageUrl, description, keywords });
   const published = dateText(article.created_at);
@@ -273,7 +302,8 @@ for (const article of articles) {
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${esc(pageUrl)}">
-<meta name="twitter:card" content="summary">
+${coverImage ? `<meta property="og:image" content="${esc(coverImage)}">\n<meta name="twitter:image" content="${esc(coverImage)}">` : ""}
+<meta name="twitter:card" content="${coverImage ? "summary_large_image" : "summary"}">
 <script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, "\\u003c")}</script>
 <script type="application/ld+json">${JSON.stringify(breadcrumbLd).replace(/</g, "\\u003c")}</script>
 <style>
