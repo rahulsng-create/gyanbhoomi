@@ -1920,8 +1920,11 @@ function msg(el,t,good=false){el.textContent=t;el.className="status "+(good?"ok"
 function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 const HTML_MARKER="GBHTML1:";
 function cleanArticleHTML(raw){
- const parsed=new DOMParser().parseFromString(String(raw||""),"text/html");
+ const source=String(raw||"");
+ const preserveSleepLayout=source.startsWith(HTML_MARKER+'<article class="gb-sleep-science"');
+ const parsed=new DOMParser().parseFromString(source,"text/html");
  const allowed=new Set(["P","H1","H2","H3","H4","H5","H6","UL","OL","LI","STRONG","B","EM","I","U","BLOCKQUOTE","BR","HR","PRE","CODE","A","TABLE","THEAD","TBODY","TFOOT","TR","TH","TD","DIV","SPAN","SUB","SUP","FIGURE","FIGCAPTION","IMG","SVG","G","DEFS","LINEARGRADIENT","RADIALGRADIENT","STOP","RECT","CIRCLE","ELLIPSE","PATH","LINE","POLYGON","POLYLINE","TEXT","TSPAN","CLIPPATH","MASK"]);
+ if(preserveSleepLayout)["ARTICLE","HEADER","SECTION","NAV"].forEach(tag=>allowed.add(tag));
  function copyNode(node,parentIsSvg=false){
   if(node.nodeType===Node.TEXT_NODE)return document.createTextNode(node.nodeValue||"");
   if(node.nodeType!==Node.ELEMENT_NODE)return document.createDocumentFragment();
@@ -1955,6 +1958,18 @@ function cleanArticleHTML(raw){
   const svgTags=new Set(["SVG","G","DEFS","LINEARGRADIENT","RADIALGRADIENT","STOP","RECT","CIRCLE","ELLIPSE","PATH","LINE","POLYGON","POLYLINE","TEXT","TSPAN","CLIPPATH","MASK"]);
   const svgNames={SVG:"svg",G:"g",DEFS:"defs",LINEARGRADIENT:"linearGradient",RADIALGRADIENT:"radialGradient",STOP:"stop",RECT:"rect",CIRCLE:"circle",ELLIPSE:"ellipse",PATH:"path",LINE:"line",POLYGON:"polygon",POLYLINE:"polyline",TEXT:"text",TSPAN:"tspan",CLIPPATH:"clipPath",MASK:"mask"};
   const el=svgTags.has(tag)||parentIsSvg?document.createElementNS("http://www.w3.org/2000/svg",svgNames[tag]||tag.toLowerCase()):document.createElement(tag.toLowerCase());
+  if(preserveSleepLayout){
+   if(tag==="ARTICLE"&&node.getAttribute("class")==="gb-sleep-science")el.setAttribute("class","gb-sleep-science");
+   const safeStyleProperties=new Set(["color","font-size","font-weight","letter-spacing","padding","border-radius","background","width","height","max-width","text-align","margin"]);
+   const style=node.getAttribute("style")||"";
+   style.split(";").forEach(declaration=>{
+    const split=declaration.indexOf(":");if(split<1)return;
+    const property=declaration.slice(0,split).trim().toLowerCase();
+    const value=declaration.slice(split+1).trim();
+    if(!safeStyleProperties.has(property)||!value||!/^[#a-z0-9(),.%\\s-]+$/i.test(value)||/url|expression|javascript|var\\(/i.test(value))return;
+    el.style.setProperty(property,value);
+   });
+  }
   if(["SVG","G","DEFS","LINEARGRADIENT","RADIALGRADIENT","STOP","RECT","CIRCLE","ELLIPSE","PATH","LINE","POLYGON","POLYLINE","TEXT","TSPAN","CLIPPATH","MASK"].includes(tag)){
    const safeAttrs=new Set(["viewBox","role","aria-label","xmlns","width","height","fill","stroke","stroke-width","stroke-linecap","stroke-linejoin","cx","cy","r","rx","ry","d","points","transform","x","y","x1","x2","y1","y2","opacity","offset","stop-color","id","font-size","text-anchor","dominant-baseline","clip-path","mask"]);
    for(const attr of [...node.attributes]){
