@@ -3684,6 +3684,16 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    auth:typeof window.gyanBhoomiDB?.auth,
    initError:window.gyanBhoomiInitError||"none"
  });
+ const showAccountWelcome=user=>{
+   const panel=$("gbPersonalisedPanel"),heading=$("gbPersonalisedHeading"),copy=$("gbPersonalisedText"),button=$("gbPersonalisedContinue");
+   if(!panel||!heading||!copy)return;
+   const meta=user?.user_metadata||{};
+   const name=String(meta.display_name||meta.full_name||"").trim()||String(user?.email||"").split("@")[0]||"learner";
+   heading.textContent="Welcome back, "+name+"!";
+   copy.textContent="Your GyanBhoomi learning space is ready. Explore the Knowledge Library, NCERT resources and Quiz Arena.";
+   button?.classList.add("hidden");
+   panel.classList.remove("hidden");
+ };
  const closeGate=()=>{
    if(transitionTimer)clearTimeout(transitionTimer);
    // Always reveal the public Library as the landing page after Guest or successful login.
@@ -3966,6 +3976,7 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
        });
        if(error)throw error;
        if(data?.session){
+         showAccountWelcome(data.user);
          message("Your account is ready. Welcome to GyanBhoomi!","success");
          window.setTimeout(closeGate,700);
        }else{
@@ -3975,6 +3986,7 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
      }else{
        const {data,error}=await requireAuth().signInWithPassword({email,password});
        if(error)throw error;
+       showAccountWelcome(data.user);
        if($("gbRemember").checked){
          try{localStorage.setItem("gbVisitorRememberedEmail",email);}catch(e){}
        }else{
