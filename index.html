@@ -3714,29 +3714,41 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    const city=$("gbVisitorCity");if(!city)return;
    city.disabled=true;city.replaceChildren(new Option("Loading cities…",""));
    try{
-     const r=await fetch("https://countriesnow.space/api/v0.1/countries/state/cities",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({country:name,state:stateName})});
-     let j=await r.json();let names=(j.data||[]).filter(Boolean);
-     if(!names.length){
-       const fallback=await fetch("https://countriesnow.space/api/v0.1/countries/cities",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({country:name})});
-       const fj=await fallback.json();names=(fj.data||[]).filter(Boolean);
-     }
-     names.sort((a,b)=>a.localeCompare(b));
-     city.replaceChildren(new Option(names.length?"Select city / town":"No city list available",""));
-     names.forEach(n=>city.add(new Option(n,n)));city.disabled=false;
-   }catch(e){city.replaceChildren(new Option("Could not load cities",""));city.disabled=true;}
+     const url="https://countriesnow.space/api/v0.1/countries/state/cities/q?country="+encodeURIComponent(name)+"&state="+encodeURIComponent(stateName);
+     const r=await fetch(url,{headers:{Accept:"application/json"}});
+     if(!r.ok)throw new Error("City service returned HTTP "+r.status);
+     const j=await r.json();
+     if(j.error)throw new Error(j.msg||"City service error");
+     const names=(j.data||[]).filter(Boolean).sort((a,b)=>a.localeCompare(b));
+     city.replaceChildren(new Option(names.length?"Select city / town":"No cities listed — enter PIN below",""));
+     names.forEach(n=>city.add(new Option(n,n)));
+     city.disabled=false;
+   }catch(e){
+     console.warn("GyanBhoomi city list:",e);
+     city.replaceChildren(new Option("Could not load cities — retry state",""));
+     city.disabled=true;
+   }
  };
  const gbLoadStates=async name=>{
    const state=$("gbVisitorState"),city=$("gbVisitorCity");if(!state)return;
    state.disabled=true;state.replaceChildren(new Option("Loading states…",""));
    city.disabled=true;city.replaceChildren(new Option("Select state first",""));
    try{
-     const r=await fetch("https://countriesnow.space/api/v0.1/countries/states",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({country:name})});
-     const j=await r.json();const names=(j.data?.states||[]).map(x=>typeof x==="string"?x:x.name).filter(Boolean).sort((a,b)=>a.localeCompare(b));
-     state.replaceChildren(new Option(names.length?"Select state / province":"No states listed — continue",""));
+     const url="https://countriesnow.space/api/v0.1/countries/states/q?country="+encodeURIComponent(name);
+     const r=await fetch(url,{headers:{Accept:"application/json"}});
+     if(!r.ok)throw new Error("State service returned HTTP "+r.status);
+     const j=await r.json();
+     if(j.error)throw new Error(j.msg||"State service error");
+     const names=(j.data?.states||[]).map(x=>typeof x==="string"?x:x.name).filter(Boolean).sort((a,b)=>a.localeCompare(b));
+     if(!names.length)throw new Error("No state data returned for "+name);
+     state.replaceChildren(new Option("Select state / province",""));
      names.forEach(n=>state.add(new Option(n,n)));
-     if(!names.length){state.add(new Option("Not applicable","Not applicable"));state.value="Not applicable";}
      state.disabled=false;
-   }catch(e){state.replaceChildren(new Option("Could not load states — retry country",""));state.disabled=true;}
+   }catch(e){
+     console.warn("GyanBhoomi state list:",e);
+     state.replaceChildren(new Option("Could not load states — tap country to retry",""));
+     state.disabled=true;
+   }
  };
  $("gbVisitorCountry")?.addEventListener("change",e=>{
    const country=e.target.value;
