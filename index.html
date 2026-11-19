@@ -5196,6 +5196,114 @@ html.gb-gate-open,html.gb-gate-open body{
 }
 </style>
 
+
+<style id="gb-entry-luxury-rebuild-v2">
+/* Recompose the existing real auth form into a clean luxury glass entry screen. */
+#gbEntryGate:not(.gb-entry-closed){
+ position:fixed!important;inset:0!important;width:100%!important;height:100vh!important;height:100dvh!important;
+ display:grid!important;grid-template-columns:minmax(0,1fr) minmax(420px,.92fr)!important;grid-template-rows:minmax(0,1fr)!important;
+ overflow:hidden!important;background:#031b18!important;z-index:2147483000!important;
+}
+#gbEntryWelcome{
+ grid-column:1!important;grid-row:1!important;position:relative!important;inset:auto!important;width:100%!important;height:100%!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;
+ border:0!important;border-right:1px solid rgba(241,196,93,.75)!important;
+ background:radial-gradient(ellipse at 50% 35%,rgba(19,115,86,.48),transparent 54%),linear-gradient(145deg,#041e19,#063d32 55%,#031b18)!important;
+}
+#gbEntryWelcome>img{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;
+ object-fit:contain!important;object-position:center!important;padding:clamp(18px,3vw,44px)!important;
+ filter:drop-shadow(0 16px 35px rgba(0,0,0,.42))!important;opacity:1!important;
+}
+.gb-mobile-welcome-copy{display:none!important}
+#gbEntryLogin{
+ grid-column:2!important;grid-row:1!important;position:relative!important;inset:auto!important;width:100%!important;height:100%!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;padding:clamp(22px,4vw,54px)!important;
+ overflow-y:auto!important;overflow-x:hidden!important;
+ background:radial-gradient(circle at 15% 12%,rgba(35,150,108,.34),transparent 38%),
+ radial-gradient(circle at 90% 88%,rgba(205,154,59,.18),transparent 35%),linear-gradient(145deg,#031b19,#064235 58%,#031c19)!important;
+}
+#gbEntryLogin>.gb-login-art{display:none!important}
+#gbEntryLogin>.gb-auth-card{
+ position:relative!important;width:min(100%,480px)!important;max-width:480px!important;height:auto!important;max-height:none!important;
+ min-height:0!important;overflow:visible!important;margin:auto!important;padding:clamp(22px,3vw,34px)!important;
+ border:1px solid rgba(255,218,132,.85)!important;border-radius:26px!important;
+ background:linear-gradient(145deg,rgba(12,79,63,.78),rgba(1,30,26,.88))!important;
+ box-shadow:0 0 0 1px rgba(255,255,255,.09),0 0 32px rgba(240,190,76,.22),inset 0 1px 0 rgba(255,255,255,.32),inset 0 0 42px rgba(113,234,191,.08)!important;
+ backdrop-filter:blur(22px) saturate(1.5)!important;-webkit-backdrop-filter:blur(22px) saturate(1.5)!important;
+}
+#gbEntryLogin>.gb-auth-card:before{
+ content:""!important;position:absolute!important;inset:0!important;border-radius:inherit!important;pointer-events:none!important;
+ background:linear-gradient(125deg,rgba(255,255,255,.13),transparent 22%,transparent 76%,rgba(255,218,135,.09))!important;
+}
+#gbEntryLogin .gb-auth-brand strong{color:#ffe3a0!important;text-shadow:0 0 18px rgba(255,207,104,.25)!important}
+#gbEntryLogin .gb-auth-tabs{background:rgba(0,25,21,.48)!important;border:1px solid rgba(245,205,113,.82)!important}
+#gbEntryLogin .gb-auth-tabs button.active{background:linear-gradient(105deg,#ffe9a6,#e9ae36)!important;color:#17392f!important;box-shadow:0 0 18px rgba(255,202,81,.42)!important}
+#gbEntryLogin #gbVisitorAuthForm input:not([type=checkbox]),#gbEntryLogin #gbVisitorAuthForm select{
+ background:linear-gradient(145deg,rgba(228,255,242,.17),rgba(4,48,40,.68))!important;color:#fff!important;
+ border:1px solid rgba(218,244,228,.52)!important;box-shadow:inset 0 2px 9px rgba(0,0,0,.22),0 0 14px rgba(124,226,189,.07)!important;
+}
+#gbEntryLogin #gbVisitorAuthForm input::placeholder{color:rgba(235,248,239,.68)!important}
+#gbEntryLogin .gb-auth-primary{background:linear-gradient(105deg,#ffe9a0,#efb83e,#d9951b)!important;color:#17382e!important;box-shadow:0 0 20px rgba(246,192,70,.27),inset 0 1px 0 rgba(255,255,255,.7)!important}
+#gbEntryLogin .gb-auth-google{background:linear-gradient(110deg,#fff,#e7efeb)!important;color:#24352f!important}
+#gbEntryLogin .gb-auth-guest{background:rgba(0,34,28,.48)!important;border:1px solid rgba(255,220,138,.9)!important;color:#ffe5a6!important}
+#gbEntryLogin label,#gbEntryLogin .gb-auth-options,#gbEntryLogin .gb-auth-foot{color:#f6e9c9!important}
+@media(max-width:760px),(max-device-width:760px),(pointer:coarse) and (hover:none){
+ html,body{height:auto!important;min-height:100%!important;overflow-x:hidden!important;overflow-y:auto!important}
+ #gbEntryGate:not(.gb-entry-closed){
+  display:block!important;position:fixed!important;inset:0!important;width:100%!important;height:100vh!important;height:100dvh!important;
+  overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:contain!important;
+  background:
+   radial-gradient(ellipse at 50% 0%,rgba(34,160,113,.45),transparent 35%),
+   radial-gradient(ellipse at 10% 48%,rgba(230,177,75,.14),transparent 35%),
+   radial-gradient(ellipse at 90% 80%,rgba(24,132,96,.24),transparent 36%),
+   linear-gradient(160deg,#031b18 0%,#07503e 48%,#031b18 100%)!important;
+ }
+ #gbEntryGate:not(.gb-entry-closed):before{
+  content:""!important;position:fixed!important;inset:0!important;pointer-events:none!important;opacity:.52!important;
+  background:
+   radial-gradient(circle at 50% 7%,transparent 0 18%,rgba(242,197,99,.26) 18.2%,transparent 18.8%),
+   radial-gradient(circle at 50% 7%,rgba(18,112,83,.18),transparent 34%),
+   repeating-linear-gradient(125deg,transparent 0 54px,rgba(255,221,145,.035) 55px,transparent 57px)!important;
+ }
+ #gbEntryWelcome{
+  height:210px!important;min-height:210px!important;max-height:210px!important;width:100%!important;
+  position:relative!important;inset:auto!important;display:flex!important;overflow:hidden!important;
+  border:0!important;border-bottom:1px solid rgba(255,219,135,.7)!important;
+  background:radial-gradient(ellipse at 50% 30%,rgba(31,142,103,.48),transparent 62%),linear-gradient(145deg,#062d25,#0b6048 55%,#03221d)!important;
+ }
+ #gbEntryWelcome>img{display:none!important}
+ #gbEntryWelcome:before{
+  content:""!important;position:absolute!important;inset:0!important;opacity:.8!important;
+  background:radial-gradient(ellipse at 50% 5%,rgba(8,30,26,.1),transparent 42%),
+   radial-gradient(circle at 50% 24%,rgba(246,197,88,.2) 0 1px,transparent 2px),
+   linear-gradient(90deg,rgba(0,0,0,.3),transparent 20%,transparent 80%,rgba(0,0,0,.3))!important;
+ }
+ .gb-mobile-welcome-copy{display:flex!important;position:absolute!important;z-index:2!important;inset:18px 16px 16px!important;
+  align-items:center!important;justify-content:center!important;flex-direction:column!important;text-align:center!important;gap:4px!important;color:#fff!important}
+ .gb-mobile-welcome-copy span{font-size:9px!important;letter-spacing:2px!important;color:#ffe3a0!important;font-weight:850!important}
+ .gb-mobile-welcome-copy h1{font:700 clamp(24px,6vw,30px)/1.08 Georgia,serif!important;color:#fff!important;margin:4px 0!important;text-shadow:0 3px 16px #001b15!important}
+ .gb-mobile-welcome-copy p{margin:0!important;font-size:12px!important;color:#f5e8c8!important}
+ #gbEntryLogin{
+  position:relative!important;inset:auto!important;width:100%!important;height:auto!important;min-height:0!important;
+  display:flex!important;align-items:flex-start!important;justify-content:center!important;padding:18px 0 max(28px,env(safe-area-inset-bottom))!important;
+  overflow:visible!important;background:transparent!important;
+ }
+ #gbEntryLogin>.gb-auth-card{
+  width:calc(100% - 28px)!important;max-width:480px!important;height:auto!important;max-height:none!important;min-height:0!important;
+  overflow:visible!important;margin:0 auto!important;padding:clamp(19px,5vw,27px)!important;border-radius:25px!important;
+  background:linear-gradient(145deg,rgba(11,79,62,.82),rgba(1,31,27,.88))!important;
+  border:1px solid rgba(255,221,142,.9)!important;
+  box-shadow:0 0 0 1px rgba(255,255,255,.08),0 0 30px rgba(245,194,77,.25),inset 0 1px 0 rgba(255,255,255,.32),inset 0 0 35px rgba(130,241,205,.10)!important;
+  backdrop-filter:blur(24px) saturate(1.55)!important;-webkit-backdrop-filter:blur(24px) saturate(1.55)!important;
+ }
+ #gbEntryLogin .gb-auth-brand strong{font-size:clamp(22px,6vw,28px)!important}
+ #gbEntryLogin .gb-auth-card h2{font-size:clamp(20px,5.5vw,24px)!important}
+ #gbEntryLogin #gbVisitorAuthForm input:not([type=checkbox]),#gbEntryLogin #gbVisitorAuthForm select{min-height:48px!important;height:auto!important}
+ #gbEntryLogin .gb-auth-primary,#gbEntryLogin .gb-auth-google,#gbEntryLogin .gb-auth-guest{min-height:48px!important;height:auto!important}
+}
+</style>
+
 <div id="gbPrivacyChoice" class="hidden" role="dialog" aria-label="Personalisation privacy choice">
  <strong>Make GyanBhoomi feel more personal?</strong>
  <p>With your permission, GyanBhoomi can remember your preferred language, saved/favourite articles, reading activity and search topics to recommend relevant content when you return. It does not record passwords, private messages or keystrokes. You can turn this off or clear the data at any time in this browser.</p>
