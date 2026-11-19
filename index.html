@@ -2879,6 +2879,102 @@ html.gb-gate-open #gbWelcomeSplash{display:none!important;visibility:hidden!impo
  
 
 
+
+<style id="gb-entry-glass-integrated-v3">
+/* Final entry composition: artwork is a background; all controls remain the existing live DOM form. */
+#gbEntryGate:not(.gb-entry-closed){
+ position:fixed!important;inset:0!important;z-index:2147483000!important;
+ display:grid!important;grid-template-columns:minmax(0,1fr) minmax(410px, .82fr)!important;
+ grid-template-rows:minmax(0,1fr)!important;width:100%!important;height:100vh!important;height:100dvh!important;
+ overflow:hidden!important;background:#031b18 url("assets/gyanbhoomi-desktop-background.png") center/cover no-repeat!important;
+}
+#gbEntryWelcome{
+ grid-column:1!important;grid-row:1!important;position:relative!important;inset:auto!important;
+ display:flex!important;width:100%!important;height:100%!important;min-width:0!important;overflow:hidden!important;
+ border:0!important;background:transparent!important;
+}
+#gbEntryWelcome>img{display:none!important}
+#gbEntryWelcome::before{
+ content:""!important;position:absolute!important;inset:0!important;
+ background:linear-gradient(90deg,rgba(0,15,13,.04),rgba(0,20,17,.04) 70%,rgba(0,20,17,.32))!important;
+}
+.gb-mobile-welcome-copy{display:none!important}
+#gbEntryLogin{
+ grid-column:2!important;grid-row:1!important;position:relative!important;inset:auto!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;
+ padding:clamp(18px,2.4vw,38px)!important;overflow-y:auto!important;overflow-x:hidden!important;
+ background:linear-gradient(90deg,rgba(0,25,21,.12),rgba(0,24,20,.48) 24%,rgba(0,20,17,.40))!important;
+}
+#gbEntryLogin>.gb-login-art{display:none!important}
+#gbEntryLogin>.gb-auth-card{
+ position:relative!important;isolation:isolate!important;width:min(100%,500px)!important;max-width:500px!important;
+ height:auto!important;min-height:0!important;max-height:calc(100dvh - 36px)!important;overflow-y:auto!important;
+ margin:auto!important;padding:clamp(20px,2.3vw,34px)!important;border-radius:28px!important;
+ border:1.5px solid rgba(255,224,151,.95)!important;
+ background:linear-gradient(145deg,rgba(10,91,69,.76),rgba(1,35,29,.86) 54%,rgba(0,25,22,.82))!important;
+ box-shadow:0 0 0 1px rgba(255,255,255,.18),0 0 16px rgba(255,221,127,.52),0 0 48px rgba(250,190,64,.28),
+ inset 0 1px 0 rgba(255,255,255,.55),inset 0 0 38px rgba(112,238,193,.13)!important;
+ backdrop-filter:blur(24px) saturate(1.65)!important;-webkit-backdrop-filter:blur(24px) saturate(1.65)!important;
+}
+#gbEntryLogin>.gb-auth-card::before{
+ content:""!important;position:absolute!important;inset:0!important;z-index:-1!important;pointer-events:none!important;border-radius:inherit!important;
+ background:linear-gradient(120deg,rgba(255,255,255,.20),transparent 18%,transparent 72%,rgba(255,218,128,.13))!important;
+}
+#gbEntryLogin .gb-auth-brand strong{color:#ffe6a5!important;text-shadow:0 0 18px rgba(255,207,104,.36)!important}
+#gbEntryLogin .gb-auth-tabs{background:rgba(0,23,20,.56)!important;border:1px solid rgba(255,220,137,.9)!important}
+#gbEntryLogin .gb-auth-tabs button.active{background:linear-gradient(105deg,#fff0ae,#ffc331)!important;color:#17362d!important;box-shadow:0 0 20px rgba(255,202,71,.58)!important}
+#gbEntryLogin #gbVisitorAuthForm input:not([type=checkbox]),#gbEntryLogin #gbVisitorAuthForm select{
+ color:#fff!important;background:linear-gradient(145deg,rgba(222,255,241,.20),rgba(0,48,39,.68))!important;
+ border:1px solid rgba(228,249,235,.66)!important;box-shadow:inset 0 2px 10px rgba(0,0,0,.22),0 0 12px rgba(133,235,196,.13)!important;
+}
+#gbEntryLogin #gbVisitorAuthForm input::placeholder{color:rgba(239,250,242,.72)!important}
+#gbEntryLogin .gb-auth-primary{background:linear-gradient(105deg,#fff0a6,#ffca36,#efa51a)!important;color:#17372d!important;
+ box-shadow:0 0 22px rgba(255,195,54,.38),inset 0 1px 0 rgba(255,255,255,.82)!important}
+#gbEntryLogin .gb-auth-google{background:linear-gradient(110deg,#fff,#e9f2ed)!important;color:#24352f!important}
+#gbEntryLogin .gb-auth-guest{background:rgba(0,34,28,.55)!important;border:1px solid rgba(255,222,139,.96)!important;color:#ffe6a6!important}
+#gbEntryLogin label,#gbEntryLogin .gb-auth-options,#gbEntryLogin .gb-auth-foot{color:#fff0cd!important}
+#gbEntryLogin .gb-text-button{color:#ffdf79!important}
+@media(max-width:760px),(max-device-width:760px),(pointer:coarse) and (hover:none){
+ #gbEntryGate:not(.gb-entry-closed){
+  display:block!important;position:fixed!important;inset:0!important;width:100%!important;height:100vh!important;height:100dvh!important;
+  overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:contain!important;
+  background:#031b18 url("assets/gyanbhoomi-mobile-background.png") center top/cover fixed no-repeat!important;
+ }
+ #gbEntryGate:not(.gb-entry-closed)::before{
+  content:""!important;position:fixed!important;inset:0!important;pointer-events:none!important;
+  background:linear-gradient(180deg,rgba(0,19,17,.04) 0%,rgba(0,23,20,.15) 30%,rgba(0,20,17,.42) 100%)!important;
+ }
+ #gbEntryWelcome{
+  display:flex!important;position:relative!important;inset:auto!important;width:100%!important;height:clamp(190px,28vh,250px)!important;
+  min-height:190px!important;max-height:250px!important;overflow:hidden!important;border:0!important;background:transparent!important;
+ }
+ #gbEntryWelcome::before{background:linear-gradient(180deg,rgba(0,18,15,.05),rgba(0,19,16,.42))!important}
+ #gbEntryLogin{
+  display:flex!important;position:relative!important;inset:auto!important;width:100%!important;height:auto!important;min-height:0!important;
+  padding:10px 0 max(28px,env(safe-area-inset-bottom))!important;overflow:visible!important;background:transparent!important;
+  align-items:flex-start!important;justify-content:center!important;
+ }
+ #gbEntryLogin>.gb-auth-card{
+  width:calc(100% - 26px)!important;max-width:480px!important;max-height:none!important;height:auto!important;min-height:0!important;
+  overflow:visible!important;margin:0 auto!important;padding:clamp(18px,4.8vw,25px)!important;border-radius:25px!important;
+  background:linear-gradient(145deg,rgba(9,87,66,.79),rgba(0,31,27,.88) 60%,rgba(0,24,21,.84))!important;
+  border:1.5px solid rgba(255,224,146,.96)!important;
+  box-shadow:0 0 0 1px rgba(255,255,255,.16),0 0 18px rgba(255,215,112,.52),0 0 42px rgba(239,183,59,.24),
+  inset 0 1px 0 rgba(255,255,255,.55),inset 0 0 36px rgba(113,237,191,.14)!important;
+  backdrop-filter:blur(25px) saturate(1.7)!important;-webkit-backdrop-filter:blur(25px) saturate(1.7)!important;
+ }
+ #gbEntryLogin .gb-auth-brand strong{font-size:clamp(22px,6vw,28px)!important}
+ #gbEntryLogin .gb-auth-card h2{font-size:clamp(20px,5.4vw,25px)!important}
+ #gbEntryLogin #gbVisitorAuthForm input:not([type=checkbox]),#gbEntryLogin #gbVisitorAuthForm select{min-height:47px!important}
+ #gbEntryLogin .gb-auth-primary,#gbEntryLogin .gb-auth-google,#gbEntryLogin .gb-auth-guest{min-height:47px!important}
+}
+@media(max-width:380px){
+ #gbEntryWelcome{height:180px!important;min-height:180px!important}
+ #gbEntryLogin>.gb-auth-card{width:calc(100% - 20px)!important;padding:17px!important}
+}
+</style>
+
 </body>
  </html>`);
  printWindow.onload=()=>{
