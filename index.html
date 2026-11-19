@@ -4874,63 +4874,144 @@ html.gb-gate-open,html.gb-gate-open body{
 
 
 <style id="gb-entry-auth-final-overrides">
-/* GyanBhoomi entry: premium editorial layout, one clear visual hierarchy. */
+/* GyanBhoomi responsive entry layout — desktop split, mobile editorial header. */
 #gbEntryGate:not(.gb-entry-closed){
  box-sizing:border-box!important;position:fixed!important;inset:0!important;
  width:100vw!important;height:100vh!important;height:100dvh!important;
  max-width:none!important;margin:0!important;padding:0!important;overflow:hidden!important;
- background:#062d28!important;z-index:2147483000!important;
+ z-index:2147483000!important;background:#062d28!important;
 }
-@media(min-width:761px) and (pointer:fine){
- #gbEntryGate:not(.gb-entry-closed){display:grid!important;grid-template-columns:1fr 1fr!important;grid-template-rows:minmax(0,1fr)!important}
- #gbEntryWelcome{display:flex!important;position:relative!important;inset:auto!important;grid-column:1!important;grid-row:1!important;width:100%!important;height:100%!important;min-width:0!important;overflow:hidden!important;align-items:center!important;justify-content:center!important;background:radial-gradient(ellipse at 28% 25%,#176b58,transparent 58%),#082e2a!important;border-right:1px solid #d9b96d!important;opacity:1!important;visibility:visible!important}
- #gbEntryWelcome>img{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important;padding:clamp(18px,3vw,42px)!important}
- #gbEntryLogin{display:flex!important;position:relative!important;inset:auto!important;grid-column:2!important;grid-row:1!important;width:100%!important;height:100%!important;min-width:0!important;padding:32px!important;overflow-y:auto!important;align-items:center!important;justify-content:center!important;background:radial-gradient(ellipse at 20% 15%,#176b58 0%,transparent 45%),linear-gradient(145deg,#031b20,#052f2b 60%,#061d25)!important}
- #gbEntryLogin>.gb-login-art{display:none!important}
- #gbEntryLogin>.gb-auth-card{width:min(100%,450px)!important;max-width:450px!important;max-height:calc(100dvh - 56px)!important;padding:30px!important;margin:auto!important;overflow-y:auto!important;border-radius:22px!important}
+#gbEntryWelcome,#gbEntryLogin{box-sizing:border-box!important;min-width:0!important;min-height:0!important}
+
+/* Desktop and large tablets: balanced two-panel composition. */
+@media (min-width:761px) and (min-device-width:761px){
+ #gbEntryGate:not(.gb-entry-closed){
+  display:grid!important;grid-template-columns:minmax(0,1fr) minmax(420px,1fr)!important;
+  grid-template-rows:minmax(0,1fr)!important;gap:0!important;
+ }
+ #gbEntryWelcome{
+  display:flex!important;position:relative!important;inset:auto!important;
+  grid-column:1!important;grid-row:1!important;width:100%!important;height:100%!important;
+  align-items:center!important;justify-content:center!important;overflow:hidden!important;
+  border:0!important;border-right:1px solid rgba(233,184,95,.7)!important;
+  background:radial-gradient(ellipse at 28% 22%,#176b58 0%,transparent 60%),linear-gradient(145deg,#082e2a,#041e1c)!important;
+  opacity:1!important;visibility:visible!important;
+ }
+ #gbEntryWelcome::before{
+  content:""!important;position:absolute!important;inset:0!important;
+  background:radial-gradient(ellipse at 50% 50%,rgba(24,105,84,.24),transparent 65%)!important;
+  filter:none!important;transform:none!important;
+ }
+ #gbEntryWelcome>img{
+  display:block!important;position:relative!important;inset:auto!important;
+  width:min(88%,680px)!important;height:min(88%,900px)!important;
+  max-width:680px!important;max-height:900px!important;
+  object-fit:contain!important;object-position:center!important;padding:0!important;
+  filter:drop-shadow(0 22px 38px rgba(0,0,0,.35))!important;
+ }
  .gb-mobile-welcome-copy{display:none!important}
-}
-@media(max-width:760px),(pointer:coarse){
- #gbEntryGate:not(.gb-entry-closed){display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:clamp(142px,19dvh,176px) minmax(0,1fr)!important;width:100vw!important;height:100vh!important;height:100dvh!important}
- #gbEntryWelcome{display:flex!important;position:relative!important;inset:auto!important;grid-column:1!important;grid-row:1!important;width:100%!important;height:100%!important;min-width:0!important;overflow:hidden!important;align-items:center!important;justify-content:flex-start!important;background:#082e2a!important;border-bottom:1px solid #d9b96d!important;opacity:1!important;visibility:visible!important}
- #gbEntryWelcome::before{content:""!important;display:block!important;position:absolute!important;inset:-20px!important;background-image:var(--entry-bg)!important;background-size:cover!important;background-position:center!important;filter:blur(18px) brightness(.35)!important;transform:scale(1.08)!important}
- #gbEntryWelcome>img{display:block!important;position:absolute!important;left:10px!important;top:7px!important;bottom:7px!important;width:104px!important;height:calc(100% - 14px)!important;max-width:104px!important;max-height:calc(100% - 14px)!important;object-fit:contain!important;object-position:center!important;padding:0!important;z-index:1!important;filter:drop-shadow(0 4px 12px #001a18aa)!important}
- .gb-mobile-welcome-copy{display:flex!important;position:absolute!important;left:126px!important;right:14px!important;top:0!important;bottom:0!important;z-index:2!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;text-align:left!important;pointer-events:none!important;color:#fff!important;text-shadow:0 2px 8px #001b18!important}
- .gb-mobile-welcome-copy span{display:block!important;color:#f4d58c!important;font-size:8px!important;font-weight:850!important;letter-spacing:1.1px!important;line-height:1.25!important}
- .gb-mobile-welcome-copy h1{margin:6px 0 4px!important;color:#fff!important;font:700 clamp(17px,5vw,22px)/1.12 Georgia,serif!important}
- .gb-mobile-welcome-copy p{margin:0!important;color:#e2eee7!important;font-size:10px!important;line-height:1.25!important}
- #gbEntryLogin{display:flex!important;position:relative!important;inset:auto!important;grid-column:1!important;grid-row:2!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;padding:12px 0 max(14px,env(safe-area-inset-bottom))!important;overflow-x:hidden!important;overflow-y:auto!important;align-items:center!important;justify-content:center!important;overscroll-behavior:contain!important;background:radial-gradient(ellipse at 20% 0%,#176b58 0%,transparent 48%),linear-gradient(145deg,#031b20,#052f2b 60%,#061d25)!important}
+ #gbEntryLogin{
+  display:flex!important;position:relative!important;inset:auto!important;
+  grid-column:2!important;grid-row:1!important;width:100%!important;height:100%!important;
+  padding:clamp(28px,4vw,64px)!important;overflow-x:hidden!important;overflow-y:auto!important;
+  align-items:center!important;justify-content:center!important;border:0!important;
+  background:radial-gradient(ellipse at 18% 12%,rgba(25,112,88,.55),transparent 48%),linear-gradient(145deg,#031b20 0%,#07382f 58%,#061f25 100%)!important;
+ }
  #gbEntryLogin>.gb-login-art{display:none!important}
- #gbEntryLogin>.gb-auth-card{display:block!important;box-sizing:border-box!important;position:relative!important;z-index:5!important;width:min(90vw,440px)!important;max-width:440px!important;max-height:calc(100% - 20px)!important;min-height:0!important;height:auto!important;flex:0 1 auto!important;margin:8px auto!important;padding:20px 19px 18px!important;overflow-y:auto!important;border:1px solid rgba(233,184,95,.82)!important;border-radius:20px!important;background:rgba(3,39,34,.97)!important;box-shadow:0 14px 38px #001a1670!important}
- #gbEntryLogin .gb-auth-brand{gap:9px!important;margin-bottom:8px!important}
- #gbEntryLogin .gb-auth-mark{width:38px!important;height:38px!important;font-size:21px!important}
- #gbEntryLogin .gb-auth-brand strong{font-size:22px!important}
- #gbEntryLogin .gb-auth-brand small{font-size:10px!important}
- #gbEntryLogin .gb-auth-card h2{font-size:19px!important;margin:6px 0 4px!important}
- #gbEntryLogin .gb-auth-sub{font-size:11px!important;line-height:1.4!important;margin:0 0 10px!important}
- #gbEntryLogin .gb-auth-tabs{min-height:44px!important;margin-bottom:10px!important}
- #gbEntryLogin #gbVisitorAuthForm label{display:block!important;margin-top:8px!important;font-size:11px!important}
- #gbEntryLogin #gbVisitorAuthForm input:not([type=checkbox]){height:42px!important;min-height:42px!important;padding:9px 11px!important;font-size:14px!important;border-radius:10px!important}
- #gbEntryLogin .gb-auth-options{font-size:11px!important;margin-top:8px!important}
- #gbEntryLogin .gb-auth-primary,#gbEntryLogin .gb-auth-google,#gbEntryLogin .gb-auth-guest{min-height:43px!important;height:43px!important;margin-top:9px!important;font-size:12px!important;border-radius:999px!important}
- #gbEntryLogin .gb-auth-divider{margin:13px 0!important;font-size:10px!important}
- #gbEntryLogin .gb-auth-foot{font-size:10px!important;margin-top:10px!important}
+ #gbEntryLogin>.gb-auth-card{
+  display:block!important;box-sizing:border-box!important;position:relative!important;
+  width:min(100%,470px)!important;max-width:470px!important;
+  max-height:calc(100dvh - 56px)!important;height:auto!important;
+  margin:auto!important;padding:clamp(24px,2.6vw,36px)!important;
+  overflow-y:auto!important;border:1px solid rgba(233,184,95,.78)!important;
+  border-radius:24px!important;background:rgba(3,39,34,.94)!important;
+  box-shadow:0 24px 70px rgba(0,0,0,.28)!important;
+ }
 }
-@media(max-height:680px) and (max-width:760px){
+
+/* Phones, including Chrome's Desktop site mode: detect the physical device width too. */
+@media (max-width:760px), (max-device-width:760px){
+ #gbEntryGate:not(.gb-entry-closed){
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:clamp(138px,20dvh,174px) minmax(0,1fr)!important;
+  width:100vw!important;height:100vh!important;height:100dvh!important;
+ }
+ #gbEntryWelcome{
+  display:flex!important;position:relative!important;inset:auto!important;
+  grid-column:1!important;grid-row:1!important;width:100%!important;height:100%!important;
+  overflow:hidden!important;align-items:center!important;justify-content:flex-start!important;
+  border:0!important;border-bottom:1px solid rgba(233,184,95,.75)!important;
+  background:linear-gradient(110deg,#062823,#0b493c 54%,#062823)!important;
+  opacity:1!important;visibility:visible!important;
+ }
+ #gbEntryWelcome::before{
+  content:""!important;position:absolute!important;inset:-15px!important;
+  background-image:var(--entry-bg)!important;background-size:cover!important;background-position:center!important;
+  filter:blur(16px) brightness(.32)!important;transform:scale(1.08)!important;
+ }
+ #gbEntryWelcome>img{
+  display:block!important;position:absolute!important;left:clamp(12px,4vw,22px)!important;
+  top:9px!important;bottom:9px!important;inset-block:auto!important;
+  width:clamp(88px,25vw,112px)!important;height:calc(100% - 18px)!important;
+  max-width:112px!important;max-height:none!important;object-fit:contain!important;
+  object-position:center!important;padding:0!important;
+  filter:drop-shadow(0 5px 14px rgba(0,0,0,.4))!important;
+ }
+ .gb-mobile-welcome-copy{
+  display:flex!important;position:absolute!important;left:clamp(116px,34vw,150px)!important;
+  right:14px!important;top:0!important;bottom:0!important;z-index:2!important;
+  flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;
+  text-align:left!important;pointer-events:none!important;color:#fff!important;
+  text-shadow:0 2px 10px rgba(0,0,0,.55)!important;
+ }
+ .gb-mobile-welcome-copy span{display:block!important;color:#f4d58c!important;font-size:clamp(7px,2vw,9px)!important;font-weight:850!important;letter-spacing:1.1px!important;line-height:1.25!important}
+ .gb-mobile-welcome-copy h1{margin:6px 0 5px!important;color:#fff!important;font:700 clamp(17px,5vw,23px)/1.12 Georgia,serif!important;letter-spacing:0!important}
+ .gb-mobile-welcome-copy p{margin:0!important;color:#e2eee7!important;font-size:10px!important;line-height:1.25!important}
+ #gbEntryLogin{
+  display:flex!important;position:relative!important;inset:auto!important;
+  grid-column:1!important;grid-row:2!important;width:100%!important;height:100%!important;
+  min-width:0!important;min-height:0!important;padding:clamp(12px,3vh,24px) 0 max(12px,env(safe-area-inset-bottom))!important;
+  overflow-x:hidden!important;overflow-y:auto!important;align-items:center!important;justify-content:center!important;
+  overscroll-behavior:contain!important;border:0!important;
+  background:radial-gradient(ellipse at 15% 0%,rgba(25,112,88,.52),transparent 48%),linear-gradient(145deg,#031b20 0%,#07382f 58%,#061f25 100%)!important;
+ }
+ #gbEntryLogin>.gb-login-art{display:none!important}
+ #gbEntryLogin>.gb-auth-card{
+  display:block!important;box-sizing:border-box!important;position:relative!important;z-index:20!important;
+  width:min(91vw,460px)!important;max-width:460px!important;min-height:0!important;
+  max-height:calc(100% - 16px)!important;height:auto!important;flex:0 1 auto!important;
+  margin:8px auto!important;padding:clamp(17px,4vw,24px)!important;overflow-y:auto!important;
+  border:1px solid rgba(233,184,95,.82)!important;border-radius:22px!important;
+  background:rgba(3,39,34,.96)!important;
+  box-shadow:0 16px 42px rgba(0,0,0,.28)!important;
+ }
+ #gbEntryLogin .gb-auth-brand{gap:10px!important;margin-bottom:8px!important}
+ #gbEntryLogin .gb-auth-mark{width:40px!important;height:40px!important;font-size:22px!important}
+ #gbEntryLogin .gb-auth-brand strong{font-size:23px!important}
+ #gbEntryLogin .gb-auth-brand small{font-size:11px!important}
+ #gbEntryLogin .gb-auth-card h2{font-size:clamp(19px,5vw,22px)!important;margin:8px 0 5px!important}
+ #gbEntryLogin .gb-auth-sub{font-size:12px!important;line-height:1.45!important;margin:0 0 13px!important}
+ #gbEntryLogin .gb-auth-tabs{min-height:44px!important;margin-bottom:12px!important}
+ #gbEntryLogin #gbVisitorAuthForm label{margin-top:9px!important;font-size:12px!important}
+ #gbEntryLogin #gbVisitorAuthForm input:not([type=checkbox]),
+ #gbEntryLogin #gbVisitorAuthForm select{min-height:43px!important;height:43px!important;padding:9px 11px!important;font-size:14px!important;border-radius:10px!important}
+ #gbEntryLogin .gb-auth-options{margin-top:10px!important;font-size:12px!important}
+ #gbEntryLogin .gb-auth-primary,#gbEntryLogin .gb-auth-google,#gbEntryLogin .gb-auth-guest{
+  min-height:44px!important;height:44px!important;margin-top:10px!important;font-size:13px!important;border-radius:999px!important;
+ }
+ #gbEntryLogin .gb-auth-divider{margin:14px 0!important;font-size:11px!important}
+ #gbEntryLogin .gb-auth-foot{font-size:11px!important;margin-top:10px!important}
+}
+
+/* Very short phone screens: compact header, let the card scroll naturally. */
+@media (max-height:680px) and (max-device-width:760px){
  #gbEntryGate:not(.gb-entry-closed){grid-template-rows:112px minmax(0,1fr)!important}
- #gbEntryWelcome>img{width:82px!important;max-width:82px!important}
- .gb-mobile-welcome-copy{left:104px!important}
- #gbEntryLogin{align-items:flex-start!important;padding-top:7px!important}
+ #gbEntryWelcome>img{width:82px!important}
+ .gb-mobile-welcome-copy{left:106px!important}
+ #gbEntryLogin{align-items:flex-start!important;padding-top:8px!important}
  #gbEntryLogin>.gb-auth-card{max-height:none!important;margin:0 auto!important;padding:14px 16px!important}
 }
 @media(prefers-reduced-motion:reduce){#gbEntryGate,#gbEntryWelcome,#gbEntryLogin{transition:none!important}}
-
-/* Hidden state must win over form-specific mobile label styling. */
-#gbEntryLogin #gbVisitorAuthForm .hidden,
-#gbEntryLogin #gbVisitorAuthForm label.hidden,
-#gbEntryLogin #gbTermsRow.hidden,
-#gbEntryLogin .gb-auth-options.hidden,
-#gbEntryLogin .gb-auth-foot.hidden{display:none!important}
 </style>
 
 <div id="gbPrivacyChoice" class="hidden" role="dialog" aria-label="Personalisation privacy choice">
