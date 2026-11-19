@@ -5014,6 +5014,91 @@ html.gb-gate-open,html.gb-gate-open body{
 @media(prefers-reduced-motion:reduce){#gbEntryGate,#gbEntryWelcome,#gbEntryLogin{transition:none!important}}
 </style>
 
+
+<style id="gb-entry-mobile-scroll-fix">
+/* Mobile viewport correction: use the full page as the scroll surface. */
+@media (max-width:760px), (max-device-width:760px), (pointer:coarse) and (hover:none) {
+  html, body {
+    min-height:100%!important;
+    height:auto!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+  }
+  #gbEntryGate:not(.gb-entry-closed) {
+    position:fixed!important;
+    inset:0!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:150px auto!important;
+    align-content:start!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:100vh!important;
+    min-height:100dvh!important;
+    max-height:none!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    overscroll-behavior-y:contain!important;
+    padding:0!important;
+  }
+  #gbEntryWelcome {
+    grid-column:1!important;
+    grid-row:1!important;
+    position:relative!important;
+    inset:auto!important;
+    width:100%!important;
+    height:150px!important;
+    min-height:150px!important;
+    max-height:150px!important;
+  }
+  #gbEntryWelcome>img {
+    left:14px!important;
+    top:8px!important;
+    bottom:8px!important;
+    width:100px!important;
+    height:134px!important;
+    max-width:100px!important;
+    object-fit:contain!important;
+  }
+  .gb-mobile-welcome-copy {
+    left:126px!important;
+    right:14px!important;
+  }
+  .gb-mobile-welcome-copy h1 {
+    font-size:clamp(17px,4.8vw,23px)!important;
+  }
+  #gbEntryLogin {
+    grid-column:1!important;
+    grid-row:2!important;
+    position:relative!important;
+    inset:auto!important;
+    display:flex!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:calc(100dvh - 150px)!important;
+    max-height:none!important;
+    padding:18px 0 30px!important;
+    overflow:visible!important;
+    align-items:flex-start!important;
+    justify-content:center!important;
+  }
+  #gbEntryLogin>.gb-auth-card {
+    width:min(460px,calc(100% - 28px))!important;
+    max-width:460px!important;
+    height:auto!important;
+    max-height:none!important;
+    min-height:0!important;
+    flex:0 0 auto!important;
+    margin:0 auto!important;
+    padding:clamp(18px,4vw,26px)!important;
+    overflow:visible!important;
+  }
+  #gbEntryLogin .gb-auth-foot {
+    padding-bottom:4px!important;
+  }
+}
+</style>
+
 <div id="gbPrivacyChoice" class="hidden" role="dialog" aria-label="Personalisation privacy choice">
  <strong>Make GyanBhoomi feel more personal?</strong>
  <p>With your permission, GyanBhoomi can remember your preferred language, saved/favourite articles, reading activity and search topics to recommend relevant content when you return. It does not record passwords, private messages or keystrokes. You can turn this off or clear the data at any time in this browser.</p>
