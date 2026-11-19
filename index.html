@@ -4113,6 +4113,8 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    fill.style.width=(!value?0:score*20)+"%";
    label.textContent=!value?"Password strength: enter a password": "Password strength: "+({weak:"Weak",fair:"Fair",good:"Good",strong:"Strong"}[strength])+" · "+score+"/5 checks";
  };
+ // Start in the actual login state; signup-only fields stay hidden until requested.
+ showMode("login");
  $("gbVisitorPassword")?.addEventListener("input",updatePasswordMeter);
  // Password visibility control.
  $("gbPasswordToggle")?.addEventListener("click",()=>{
@@ -4896,6 +4898,13 @@ html.gb-gate-open,html.gb-gate-open body{
  #gbEntryLogin>.gb-auth-card{max-height:none!important;margin:0 auto!important;padding:14px 16px!important}
 }
 @media(prefers-reduced-motion:reduce){#gbEntryGate,#gbEntryWelcome,#gbEntryLogin{transition:none!important}}
+
+/* Hidden state must win over form-specific mobile label styling. */
+#gbEntryLogin #gbVisitorAuthForm .hidden,
+#gbEntryLogin #gbVisitorAuthForm label.hidden,
+#gbEntryLogin #gbTermsRow.hidden,
+#gbEntryLogin .gb-auth-options.hidden,
+#gbEntryLogin .gb-auth-foot.hidden{display:none!important}
 </style>
 
 <div id="gbPrivacyChoice" class="hidden" role="dialog" aria-label="Personalisation privacy choice">
