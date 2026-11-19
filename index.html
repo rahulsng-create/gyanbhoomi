@@ -4060,19 +4060,30 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    $("gbAuthLoginTab").classList.toggle("active",!signup);
    $("gbAuthSignupTab").classList.toggle("active",signup);
    $("gbAuthHeading").textContent=signup?"Create your GyanBhoomi account":"Welcome to GyanBhoomi";
-   $("gbVisitorNameLabel").classList.toggle("hidden",!signup);
+   // Use explicit inline display state as well as the class: legacy mobile label rules
+   // must never expose registration-only controls while the login tab is active.
+   const nameLabel=$("gbVisitorNameLabel");
+   const profileFields=$("gbSignupProfileFields");
+   nameLabel.classList.toggle("hidden",!signup);
+   nameLabel.style.setProperty("display",signup?"block":"none","important");
    $("gbVisitorName").required=signup;
-   $("gbSignupProfileFields").classList.toggle("hidden",!signup);
+   profileFields.classList.toggle("hidden",!signup);
+   profileFields.style.setProperty("display",signup?"block":"none","important");
    ["gbVisitorDob","gbVisitorCountry","gbVisitorState","gbVisitorCity","gbVisitorPincode","gbVisitorPhone"].forEach(id=>$(id).required=signup);
    if(signup)gbLoadCountries();
-   $("gbTermsRow").classList.toggle("hidden",!signup);
+   const termsRow=$("gbTermsRow");
+   termsRow.classList.toggle("hidden",!signup);
+   termsRow.style.setProperty("display",signup?"flex":"none","important");
    $("gbTermsAgree").required=signup;
    $("gbPasswordGuidance").classList.toggle("hidden",!signup);
+   $("gbPasswordGuidance").style.setProperty("display",signup?"block":"none","important");
    $("gbPasswordMeter").classList.toggle("hidden",!signup);
+   $("gbPasswordMeter").style.setProperty("display",signup?"block":"none","important");
    updatePasswordMeter();
    $("gbVisitorPassword").minLength=signup?8:6;
    $("gbVisitorPassword").autocomplete=signup?"new-password":"current-password";
    $("gbAuthOptions").classList.toggle("hidden",signup);
+   $("gbAuthOptions").style.setProperty("display",signup?"none":"flex","important");
    $("gbVisitorSubmit").textContent=signup?"Create Account":"Log In";
    $("gbAuthFoot").innerHTML=signup
      ?'Already have an account? <button type="button" id="gbAuthFootLogin">Log in</button>'
