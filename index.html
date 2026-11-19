@@ -1361,12 +1361,142 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
 @media(max-width:680px){.gb-profile-panel{background:#082d2c}.gb-profile-body{padding:14px}.gb-profile-stat,.gb-profile-card{box-shadow:0 7px 18px #0003}}
 </style>
 
+
+<style id="gb-entry-redesign-approved">
+/* Approved entry redesign: keep the existing Supabase form and all field IDs intact. */
+#gbEntryGate:not(.gb-entry-closed){
+  background:#062d28!important;
+}
+@media (min-width:761px) and (pointer:fine){
+  #gbEntryGate:not(.gb-entry-closed){
+    display:grid!important;
+    grid-template-columns:minmax(0,0.94fr) minmax(0,1.06fr)!important;
+    grid-template-rows:minmax(0,1fr)!important;
+  }
+  #gbEntryWelcome{
+    display:flex!important;position:relative!important;inset:auto!important;
+    grid-column:1;grid-row:1;min-width:0!important;height:100%!important;
+    border-right:1px solid rgba(233,184,95,.8)!important;
+    background:#082e2a!important;
+  }
+  #gbEntryWelcome>img{
+    object-fit:contain!important;object-position:center!important;
+    padding:clamp(14px,2.2vw,34px)!important;
+  }
+  #gbEntryLogin{
+    grid-column:2;grid-row:1;min-width:0!important;height:100%!important;
+    padding:clamp(18px,3vw,46px)!important;
+    background:radial-gradient(ellipse at 15% 15%,#176b58 0%,transparent 45%),linear-gradient(145deg,#031b20,#052f2b 60%,#061d25)!important;
+  }
+  #gbEntryLogin>.gb-auth-card{
+    width:min(100%,540px)!important;max-height:calc(100dvh - 48px)!important;
+    padding:clamp(22px,3vw,38px)!important;
+  }
+  .gb-mobile-welcome-copy{display:none!important}
+}
+@media (max-width:760px),(pointer:coarse){
+  html.gb-gate-open,html.gb-gate-open body{
+    width:100%!important;height:100%!important;min-height:100%!important;
+    overflow:hidden!important;
+  }
+  #gbEntryGate:not(.gb-entry-closed){
+    display:block!important;position:fixed!important;inset:0!important;
+    width:100vw!important;height:100vh!important;height:100dvh!important;
+    overflow:hidden!important;background:#062d28!important;
+  }
+  #gbEntryWelcome{
+    display:flex!important;position:absolute!important;inset:0 0 auto 0!important;
+    width:100%!important;height:clamp(150px,25dvh,230px)!important;
+    min-height:0!important;overflow:hidden!important;z-index:4!important;
+    align-items:center!important;justify-content:center!important;
+    border:0!important;border-bottom:1px solid #d9b96d!important;
+    background:#082e2a!important;
+  }
+  #gbEntryWelcome::before{
+    content:"";position:absolute;inset:-18px;
+    background-image:var(--entry-bg);background-size:cover;background-position:center;
+    filter:blur(15px) brightness(.45);transform:scale(1.08);opacity:.9;
+  }
+  #gbEntryWelcome>img{
+    position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+    object-fit:contain!important;object-position:center!important;
+    padding:5px 12px 30px!important;z-index:1!important;
+  }
+  .gb-mobile-welcome-copy{
+    position:absolute;left:12px;right:12px;bottom:9px;z-index:2;
+    text-align:center;pointer-events:none;color:#fff;
+    text-shadow:0 2px 8px #001b18;
+  }
+  .gb-mobile-welcome-copy span{
+    display:block;color:#f4d58c;font-size:9px;font-weight:850;
+    letter-spacing:1.5px;line-height:1.2;
+  }
+  .gb-mobile-welcome-copy h1{
+    margin:3px 0 1px;color:#fff;font:700 clamp(17px,5vw,23px)/1.12 Georgia,serif;
+    letter-spacing:0;
+  }
+  .gb-mobile-welcome-copy p{margin:0;color:#e2eee7;font-size:10px;line-height:1.2}
+  #gbEntryLogin{
+    display:flex!important;position:absolute!important;
+    inset:clamp(150px,25dvh,230px) 0 0 0!important;
+    width:100%!important;height:auto!important;min-height:0!important;
+    padding:10px 12px max(14px,env(safe-area-inset-bottom))!important;
+    overflow-x:hidden!important;overflow-y:auto!important;
+    align-items:flex-start!important;justify-content:center!important;
+    overscroll-behavior:contain!important;
+    background:radial-gradient(ellipse at 20% 0%,#176b58 0%,transparent 48%),linear-gradient(145deg,#031b20,#052f2b 60%,#061d25)!important;
+  }
+  #gbEntryLogin>.gb-login-art{display:none!important}
+  #gbEntryLogin>.gb-auth-card{
+    position:relative!important;z-index:100!important;
+    width:min(100%,520px)!important;max-width:520px!important;
+    max-height:none!important;height:auto!important;overflow:visible!important;
+    margin:0 auto!important;padding:17px 16px 19px!important;
+    border-radius:19px!important;background:rgba(3,39,34,.98)!important;
+    box-shadow:0 12px 32px #001a1680!important;
+  }
+  .gb-auth-brand{margin-bottom:7px!important}
+  .gb-auth-mark{width:39px!important;height:39px!important;font-size:21px!important}
+  .gb-auth-brand strong{font-size:22px!important}
+  .gb-auth-card h2{font-size:20px!important;margin:7px 0 4px!important}
+  .gb-auth-sub{font-size:12px!important;margin:0 0 10px!important}
+  .gb-auth-tabs{margin-bottom:9px!important}
+  #gbVisitorAuthForm label{margin-top:8px!important}
+  #gbVisitorAuthForm input:not([type=checkbox]){
+    height:42px!important;padding:9px 11px!important;
+  }
+  .gb-auth-primary,.gb-auth-google,.gb-auth-guest{
+    min-height:43px!important;margin-top:8px!important;
+  }
+}
+@media (max-height:650px) and (max-width:760px){
+  #gbEntryWelcome{height:clamp(112px,20dvh,145px)!important}
+  #gbEntryWelcome>img{padding:2px 10px 24px!important}
+  #gbEntryLogin{inset:clamp(112px,20dvh,145px) 0 0 0!important;padding:7px 10px 12px!important}
+  #gbEntryLogin>.gb-auth-card{padding:12px 14px 14px!important}
+  .gb-auth-brand{margin-bottom:3px!important}
+  .gb-auth-card h2{margin:4px 0!important}
+  .gb-auth-sub{margin-bottom:7px!important}
+  #gbVisitorAuthForm label{margin-top:6px!important}
+  #gbVisitorAuthForm input:not([type=checkbox]){height:38px!important}
+  .gb-auth-primary,.gb-auth-google,.gb-auth-guest{min-height:38px!important;margin-top:6px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #gbEntryGate,#gbEntryWelcome,#gbEntryLogin{transition:none!important}
+}
+</style>
+
 </head><body>
 <div id="gbNetProgress" aria-hidden="true"></div><div id="gbNetNotice" role="status" aria-live="polite"><span class="gb-net-dot" aria-hidden="true"></span><span id="gbNetNoticeText">Checking internet connection…</span></div>
 
 <div id="gbEntryGate" class="gb-entry-gate gb-entry-closed" aria-modal="true" role="dialog" aria-label="Welcome to GyanBhoomi">
   <section id="gbEntryWelcome" class="gb-entry-welcome" style="--entry-bg:url(assets/gb-welcome-cover.webp)" aria-label="GyanBhoomi welcome cover">
-    <img src="assets/gb-welcome-cover.webp" alt="GyanBhoomi — The Knowledge Library">
+    <img src="assets/gb-welcome-cover.webp" alt="Illustrated world of knowledge for GyanBhoomi">
+    <div class="gb-mobile-welcome-copy">
+      <span>THE UNIVERSAL KNOWLEDGE LIBRARY</span>
+      <h1>Knowledge has no boundaries.</h1>
+      <p>Learn · Explore · Discover</p>
+    </div>
   </section>
   <section id="gbEntryLogin" class="gb-entry-login" style="--entry-bg:url(assets/gb-login-panel.webp)" aria-label="GyanBhoomi account access">
     <img class="gb-login-art" src="assets/gb-login-panel.webp" alt="">
@@ -3669,7 +3799,7 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
  const form=document.getElementById("gbVisitorAuthForm");
  const $=id=>document.getElementById(id);
  if(!gate||!form)return;
- const isMobile=()=>window.matchMedia("(max-width:760px)").matches;
+ const isMobile=()=>window.matchMedia("(max-width:760px), (pointer:coarse)").matches;
  let mode="login",busy=false,transitionTimer=null;
  const message=(text,type="")=>{
    const el=$("gbAuthMessage");
@@ -4055,17 +4185,23 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    document.documentElement.classList.add("gb-gate-open");
    const login=$("gbEntryLogin");
    if(isMobile()){
-     // Phones and touch-first devices open directly to the full login/signup screen.
+     // Phones and touch-first devices use an illustrated welcome header above the
+     // same live Supabase login/signup form; the form remains independently scrollable.
      gate.style.display="block";
-     if(cover){cover.style.display="none";cover.setAttribute("aria-hidden","true");}
+     if(cover){
+       cover.style.display="flex";
+       cover.classList.remove("gb-cover-out");
+       cover.setAttribute("aria-hidden","false");
+     }
      if(login){
        login.style.display="flex";
        login.setAttribute("aria-hidden","false");
        login.classList.add("gb-entry-login-active");
      }
-     gate.classList.add("gb-entry-show-login");
+     gate.classList.add("gb-entry-show-login","gb-mobile-entry");
      return;
    }
+   gate.classList.remove("gb-mobile-entry");
    // Desktop displays the welcome cover and live login/signup card together.
    gate.style.display="grid";
    if(cover){cover.style.display="flex";cover.classList.remove("gb-cover-out");cover.setAttribute("aria-hidden","false");}
