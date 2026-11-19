@@ -2858,7 +2858,22 @@ html.gb-gate-open #gbWelcomeSplash{display:none!important;visibility:hidden!impo
 #gbMenuPanel .gb-drawer-head,#gbMenuPanel .gb-drawer-links,#gbMenuPanel .gb-drawer-settings,#gbMenuPanel .gb-drawer-foot,#gbMenuPanel #gbDrawerLogout{flex-shrink:0!important}
 #gbSettingsGear{display:inline-block;transform-origin:50% 50%;will-change:transform;transition:transform .08s linear}
 </style>
- </head>
+ <style id="gb-auth-tab-visibility-final">
+/* Authoritative tab-driven visibility: the selected tab controls form fields directly. */
+#gbEntryLogin:has(#gbAuthLoginTab.active) #gbVisitorNameLabel,
+#gbEntryLogin:has(#gbAuthLoginTab.active) #gbSignupProfileFields,
+#gbEntryLogin:has(#gbAuthLoginTab.active) #gbTermsRow,
+#gbEntryLogin:has(#gbAuthLoginTab.active) #gbPasswordGuidance,
+#gbEntryLogin:has(#gbAuthLoginTab.active) #gbPasswordMeter{display:none!important}
+#gbEntryLogin:has(#gbAuthLoginTab.active) #gbAuthOptions{display:flex!important}
+#gbEntryLogin:has(#gbAuthSignupTab.active) #gbVisitorNameLabel{display:block!important}
+#gbEntryLogin:has(#gbAuthSignupTab.active) #gbSignupProfileFields,
+#gbEntryLogin:has(#gbAuthSignupTab.active) #gbPasswordGuidance,
+#gbEntryLogin:has(#gbAuthSignupTab.active) #gbPasswordMeter{display:block!important}
+#gbEntryLogin:has(#gbAuthSignupTab.active) #gbTermsRow{display:flex!important}
+#gbEntryLogin:has(#gbAuthSignupTab.active) #gbAuthOptions{display:none!important}
+</style>
+</head>
  <body>
  ${results.innerHTML}
  
@@ -4065,25 +4080,25 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    const nameLabel=$("gbVisitorNameLabel");
    const profileFields=$("gbSignupProfileFields");
    nameLabel.classList.toggle("hidden",!signup);
-   nameLabel.style.setProperty("display",signup?"block":"none","important");
+   nameLabel.style.display=signup?"block":"none";
    $("gbVisitorName").required=signup;
    profileFields.classList.toggle("hidden",!signup);
-   profileFields.style.setProperty("display",signup?"block":"none","important");
+   profileFields.style.display=signup?"block":"none";
    ["gbVisitorDob","gbVisitorCountry","gbVisitorState","gbVisitorCity","gbVisitorPincode","gbVisitorPhone"].forEach(id=>$(id).required=signup);
    if(signup)gbLoadCountries();
    const termsRow=$("gbTermsRow");
    termsRow.classList.toggle("hidden",!signup);
-   termsRow.style.setProperty("display",signup?"flex":"none","important");
+   termsRow.style.display=signup?"flex":"none";
    $("gbTermsAgree").required=signup;
    $("gbPasswordGuidance").classList.toggle("hidden",!signup);
-   $("gbPasswordGuidance").style.setProperty("display",signup?"block":"none","important");
+   $("gbPasswordGuidance").style.display=signup?"block":"none";
    $("gbPasswordMeter").classList.toggle("hidden",!signup);
-   $("gbPasswordMeter").style.setProperty("display",signup?"block":"none","important");
+   $("gbPasswordMeter").style.display=signup?"block":"none";
    updatePasswordMeter();
    $("gbVisitorPassword").minLength=signup?8:6;
    $("gbVisitorPassword").autocomplete=signup?"new-password":"current-password";
    $("gbAuthOptions").classList.toggle("hidden",signup);
-   $("gbAuthOptions").style.setProperty("display",signup?"none":"flex","important");
+   $("gbAuthOptions").style.display=signup?"none":"flex";
    $("gbVisitorSubmit").textContent=signup?"Create Account":"Log In";
    $("gbAuthFoot").innerHTML=signup
      ?'Already have an account? <button type="button" id="gbAuthFootLogin">Log in</button>'
