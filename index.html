@@ -2956,13 +2956,14 @@ html.gb-gate-open #gbWelcomeSplash{display:none!important;visibility:hidden!impo
 </style>
 
 <style id="gb-home-voice-search-v1">
-.gb-global-search .gb-voice-search{flex:0 0 42px;width:42px;height:42px;min-height:42px;padding:9px;display:grid;place-items:center;border-radius:50%;background:#edf6f1;color:#155448;border:1px solid #c9dfd3;box-shadow:none}
-.gb-global-search .gb-voice-search svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.gb-global-search .gb-voice-search.listening{background:#b83232;color:#fff;border-color:#b83232;animation:gbVoicePulse 1.2s infinite}
-.gb-voice-search-status{min-height:0;margin:0;text-align:center;color:#c6ded3;font-size:12px}
-.gb-voice-search-status:not(:empty){margin-top:7px}
-@keyframes gbVoicePulse{50%{box-shadow:0 0 0 6px #e65b5b35}}
-@media(max-width:520px){#gbGlobalSearch .gb-voice-search{flex-basis:38px;width:38px;height:38px;min-height:38px;padding:8px}}
+/* Refined compact microphone control; keep the homepage search row clean. */
+#gbGlobalSearch .gb-voice-search{appearance:none!important;-webkit-appearance:none!important;flex:0 0 36px!important;width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;padding:8px!important;margin:0!important;display:grid!important;place-items:center!important;border:0!important;border-radius:50%!important;background:transparent!important;color:#155448!important;box-shadow:none!important;line-height:1!important}
+#gbGlobalSearch .gb-voice-search svg{display:block!important;width:21px!important;height:21px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.9!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+#gbGlobalSearch .gb-voice-search:focus-visible{outline:2px solid #d9b85f!important;outline-offset:1px}
+#gbGlobalSearch .gb-voice-search.listening{background:#fce8e8!important;color:#b83232!important;animation:gbVoicePulse 1.2s infinite}
+#gbVoiceSearchStatus{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+@keyframes gbVoicePulse{50%{box-shadow:0 0 0 5px #e65b5b25}}
+@media(max-width:520px){#gbGlobalSearch .gb-voice-search{flex-basis:34px!important;width:34px!important;height:34px!important;min-width:34px!important;min-height:34px!important;padding:7px!important}}
 </style>
 </body>
  </html>`);
@@ -3828,7 +3829,7 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
     const languageMap={en:"en-IN",hi:"hi-IN",gu:"gu-IN",mr:"mr-IN",bn:"bn-IN",kn:"kn-IN"};
     let selectedLanguage="en";try{selectedLanguage=localStorage.getItem("gyanbhoomi_language")||"en";}catch(_){}
     recognition.lang=languageMap[selectedLanguage]||"en-IN";
-    voiceStatus.textContent="Listening… Speak your search.";
+    voiceStatus.textContent="";
     voiceButton.classList.add("listening");voiceButton.setAttribute("aria-pressed","true");
     try{recognition.start();}catch(error){voiceButton.classList.remove("listening");voiceButton.setAttribute("aria-pressed","false");voiceStatus.textContent="Voice search could not start. Please try again.";}
    });
@@ -3839,7 +3840,7 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
      if(event.results[i].isFinal)voiceFinalText+=transcript;else interim+=transcript;
     }
     globalInput.value=(voiceFinalText||interim).trim();
-    voiceStatus.textContent=voiceFinalText?"Recognised: "+voiceFinalText:"Hearing: "+interim;
+    voiceStatus.textContent="";
    };
    recognition.onerror=event=>{
     voiceHadError=true;
@@ -3848,8 +3849,8 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    };
    recognition.onend=()=>{
     voiceButton.classList.remove("listening");voiceButton.setAttribute("aria-pressed","false");
-    if(voiceFinalText.trim()&&!voiceHadError){globalInput.value=voiceFinalText.trim();voiceStatus.textContent="Searching for: "+globalInput.value;document.getElementById("gbGlobalSearch")?.requestSubmit();}
-    else if(!voiceHadError&&!voiceFinalText.trim())voiceStatus.textContent="No speech detected. Tap the microphone to try again.";
+    if(voiceFinalText.trim()&&!voiceHadError){globalInput.value=voiceFinalText.trim();voiceStatus.textContent="";document.getElementById("gbGlobalSearch")?.requestSubmit();}
+    else if(!voiceHadError&&!voiceFinalText.trim())voiceStatus.textContent="";
    };
   }
  }
