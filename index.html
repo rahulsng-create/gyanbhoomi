@@ -6017,5 +6017,25 @@ html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-drawer-section-t
  wrap.querySelectorAll("[data-gb-palette]").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.gbPalette)));
 })();
 </script>
-</body>
+<script id="gb-translator-nav-ensure">
+(()=>{const ensure=()=>{
+ const nav=document.querySelector("#gbMenuPanel .gb-drawer-links");
+ if(!nav)return;
+ let link=nav.querySelector('a[href="translator/"],a[href$="/translator/"]');
+ if(!link){
+  link=document.createElement("a");
+  link.className="gb-quiz-menu-link gb-translator-menu-link";
+  link.href=new URL("translator/",document.baseURI).pathname;
+  link.innerHTML='<span class="gb-drawer-icon" aria-hidden="true">🌐</span><span>Translator</span><span class="gb-quiz-arrow" aria-hidden="true">›</span>';
+ }
+ const quiz=nav.querySelector('a[href="quiz-arena/"],a[href$="/quiz-arena/"]');
+ if(quiz&&link.nextElementSibling!==quiz)nav.insertBefore(link,quiz);
+ else if(!quiz&&!link.isConnected)nav.appendChild(link);
+};
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",ensure,{once:true});else ensure();
+const observer=new MutationObserver(ensure);
+observer.observe(document.documentElement,{childList:true,subtree:true});
+setTimeout(()=>observer.disconnect(),10000);
+})();
+</script></body>
 </html>
