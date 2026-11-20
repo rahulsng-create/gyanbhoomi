@@ -16,6 +16,21 @@ section{padding:30px 0}.section-head{display:flex;justify-content:space-between;
 footer{background:#173f36;color:#eaf7ef;padding:22px 0;font-size:13px}footer .shell{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 @media(max-width:760px){.hero-inner{grid-template-columns:1fr}.mascot{min-height:155px}.mascot .planet{width:145px;height:145px;font-size:78px}.age-grid{grid-template-columns:1fr}.subject-grid{grid-template-columns:repeat(2,1fr)}.feature-grid{grid-template-columns:1fr}.hero{padding-top:30px}.hero h1{font-size:39px}.shell{padding:0 16px}}
 @media(max-width:420px){.subject-grid{grid-template-columns:1fr 1fr;gap:9px}.subject{padding:14px;min-height:168px}.section-head h2{font-size:20px}.answers{grid-template-columns:1fr 1fr}}
+
+/* Visual learning studio */
+.visual-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.visual-card{border:1px solid var(--line);border-radius:19px;background:#fff;overflow:hidden;box-shadow:var(--shadow);text-align:left;padding:0;color:var(--ink);transition:.18s}
+.visual-card:hover{transform:translateY(-3px);box-shadow:0 16px 35px #214d3818}
+.visual-art{height:142px;display:grid;place-items:center;position:relative;overflow:hidden}
+.visual-art svg{width:100%;height:100%;max-width:220px}
+.visual-card:nth-child(1) .visual-art{background:linear-gradient(145deg,#fff5cc,#ffe6a2)}
+.visual-card:nth-child(2) .visual-art{background:linear-gradient(145deg,#dff7e8,#bcebd0)}
+.visual-card:nth-child(3) .visual-art{background:linear-gradient(145deg,#e4f3ff,#c9e6ff)}
+.visual-card:nth-child(4) .visual-art{background:linear-gradient(145deg,#f1eaff,#e2d5ff)}
+.visual-copy{padding:13px 14px 15px}.visual-copy strong{display:block;font-size:15px}.visual-copy small{display:block;color:var(--muted);font-size:12px;margin-top:3px}.visual-fact{display:none;margin-top:9px;padding:9px 10px;border-radius:10px;background:#eff9f2;color:#345d4d;font-size:12px;line-height:1.45}.visual-card.open .visual-fact{display:block}.visual-hint{font-size:12px;color:var(--muted);margin-top:10px}
+@media(max-width:760px){.visual-grid{grid-template-columns:repeat(2,1fr)}.visual-art{height:125px}}
+@media(max-width:390px){.visual-grid{gap:9px}.visual-copy{padding:11px}.visual-art{height:110px}}
+
 </style>
 </head>
 <body>
@@ -31,6 +46,30 @@ footer{background:#173f36;color:#eaf7ef;padding:22px 0;font-size:13px}footer .sh
 <a class="subject" href="#story"><span class="icon rose">📚</span><h3>Stories & Rhymes</h3><p>Imaginative tales, poems and reading fun.</p><span class="tag">Read a story →</span></a>
 <a class="subject" href="#daily"><span class="icon lemon">🧩</span><h3>Games & Puzzles</h3><p>Memory, matching and brain-boosting play.</p><span class="tag">Play and learn →</span></a>
 </div></section>
+
+<section class="shell" id="visual-learning">
+ <div class="section-head"><div><h2>See it. Understand it. Remember it. 👀</h2><p>Explore picture lessons. Tap any picture to discover what it teaches.</p></div></div>
+ <div class="visual-grid">
+  <button class="visual-card" type="button" aria-expanded="false">
+   <div class="visual-art"><svg viewBox="0 0 220 145" role="img" aria-label="Sun shining in the sky"><circle cx="110" cy="70" r="31" fill="#ffbf36"/><g stroke="#f2a51d" stroke-width="6" stroke-linecap="round"><path d="M110 15v13M110 112v15M55 70h14M151 70h14M71 31l10 10M139 99l10 10M149 31l-10 10M81 99l-10 10"/></g><path d="M0 123q34-22 70 0t75 0t75 0v22H0z" fill="#83d6a1"/><path d="M18 37q12-15 25 0q13-14 25 0" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg></div>
+   <div class="visual-copy"><strong>☀️ The Sun</strong><small>Light and warmth</small><span class="visual-fact">The Sun is a star. It gives Earth light and heat and helps plants grow.</span></div>
+  </button>
+  <button class="visual-card" type="button" aria-expanded="false">
+   <div class="visual-art"><svg viewBox="0 0 220 145" role="img" aria-label="A growing plant with roots"><path d="M110 83v43M110 104q-22-22-43-10q13 26 43 19M110 88q18-29 43-19q-4 27-43 31" fill="#36a66f" stroke="#24885b" stroke-width="3"/><path d="M110 124q-18 4-30 16m30-16q18 4 30 16m-30-16v17" fill="none" stroke="#a56c3b" stroke-width="4" stroke-linecap="round"/><path d="M110 83V51" stroke="#24885b" stroke-width="6" stroke-linecap="round"/><path d="M110 57Q65 50 75 20q34-2 35 37M111 48q3-38 40-34q5 32-40 34" fill="#66c98a" stroke="#24885b" stroke-width="3"/><circle cx="30" cy="30" r="13" fill="#ffd15c"/><path d="M0 130q55-15 110 0t110 0v15H0z" fill="#d7b17a"/></svg></div>
+   <div class="visual-copy"><strong>🌱 How plants grow</strong><small>Roots, stem and leaves</small><span class="visual-fact">Roots take in water, the stem supports the plant, and leaves use sunlight to help make food.</span></div>
+  </button>
+  <button class="visual-card" type="button" aria-expanded="false">
+   <div class="visual-art"><svg viewBox="0 0 220 145" role="img" aria-label="Cloud, raindrops and water"><path d="M57 57q-2-23 24-25q14-26 40-9q20-4 26 17q27 2 22 27H61q-12-2-4-10" fill="#fff" stroke="#7cb6e7" stroke-width="3"/><path d="M83 81l-8 18m34-18l-8 18m34-18l-8 18" stroke="#4b9fe0" stroke-width="7" stroke-linecap="round"/><path d="M0 123q35-16 72 0t74 0t74 0v22H0z" fill="#68b9ed"/><path d="M25 112q25-17 50 0m68 0q25-17 50 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="180" cy="25" r="13" fill="#ffd05c"/></svg></div>
+   <div class="visual-copy"><strong>💧 Rain and water</strong><small>A simple water cycle</small><span class="visual-fact">Sunlight warms water. It rises as water vapour, cools into clouds, and can fall as rain.</span></div>
+  </button>
+  <button class="visual-card" type="button" aria-expanded="false">
+   <div class="visual-art"><svg viewBox="0 0 220 145" role="img" aria-label="Human heart and body outline"><circle cx="110" cy="24" r="16" fill="#ffd8b8" stroke="#c98f70" stroke-width="2"/><path d="M88 48q22-12 44 0l9 47-14 4-4 38h-12l-1-31-1 31H97l-4-38-14-4z" fill="#b9a2ef" stroke="#8a72ca" stroke-width="3" stroke-linejoin="round"/><path d="M110 63c-17-15-29 6-11 19l11 9 11-9c18-13 6-34-11-19" fill="#f06d85" stroke="#c94e68" stroke-width="2"/><path d="M85 55L62 87m73-32l23 32" stroke="#8a72ca" stroke-width="8" stroke-linecap="round"/></svg></div>
+   <div class="visual-copy"><strong>❤️ Your amazing body</strong><small>Heart and body basics</small><span class="visual-fact">Your heart is a strong muscle. It pumps blood around your body, day and night.</span></div>
+  </button>
+ </div>
+ <p class="visual-hint">Learning tip: Look closely at the picture, say what you notice, then tap to reveal the explanation.</p>
+</section>
+
 <section class="shell" id="daily"><div class="section-head"><div><h2>Today's fun challenge 🎯</h2><p>A little question to make your brain sparkle.</p></div></div><div class="feature-grid"><div class="feature challenge"><h3>Daily Brain Booster</h3><p>Choose the right answer. You can try again if you need to!</p><div class="quiz-box"><div class="quiz-question" id="question">Which planet do we live on?</div><div class="answers" id="answers"><button data-answer="Mars">Mars</button><button data-answer="Earth">Earth</button><button data-answer="Jupiter">Jupiter</button><button data-answer="Venus">Venus</button></div><div class="feedback" id="feedback" aria-live="polite"></div></div></div><div class="feature story" id="story"><div class="story-icon">🦊</div><div><h3>A tiny story break</h3><p>Take a moment for a little tale about kindness and courage.</p><button id="storyButton" type="button">Read a mini story 📖</button><div class="story-text" id="storyText">One sunny morning, a little fox found a thirsty bird. The fox shared the water from its leaf-shaped cup. The bird smiled and sang a happy song. The fox learned that even a small act of kindness can make someone's day brighter. <b>Think about it:</b> What kind thing could you do today?</div></div></div></div></section>
 <section class="shell"><div class="section-head"><div><h2>Your little achievements ⭐</h2><p>Stars are saved on this device only.</p></div></div><div class="progress"><div class="stat"><b id="stars">0</b><small>Stars earned</small></div><div class="stat"><b id="solved">0</b><small>Challenges solved</small></div><div class="stat"><b>🌱</b><small>Keep growing!</small></div></div></section>
 <section class="shell"><div class="parent"><div class="lock">🛡️</div><div><b>A note for parents & guardians</b><p>GyanBhoomi Kids is designed as a learning space. This page does not ask children to share personal details, and quiz stars are stored locally on this device. Please guide younger children while they explore. Parent controls and fuller progress reports can be added in a later stage.</p></div></div><div class="safety"><span>✓ No public chat</span><span>✓ No child profile required</span><span>✓ No external sign-up</span><span>✓ Learning-first experience</span></div></section>
@@ -39,6 +78,7 @@ footer{background:#173f36;color:#eaf7ef;padding:22px 0;font-size:13px}footer .sh
 (()=>{const ageButtons=[...document.querySelectorAll('.age')],hint=document.getElementById('ageHint');const hints={'3-5':'Fun first lessons for little learners.','6-8':'Build skills with playful primary-level learning.','9-12':'Explore bigger ideas and stretch your thinking.'};ageButtons.forEach(b=>b.addEventListener('click',()=>{ageButtons.forEach(x=>x.classList.toggle('active',x===b));hint.textContent=hints[b.dataset.age]}));
 let stars=Number(localStorage.getItem('gbKidsStars')||0),solved=Number(localStorage.getItem('gbKidsSolved')||0);const draw=()=>{document.getElementById('stars').textContent=stars;document.getElementById('solved').textContent=solved};draw();
 document.getElementById('answers').addEventListener('click',e=>{const b=e.target.closest('button[data-answer]');if(!b)return;const f=document.getElementById('feedback');if(b.dataset.answer==='Earth'){f.textContent='🌟 Brilliant! Earth is our home planet.';if(!sessionStorage.getItem('gbKidsDailyDone')){stars++;solved++;sessionStorage.setItem('gbKidsDailyDone','1');localStorage.setItem('gbKidsStars',stars);localStorage.setItem('gbKidsSolved',solved);draw()}}else f.textContent='💡 Good try! Have another go.'});
+document.querySelectorAll('.visual-card').forEach(card=>card.addEventListener('click',()=>{const open=card.classList.toggle('open');card.setAttribute('aria-expanded',String(open))}));
 document.getElementById('storyButton').addEventListener('click',()=>{const t=document.getElementById('storyText');t.style.display=t.style.display==='block'?'none':'block';document.getElementById('storyButton').textContent=t.style.display==='block'?'Hide story':'Read a mini story 📖'});
 })();
 </script>
