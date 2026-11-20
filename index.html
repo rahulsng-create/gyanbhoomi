@@ -1645,7 +1645,7 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
           <span id="gbPasswordMeterText">Password strength: enter a password</span>
         </div>
         <label id="gbTermsRow" class="gb-terms-row hidden"><input type="checkbox" id="gbTermsAgree"> I agree to the Terms of Service and Privacy Policy.</label>
-        <div class="gb-auth-options" id="gbAuthOptions"><label class="gb-remember"><input type="checkbox" id="gbRemember" checked> Remember me</label><button type="button" id="gbForgot" class="gb-text-button">Forgot Password?</button></div>
+        <div class="gb-auth-options" id="gbAuthOptions"><label class="gb-remember"><input type="checkbox" id="gbRemember"> Remember me</label><button type="button" id="gbForgot" class="gb-text-button">Forgot Password?</button></div>
         <button type="submit" id="gbVisitorSubmit" class="gb-auth-primary">Log In</button>
       </form>
       <div id="gbAuthMessage" role="status" aria-live="polite" class="gb-auth-message"></div>
@@ -1757,7 +1757,7 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
    <input id="gbAccountName" class="gb-image-name hidden" type="text" placeholder="Your name" autocomplete="name" aria-label="Your name">
    <input id="gbAccountEmail" class="gb-image-email" type="email" placeholder="Email address" autocomplete="email" required aria-label="Email address">
    <input id="gbAccountPassword" class="gb-image-password" type="password" placeholder="Password" minlength="8" autocomplete="current-password" required aria-label="Password">
-   <label class="gb-image-remember"><input type="checkbox" id="gbRememberMe" checked><span>Remember me</span></label>
+   <label class="gb-image-remember"><input type="checkbox" id="gbRememberMe"><span>Remember me</span></label>
    <button type="button" id="gbForgotPassword" class="gb-image-forgot">Forgot Password?</button>
    <button type="button" id="gbTogglePassword" class="gb-image-eye" aria-label="Show or hide password"></button>
    <button type="submit" id="gbAccountSubmit" class="gb-image-submit" aria-label="Log in"></button>
@@ -3255,13 +3255,10 @@ await gbUpdateDrawerLogout();
 const gbRemember = $("gbRememberMe");
 const gbEmail = $("gbAccountEmail");
 
-try {
-  const savedEmail = localStorage.getItem("gbRememberedEmail");
-  if (savedEmail) {
-    gbEmail.value = savedEmail;
-    gbRemember.checked = true;
-  }
-} catch(e) {}
+// Privacy: do not expose a previous visitor's email in the account modal.
+try { localStorage.removeItem("gbRememberedEmail"); } catch(e) {}
+if (gbEmail) gbEmail.value = "";
+if (gbRemember) gbRemember.checked = false;
 
 // Save or clear remembered email on login
 $("gbAccountForm").addEventListener("submit", () => {
@@ -4159,11 +4156,10 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    input.focus();
  });
 
- // Restore only the email address when Remember me was selected; never store passwords.
- try{
-   const remembered=localStorage.getItem("gbVisitorRememberedEmail");
-   if(remembered){$("gbVisitorEmail").value=remembered;$("gbRemember").checked=true;}
- }catch(e){console.warn("Remembered email is unavailable:",e);}
+ // Privacy: never prefill a previous visitor's email on the shared entry screen.
+ try{localStorage.removeItem("gbVisitorRememberedEmail");}catch(e){}
+ $("gbVisitorEmail").value="";
+ $("gbRemember").checked=false;
 
  $("gbResendConfirmation")?.addEventListener("click",async()=>{
    if(busy)return;
