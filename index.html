@@ -1254,6 +1254,23 @@ html.gb-gate-open #gbWelcomeSplash{display:none!important;visibility:hidden!impo
 .gb-personalised-panel p{margin:0;color:#d7e9df;font-size:13px}
 .gb-personalised-kicker{font-size:10px;letter-spacing:1.8px;color:#f2cd7d;font-weight:800}
 .gb-personalised-panel button{background:#f0c66f;color:#173c34;white-space:nowrap}
+
+.gb-learning-goals{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(220px,.65fr);gap:22px;align-items:center;margin:0 0 18px;padding:20px 22px;border:1px solid #d9b96d;border-radius:20px;background:linear-gradient(115deg,#103e35,#175b4d);color:#f4f2e6;box-shadow:0 10px 26px #082c2820}
+.gb-learning-goals-kicker{font-size:10px;letter-spacing:1.8px;font-weight:900;color:#f1ce7e}
+.gb-learning-goals h2{margin:4px 0 5px;color:#f5d992;font:700 clamp(20px,3vw,26px)/1.2 Georgia,serif}
+.gb-learning-goals p{margin:0 0 14px;color:#d7e8df;font-size:13px}
+.gb-learning-goals-progress{height:11px;overflow:hidden;border-radius:99px;background:#ffffff28;border:1px solid #ffffff25}
+.gb-learning-goals-progress span{display:block;width:0;height:100%;border-radius:99px;background:linear-gradient(90deg,#d9ad56,#ffe6a3);transition:width .25s ease}
+.gb-learning-goals-meta{display:flex;justify-content:space-between;gap:10px;margin-top:8px;color:#f4e9c8;font-size:12px}
+.gb-learning-goals-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center}
+.gb-learning-goals-actions label{font-size:12px;color:#e5d6a8;font-weight:700}
+.gb-learning-goals-actions select{grid-column:2;grid-row:1;padding:9px 10px;border:1px solid #d6b96f;border-radius:10px;background:#f8f3e5;color:#173c34}
+.gb-learning-goals-actions button{grid-column:1/-1;padding:10px 12px;border:1px solid #f0d38c;border-radius:11px;background:#edc66f;color:#173c34;font-weight:800;cursor:pointer}
+.gb-learning-goals-actions .gb-learning-goals-undo{background:#ffffff12;color:#f5e9c7;border-color:#ffffff55}
+.gb-learning-goals-actions button:disabled{opacity:.45;cursor:not-allowed}
+.gb-learning-goals-actions small{grid-column:1/-1;color:#c6ddd2;font-size:10px;line-height:1.4}
+@media(max-width:650px){.gb-learning-goals{grid-template-columns:1fr;padding:17px}.gb-learning-goals-actions{grid-template-columns:1fr 1fr}}
+
 @media(max-width:600px){.gb-personalised-panel{display:block}.gb-personalised-panel button{margin-top:10px}}
 </style>
 
@@ -1797,6 +1814,22 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
  <section id="gbPersonalisedPanel" class="gb-personalised-panel hidden" aria-live="polite">
   <div><span class="gb-personalised-kicker">WELCOME BACK</span><h2 id="gbPersonalisedHeading">Your learning, picked for you</h2><p id="gbPersonalisedText">Continue exploring topics you enjoy.</p></div>
   <button type="button" id="gbPersonalisedContinue" class="hidden">Continue reading</button>
+ </section>
+<section class="gb-learning-goals" id="gbLearningGoals" aria-labelledby="gbLearningGoalsTitle">
+  <div class="gb-learning-goals-copy">
+   <span class="gb-learning-goals-kicker">YOUR DAILY LEARNING</span>
+   <h2 id="gbLearningGoalsTitle">Small steps. Big knowledge.</h2>
+   <p id="gbLearningGoalsMessage">Choose a daily reading goal and celebrate every article you finish.</p>
+   <div class="gb-learning-goals-progress" role="progressbar" aria-label="Today's reading goal" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" id="gbLearningGoalsBar"><span id="gbLearningGoalsFill"></span></div>
+   <div class="gb-learning-goals-meta"><strong id="gbLearningGoalsCount">0 of 2 articles completed today</strong><span id="gbLearningGoalsPercent">0%</span></div>
+  </div>
+  <div class="gb-learning-goals-actions">
+   <label for="gbLearningGoalsTarget">Daily goal</label>
+   <select id="gbLearningGoalsTarget" aria-label="Daily reading goal"><option value="1">1 article</option><option value="2" selected>2 articles</option><option value="3">3 articles</option><option value="4">4 articles</option><option value="5">5 articles</option></select>
+   <button type="button" id="gbLearningGoalsComplete">＋ Mark an article complete</button>
+   <button type="button" id="gbLearningGoalsUndo" class="gb-learning-goals-undo" disabled>Undo last</button>
+   <small>Progress is saved on this device. Mark an article complete after you finish reading it.</small>
+  </div>
  </section>
 <section id="library" class="tab">
  <div class="gb-home-hero">
@@ -3921,6 +3954,30 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
  $("gbFontSize")?.addEventListener("change",e=>{write(KEYS.font,Number(e.target.value));applyReaderPrefs()});
  $("gbReadingWidth")?.addEventListener("change",e=>{write(KEYS.width,e.target.value);applyReaderPrefs()});
  applyReaderPrefs();
+
+ const goalKey="gb_daily_learning_goal_v1",goalCountKey="gb_daily_learning_count_v1";
+ const goalDate=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-")};
+ const goalRead=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch(e){return fallback}};
+ const goalWrite=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value))}catch(e){}};
+ const goalTarget=$("gbLearningGoalsTarget"),goalCount=$("gbLearningGoalsCount"),goalPercent=$("gbLearningGoalsPercent"),goalFill=$("gbLearningGoalsFill"),goalBar=$("gbLearningGoalsBar"),goalMessage=$("gbLearningGoalsMessage"),goalComplete=$("gbLearningGoalsComplete"),goalUndo=$("gbLearningGoalsUndo");
+ let goalTargetValue=Math.min(5,Math.max(1,Number(goalRead(goalKey,2))||2)),goalState=goalRead(goalCountKey,{date:goalDate(),count:0});
+ if(!goalState||goalState.date!==goalDate())goalState={date:goalDate(),count:0};
+ if(goalTarget)goalTarget.value=String(goalTargetValue);
+ function paintGoal(){
+  const count=Math.max(0,Number(goalState.count)||0),percent=Math.min(100,Math.round(count/goalTargetValue*100));
+  if(goalCount)goalCount.textContent=count+" of "+goalTargetValue+" articles completed today";
+  if(goalPercent)goalPercent.textContent=percent+"%";
+  if(goalFill)goalFill.style.width=percent+"%";
+  if(goalBar){goalBar.setAttribute("aria-valuemax",String(goalTargetValue));goalBar.setAttribute("aria-valuenow",String(Math.min(count,goalTargetValue)))}
+  if(goalMessage)goalMessage.textContent=count>=goalTargetValue?"Daily goal achieved — excellent work! Come back tomorrow for another learning streak.":(goalTargetValue-count)+" more "+(goalTargetValue-count===1?"article":"articles")+" to reach today's goal. Keep going!";
+  if(goalUndo)goalUndo.disabled=count===0;
+  if(goalComplete)goalComplete.textContent=count>=goalTargetValue?"✓ Goal achieved — add another":"＋ Mark an article complete";
+ }
+ function saveGoal(){goalWrite(goalKey,goalTargetValue);goalWrite(goalCountKey,goalState);paintGoal()}
+ goalTarget?.addEventListener("change",()=>{goalTargetValue=Math.min(5,Math.max(1,Number(goalTarget.value)||2));saveGoal()});
+ goalComplete?.addEventListener("click",()=>{goalState.count=Math.max(0,Number(goalState.count)||0)+1;saveGoal()});
+ goalUndo?.addEventListener("click",()=>{goalState.count=Math.max(0,(Number(goalState.count)||0)-1);saveGoal()});
+ saveGoal();
 
  const langHint=$("gbLanguageHint");
  function updateLangHint(){const isHi=document.documentElement.lang==="hi"||$("languageToggle")?.textContent.trim()==="English";if(langHint)langHint.textContent=isHi?"हिन्दी इंटरफ़ेस":"English interface";}
