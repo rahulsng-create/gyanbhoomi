@@ -107,6 +107,23 @@ footer{text-align:center;padding:28px 16px;color:#738078;font-size:13px;border-t
 .gb-resource-section{margin:28px 0}.gb-resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.gb-resource-card{display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-height:165px;padding:17px;text-align:left;background:linear-gradient(145deg,#123f37,#0a302d);border:1px solid #b68e4d;border-radius:17px;color:#fff;box-shadow:0 10px 24px #0b302b22}.gb-resource-card>span{font-size:28px}.gb-resource-card b{font-size:15px;color:#f5d58e}.gb-resource-card small{font-size:12px;color:#d2e5dc;line-height:1.45}.gb-resource-card i{margin-top:auto;font-size:12px;font-style:normal;color:#f5d58e;font-weight:700}
 @media(max-width:650px){.gb-daily-card{grid-template-columns:45px 1fr;padding:15px;gap:11px}.gb-daily-icon{width:42px;height:42px;font-size:23px;border-radius:13px}.gb-fact-refresh{grid-column:2;justify-self:start;padding:8px 12px}.gb-discovery-strip{display:block;padding:15px}.gb-path-buttons{margin-top:12px}.gb-path-buttons button{padding:8px 10px}.gb-resource-grid{grid-template-columns:1fr}.gb-resource-card{min-height:125px}}
 
+/* Daily challenge: isolated homepage addition */
+.gb-daily-quiz{margin:0 0 26px;padding:22px;border:1px solid #d9e5da;border-radius:20px;background:linear-gradient(135deg,#fff 0%,#f1f7f0 100%);box-shadow:0 10px 26px #103d360b}
+.gb-daily-quiz-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:13px}
+.gb-daily-quiz-head h2{margin:3px 0 4px;color:#153f36;font-size:22px}
+.gb-daily-quiz-head p{margin:0;color:#68776f;font-size:13px}
+.gb-quiz-mark{width:52px;height:52px;display:grid;place-items:center;flex:none;border-radius:16px;background:#fff0cd;font-size:27px}
+.gb-daily-quiz-question{font-size:17px;font-weight:800;color:#203b31;margin:12px 0}
+.gb-daily-quiz-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.gb-daily-quiz-options button{background:#fff;color:#24483c;border:1px solid #d7e4d8;box-shadow:none;text-align:left;padding:12px 14px;border-radius:12px}
+.gb-daily-quiz-options button:hover{background:#edf6ef;border-color:#8eb5a0;transform:none}
+.gb-daily-quiz-options button:disabled{opacity:1;cursor:default}
+.gb-daily-quiz-options button.gb-correct{background:#e6f5e9;border-color:#62a978;color:#205b32}
+.gb-daily-quiz-options button.gb-wrong{background:#fff0ed;border-color:#d98a7e;color:#963c35}
+.gb-daily-quiz-feedback{min-height:24px;margin:11px 0;color:#456257;font-size:13px;line-height:1.5}
+.gb-daily-quiz-more{background:#17483c;color:#fff}
+@media(max-width:650px){.gb-daily-quiz{padding:17px}.gb-daily-quiz-options{grid-template-columns:1fr}.gb-daily-quiz-head h2{font-size:20px}}
+
 /* Homepage discovery and editorial reading experience */
 .featured-area{margin:0 0 26px}
 .featured-label,.eyebrow{display:block;color:#9a712c;font-size:11px;font-weight:850;letter-spacing:1.7px;margin-bottom:8px}
@@ -1821,6 +1838,13 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
   <div class="gb-discovery-strip"><div><span class="gb-kicker">PICK A PATH</span><h2>What would you like to explore?</h2></div>
    <div class="gb-path-buttons"><button type="button" data-gb-path="Science">🔬 Science</button><button type="button" data-gb-path="History">🏛️ History</button><button type="button" data-gb-path="Technology">💻 Technology</button><button type="button" data-gb-path="Education">📚 Learning</button></div>
   </div>
+ </section>
+ <section class="gb-daily-quiz" aria-labelledby="gbDailyQuizTitle">
+  <div class="gb-daily-quiz-head"><div><span class="gb-kicker">TEST YOUR CURIOSITY</span><h2 id="gbDailyQuizTitle">Daily Knowledge Challenge</h2><p>A fresh question to learn something new every day.</p></div><span class="gb-quiz-mark" aria-hidden="true">🏆</span></div>
+  <div class="gb-daily-quiz-question" id="gbDailyQuizQuestion">Loading today’s question…</div>
+  <div class="gb-daily-quiz-options" id="gbDailyQuizOptions"></div>
+  <div class="gb-daily-quiz-feedback" id="gbDailyQuizFeedback" role="status" aria-live="polite"></div>
+  <button type="button" class="gb-daily-quiz-more" data-open-tab="quiz">Explore Quiz Arena →</button>
  </section>
  <div class="gb-dictionary-promo">
   <div class="gb-dict-books"><span>📚</span><b>English ↔ हिन्दी</b><b>ગુજરાતી · मराठी · বাংলা</b><small>More language dictionaries planned</small></div>
@@ -3678,6 +3702,30 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
   if(!gbArticlesLoaded){loadArticles().then(()=>{if(run===globalSearchRun&&globalInput.value.trim()===q)searchExtraSections(q,run);});}
   else searchExtraSections(q,run);
  }
+ // Daily Knowledge Challenge: one deterministic question per calendar day.
+ const dailyQuestions=[
+  {q:"Which planet has the shortest day in our Solar System?",o:["Mars","Jupiter","Mercury","Venus"],a:1,e:"Jupiter completes one rotation in about 9 hours and 56 minutes, making its day the shortest of all the planets."},
+  {q:"Which gas makes up the largest share of Earth's atmosphere?",o:["Oxygen","Carbon dioxide","Nitrogen","Hydrogen"],a:2,e:"Nitrogen makes up about 78% of Earth's atmosphere. Oxygen accounts for about 21%."},
+  {q:"Which ancient civilization developed the writing system known as cuneiform?",o:["Sumerians","Romans","Aztecs","Vikings"],a:0,e:"The Sumerians of ancient Mesopotamia developed cuneiform, one of the earliest known writing systems."},
+  {q:"What is the largest ocean on Earth?",o:["Atlantic Ocean","Indian Ocean","Arctic Ocean","Pacific Ocean"],a:3,e:"The Pacific Ocean is the largest and deepest of Earth's ocean basins."},
+  {q:"Which part of a plant mainly absorbs water from the soil?",o:["Leaves","Roots","Flowers","Stem"],a:1,e:"Roots anchor the plant and absorb water and dissolved minerals from the soil."},
+  {q:"Who is widely credited with inventing the World Wide Web?",o:["Alan Turing","Tim Berners-Lee","Charles Babbage","Vint Cerf"],a:1,e:"Tim Berners-Lee invented the World Wide Web while working at CERN, proposing it in 1989."},
+  {q:"Which is the smallest continent by land area?",o:["Europe","Antarctica","Australia","South America"],a:2,e:"Australia is the smallest continent by land area."}
+ ];
+ const quizDay=Math.floor(Date.now()/86400000)%dailyQuestions.length,quiz=dailyQuestions[quizDay];
+ const quizQuestion=document.getElementById("gbDailyQuizQuestion"),quizOptions=document.getElementById("gbDailyQuizOptions"),quizFeedback=document.getElementById("gbDailyQuizFeedback");
+ if(quizQuestion&&quizOptions&&quizFeedback){
+  quizQuestion.textContent=quiz.q;
+  quizOptions.innerHTML=quiz.o.map((option,index)=>'<button type="button" data-answer="'+index+'">'+String.fromCharCode(65+index)+'. '+option+'</button>').join("");
+  quizOptions.addEventListener("click",event=>{
+   const chosen=event.target.closest("[data-answer]");if(!chosen||quizOptions.dataset.answered==="yes")return;
+   quizOptions.dataset.answered="yes";
+   const answer=Number(chosen.dataset.answer);
+   quizOptions.querySelectorAll("button").forEach(button=>{button.disabled=true;const n=Number(button.dataset.answer);if(n===quiz.a)button.classList.add("gb-correct");else if(n===answer)button.classList.add("gb-wrong");});
+   quizFeedback.textContent=(answer===quiz.a?"Correct! ":"Not quite. The correct answer is "+quiz.o[quiz.a]+". ")+quiz.e;
+  });
+ }
+
  // Search articles plus registered section providers (dictionary, Quiz Arena, World Knowledge and future modules).
  globalInput?.addEventListener("input",showLiveHomepageResults);
 
