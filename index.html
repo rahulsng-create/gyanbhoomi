@@ -5586,5 +5586,35 @@ html.gb-gate-open,html.gb-gate-open body{
 }
 </style>
 
+
+<style id="gb-mobile-heading-contrast-v1">
+/* Mobile-only heading contrast: small flat translucent surfaces, no shadows. */
+@media(max-width:760px),(max-device-width:760px),(pointer:coarse) and (hover:none){
+ #gbEntryLogin .gb-auth-brand{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  gap:12px!important;width:max-content!important;max-width:100%!important;
+  margin:4px auto 15px!important;padding:9px 18px!important;
+  border:1px solid rgba(255,226,157,.58)!important;border-radius:16px!important;
+  background:rgba(0,25,21,.78)!important;
+  box-shadow:none!important;text-shadow:none!important;filter:none!important;
+  backdrop-filter:blur(10px)!important;-webkit-backdrop-filter:blur(10px)!important;
+ }
+ #gbEntryLogin .gb-auth-brand strong{color:#ffe7a4!important;line-height:1.08!important;text-shadow:none!important}
+ #gbEntryLogin .gb-auth-brand small{display:block!important;color:#fff8df!important;opacity:1!important;font-weight:600!important;letter-spacing:.045em!important;text-shadow:none!important}
+ #gbEntryLogin #gbAuthHeading{
+  display:table!important;max-width:100%!important;margin:0 auto 9px!important;padding:5px 13px!important;
+  color:#fff4cf!important;background:rgba(0,24,20,.70)!important;
+  border:1px solid rgba(255,226,157,.35)!important;border-radius:12px!important;
+  text-align:center!important;line-height:1.2!important;text-shadow:none!important;box-shadow:none!important;
+ }
+ #gbEntryLogin .gb-auth-sub{
+  max-width:100%!important;margin:0 auto 16px!important;padding:7px 12px!important;
+  color:#fff!important;background:rgba(0,24,20,.70)!important;
+  border-radius:10px!important;text-align:center!important;line-height:1.4!important;
+  text-shadow:none!important;box-shadow:none!important;
+ }
+}
+</style>
+
 </body>
 </html>
