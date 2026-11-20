@@ -1209,6 +1209,9 @@ html.gb-gate-open #gbWelcomeSplash{display:none!important;visibility:hidden!impo
 #gbNetNotice[data-state="slow"] .gb-net-dot{background:#ffd36e}
 @media(prefers-reduced-motion:reduce){#gbNetProgress,#gbNetNotice{transition:none}}
 
+
+/* On This Day — isolated homepage feature */
+.gb-on-this-day{margin:0 0 26px;padding:21px;border:1px solid #e4d9bd;border-radius:20px;background:linear-gradient(125deg,#fffdf7 0%,#f6f0df 100%);box-shadow:0 9px 24px #5c48200b}.gb-on-this-day-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.gb-on-this-day-head h2{margin:3px 0 2px;color:#24483c;font-size:22px}.gb-on-this-day-date{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border:1px solid #e5d5ad;border-radius:999px;background:#fffaf0;color:#725522;font-size:12px;font-weight:800;white-space:nowrap}.gb-history-events{display:grid;gap:10px}.gb-history-event{display:grid;grid-template-columns:76px 1fr;gap:13px;align-items:start;padding:13px 14px;border:1px solid #eee5d2;border-radius:13px;background:#fff}.gb-history-year{color:#936b25;font-size:18px;font-weight:900;letter-spacing:-.4px}.gb-history-copy{margin:0;color:#43544c;font-size:14px;line-height:1.55}.gb-history-status{margin:10px 0 0;color:#7a8178;font-size:11px}@media(max-width:650px){.gb-on-this-day{padding:16px}.gb-on-this-day-head{align-items:flex-start;flex-direction:column}.gb-on-this-day-head h2{font-size:20px}.gb-history-event{grid-template-columns:62px 1fr;gap:9px;padding:11px}.gb-history-year{font-size:16px}}
 </style><style id="gb-entry-auth-enhancements">
 .gb-password-guidance{margin:5px 0 8px;color:#f7dda0;font-size:11px;line-height:1.45}
 .gb-password-meter{display:grid;gap:6px;margin:-5px 0 10px;color:#e8d5a0;font-size:11px;font-weight:700}
@@ -1846,7 +1849,8 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
   <div class="gb-daily-quiz-feedback" id="gbDailyQuizFeedback" role="status" aria-live="polite"></div>
   <button type="button" class="gb-daily-quiz-more" data-open-tab="quiz">Explore Quiz Arena →</button>
  </section>
- <div class="gb-dictionary-promo">
+ <section class="gb-on-this-day" id="gbOnThisDay" aria-labelledby="gbOnThisDayTitle"><div class="gb-on-this-day-head"><div><span class="gb-kicker">A WINDOW INTO HISTORY</span><h2 id="gbOnThisDayTitle">On This Day</h2><p style="margin:0;color:#6e796f;font-size:13px">Discover moments that shaped our world.</p></div><span class="gb-on-this-day-date" id="gbOnThisDayDate">📅 Today in history</span></div><div class="gb-history-events" id="gbHistoryEvents" aria-live="polite"><article class="gb-history-event"><strong class="gb-history-year">1945</strong><p class="gb-history-copy">The Nuremberg trials of major Nazi war criminals began in Germany.</p></article><article class="gb-history-event"><strong class="gb-history-year">1959</strong><p class="gb-history-copy">The United Nations General Assembly adopted the Declaration of the Rights of the Child.</p></article></div><p class="gb-history-status" id="gbHistoryStatus">Historical highlights for this date.</p></section>
+<div class="gb-dictionary-promo">
   <div class="gb-dict-books"><span>📚</span><b>English ↔ हिन्दी</b><b>ગુજરાતી · मराठी · বাংলা</b><small>More language dictionaries planned</small></div>
   <div class="gb-dict-promo-copy"><span class="gb-kicker">WORDS CONNECT THE WORLD</span><h2>GyanBhoomi Dictionary</h2><p>Discover meanings, translations, examples and pronunciation in our growing bilingual word library.</p><button type="button" data-open-tab="dictionary">Explore Dictionary →</button></div>
   <div class="gb-dict-globe" aria-hidden="true">🌍<span>अ · A · 文 · ક · م</span></div>
@@ -3726,7 +3730,17 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
   });
  }
 
- // Search articles plus registered section providers (dictionary, Quiz Arena, World Knowledge and future modules).
+ 
+  // On This Day: show date-specific historical events with a local fallback.
+  (function initOnThisDay(){
+   const dateNode=document.getElementById("gbOnThisDayDate"),listNode=document.getElementById("gbHistoryEvents"),statusNode=document.getElementById("gbHistoryStatus");if(!dateNode||!listNode||!statusNode)return;
+   const now=new Date(),month=String(now.getMonth()+1).padStart(2,"0"),day=String(now.getDate()).padStart(2,"0");dateNode.textContent="📅 "+now.toLocaleDateString(undefined,{day:"numeric",month:"long"});
+   const fallback={"11-20":[{year:1945,text:"The Nuremberg trials of major Nazi war criminals began in Germany."},{year:1959,text:"The United Nations General Assembly adopted the Declaration of the Rights of the Child."}],"01-26":[{year:1950,text:"The Constitution of India came into effect, and India became a republic."}],"02-28":[{year:1928,text:"The Raman Effect was discovered by Indian physicist C. V. Raman; India observes National Science Day on this date."}],"03-08":[{year:1911,text:"International Women's Day was marked for the first time in several European countries."}],"04-22":[{year:1970,text:"The first Earth Day was observed in the United States."}],"05-05":[{year:1961,text:"Alan Shepard became the first American in space."}],"06-05":[{year:1972,text:"The United Nations Conference on the Human Environment opened in Stockholm."}],"07-20":[{year:1969,text:"Apollo 11 astronauts made the first crewed landing on the Moon."}],"08-15":[{year:1947,text:"India became independent from British rule."}],"10-24":[{year:1945,text:"The United Nations officially came into existence."}],"12-10":[{year:1948,text:"The United Nations General Assembly adopted the Universal Declaration of Human Rights."}]};
+   function render(events,source){listNode.replaceChildren();events.slice(0,4).forEach(event=>{const article=document.createElement("article");article.className="gb-history-event";const year=document.createElement("strong");year.className="gb-history-year";year.textContent=event.year||"History";const copy=document.createElement("p");copy.className="gb-history-copy";copy.textContent=event.text||"Historical event";article.append(year,copy);listNode.append(article);});statusNode.textContent=source;}
+   const local=fallback[month+"-"+day];if(local)render(local,"A curated historical highlight for this date.");
+   fetch("https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/"+month+"/"+day,{headers:{accept:"application/json"}}).then(response=>{if(!response.ok)throw new Error("History feed unavailable");return response.json();}).then(data=>{const events=Array.isArray(data.events)?data.events.filter(item=>item.text&&item.year):[];if(!events.length)throw new Error("No events returned");render(events,"Historical events for this date · Source: Wikipedia On This Day.");}).catch(()=>{if(!local)render([{year:"Explore",text:"The history feed is temporarily unavailable. Please check again later."}],"Live history feed unavailable right now.");});
+  })();
+// Search articles plus registered section providers (dictionary, Quiz Arena, World Knowledge and future modules).
  globalInput?.addEventListener("input",showLiveHomepageResults);
 
  // Daily Discovery: rotate through a small, curated set of evergreen facts.
