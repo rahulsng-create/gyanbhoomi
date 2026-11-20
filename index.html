@@ -1733,6 +1733,18 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
     <span class="gb-theme-copy"><strong id="gbThemeTitle">Night mode</strong><small id="gbThemeHint">Switch to a darker reading theme</small></span>
     <span class="gb-theme-state" id="gbThemeState">OFF</span>
    </button>
+   <button type="button" class="gb-theme-toggle" id="gbChangeThemeToggle" aria-expanded="false" aria-controls="gbThemeChoices">
+    <span class="gb-theme-icon" aria-hidden="true">🎨</span>
+    <span class="gb-theme-copy"><strong>Change theme</strong><small id="gbCurrentPaletteName">Emerald & Gold</small></span>
+    <span class="gb-theme-state" id="gbThemeChoicesChevron">⌄</span>
+   </button>
+   <div id="gbThemeChoices" class="gb-theme-choices" hidden>
+    <button type="button" class="gb-theme-choice" data-gb-palette="emerald" aria-pressed="true"><span class="gb-theme-swatch" style="--sw1:#073b35;--sw2:#0f7664;--sw3:#e8c875"></span><span><strong>Emerald & Gold</strong><small>Classic GyanBhoomi</small></span><span class="gb-theme-check">✓</span></button>
+    <button type="button" class="gb-theme-choice" data-gb-palette="sapphire" aria-pressed="false"><span class="gb-theme-swatch" style="--sw1:#071b3b;--sw2:#155eaa;--sw3:#8ed8ff"></span><span><strong>Midnight Sapphire</strong><small>Deep blue · crisp and focused</small></span><span class="gb-theme-check">✓</span></button>
+    <button type="button" class="gb-theme-choice" data-gb-palette="amethyst" aria-pressed="false"><span class="gb-theme-swatch" style="--sw1:#28133f;--sw2:#713b9b;--sw3:#e3a8ff"></span><span><strong>Royal Amethyst</strong><small>Rich violet · scholarly elegance</small></span><span class="gb-theme-check">✓</span></button>
+    <button type="button" class="gb-theme-choice" data-gb-palette="rose" aria-pressed="false"><span class="gb-theme-swatch" style="--sw1:#3b172b;--sw2:#a74670;--sw3:#ffc1d8"></span><span><strong>Rose Serenity</strong><small>Warm rose · soft and calm</small></span><span class="gb-theme-check">✓</span></button>
+    <button type="button" class="gb-theme-choice" data-gb-palette="amber" aria-pressed="false"><span class="gb-theme-swatch" style="--sw1:#35200e;--sw2:#a65b19;--sw3:#ffd27a"></span><span><strong>Antique Amber</strong><small>Historical · warm parchment glow</small></span><span class="gb-theme-check">✓</span></button>
+   </div>
    <div class="gb-setting-row">
     <label for="gbFontSize">Reading text size</label>
     <select id="gbFontSize" aria-label="Reading text size">
@@ -5949,5 +5961,60 @@ html.gb-gate-open,html.gb-gate-open body{
 @keyframes gbVoicePulseLive{50%{box-shadow:0 0 0 5px #e65b5b25}}
 @media(max-width:520px){#gbGlobalSearch .gb-voice-search{flex-basis:34px!important;width:34px!important;min-width:34px!important;height:34px!important;min-height:34px!important;padding:6px!important}}
 </style>
+<style id="gb-five-theme-system">
+.gb-theme-choices{display:grid;gap:7px;padding:5px 2px 10px}
+.gb-theme-choices[hidden]{display:none!important}
+.gb-theme-choice{display:flex;align-items:center;gap:11px;width:100%;min-height:57px;padding:8px 10px;border:1px solid #ffffff20;border-radius:12px;background:#ffffff0a;color:#f8f2df;text-align:left;box-shadow:none}
+.gb-theme-choice>span:nth-child(2){display:grid;gap:2px;flex:1;min-width:0}
+.gb-theme-choice strong{font-size:13px}.gb-theme-choice small{font-size:11px;opacity:.72}
+.gb-theme-swatch{width:46px;height:34px;flex:0 0 46px;border-radius:9px;border:1px solid var(--sw3);background:linear-gradient(135deg,var(--sw1) 0 48%,var(--sw2) 49% 78%,var(--sw3) 79%)}
+.gb-theme-check{opacity:0;color:var(--sw3);font-weight:900}.gb-theme-choice[aria-pressed="true"]{border-color:#e8c875;background:#ffffff18}.gb-theme-choice[aria-pressed="true"] .gb-theme-check{opacity:1}
+html[data-gb-palette="sapphire"]{--gb-palette-bg:#071a35;--gb-palette-surface:#102d55;--gb-palette-surface2:#173d70;--gb-palette-accent:#8ed8ff;--gb-palette-text:#edf6ff;--gb-palette-muted:#bfd7ee;--gb-palette-border:#6ab9ef}
+html[data-gb-palette="amethyst"]{--gb-palette-bg:#1d1031;--gb-palette-surface:#35204f;--gb-palette-surface2:#4b2b70;--gb-palette-accent:#e3a8ff;--gb-palette-text:#fbf2ff;--gb-palette-muted:#ddc9ee;--gb-palette-border:#c28be9}
+html[data-gb-palette="rose"]{--gb-palette-bg:#301525;--gb-palette-surface:#51233c;--gb-palette-surface2:#71314f;--gb-palette-accent:#ffc1d8;--gb-palette-text:#fff2f7;--gb-palette-muted:#f0cbd9;--gb-palette-border:#ed91b7}
+html[data-gb-palette="amber"]{--gb-palette-bg:#2b1b0d;--gb-palette-surface:#493018;--gb-palette-surface2:#68421e;--gb-palette-accent:#ffd27a;--gb-palette-text:#fff5df;--gb-palette-muted:#e8d2ad;--gb-palette-border:#d9a34e}
+html[data-gb-palette="emerald"]{--gb-palette-bg:#082e2a;--gb-palette-surface:#0d443b;--gb-palette-surface2:#146252;--gb-palette-accent:#e8c875;--gb-palette-text:#f8f2df;--gb-palette-muted:#c6ded3;--gb-palette-border:#d9b96d}
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body{background:var(--gb-palette-bg)!important;color:var(--gb-palette-text)!important}
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body header,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-header,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-menu-panel{background:linear-gradient(155deg,var(--gb-palette-bg),var(--gb-palette-surface))!important;color:var(--gb-palette-text)!important}
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-menu-panel{border-color:var(--gb-palette-border)!important}
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-home-hero,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-search-wrap,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-discovery-card,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-card,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .article-card,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-dict-promo,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-feature-card{border-color:var(--gb-palette-border)!important}
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-home-hero,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-discovery-card,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-card,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .article-card,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-dict-promo,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-feature-card{background-color:var(--gb-palette-surface)!important;color:var(--gb-palette-text)!important}
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-global-search,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-search-wrap{background:var(--gb-palette-surface)!important}
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-kicker,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .eyebrow,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-home-hero h2{color:var(--gb-palette-accent)!important}
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-menu-panel .gb-drawer-links button.active,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-menu-panel .gb-drawer-links button:hover{background:var(--gb-palette-surface2)!important;border-color:var(--gb-palette-border)!important;color:var(--gb-palette-text)!important}
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-settings-toggle{background:var(--gb-palette-surface)!important;border-color:var(--gb-palette-border)!important}
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-theme-toggle,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-setting-row{color:var(--gb-palette-text)!important}
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-theme-toggle small,
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-setting-row label{color:var(--gb-palette-muted)!important}
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body button:not(.gb-theme-choice):not(.gb-drawer-close){--gb-theme-outline:var(--gb-palette-border)}
+html[data-gb-palette]:not([data-gb-palette="emerald"]) body .gb-drawer-section-title{color:var(--gb-palette-accent)!important}
+</style>
+<script id="gb-five-theme-system-script">
+(()=>{const root=document.documentElement,wrap=document.getElementById("gbThemeChoices"),toggle=document.getElementById("gbChangeThemeToggle"),name=document.getElementById("gbCurrentPaletteName");if(!wrap||!toggle)return;
+ const labels={emerald:"Emerald & Gold",sapphire:"Midnight Sapphire",amethyst:"Royal Amethyst",rose:"Rose Serenity",amber:"Antique Amber"};
+ const apply=value=>{const theme=labels[value]?value:"emerald";root.dataset.gbPalette=theme;try{localStorage.setItem("gb_site_palette",theme)}catch(e){};wrap.querySelectorAll("[data-gb-palette]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.gbPalette===theme)));if(name)name.textContent=labels[theme];};
+ let saved="emerald";try{saved=localStorage.getItem("gb_site_palette")||"emerald"}catch(e){}apply(saved);
+ toggle.addEventListener("click",()=>{const open=wrap.hidden;wrap.hidden=!open;toggle.setAttribute("aria-expanded",String(open));document.getElementById("gbThemeChoicesChevron").textContent=open?"⌃":"⌄";});
+ wrap.querySelectorAll("[data-gb-palette]").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.gbPalette)));
+})();
+</script>
 </body>
 </html>
