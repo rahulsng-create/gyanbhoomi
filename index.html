@@ -1828,8 +1828,12 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
  <div class="gb-search-wrap">
   <form id="gbGlobalSearch" class="gb-global-search">
    <span aria-hidden="true">⌕</span><input id="gbGlobalSearchInput" type="search" placeholder="Search GyanBhoomi — articles, dictionary, books, topics…" aria-label="Search GyanBhoomi">
-   <button type="submit">Search ↗</button>
+   <button type="button" id="gbVoiceSearchButton" class="gb-voice-search" aria-label="Search by voice" title="Search by voice">
+   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v4m-4 0h8"/></svg>
+  </button>
+  <button type="submit">Search ↗</button>
   </form>
+  <div id="gbVoiceSearchStatus" class="gb-voice-search-status" role="status" aria-live="polite"></div>
   <div id="gbSearchResults" class="gb-search-results hidden" aria-live="polite"></div>
   <div class="gb-language-row">
    <div class="gb-language-picker">
@@ -2951,6 +2955,15 @@ html.gb-gate-open #gbWelcomeSplash{display:none!important;visibility:hidden!impo
 }
 </style>
 
+<style id="gb-home-voice-search-v1">
+.gb-global-search .gb-voice-search{flex:0 0 42px;width:42px;height:42px;min-height:42px;padding:9px;display:grid;place-items:center;border-radius:50%;background:#edf6f1;color:#155448;border:1px solid #c9dfd3;box-shadow:none}
+.gb-global-search .gb-voice-search svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.gb-global-search .gb-voice-search.listening{background:#b83232;color:#fff;border-color:#b83232;animation:gbVoicePulse 1.2s infinite}
+.gb-voice-search-status{min-height:0;margin:0;text-align:center;color:#c6ded3;font-size:12px}
+.gb-voice-search-status:not(:empty){margin-top:7px}
+@keyframes gbVoicePulse{50%{box-shadow:0 0 0 6px #e65b5b35}}
+@media(max-width:520px){#gbGlobalSearch .gb-voice-search{flex-basis:38px;width:38px;height:38px;min-height:38px;padding:8px}}
+</style>
 </body>
  </html>`);
  printWindow.onload=()=>{
@@ -3801,6 +3814,45 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
  }));
  document.querySelectorAll("[data-gb-scroll]").forEach(button=>button.addEventListener("click",()=>document.getElementById(button.dataset.gbScroll)?.scrollIntoView({behavior:"smooth",block:"start"})));
 
+ const voiceButton=document.getElementById("gbVoiceSearchButton");
+ const voiceStatus=document.getElementById("gbVoiceSearchStatus");
+ const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(voiceButton){
+  if(!SpeechRecognition){voiceButton.title="Voice search is not supported in this browser";voiceButton.setAttribute("aria-label","Voice search is not supported in this browser");}
+  else{
+   const recognition=new SpeechRecognition();recognition.continuous=false;recognition.interimResults=true;recognition.maxAlternatives=1;
+   let voiceFinalText="",voiceHadError=false;
+   voiceButton.addEventListener("click",()=>{
+    if(voiceButton.classList.contains("listening")){recognition.stop();return;}
+    voiceFinalText="";voiceHadError=false;
+    const languageMap={en:"en-IN",hi:"hi-IN",gu:"gu-IN",mr:"mr-IN",bn:"bn-IN",kn:"kn-IN"};
+    let selectedLanguage="en";try{selectedLanguage=localStorage.getItem("gyanbhoomi_language")||"en";}catch(_){}
+    recognition.lang=languageMap[selectedLanguage]||"en-IN";
+    voiceStatus.textContent="Listening… Speak your search.";
+    voiceButton.classList.add("listening");voiceButton.setAttribute("aria-pressed","true");
+    try{recognition.start();}catch(error){voiceButton.classList.remove("listening");voiceButton.setAttribute("aria-pressed","false");voiceStatus.textContent="Voice search could not start. Please try again.";}
+   });
+   recognition.onresult=event=>{
+    let interim="";
+    for(let i=event.resultIndex;i<event.results.length;i++){
+     const transcript=event.results[i][0]?.transcript||"";
+     if(event.results[i].isFinal)voiceFinalText+=transcript;else interim+=transcript;
+    }
+    globalInput.value=(voiceFinalText||interim).trim();
+    voiceStatus.textContent=voiceFinalText?"Recognised: "+voiceFinalText:"Hearing: "+interim;
+   };
+   recognition.onerror=event=>{
+    voiceHadError=true;
+    const messages={ "not-allowed":"Microphone permission is blocked. Allow microphone access in your browser settings.","no-speech":"No speech detected. Tap the microphone and try again.","audio-capture":"No microphone was found on this device.","network":"Voice recognition needs an internet connection."};
+    voiceStatus.textContent=messages[event.error]||"Voice search failed. Please try again.";
+   };
+   recognition.onend=()=>{
+    voiceButton.classList.remove("listening");voiceButton.setAttribute("aria-pressed","false");
+    if(voiceFinalText.trim()&&!voiceHadError){globalInput.value=voiceFinalText.trim();voiceStatus.textContent="Searching for: "+globalInput.value;document.getElementById("gbGlobalSearch")?.requestSubmit();}
+    else if(!voiceHadError&&!voiceFinalText.trim())voiceStatus.textContent="No speech detected. Tap the microphone to try again.";
+   };
+  }
+ }
  document.getElementById("gbGlobalSearch")?.addEventListener("submit",e=>{
   e.preventDefault();
   showLiveHomepageResults();
