@@ -5539,5 +5539,52 @@ html.gb-gate-open,html.gb-gate-open body{
 }
 </style>
 
+
+<style id="gb-mobile-login-state-and-flat-glass-v4">
+/* Mobile refinement: compact top composition, honor real login/signup visibility, remove every shadow. */
+@media(max-width:760px),(max-device-width:760px),(pointer:coarse) and (hover:none){
+ #gbEntryGate:not(.gb-entry-closed){
+  background-image:url("assets/gyanbhoomi-mobile-background.png")!important;
+  background-position:center top!important;background-size:cover!important;background-repeat:no-repeat!important;
+  background-attachment:fixed!important;overflow-x:hidden!important;overflow-y:auto!important;
+ }
+ /* The artwork is the page background, not a separate oversized image section. */
+ #gbEntryWelcome{display:none!important;height:0!important;min-height:0!important;max-height:0!important;overflow:hidden!important}
+ #gbEntryWelcome>img,.gb-mobile-welcome-copy{display:none!important}
+ #gbEntryLogin{padding:clamp(12px,2.5vh,22px) 0 max(24px,env(safe-area-inset-bottom))!important}
+ #gbEntryLogin>.gb-auth-card{
+  padding:8px 0 16px!important;background:transparent!important;background-color:transparent!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important;
+ }
+ #gbEntryLogin>.gb-auth-card::before,#gbEntryLogin>.gb-auth-card::after{display:none!important;content:none!important}
+ /* Do not force hidden signup labels visible: showMode() owns their display state. */
+ #gbEntryLogin #gbVisitorAuthForm label{margin:10px 0 6px!important;font-weight:700!important;color:#fff1c8!important;text-shadow:none!important}
+ #gbEntryLogin #gbVisitorNameLabel[style*="display: none"],
+ #gbEntryLogin #gbSignupProfileFields[style*="display: none"],
+ #gbEntryLogin #gbTermsRow[style*="display: none"],
+ #gbEntryLogin #gbPasswordGuidance[style*="display: none"],
+ #gbEntryLogin #gbPasswordMeter[style*="display: none"]{display:none!important}
+ #gbEntryLogin .gb-auth-brand strong,#gbEntryLogin .gb-auth-card h2,
+ #gbEntryLogin .gb-auth-sub,#gbEntryLogin label,#gbEntryLogin .gb-auth-options,
+ #gbEntryLogin .gb-auth-foot,#gbEntryLogin .gb-text-button,
+ #gbEntryLogin .gb-auth-divider span,#gbEntryLogin .gb-auth-message{
+  text-shadow:none!important;filter:none!important
+ }
+ #gbEntryLogin #gbVisitorAuthForm input:not([type=checkbox]),
+ #gbEntryLogin #gbVisitorAuthForm select{
+  box-shadow:none!important;filter:none!important;
+  background:rgba(231,255,246,.16)!important;border:1px solid rgba(239,255,248,.82)!important;
+  backdrop-filter:blur(13px)!important;-webkit-backdrop-filter:blur(13px)!important
+ }
+ #gbEntryLogin .gb-auth-tabs button,#gbEntryLogin .gb-password-toggle,
+ #gbEntryLogin .gb-auth-primary,#gbEntryLogin .gb-auth-google,#gbEntryLogin .gb-auth-guest{
+  box-shadow:none!important;text-shadow:none!important;filter:none!important
+ }
+ #gbEntryLogin .gb-auth-primary{background:linear-gradient(105deg,#fff0ac,#ffd04d,#e9a51e)!important}
+ #gbEntryLogin .gb-auth-google{background:rgba(255,255,255,.96)!important}
+ #gbEntryLogin .gb-auth-guest{background:rgba(0,37,31,.24)!important}
+}
+</style>
+
 </body>
 </html>
