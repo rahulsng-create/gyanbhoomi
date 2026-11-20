@@ -2931,6 +2931,26 @@ html.gb-gate-open #gbWelcomeSplash{display:none!important;visibility:hidden!impo
 
 
 
+
+<style id="gb-home-mobile-search-fit-v1">
+/* Homepage-only mobile fit: keep search controls on one line and prevent clipped labels. */
+@media(max-width:520px){
+  #gbGlobalSearch{display:flex;align-items:center;gap:7px;padding:7px 8px 7px 12px;min-width:0}
+  #gbGlobalSearch>span{flex:0 0 auto}
+  #gbGlobalSearch input{flex:1 1 0;width:0;min-width:0;font-size:15px;text-overflow:ellipsis}
+  #gbGlobalSearch button{flex:0 0 auto;white-space:nowrap;word-break:keep-all;min-width:max-content;padding:12px 13px;font-size:13px}
+  .gb-language-picker{width:auto;max-width:100%}
+  .gb-language-picker>#gbBrowseLanguage{display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;max-width:calc(100vw - 36px);padding:12px 18px;font-size:14px}
+  .gb-language-picker>#gbBrowseLanguage span{flex:0 0 auto}
+}
+@media(max-width:360px){
+  #gbGlobalSearch{gap:5px;padding-left:9px}
+  #gbGlobalSearch input{font-size:13px}
+  #gbGlobalSearch button{padding:11px 10px;font-size:12px}
+  .gb-language-picker>#gbBrowseLanguage{font-size:13px;padding:11px 13px}
+}
+</style>
+
 </body>
  </html>`);
  printWindow.onload=()=>{
