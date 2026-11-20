@@ -2882,6 +2882,108 @@ html.gb-gate-open #gbWelcomeSplash{display:none!important;visibility:hidden!impo
 
 
 
+
+<style id="gb-mobile-glass-controls-only">
+/* MOBILE ONLY: remove the enclosing auth slab; keep individual controls as luminous glass. */
+@media(max-width:760px),(max-device-width:760px),(pointer:coarse) and (hover:none){
+ #gbEntryGate:not(.gb-entry-closed){
+  background-color:#031b18!important;
+  background-image:url("assets/gyanbhoomi-mobile-background.png")!important;
+  background-position:center top!important;background-size:cover!important;background-repeat:no-repeat!important;
+  background-attachment:fixed!important;overflow-x:hidden!important;overflow-y:auto!important;
+  height:100vh!important;height:100dvh!important;
+ }
+ #gbEntryGate:not(.gb-entry-closed)::before{
+  content:""!important;position:fixed!important;inset:0!important;z-index:0!important;pointer-events:none!important;
+  background:linear-gradient(180deg,rgba(0,17,15,.04),rgba(0,19,16,.12) 40%,rgba(0,16,14,.30))!important;
+ }
+ #gbEntryWelcome,#gbEntryLogin{position:relative!important;z-index:1!important;background:transparent!important}
+ #gbEntryLogin{
+  width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;
+  padding:clamp(14px,3vh,26px) 0 max(30px,env(safe-area-inset-bottom))!important;
+  overflow:visible!important;display:flex!important;align-items:flex-start!important;justify-content:center!important;
+ }
+ #gbEntryLogin>.gb-auth-card{
+  width:calc(100% - 34px)!important;max-width:470px!important;
+  height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;
+  margin:0 auto!important;padding:8px 0 18px!important;
+  border:0!important;border-radius:0!important;background:transparent!important;
+  box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+ }
+ #gbEntryLogin>.gb-auth-card::before{display:none!important}
+ #gbEntryLogin .gb-auth-brand,#gbEntryLogin .gb-auth-card h2,#gbEntryLogin .gb-auth-sub,
+ #gbEntryLogin .gb-auth-tabs,#gbEntryLogin #gbVisitorAuthForm,#gbEntryLogin .gb-auth-options,
+ #gbEntryLogin .gb-auth-divider,#gbEntryLogin .gb-auth-message,#gbEntryLogin .gb-auth-foot{
+  position:relative!important;z-index:1!important;
+ }
+ #gbEntryLogin .gb-auth-brand strong,#gbEntryLogin .gb-auth-card h2{
+  color:#fff2c9!important;text-shadow:0 2px 12px rgba(0,0,0,.8),0 0 16px rgba(255,211,105,.38)!important;
+ }
+ #gbEntryLogin .gb-auth-sub,#gbEntryLogin label,#gbEntryLogin .gb-auth-options,#gbEntryLogin .gb-auth-foot{
+  color:#fff!important;text-shadow:0 1px 5px rgba(0,0,0,.92)!important;
+ }
+ #gbEntryLogin .gb-auth-tabs{
+  padding:4px!important;gap:6px!important;border:0!important;border-radius:0!important;
+  background:transparent!important;box-shadow:none!important;
+ }
+ #gbEntryLogin .gb-auth-tabs button{
+  min-height:46px!important;border:1px solid rgba(255,231,173,.78)!important;border-radius:24px!important;
+  background:rgba(0,37,31,.30)!important;color:#fff!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.32),0 3px 16px rgba(0,0,0,.18)!important;
+  backdrop-filter:blur(13px) saturate(1.5)!important;-webkit-backdrop-filter:blur(13px) saturate(1.5)!important;
+ }
+ #gbEntryLogin .gb-auth-tabs button.active{
+  color:#17372d!important;background:linear-gradient(110deg,rgba(255,238,174,.96),rgba(255,190,49,.94))!important;
+  border-color:#ffe7a5!important;box-shadow:0 0 18px rgba(255,207,82,.52),inset 0 1px 0 #fff!important;
+ }
+ #gbEntryLogin #gbVisitorAuthForm label{
+  display:block!important;margin:12px 0 7px!important;font-weight:700!important;
+  color:#fff1c8!important;text-shadow:0 1px 5px rgba(0,0,0,.95)!important;
+ }
+ #gbEntryLogin #gbVisitorAuthForm input:not([type=checkbox]),
+ #gbEntryLogin #gbVisitorAuthForm select{
+  min-height:49px!important;width:100%!important;border-radius:13px!important;
+  color:#fff!important;background:linear-gradient(135deg,rgba(235,255,247,.23),rgba(8,65,54,.36))!important;
+  border:1px solid rgba(238,255,246,.76)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.46),inset 0 -8px 18px rgba(0,0,0,.12),0 0 15px rgba(175,255,225,.18)!important;
+  backdrop-filter:blur(16px) saturate(1.6)!important;-webkit-backdrop-filter:blur(16px) saturate(1.6)!important;
+ }
+ #gbEntryLogin #gbVisitorAuthForm input::placeholder{color:rgba(255,255,255,.72)!important}
+ #gbEntryLogin .gb-password-wrap{background:transparent!important}
+ #gbEntryLogin .gb-password-toggle{
+  border:1px solid rgba(255,238,193,.68)!important;border-radius:10px!important;
+  background:rgba(225,255,244,.26)!important;color:#fff!important;
+  backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;
+ }
+ #gbEntryLogin .gb-auth-options{margin:14px 0!important}
+ #gbEntryLogin .gb-text-button,#gbEntryLogin .gb-auth-foot button{
+  color:#ffe18a!important;text-shadow:0 1px 5px rgba(0,0,0,.9)!important;
+ }
+ #gbEntryLogin .gb-auth-primary,#gbEntryLogin .gb-auth-google,#gbEntryLogin .gb-auth-guest{
+  min-height:49px!important;border-radius:26px!important;
+  box-shadow:0 0 18px rgba(255,208,91,.25),inset 0 1px 0 rgba(255,255,255,.68)!important;
+ }
+ #gbEntryLogin .gb-auth-primary{
+  color:#19382e!important;background:linear-gradient(105deg,#fff0ac,#ffd04d,#e9a51e)!important;
+  border:1px solid rgba(255,245,199,.95)!important;
+ }
+ #gbEntryLogin .gb-auth-google{
+  color:#23352f!important;background:linear-gradient(110deg,rgba(255,255,255,.98),rgba(224,242,235,.96))!important;
+  border:1px solid rgba(255,255,255,.92)!important;
+ }
+ #gbEntryLogin .gb-auth-guest{
+  color:#fff0c5!important;background:rgba(0,37,31,.34)!important;
+  border:1px solid rgba(255,229,165,.88)!important;
+  backdrop-filter:blur(14px)!important;-webkit-backdrop-filter:blur(14px)!important;
+ }
+ #gbEntryLogin .gb-auth-divider span{color:#fff0c5!important;text-shadow:0 1px 5px #001b15!important}
+ #gbEntryLogin .gb-auth-divider::before,#gbEntryLogin .gb-auth-divider::after{
+  background:linear-gradient(90deg,transparent,rgba(255,226,151,.9),transparent)!important;
+ }
+ #gbEntryLogin .gb-auth-message{color:#fff!important;text-shadow:0 1px 5px #001b15!important}
+}
+</style>
+
 </body>
  </html>`);
  printWindow.onload=()=>{
