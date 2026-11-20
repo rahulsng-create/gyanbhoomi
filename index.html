@@ -1815,22 +1815,7 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
   <div><span class="gb-personalised-kicker">WELCOME BACK</span><h2 id="gbPersonalisedHeading">Your learning, picked for you</h2><p id="gbPersonalisedText">Continue exploring topics you enjoy.</p></div>
   <button type="button" id="gbPersonalisedContinue" class="hidden">Continue reading</button>
  </section>
-<section class="gb-learning-goals" id="gbLearningGoals" aria-labelledby="gbLearningGoalsTitle">
-  <div class="gb-learning-goals-copy">
-   <span class="gb-learning-goals-kicker">YOUR DAILY LEARNING</span>
-   <h2 id="gbLearningGoalsTitle">Small steps. Big knowledge.</h2>
-   <p id="gbLearningGoalsMessage">Choose a daily reading goal and celebrate every article you finish.</p>
-   <div class="gb-learning-goals-progress" role="progressbar" aria-label="Today's reading goal" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" id="gbLearningGoalsBar"><span id="gbLearningGoalsFill"></span></div>
-   <div class="gb-learning-goals-meta"><strong id="gbLearningGoalsCount">0 of 2 articles completed today</strong><span id="gbLearningGoalsPercent">0%</span></div>
-  </div>
-  <div class="gb-learning-goals-actions">
-   <label for="gbLearningGoalsTarget">Daily goal</label>
-   <select id="gbLearningGoalsTarget" aria-label="Daily reading goal"><option value="1">1 article</option><option value="2" selected>2 articles</option><option value="3">3 articles</option><option value="4">4 articles</option><option value="5">5 articles</option></select>
-   <button type="button" id="gbLearningGoalsComplete">＋ Mark an article complete</button>
-   <button type="button" id="gbLearningGoalsUndo" class="gb-learning-goals-undo" disabled>Undo last</button>
-   <small>Progress is saved on this device. Mark an article complete after you finish reading it.</small>
-  </div>
- </section>
+
 <section id="library" class="tab">
  <div class="gb-home-hero">
   <div class="gb-hero-copy">
@@ -4560,6 +4545,10 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
     <div class="gb-profile-stat"><strong id="gbProfileQuizCount">0</strong><span>Quiz attempts recorded</span></div>
     <div class="gb-profile-stat"><strong id="gbProfileStreak">0</strong><span>Learning-day streak</span></div>
    </div>
+   <section class="gb-profile-card gb-daily-goal-entry">
+    <div><span class="gb-daily-goal-eyebrow">PERSONAL LEARNING PLAN</span><h3>Daily Learning Goals</h3><p class="gb-profile-note">Set your daily article target, track your progress and build a consistent learning habit.</p></div>
+    <button type="button" class="gb-profile-primary" id="gbOpenDailyGoals">Open Daily Learning Goals <span aria-hidden="true">→</span></button>
+   </section>
    <div class="gb-profile-grid">
     <div>
      <section class="gb-profile-card"><h3>Personal information</h3>
@@ -4609,6 +4598,108 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
  </section>
 </div>
 
+<div class="gb-daily-goals-backdrop hidden" id="gbDailyGoalsBackdrop" role="dialog" aria-modal="true" aria-labelledby="gbDailyGoalsTitle">
+ <section class="gb-daily-goals-panel">
+  <header class="gb-daily-goals-header">
+   <div><span class="gb-daily-goals-brand">✦ Gyan<span>Bhoomi</span> · LEARNING CENTRE</span><h2 id="gbDailyGoalsTitle">Daily Learning Goals</h2><p>Build knowledge one focused day at a time.</p></div>
+   <button type="button" id="gbDailyGoalsClose" aria-label="Close Daily Learning Goals">×</button>
+  </header>
+  <div class="gb-daily-goals-content">
+   <section class="gb-goal-hero">
+    <div class="gb-goal-hero-copy"><span class="gb-goal-overline">TODAY'S PROGRESS</span><h3 id="gbGoalGreeting">Your learning journey starts here.</h3><p id="gbGoalMotivation">Every article you complete is a step forward.</p></div>
+    <div class="gb-goal-ring" id="gbGoalRing" role="progressbar" aria-label="Daily goal progress" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0"><div><strong id="gbGoalRingPercent">0%</strong><span>completed</span></div></div>
+   </section>
+   <div class="gb-goal-stat-grid">
+    <article class="gb-goal-stat"><span class="gb-goal-stat-icon">✓</span><strong id="gbGoalTodayCount">0</strong><small>Articles today</small></article>
+    <article class="gb-goal-stat"><span class="gb-goal-stat-icon">◎</span><strong id="gbGoalTargetCount">2</strong><small>Daily target</small></article>
+    <article class="gb-goal-stat"><span class="gb-goal-stat-icon">✦</span><strong id="gbGoalStreakCount">0</strong><small>Goal days in a row</small></article>
+   </div>
+   <div class="gb-goal-main-grid">
+    <section class="gb-goal-card">
+     <div class="gb-goal-card-heading"><div><span class="gb-goal-overline">YOUR ROUTINE</span><h3>Set your daily target</h3></div><span class="gb-goal-chip">1–5 articles</span></div>
+     <p>Choose a realistic goal you can maintain consistently.</p>
+     <div class="gb-goal-target-options" id="gbGoalTargetOptions" role="group" aria-label="Choose daily article goal">
+      <button type="button" data-goal-target="1">1 <small>article</small></button><button type="button" data-goal-target="2">2 <small>articles</small></button><button type="button" data-goal-target="3">3 <small>articles</small></button><button type="button" data-goal-target="4">4 <small>articles</small></button><button type="button" data-goal-target="5">5 <small>articles</small></button>
+     </div>
+     <div class="gb-goal-progress-label"><strong id="gbGoalProgressLabel">0 of 2 completed</strong><span id="gbGoalProgressPercent">0%</span></div>
+     <div class="gb-goal-progress-track"><span id="gbGoalProgressFill"></span></div>
+     <div class="gb-goal-actions"><button type="button" id="gbGoalMarkComplete">＋ Mark an article complete</button><button type="button" id="gbGoalUndo" disabled>Undo last</button></div>
+     <p class="gb-goal-disclaimer">Progress is recorded on this device. Mark an article complete after you finish reading it.</p>
+    </section>
+    <section class="gb-goal-card gb-goal-week-card">
+     <div class="gb-goal-card-heading"><div><span class="gb-goal-overline">CONSISTENCY</span><h3>Your 7-day activity</h3></div></div>
+     <p>See how regularly you've been meeting your learning goals.</p>
+     <div class="gb-goal-week-chart" id="gbGoalWeekChart" aria-label="Article completions over the last seven days"></div>
+     <div class="gb-goal-week-legend"><span><i></i> Articles completed</span><span><b id="gbGoalWeekTotal">0</b> this week</span></div>
+    </section>
+   </div>
+   <div class="gb-goal-footer-note"><span>✧</span><div><strong>Consistency over intensity</strong><p>A small daily habit can make learning a natural part of your routine. Your progress stays private on this device.</p></div></div>
+  </div>
+ </section>
+</div>
+
+<style id="gb-daily-goals-professional-styles">
+.gb-daily-goal-entry{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 0 18px;border:1px solid #d7c18d!important;background:linear-gradient(110deg,#f8f5e9,#fff)!important}
+.gb-daily-goal-eyebrow,.gb-goal-overline{display:block;color:#9b7835;font-size:9px;font-weight:900;letter-spacing:1.7px}
+.gb-daily-goal-entry h3{margin:4px 0;color:#173f35}
+.gb-daily-goal-entry .gb-profile-primary{white-space:nowrap}
+.gb-daily-goals-backdrop{position:fixed;inset:0;z-index:1005000;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(2,20,17,.78);backdrop-filter:blur(9px)}
+.gb-daily-goals-backdrop.hidden{display:none!important}
+.gb-daily-goals-panel{width:min(100%,1000px);max-height:min(92vh,900px);overflow:auto;border:1px solid #c7a65f;border-radius:24px;background:#f5f3eb;color:#183b32;box-shadow:0 28px 90px #0008}
+.gb-daily-goals-header{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:22px 28px;background:linear-gradient(110deg,#082f2b,#155548);color:#fff;border-bottom:1px solid #d5b66e}
+.gb-daily-goals-brand{font-size:9px;letter-spacing:1.8px;font-weight:900;color:#e9cb83}
+.gb-daily-goals-brand span{color:#fff}
+.gb-daily-goals-header h2{margin:7px 0 3px;color:#f4d994;font:700 clamp(24px,4vw,34px)/1.15 Georgia,serif}
+.gb-daily-goals-header p{margin:0;color:#d3e5dc;font-size:13px}
+#gbDailyGoalsClose{width:40px;height:40px;flex:0 0 auto;border:1px solid #d8bd7b;border-radius:50%;background:#ffffff12;color:#fff;font-size:27px;cursor:pointer}
+.gb-daily-goals-content{padding:22px 28px 26px}
+.gb-goal-hero{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:23px 25px;border-radius:19px;background:radial-gradient(circle at 82% 45%,#267c6755,transparent 26%),linear-gradient(115deg,#0b3932,#145c4d);color:#fff}
+.gb-goal-overline{color:#d9bd77}
+.gb-goal-hero h3{margin:7px 0 6px;color:#f5d995;font:700 clamp(20px,3vw,27px)/1.2 Georgia,serif}
+.gb-goal-hero p{margin:0;color:#d7e8df;font-size:13px}
+.gb-goal-ring{width:126px;height:126px;flex:0 0 auto;display:grid;place-items:center;border-radius:50%;background:conic-gradient(#e9c36d var(--goal-progress,0%),#ffffff2b 0);position:relative}
+.gb-goal-ring:before{content:"";position:absolute;inset:9px;border-radius:50%;background:#10473d}
+.gb-goal-ring>div{position:relative;display:grid;text-align:center;gap:2px}
+.gb-goal-ring strong{font-size:25px;color:#ffe3a0}
+.gb-goal-ring span{font-size:10px;color:#d7e8df}
+.gb-goal-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:15px 0}
+.gb-goal-stat{position:relative;display:grid;gap:3px;padding:15px 17px;border:1px solid #e0d7bd;border-radius:15px;background:#fff}
+.gb-goal-stat-icon{color:#a78035;font-size:17px}
+.gb-goal-stat strong{font-size:25px;color:#17483b}
+.gb-goal-stat small{color:#728078;font-size:11px}
+.gb-goal-main-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+.gb-goal-card{padding:19px;border:1px solid #ded6c1;border-radius:17px;background:#fff;min-width:0}
+.gb-goal-card-heading{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.gb-goal-card h3{margin:4px 0;color:#183f34;font-size:17px}
+.gb-goal-card>p{margin:5px 0 16px;color:#78847c;font-size:12px}
+.gb-goal-chip{padding:6px 9px;border-radius:99px;background:#f5f0df;color:#927233;font-size:10px;font-weight:800}
+.gb-goal-target-options{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.gb-goal-target-options button{display:grid;justify-items:center;gap:2px;padding:10px 3px;border:1px solid #ded8c7;border-radius:11px;background:#faf9f5;color:#264b3e;font-size:18px;font-weight:900;cursor:pointer}
+.gb-goal-target-options button small{font-size:9px;font-weight:600;color:#7b867d}
+.gb-goal-target-options button.active{border-color:#b8954b;background:#123f35;color:#ffe4a0;box-shadow:0 4px 12px #123f3525}
+.gb-goal-target-options button.active small{color:#e9d9ad}
+.gb-goal-progress-label{display:flex;justify-content:space-between;gap:8px;margin:20px 0 8px;color:#314f43;font-size:12px}
+.gb-goal-progress-track{height:10px;border-radius:99px;overflow:hidden;background:#e9e5d9}
+.gb-goal-progress-track span{display:block;width:0;height:100%;border-radius:99px;background:linear-gradient(90deg,#a9853f,#e7c875);transition:width .25s ease}
+.gb-goal-actions{display:flex;gap:8px;margin-top:16px}
+.gb-goal-actions button{padding:10px 12px;border:1px solid #c8a85f;border-radius:10px;background:#174b3d;color:#fff3cf;font-size:12px;font-weight:800;cursor:pointer}
+.gb-goal-actions button+button{background:#f7f5ed;color:#426052;border-color:#d9d2bd}
+.gb-goal-actions button:disabled{opacity:.4;cursor:not-allowed}
+.gb-goal-disclaimer{margin:12px 0 0!important;font-size:10px!important}
+.gb-goal-week-chart{height:132px;display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;padding:8px 2px 0;border-bottom:1px solid #e8e2d4}
+.gb-goal-day{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:7px;min-width:0}
+.gb-goal-day-track{width:min(100%,25px);height:92px;display:flex;align-items:flex-end;overflow:hidden;border-radius:7px;background:#f0eee7}
+.gb-goal-day-track span{display:block;width:100%;min-height:0;border-radius:7px 7px 3px 3px;background:linear-gradient(180deg,#e5c578,#a7833e)}
+.gb-goal-day small{color:#77837b;font-size:9px}
+.gb-goal-week-legend{display:flex;justify-content:space-between;gap:8px;margin-top:11px;color:#768279;font-size:10px}
+.gb-goal-week-legend i{display:inline-block;width:8px;height:8px;margin-right:5px;border-radius:3px;background:#b38e48}
+.gb-goal-week-legend b{color:#214b3d;font-size:13px}
+.gb-goal-footer-note{display:flex;gap:12px;align-items:flex-start;margin-top:14px;padding:13px 16px;border-radius:13px;background:#eee9d9;color:#365447}
+.gb-goal-footer-note>span{color:#a17e3b;font-size:22px}
+.gb-goal-footer-note strong{font-size:12px}
+.gb-goal-footer-note p{margin:3px 0 0;color:#748077;font-size:11px;line-height:1.5}
+@media(max-width:700px){.gb-daily-goal-entry{display:block}.gb-daily-goal-entry .gb-profile-primary{margin-top:10px}.gb-daily-goals-backdrop{padding:0;align-items:stretch}.gb-daily-goals-panel{width:100%;max-height:100vh;border-radius:0;border:0}.gb-daily-goals-header{padding:19px 18px}.gb-daily-goals-content{padding:16px}.gb-goal-hero{padding:18px}.gb-goal-ring{width:104px;height:104px}.gb-goal-main-grid{grid-template-columns:1fr}.gb-goal-stat-grid{gap:7px}.gb-goal-stat{padding:12px 10px}.gb-goal-stat strong{font-size:21px}.gb-goal-actions{flex-wrap:wrap}}
+</style>
 <script id="gb-profile-controller">
 (()=>{
  "use strict";
@@ -4712,6 +4803,47 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
  if(db?.auth?.onAuthStateChange)db.auth.onAuthStateChange((event,session)=>{if(event==="SIGNED_OUT")closeProfile()});
 })();
 
+</script>
+<script id="gb-daily-goals-controller">
+(()=>{
+ "use strict";
+ const $=id=>document.getElementById(id),backdrop=$("gbDailyGoalsBackdrop");
+ if(!backdrop)return;
+ const targetKey="gb_daily_learning_goal_v1",historyKey="gb_daily_learning_history_v1",countKey="gb_daily_learning_count_v1";
+ const dateKey=(d=new Date())=>[d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-");
+ const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch(e){return fallback}};
+ const write=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value))}catch(e){}};
+ let target=Math.min(5,Math.max(1,Number(read(targetKey,2))||2));
+ let daily=read(historyKey,{});if(!daily||typeof daily!=="object"||Array.isArray(daily))daily={};
+ if(!daily[dateKey()])daily[dateKey()]=Math.max(0,Number(read(countKey,{count:0})?.count)||0);
+ const today=()=>Math.max(0,Number(daily[dateKey()])||0);
+ function save(){write(targetKey,target);write(historyKey,daily);write(countKey,{date:dateKey(),count:today()})}
+ function streak(){let n=0,d=new Date();if(today()===0)d.setDate(d.getDate()-1);for(let i=0;i<365;i++){if((Number(daily[dateKey(d)])||0)<target)break;n++;d.setDate(d.getDate()-1)}return n}
+ function render(){
+  const count=today(),pct=Math.min(100,Math.round(count/target*100));
+  $("gbGoalTodayCount").textContent=count;$("gbGoalTargetCount").textContent=target;$("gbGoalStreakCount").textContent=streak();
+  $("gbGoalRingPercent").textContent=pct+"%";$("gbGoalRing").style.setProperty("--goal-progress",pct+"%");$("gbGoalRing").setAttribute("aria-valuemax",String(target));$("gbGoalRing").setAttribute("aria-valuenow",String(Math.min(count,target)));
+  $("gbGoalGreeting").textContent=count>=target?"Today's learning goal achieved!":"Make today a day of discovery.";
+  $("gbGoalMotivation").textContent=count>=target?"Excellent consistency. Your next goal begins tomorrow.":(target-count)+" more "+(target-count===1?"article":"articles")+" to reach today's target.";
+  $("gbGoalProgressLabel").textContent=count+" of "+target+" completed";$("gbGoalProgressPercent").textContent=pct+"%";$("gbGoalProgressFill").style.width=pct+"%";
+  $("gbGoalMarkComplete").textContent=count>=target?"✓ Goal achieved · add another":"＋ Mark an article complete";$("gbGoalUndo").disabled=count===0;
+  document.querySelectorAll("[data-goal-target]").forEach(b=>{const active=Number(b.dataset.goalTarget)===target;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active))});
+  const chart=$("gbGoalWeekChart");chart.replaceChildren();let total=0;const days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];const now=new Date();const vals=[];
+  for(let i=6;i>=0;i--){const d=new Date(now);d.setDate(now.getDate()-i);const value=Math.max(0,Number(daily[dateKey(d)])||0);vals.push({label:days[d.getDay()],value});total+=value}
+  const max=Math.max(target,...vals.map(x=>x.value),1);
+  vals.forEach(x=>{const col=document.createElement("div");col.className="gb-goal-day";const track=document.createElement("div");track.className="gb-goal-day-track";const bar=document.createElement("span");bar.style.height=(x.value?Math.max(5,x.value/max*100):0)+"%";bar.title=x.value+" articles";track.append(bar);const label=document.createElement("small");label.textContent=x.label;col.append(track,label);chart.append(col)});
+  $("gbGoalWeekTotal").textContent=total;
+ }
+ function open(){daily[dateKey()]=today();save();render();backdrop.classList.remove("hidden");document.body.style.overflow="hidden"}
+ function close(){backdrop.classList.add("hidden");document.body.style.overflow=""}
+ $("gbOpenDailyGoals")?.addEventListener("click",open);$("gbDailyGoalsClose")?.addEventListener("click",close);
+ backdrop.addEventListener("click",e=>{if(e.target===backdrop)close()});
+ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!backdrop.classList.contains("hidden"))close()});
+ document.querySelectorAll("[data-goal-target]").forEach(b=>b.addEventListener("click",()=>{target=Number(b.dataset.goalTarget);save();render()}));
+ $("gbGoalMarkComplete").addEventListener("click",()=>{daily[dateKey()]=today()+1;save();render()});
+ $("gbGoalUndo").addEventListener("click",()=>{daily[dateKey()]=Math.max(0,today()-1);save();render()});
+ render();
+})();
 </script>
 
 <style id="gb-profile-photo-upload-styles">
