@@ -50,7 +50,7 @@ const languages=[
 const src=document.getElementById("sourceLang"),dst=document.getElementById("targetLang"),input=document.getElementById("sourceText"),output=document.getElementById("translatedText"),status=document.getElementById("status");
 const names=Object.fromEntries(languages);
 function fill(select,selected){languages.forEach(([code,name])=>{if(code==="auto"&&select===dst)return;const o=document.createElement("option");o.value=code;o.textContent=name;select.append(o)});select.value=selected}
-fill(src,"en");fill(dst,"hi");
+fill(src,"auto");fill(dst,"hi");
 const phrases={
 "en-hi":{"hello":"नमस्ते","thank you":"धन्यवाद","good morning":"सुप्रभात","good night":"शुभ रात्रि","how are you?":"आप कैसे हैं?","please":"कृपया","yes":"हाँ","no":"नहीं","welcome":"स्वागत है","goodbye":"अलविदा","excuse me":"माफ़ कीजिए","i need help":"मुझे मदद चाहिए","where is the station?":"स्टेशन कहाँ है?","how much does it cost?":"इसकी कीमत कितनी है?","i don't understand":"मुझे समझ नहीं आया"},
 "hi-en":{"नमस्ते":"Hello","धन्यवाद":"Thank you","सुप्रभात":"Good morning","शुभ रात्रि":"Good night","आप कैसे हैं?":"How are you?","कृपया":"Please","हाँ":"Yes","नहीं":"No","स्वागत है":"Welcome","अलविदा":"Goodbye","मुझे मदद चाहिए":"I need help"},
