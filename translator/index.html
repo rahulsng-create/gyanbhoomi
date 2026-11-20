@@ -98,9 +98,7 @@ async function translate(){
   const data=await response.json();
   if(data?.error)throw new Error(data.error.message||"Translation service rejected this language pair");
   const translated=Array.isArray(data?.[0])?data[0].map(part=>part?.[0]||"").join(""):"";
-  if(!translated.trim()||translated.trim()===text.trim()) {
-   if(from!==to) throw new Error("No usable translation returned for this language pair");
-  }
+  if(!translated.trim()) throw new Error("No usable translation returned for this language pair");
   output.value=translated;
   const detected=from==="auto"&&data?.[2]?" · detected "+data[2]:"";
   say("Translated online"+detected);
