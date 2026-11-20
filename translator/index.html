@@ -28,7 +28,7 @@ a{color:inherit;text-decoration:none}.top{max-width:1080px;margin:auto;padding:2
 <div class="field textpane"><label for="translatedText">TRANSLATION</label><textarea id="translatedText" placeholder="Your translation will appear here…" readonly></textarea><div class="tools"><button class="tool" id="copyText" type="button">Copy translation</button><button class="tool" id="speakText" type="button">🔊 Listen</button></div></div>
 </div>
 <div class="actions"><button class="primary" id="translateBtn" type="button">Translate text →</button><button class="secondary" id="offlineBtn" type="button">Offline phrasebook</button><span class="status" id="status" role="status" aria-live="polite">Ready to translate</span></div>
-<div class="notice"><span class="offline"><i class="dot"></i> Offline tools available</span><br>Offline phrasebook includes common everyday phrases. Full-sentence translation for a wide range of languages needs an on-device language model or an internet connection. This page will use your browser's on-device Translator API when available; otherwise it uses an online translation service.</div>
+<div class="notice"><span class="offline"><i class="dot"></i> Online translation enabled</span><br>The language picker follows Google's published Neural Machine Translation language catalogue. Actual availability can vary by language pair on the public web translation service; if a pair is unsupported or the service fails, this page will show an error rather than pretend a translation succeeded. The offline phrasebook is limited to its listed phrases.</div>
 </section>
 <section class="info">
 <article><b>🌐 Broad language choice</b><p>Choose from a wide list of world languages, including regional languages and major scripts.</p></article>
@@ -40,123 +40,7 @@ a{color:inherit;text-decoration:none}.top{max-width:1080px;margin:auto;padding:2
 (()=>{
 const languages=[
 ["auto","Detect language"],
-["af","Afrikaans"],
-["sq","Albanian"],
-["am","Amharic"],
-["ar","Arabic"],
-["hy","Armenian"],
-["as","Assamese"],
-["az","Azerbaijani"],
-["eu","Basque"],
-["be","Belarusian"],
-["bn","Bengali"],
-["bs","Bosnian"],
-["bg","Bulgarian"],
-["my","Burmese"],
-["ca","Catalan"],
-["ceb","Cebuano"],
-["zh-CN","Chinese (Simplified)"],
-["zh-TW","Chinese (Traditional)"],
-["co","Corsican"],
-["hr","Croatian"],
-["cs","Czech"],
-["da","Danish"],
-["dv","Dhivehi"],
-["doi","Dogri"],
-["nl","Dutch"],
-["en","English"],
-["eo","Esperanto"],
-["et","Estonian"],
-["ee","Ewe"],
-["tl","Filipino"],
-["fi","Finnish"],
-["fr","French"],
-["fy","Frisian"],
-["gl","Galician"],
-["ka","Georgian"],
-["de","German"],
-["el","Greek"],
-["gn","Guarani"],
-["gu","Gujarati"],
-["ht","Haitian Creole"],
-["ha","Hausa"],
-["haw","Hawaiian"],
-["he","Hebrew"],
-["hi","Hindi"],
-["hmn","Hmong"],
-["hu","Hungarian"],
-["is","Icelandic"],
-["ig","Igbo"],
-["ilo","Ilocano"],
-["id","Indonesian"],
-["ga","Irish"],
-["it","Italian"],
-["ja","Japanese"],
-["jv","Javanese"],
-["kn","Kannada"],
-["kk","Kazakh"],
-["km","Khmer"],
-["ko","Korean"],
-["ku","Kurdish"],
-["ky","Kyrgyz"],
-["lo","Lao"],
-["la","Latin"],
-["lv","Latvian"],
-["lt","Lithuanian"],
-["lb","Luxembourgish"],
-["mk","Macedonian"],
-["mai","Maithili"],
-["mg","Malagasy"],
-["ms","Malay"],
-["ml","Malayalam"],
-["mt","Maltese"],
-["mi","Maori"],
-["mr","Marathi"],
-["mn","Mongolian"],
-["ne","Nepali"],
-["no","Norwegian"],
-["ny","Nyanja"],
-["or","Odia"],
-["om","Oromo"],
-["ps","Pashto"],
-["fa","Persian"],
-["pl","Polish"],
-["pt","Portuguese"],
-["pa","Punjabi"],
-["ro","Romanian"],
-["ru","Russian"],
-["sm","Samoan"],
-["sa","Sanskrit"],
-["gd","Scots Gaelic"],
-["sr","Serbian"],
-["st","Sesotho"],
-["sn","Shona"],
-["sd","Sindhi"],
-["si","Sinhala"],
-["sk","Slovak"],
-["sl","Slovenian"],
-["so","Somali"],
-["es","Spanish"],
-["su","Sundanese"],
-["sw","Swahili"],
-["sv","Swedish"],
-["tg","Tajik"],
-["ta","Tamil"],
-["tt","Tatar"],
-["te","Telugu"],
-["th","Thai"],
-["ti","Tigrinya"],
-["to","Tongan"],
-["tr","Turkish"],
-["uk","Ukrainian"],
-["ur","Urdu"],
-["uz","Uzbek"],
-["vi","Vietnamese"],
-["cy","Welsh"],
-["xh","Xhosa"],
-["yi","Yiddish"],
-["yo","Yoruba"],
-["zu","Zulu"]
+["ab","Abkhaz"],["ace","Acehnese"],["ach","Acholi"],["af","Afrikaans"],["alz","Alur"],["am","Amharic"],["ar","Arabic"],["hy","Armenian"],["as","Assamese"],["awa","Awadhi"],["ay","Aymara"],["az","Azerbaijani"],["ban","Balinese"],["bm","Bambara"],["ba","Bashkir"],["eu","Basque"],["btx","Batak Karo"],["bts","Batak Simalungun"],["bbc","Batak Toba"],["be","Belarusian"],["bem","Bemba"],["bn","Bengali"],["bew","Betawi"],["bho","Bhojpuri"],["bik","Bikol"],["bs","Bosnian"],["br","Breton"],["bg","Bulgarian"],["bua","Buryat"],["yue","Cantonese"],["ca","Catalan"],["ceb","Cebuano"],["ny","Chichewa"],["zh-CN","Chinese (Simplified)"],["zh-TW","Chinese (Traditional)"],["cv","Chuvash"],["co","Corsican"],["crh","Crimean Tatar"],["hr","Croatian"],["cs","Czech"],["da","Danish"],["din","Dinka"],["dv","Dhivehi"],["doi","Dogri"],["dov","Dombe"],["nl","Dutch"],["dz","Dzongkha"],["en","English"],["eo","Esperanto"],["et","Estonian"],["ee","Ewe"],["fj","Fijian"],["fil","Filipino"],["fi","Finnish"],["fr","French"],["fy","Frisian"],["ff","Fulfulde"],["gaa","Ga"],["gl","Galician"],["lg","Ganda (Luganda)"],["ka","Georgian"],["de","German"],["el","Greek"],["gn","Guarani"],["gu","Gujarati"],["ht","Haitian Creole"],["cnh","Hakha Chin"],["ha","Hausa"],["haw","Hawaiian"],["he","Hebrew"],["hil","Hiligaynon"],["hi","Hindi"],["hmn","Hmong"],["hrx","Hunsrik"],["hu","Hungarian"],["is","Icelandic"],["ig","Igbo"],["ilo","Ilocano"],["id","Indonesian"],["ga","Irish"],["it","Italian"],["ja","Japanese"],["jw","Javanese"],["kn","Kannada"],["pam","Kapampangan"],["kk","Kazakh"],["km","Khmer"],["cgg","Kiga"],["rw","Kinyarwanda"],["ktu","Kituba"],["gom","Konkani"],["ko","Korean"],["kri","Krio"],["ku","Kurdish (Kurmanji)"],["ckb","Kurdish (Sorani)"],["ky","Kyrgyz"],["lo","Lao"],["ltg","Latgalian"],["la","Latin"],["lv","Latvian"],["lij","Ligurian"],["li","Limburgan"],["ln","Lingala"],["lt","Lithuanian"],["lmo","Lombard"],["luo","Luo"],["lb","Luxembourgish"],["mk","Macedonian"],["mai","Maithili"],["mak","Makassar"],["mg","Malagasy"],["ms","Malay"],["ms-Arab","Malay (Jawi)"],["ml","Malayalam"],["mt","Maltese"],["mi","Maori"],["mr","Marathi"],["chm","Meadow Mari"],["mni-Mtei","Meiteilon (Manipuri)"],["min","Minang"],["lus","Mizo"],["mn","Mongolian"],["my","Myanmar (Burmese)"],["nr","Ndebele (South)"],["new","Nepalbhasa (Newari)"],["ne","Nepali"],["nso","Northern Sotho"],["no","Norwegian"],["nus","Nuer"],["oc","Occitan"],["or","Odia"],["om","Oromo"],["pag","Pangasinan"],["pap","Papiamento"],["ps","Pashto"],["fa","Persian"],["pl","Polish"],["pt","Portuguese"],["pt-PT","Portuguese (Portugal)"],["pt-BR","Portuguese (Brazil)"],["pa","Punjabi"],["pa-Arab","Punjabi (Shahmukhi)"],["qu","Quechua"],["rom","Romani"],["ro","Romanian"],["rn","Rundi"],["ru","Russian"],["sm","Samoan"],["sg","Sango"],["sa","Sanskrit"],["gd","Scots Gaelic"],["sr","Serbian"],["st","Sesotho"],["crs","Seychellois Creole"],["shn","Shan"],["sn","Shona"],["scn","Sicilian"],["szl","Silesian"],["sd","Sindhi"],["si","Sinhala"],["sk","Slovak"],["sl","Slovenian"],["so","Somali"],["es","Spanish"],["su","Sundanese"],["sw","Swahili"],["ss","Swati"],["sv","Swedish"],["tg","Tajik"],["ta","Tamil"],["tt","Tatar"],["te","Telugu"],["tet","Tetum"],["th","Thai"],["ti","Tigrinya"],["ts","Tsonga"],["tn","Tswana"],["tr","Turkish"],["tk","Turkmen"],["ak","Twi (Akan)"],["uk","Ukrainian"],["ur","Urdu"],["ug","Uyghur"],["uz","Uzbek"],["vi","Vietnamese"],["cy","Welsh"],["xh","Xhosa"],["yi","Yiddish"],["yo","Yoruba"],["yua","Yucatec Maya"],["zu","Zulu"]
 ];
 const src=document.getElementById("sourceLang"),dst=document.getElementById("targetLang"),input=document.getElementById("sourceText"),output=document.getElementById("translatedText"),status=document.getElementById("status");
 const names=Object.fromEntries(languages);
@@ -206,13 +90,17 @@ async function translate(){
     }
    }catch(deviceError){console.warn("On-device translation unavailable:",deviceError)}
   }
-  // Google Translate's public web endpoint supports source-language auto detection.
+  // Google Translate public web endpoint. This is not the authenticated Cloud Translation API;
+  // language availability can vary by pair, so validate the returned payload before displaying it.
   const params=new URLSearchParams({client:"gtx",sl:from==="auto"?"auto":from,tl:to,dt:"t",q:text});
   const response=await fetch("https://translate.googleapis.com/translate_a/single?"+params.toString());
-  if(!response.ok)throw new Error("Translation service unavailable");
+  if(!response.ok)throw new Error("Translation service unavailable (HTTP "+response.status+")");
   const data=await response.json();
+  if(data?.error)throw new Error(data.error.message||"Translation service rejected this language pair");
   const translated=Array.isArray(data?.[0])?data[0].map(part=>part?.[0]||"").join(""):"";
-  if(!translated.trim())throw new Error("No translation returned");
+  if(!translated.trim()||translated.trim()===text.trim()) {
+   if(from!==to) throw new Error("No usable translation returned for this language pair");
+  }
   output.value=translated;
   const detected=from==="auto"&&data?.[2]?" · detected "+data[2]:"";
   say("Translated online"+detected);
