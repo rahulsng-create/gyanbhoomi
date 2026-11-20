@@ -5936,5 +5936,18 @@ html.gb-gate-open,html.gb-gate-open body{
 }
 </style>
 
+<style id="gb-home-voice-search-live-fix">
+/* Homepage search microphone: compact icon button, visually hidden live status. */
+#gbGlobalSearch{display:flex!important;align-items:center!important;gap:7px!important;min-width:0!important}
+#gbGlobalSearch .gb-voice-search{appearance:none!important;-webkit-appearance:none!important;display:grid!important;place-items:center!important;flex:0 0 36px!important;width:36px!important;min-width:36px!important;height:36px!important;min-height:36px!important;padding:7px!important;margin:0!important;border:0!important;border-radius:50%!important;background:transparent!important;color:#155448!important;box-shadow:none!important;line-height:1!important}
+#gbGlobalSearch .gb-voice-search svg{display:block!important;width:21px!important;height:21px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.9!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+#gbGlobalSearch .gb-voice-search:focus-visible{outline:2px solid #d9b85f!important;outline-offset:1px}
+#gbGlobalSearch .gb-voice-search.listening{background:#fce8e8!important;color:#b83232!important;animation:gbVoicePulseLive 1.2s infinite}
+#gbVoiceSearchStatus{display:none!important}
+#gbGlobalSearch input{flex:1 1 0!important;width:0!important;min-width:0!important}
+#gbGlobalSearch>button[type="submit"]{flex:0 0 auto!important;white-space:nowrap!important;min-width:max-content!important}
+@keyframes gbVoicePulseLive{50%{box-shadow:0 0 0 5px #e65b5b25}}
+@media(max-width:520px){#gbGlobalSearch .gb-voice-search{flex-basis:34px!important;width:34px!important;min-width:34px!important;height:34px!important;min-height:34px!important;padding:6px!important}}
+</style>
 </body>
 </html>
