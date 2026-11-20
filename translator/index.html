@@ -72,13 +72,37 @@ document.getElementById("copyText").onclick=async()=>{if(!output.value)return;tr
 document.getElementById("speakText").onclick=()=>{if(!output.value||!("speechSynthesis"in window)){say("Speech playback is unavailable");return}const u=new SpeechSynthesisUtterance(output.value);u.lang=dst.value; speechSynthesis.speak(u)};
 function offlineTranslate(){const key=src.value+"-"+dst.value,dict=phrases[key];if(!dict){say("No offline phrase pack for this language pair yet.");return}const text=input.value.trim();if(!text){say("Enter text first");return}const exact=dict[text.toLowerCase()];if(exact){output.value=exact;say("Translated using offline phrasebook")}else{say("Offline phrasebook has common phrases only. Try a listed phrase or connect to the internet.")}}
 document.getElementById("offlineBtn").onclick=offlineTranslate;
-async function translate(){const text=input.value.trim();if(!text){say("Enter text to translate");return}output.value="";const from=src.value==="auto"?"en":src.value,to=dst.value;const button=document.getElementById("translateBtn");button.disabled=true;say("Preparing translation…");
-try{
- if("Translator"in self){const availability=await Translator.availability({sourceLanguage:from,targetLanguage:to});if(availability==="available"||availability==="downloadable"||availability==="downloading"){const translator=await Translator.create({sourceLanguage:from,targetLanguage:to});output.value=await translator.translate(text);say("Translated on your device");button.disabled=false;return}}
- const url="https://api.mymemory.translated.net/get?q="+encodeURIComponent(text)+"&langpair="+encodeURIComponent(from+"|"+to);
- const response=await fetch(url);if(!response.ok)throw new Error("Translation service unavailable");const data=await response.json();if(data.responseStatus!==200)throw new Error(data.responseDetails||"Translation unavailable");output.value=data.responseData.translatedText;say("Translated online · MyMemory");
- }catch(e){say("Could not translate. Check connection or try the offline phrasebook.");}
- button.disabled=false;
+async function translate(){
+ const text=input.value.trim();if(!text){say("Enter text to translate");return}
+ output.value="";
+ const from=src.value,to=dst.value,button=document.getElementById("translateBtn");
+ button.disabled=true;say("Translating…");
+ try{
+  // Use the browser's on-device translator only for explicitly selected source languages.
+  if(from!=="auto"&&"Translator"in self){
+   try{
+    const availability=await Translator.availability({sourceLanguage:from,targetLanguage:to});
+    if(availability==="available"||availability==="downloadable"||availability==="downloading"){
+     const translator=await Translator.create({sourceLanguage:from,targetLanguage:to});
+     const result=await translator.translate(text);
+     if(result&&result.trim()){output.value=result;say("Translated on your device");return}
+    }
+   }catch(deviceError){console.warn("On-device translation unavailable:",deviceError)}
+  }
+  // Google Translate's public web endpoint supports source-language auto detection.
+  const params=new URLSearchParams({client:"gtx",sl:from==="auto"?"auto":from,tl:to,dt:"t",q:text});
+  const response=await fetch("https://translate.googleapis.com/translate_a/single?"+params.toString());
+  if(!response.ok)throw new Error("Translation service unavailable");
+  const data=await response.json();
+  const translated=Array.isArray(data?.[0])?data[0].map(part=>part?.[0]||"").join(""):"";
+  if(!translated.trim())throw new Error("No translation returned");
+  output.value=translated;
+  const detected=from==="auto"&&data?.[2]?" · detected "+data[2]:"";
+  say("Translated online"+detected);
+ }catch(error){
+  console.error("GyanBhoomi translation error:",error);
+  say("Translation service unavailable. Check your connection and try again; offline phrasebook is limited.");
+ }finally{button.disabled=false}
 }
 document.getElementById("translateBtn").onclick=translate;
 try{const palette=localStorage.getItem("gb_site_palette");if(palette)document.documentElement.dataset.gbPalette=palette}catch(e){}
