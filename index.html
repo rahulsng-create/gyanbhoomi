@@ -1741,7 +1741,8 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
     <span class="gb-theme-state" id="gbThemeChoicesChevron">⌄</span>
    </button>
    <div id="gbThemeChoices" class="gb-theme-choices" hidden>
-    <button type="button" class="gb-theme-choice" data-gb-palette="sage" aria-pressed="true"><span class="gb-theme-swatch" style="--sw1:#31594e;--sw2:#eaf1e9;--sw3:#b99a62"></span><span><strong>Botanical Sage</strong><small>Gentle green · original GyanBhoomi identity</small></span><span class="gb-theme-check">✓</span></button>
+    <button type="button" class="gb-theme-choice" data-gb-palette="classic" aria-pressed="false"><span class="gb-theme-swatch" style="--sw1:#073b35;--sw2:#0f7664;--sw3:#e8c875"></span><span><strong>GyanBhoomi Classic</strong><small>Original emerald green · warm gold identity</small></span><span class="gb-theme-check">✓</span></button>
+    <button type="button" class="gb-theme-choice" data-gb-palette="sage" aria-pressed="true"><span class="gb-theme-swatch" style="--sw1:#31594e;--sw2:#eaf1e9;--sw3:#b99a62"></span><span><strong>Botanical Sage</strong><small>Gentle green · soft ivory</small></span><span class="gb-theme-check">✓</span></button>
     <button type="button" class="gb-theme-choice" data-gb-palette="coastal" aria-pressed="false"><span class="gb-theme-swatch" style="--sw1:#36566b;--sw2:#e8f0f4;--sw3:#b5c7c9"></span><span><strong>Coastal Mist</strong><small>Soft blue · calm and focused</small></span><span class="gb-theme-check">✓</span></button>
     <button type="button" class="gb-theme-choice" data-gb-palette="sand" aria-pressed="false"><span class="gb-theme-swatch" style="--sw1:#665640;--sw2:#f1ede3;--sw3:#c4a979"></span><span><strong>Warm Sand</strong><small>Natural beige · quiet editorial warmth</small></span><span class="gb-theme-check">✓</span></button>
    </div>
@@ -3083,6 +3084,8 @@ html[data-gb-palette] body :is(.gb-drawer-section-title,.eyebrow,.featured-label
 html[data-gb-palette] body .article-thumb{background:linear-gradient(135deg,var(--gb-header2),var(--gb-header))!important}
 html[data-gb-palette] body :is(.gb-entry-gate,.gb-login-panel,.gb-auth-panel){background:var(--gb-surface)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important}
 html[data-gb-palette] body main :is(section,article,aside)[class*="card"],html[data-gb-palette] body main [class*="panel"],html[data-gb-palette] body main [class*="widget"],html[data-gb-palette] body main [class*="modal"]{background-color:var(--gb-surface)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important}
+</style><style id="gb-classic-theme-tokens">
+html[data-gb-palette="classic"]{color-scheme:light;--gb-bg:#f5f7f3;--gb-surface:#fffefa;--gb-soft:#edf3ed;--gb-header:#073b35;--gb-header2:#0f7664;--gb-accent:#e8c875;--gb-text:#263a33;--gb-muted:#718078;--gb-line:#dce7dd;--gb-primary:#315e50;--gb-primary2:#477764;--gb-shadow:rgba(37,79,69,.07)}
 </style></body>
  </html>`);
  printWindow.onload=()=>{
@@ -6072,7 +6075,7 @@ html.gb-gate-open,html.gb-gate-open body{
 </style>
 <script id="gb-five-theme-system-script">
 (()=>{const root=document.documentElement,wrap=document.getElementById("gbThemeChoices"),toggle=document.getElementById("gbChangeThemeToggle"),name=document.getElementById("gbCurrentPaletteName");if(!wrap||!toggle)return;
- const labels={sage:"Botanical Sage",coastal:"Coastal Mist",sand:"Warm Sand"};
+ const labels={classic:"GyanBhoomi Classic",sage:"Botanical Sage",coastal:"Coastal Mist",sand:"Warm Sand"};
  const apply=value=>{const theme=labels[value]?value:"sage";root.dataset.gbPalette=theme;try{localStorage.setItem("gb_site_palette",theme)}catch(e){};wrap.querySelectorAll("[data-gb-palette]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.gbPalette===theme)));if(name)name.textContent=labels[theme];};
  let saved="sage";try{saved=localStorage.getItem("gb_site_palette")||"sage"}catch(e){}if(!labels[saved])saved="sage";apply(saved);
  toggle.addEventListener("click",()=>{const open=wrap.hidden;wrap.hidden=!open;toggle.setAttribute("aria-expanded",String(open));const chevron=document.getElementById("gbThemeChoicesChevron");if(chevron)chevron.textContent=open?"⌃":"⌄";});
