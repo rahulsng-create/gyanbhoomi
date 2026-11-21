@@ -185,9 +185,37 @@ const worksheetBank={
 };
 const artPrompts=['Draw your favourite fruit and colour it.','Draw a happy family doing something together.','Draw a plant and label its parts.','Create a rainbow using seven colours.','Draw an animal and its home.','Draw your favourite season.','Make a picture using circles, squares and triangles.','Draw a healthy lunch plate.','Draw a place you would like to visit.','Create a greeting card for someone you love.','Draw a butterfly with symmetrical wings.','Draw a vehicle and show where it travels.','Draw the day sky and the night sky.','Draw a clean and green neighbourhood.','Draw a story scene with two characters.','Design a colourful kite.','Draw a garden with at least five things.','Draw a helpful community worker.','Make a pattern using three colours.','Draw your dream learning playground.'];
 const bankFor=(subject)=>worksheetBank[subject]||worksheetBank[subject==='Mathematics'?'Maths':subject==='EVS & Science'?'Science':'EVS'];
+function worksheetPicture(title,prompt,subject){
+ const text=(String(title||'')+' '+String(prompt||'')+' '+String(subject||'')).toLowerCase();
+ const rules=[
+  [/sun|sunlight|daylight|sunrise/,'☀️'],
+  [/moon|night|star|space|planet|solar system|mars|earth/,'🌙'],
+  [/rainbow|vibgyor|colour|color/,'🌈'],
+  [/ball|beginning sound|letter|vowel|alphabet|spelling|word|rhym|pronoun|sentence|grammar|english/,'🔤'],
+  [/apple|fruit|food|healthy|nutrition/,'🍎'],
+  [/bee|honey/,'🐝'],
+  [/plant|seed|root|leaf|flower|tree|garden/,'🌱'],
+  [/water|rain|cloud|cycle|river|ocean/,'💧'],
+  [/heart|body|eye|ear|nose|hand|organ|health/,'❤️'],
+  [/butterfly|caterpillar|insect/,'🦋'],
+  [/bird|wing|nest|feather/,'🐦'],
+  [/animal|cow|farm|habitat|mammal/,'🐾'],
+  [/fish|gill/,'🐠'],
+  [/rabbit|tortoise|turtle/,'🐢'],
+  [/count|number|addition|subtraction|multiplication|division|fraction|math|shape|pattern|measure|time|money/,'🔢'],
+  [/map|india|country|continent|ocean|geography|direction|community|history|culture/,'🌍'],
+  [/science|experiment|force|magnet|light|sound|matter|electric/,'🔬'],
+  [/transport|vehicle|train|road|traffic/,'🚗'],
+  [/draw|paint|art|creative|craft|design/,'🎨'],
+  [/story|read|book|poem|rhyme/,'📚'],
+  [/sports|cricket|game/,'🏏']
+ ];
+ for(const [pattern,emoji] of rules){if(pattern.test(text))return emoji;}
+ return subject==='Hindi'?'🪷':subject==='Art & Creativity'?'🎨':'⭐';
+}
 function buildWorksheetData(cls,subject){
  const preschool=['Nursery','LKG','UKG'].includes(cls),grade=preschool?({Nursery:0,LKG:1,UKG:2}[cls]):Number(cls);
- if(subject==='Art & Creativity')return artPrompts.map((p,i)=>({title:'Creative task '+(i+1),prompt:p,visual:sheetIcons[i],draw:true}));
+ if(subject==='Art & Creativity')return artPrompts.map((p,i)=>({title:'Creative task '+(i+1),prompt:p,visual:worksheetPicture('Creative task',p,subject),draw:true}));
  const key=subject==='Early Maths'?'Maths':subject==='Mathematics'?'Maths':subject==='EVS & Science'?'Science':subject;
  const base=bankFor(key)||worksheetBank.English;
  return base.map((q,i)=>{
@@ -203,7 +231,7 @@ function buildWorksheetData(cls,subject){
    if(pset&&i<pset.length)prompt=pset[i];
   } else if(grade>=3 && key==='Maths' && i===3)prompt=(grade===3?'12 + 15 = ?':grade===4?'125 + 236 = ?':'1,245 + 2,368 = ?');
   else if(grade>=3 && key==='Maths' && i===4)prompt=(grade===3?'25 − 13 = ?':grade===4?'340 − 125 = ?':'2,500 − 1,275 = ?');
-  return {title,prompt,options:opts,answer,visual:sheetIcons[i]};
+  return {title,prompt,options:opts,answer,visual:worksheetPicture(title,prompt,subject)};
  });
 }
 function renderClassWorksheets(){
