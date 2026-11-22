@@ -1818,6 +1818,42 @@ body.gb-night #admin>.grid>.card h2,body.gb-night #admin>#manageArticles h2,body
 .gb-jobs-sector-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.gb-jobs-sector{display:grid;gap:5px;padding:18px;border:1px solid #dfe8e1;border-radius:16px;background:linear-gradient(145deg,#fff,#f4f8f4);color:var(--ink);text-decoration:none;box-shadow:0 8px 22px #103d3608}.gb-jobs-sector>span{font-size:26px}.gb-jobs-sector strong{color:#164338;font-size:16px}.gb-jobs-sector small{color:#65756e}.gb-jobs-sector b{color:#9b7129;font-size:12px;margin-top:4px}.gb-jobs-sector.government{border-color:#d9c28f}.gb-jobs-source-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:15px}.gb-jobs-source-list a{display:grid;gap:3px;padding:12px;border:1px solid #e3eae4;border-radius:12px;text-decoration:none;color:var(--ink);background:#fbfdfb}.gb-jobs-source-list a b{color:#17483c;font-size:14px}.gb-jobs-source-list a span{color:var(--muted);font-size:11px}.gb-jobs-safety{padding:17px 19px;margin:18px 0;border-left:4px solid #d6a64c;border-radius:0 13px 13px 0;background:#f7f2e6;color:#3b433b}.gb-jobs-safety p{margin:5px 0 0;font-size:13px;line-height:1.6}
 @media(max-width:600px){.gb-jobs-home-card{padding:15px 13px;gap:10px}.gb-jobs-home-icon{width:45px;height:45px;flex-basis:45px;font-size:23px}.gb-jobs-home-copy strong{font-size:20px}.gb-jobs-home-copy>span{font-size:11px}.gb-jobs-home-cta{font-size:11px}.gb-jobs-hero{padding:21px 18px}.gb-jobs-filter-grid,.gb-jobs-sector-grid,.gb-jobs-source-list{grid-template-columns:1fr}.gb-jobs-search-card{padding:18px 15px}}
 </style>
+<style id="gb-jobseekers-page-polish">
+/* Dedicated, compact Job Seekers workspace */
+body:has(#jobseekers:not(.hidden)) .gb-header{display:none!important}
+body:has(#jobseekers:not(.hidden)) main{padding-top:12px!important}
+#jobseekers{width:100%;max-width:900px!important;padding:0 0 34px!important;color:#203b32!important}
+#jobseekers .gb-jobs-pagebar{display:flex!important;align-items:center!important;gap:12px!important;margin:0 0 16px!important;padding:10px 0!important}
+#jobseekers .gb-jobs-home-link{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;min-width:46px!important;min-height:44px!important;padding:9px 13px!important;border:1px solid #c8a75f!important;border-radius:13px!important;background:#103e36!important;color:#fff1ca!important;font-size:15px!important;text-decoration:none!important;box-shadow:0 4px 12px #0b33251c!important}
+#jobseekers .gb-jobs-pagebar-title{font:700 18px/1.2 Georgia,serif!important;color:#17483c!important}
+#jobseekers .gb-jobs-pagebar-sub{display:block!important;color:#687a70!important;font-size:11px!important;margin-top:3px!important}
+#jobseekers .gb-jobs-hero{padding:24px!important}
+#jobseekers .gb-jobs-search-card{background:#fffefa!important;border:1px solid #dce6dc!important;color:#244238!important;box-shadow:0 8px 22px #163f3010!important}
+#jobseekers .gb-jobs-search-card h3,#jobseekers .gb-jobs-section-head h3{color:#17483c!important}
+#jobseekers .gb-jobs-search-card label{color:#29483c!important;font-weight:700!important;opacity:1!important}
+#jobseekers .gb-jobs-search-card input,#jobseekers .gb-jobs-search-card select{
+ display:block!important;width:100%!important;min-height:50px!important;box-sizing:border-box!important;
+ padding:12px 14px!important;border:1.5px solid #b9cbbd!important;border-radius:11px!important;
+ background:#fff!important;color:#183d32!important;-webkit-text-fill-color:#183d32!important;
+ font:600 15px/1.35 system-ui,sans-serif!important;opacity:1!important;color-scheme:light!important;
+ box-shadow:0 2px 7px #163f300c!important
+}
+#jobseekers .gb-jobs-search-card input::placeholder{color:#718078!important;-webkit-text-fill-color:#718078!important;opacity:1!important}
+#jobseekers .gb-jobs-search-card select option{background:#fff!important;color:#183d32!important}
+#jobseekers .gb-jobs-primary{background:linear-gradient(120deg,#103d36,#1d6253)!important;color:#fff5df!important}
+#jobseekers .gb-jobs-disclaimer,#jobseekers .gb-jobs-muted{color:#687a70!important}
+#jobseekers .gb-jobs-sector{background:#fffefa!important;color:#244238!important}
+@media(max-width:600px){
+ body:has(#jobseekers:not(.hidden)) main{padding:8px 12px 28px!important}
+ #jobseekers .gb-jobs-pagebar{margin-bottom:12px!important}
+ #jobseekers .gb-jobs-hero{padding:20px 17px!important}
+ #jobseekers .gb-jobs-hero h2{font-size:32px!important}
+ #jobseekers .gb-jobs-hero p{font-size:16px!important;line-height:1.55!important}
+ #jobseekers .gb-jobs-search-card{padding:18px 15px!important}
+ #jobseekers .gb-jobs-filter-grid{grid-template-columns:1fr!important;gap:2px!important}
+ #jobseekers .gb-jobs-search-card select{appearance:auto!important;-webkit-appearance:menulist!important}
+}
+</style>
 </head><body>
 <div id="gbNetProgress" aria-hidden="true"></div><div id="gbNetNotice" role="status" aria-live="polite"><span class="gb-net-dot" aria-hidden="true"></span><span id="gbNetNoticeText">Checking internet connection…</span></div>
 
@@ -2093,6 +2129,10 @@ body.gb-night #admin>.grid>.card h2,body.gb-night #admin>#manageArticles h2,body
 <div class="card"><div class="library-toolbar"><div><span class="eyebrow">THE KNOWLEDGE LIBRARY</span><h2>Latest articles</h2></div><button id="refreshBtn">Refresh</button></div><div class="row"><h2>Published articles</h2><button id="refreshBtnSecondary" type="button">Refresh</button></div><label for="searchInput">Search the knowledge library</label><input id="searchInput" type="search" placeholder="Search by title, author, category or words in an article…"><label for="categoryFilter">Filter by category</label><select id="categoryFilter"><option value="">All categories</option><option value="Science">Science</option><option value="Technology">Technology</option><option value="History">History</option><option value="Education">Education</option><option value="Health & Lifestyle">Health & Lifestyle</option><option value="Arts & Culture">Arts & Culture</option><option value="Environment">Environment</option><option value="Other">Other</option></select><p id="searchCount" class="muted" aria-live="polite"></p><div id="articles" class="muted">Loading articles…</div></div></section>
 
 <section id="jobseekers" class="tab hidden">
+ <div class="gb-jobs-pagebar">
+  <button type="button" class="gb-jobs-home-link" data-open-tab="library" aria-label="Go to GyanBhoomi home"><span aria-hidden="true">⌂</span><span>Home</span></button>
+  <div><div class="gb-jobs-pagebar-title">Career Opportunities</div><span class="gb-jobs-pagebar-sub">GyanBhoomi · Job discovery</span></div>
+ </div>
  <div class="gb-jobs-hero">
   <span class="gb-jobs-kicker">GYANBHOOMI · CAREER DISCOVERY</span>
   <div class="gb-jobs-hero-row"><div><h2>Job Seekers</h2><p>Explore government vacancies and private-sector opportunities from public job sources across India.</p></div><span class="gb-jobs-hero-mark">💼</span></div>
