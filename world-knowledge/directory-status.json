@@ -2,7 +2,8 @@
   "section": "World General Knowledge",
   "country_count": 195,
   "published": [
-    "india"
+    "india",
+    "pakistan"
   ],
   "coming_soon": [
     "afghanistan",
@@ -134,7 +135,6 @@
     "north-macedonia",
     "norway",
     "oman",
-    "pakistan",
     "palau",
     "palestine",
     "panama",
@@ -209,5 +209,5 @@
     "cream": "#f7f5ef"
   },
   "homepage_change_required": false,
-  "note": "The existing homepage already links to world-knowledge/; preserve root index.html and all current site features."
+  "note": "India and Pakistan country encyclopedias are published. Preserve root index.html and all current site features."
 }
