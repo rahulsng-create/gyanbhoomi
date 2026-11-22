@@ -274,7 +274,13 @@ for (const article of articles) {
   const fullText = plainText(article.content);
   const description = shortDescription(article.content, title);
   const materialized = await materializeInlineImages(cleanContent(article.content), id);
-  const body = materialized.html;
+  // Repair compact chapter indexes from older submissions where chapter numbers
+  // were concatenated to the previous title (for example, "Environment02. Earth's Formation").
+  // Only run inside articles that explicitly contain a chapter index; wording is preserved.
+  const hasChapterIndex = /(?:explore all\s+\d+\s+chapters|table of contents)/i.test(materialized.html);
+  const body = hasChapterIndex
+    ? materialized.html.replace(/(?<=[\p{L}\)])(0[2-9]|1\d|2[0-3])\.\s*/gu, "<br><strong>$1.</strong> ")
+    : materialized.html;
   const coverImage = body.match(/<img\b[^>]*src=["']([^"']+)["']/i)?.[1] || "";
   const keywords = extractKeywords(title, String(article.content || ""), article.category);
   articleIndex.push({ id, title, author: article.author_name || "GyanBhoomi", category: article.category || "Knowledge", url: pageUrl, description, keywords });
