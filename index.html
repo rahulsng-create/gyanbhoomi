@@ -1735,17 +1735,8 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
     <span class="gb-theme-copy"><strong id="gbThemeTitle">Night mode</strong><small id="gbThemeHint">Switch to a darker reading theme</small></span>
     <span class="gb-theme-state" id="gbThemeState">OFF</span>
    </button>
-   <button type="button" class="gb-theme-toggle" id="gbChangeThemeToggle" aria-expanded="false" aria-controls="gbThemeChoices">
-    <span class="gb-theme-icon" aria-hidden="true">🎨</span>
-    <span class="gb-theme-copy"><strong>Change theme</strong><small id="gbCurrentPaletteName">Emerald & Gold</small></span>
-    <span class="gb-theme-state" id="gbThemeChoicesChevron">⌄</span>
-   </button>
-   <div id="gbThemeChoices" class="gb-theme-choices" hidden>
-    <button type="button" class="gb-theme-choice" data-gb-palette="classic" aria-pressed="false"><span class="gb-theme-swatch" style="--sw1:#073b35;--sw2:#0f7664;--sw3:#e8c875"></span><span><strong>GyanBhoomi Classic</strong><small>Original emerald green · warm gold identity</small></span><span class="gb-theme-check">✓</span></button>
-    <button type="button" class="gb-theme-choice" data-gb-palette="sage" aria-pressed="true"><span class="gb-theme-swatch" style="--sw1:#31594e;--sw2:#eaf1e9;--sw3:#b99a62"></span><span><strong>Botanical Sage</strong><small>Gentle green · soft ivory</small></span><span class="gb-theme-check">✓</span></button>
-    <button type="button" class="gb-theme-choice" data-gb-palette="coastal" aria-pressed="false"><span class="gb-theme-swatch" style="--sw1:#36566b;--sw2:#e8f0f4;--sw3:#b5c7c9"></span><span><strong>Coastal Mist</strong><small>Soft blue · calm and focused</small></span><span class="gb-theme-check">✓</span></button>
-    <button type="button" class="gb-theme-choice" data-gb-palette="sand" aria-pressed="false"><span class="gb-theme-swatch" style="--sw1:#665640;--sw2:#f1ede3;--sw3:#c4a979"></span><span><strong>Warm Sand</strong><small>Natural beige · quiet editorial warmth</small></span><span class="gb-theme-check">✓</span></button>
-   </div>
+   
+   
    <div class="gb-setting-row">
     <label for="gbFontSize">Reading text size</label>
     <select id="gbFontSize" aria-label="Reading text size">
@@ -3054,38 +3045,7 @@ footer{background:#f5f7f3!important;color:#77847c!important;border-color:#e2e9e2
  .intro,.card,.article-full{box-shadow:0 5px 16px rgba(34,70,58,.04)!important}
 }
 </style>
-<style id="gb-global-theme-coverage-v3">
-html[data-gb-palette="classic"]{color-scheme:light;--gb-bg:#f5f7f3;--gb-surface:#fffefa;--gb-soft:#edf3ed;--gb-header:#073b35;--gb-header2:#0f7664;--gb-accent:#e8c875;--gb-text:#263a33;--gb-muted:#718078;--gb-line:#dce7dd;--gb-primary:#315e50;--gb-primary2:#477764;--gb-shadow:rgba(7,59,53,.08)}
-html[data-gb-palette="sage"]{color-scheme:light;--gb-bg:#f4f7f2;--gb-surface:#fffefa;--gb-soft:#eaf1e9;--gb-header:#31594e;--gb-header2:#426d5e;--gb-accent:#b99a62;--gb-text:#293b34;--gb-muted:#718078;--gb-line:#dfe7df;--gb-primary:#386b59;--gb-primary2:#4e806c;--gb-shadow:rgba(39,72,58,.07)}
-html[data-gb-palette="coastal"]{color-scheme:light;--gb-bg:#f2f6f8;--gb-surface:#fff;--gb-soft:#e8f0f4;--gb-header:#36566b;--gb-header2:#52758a;--gb-accent:#b5c7c9;--gb-text:#293b45;--gb-muted:#71818a;--gb-line:#dce6eb;--gb-primary:#426d83;--gb-primary2:#5d879a;--gb-shadow:rgba(48,78,94,.07)}
-html[data-gb-palette="sand"]{color-scheme:light;--gb-bg:#f8f6f0;--gb-surface:#fffefa;--gb-soft:#f1ede3;--gb-header:#665640;--gb-header2:#897555;--gb-accent:#c4a979;--gb-text:#403a30;--gb-muted:#827969;--gb-line:#e8e1d4;--gb-primary:#806b49;--gb-primary2:#9a815b;--gb-shadow:rgba(87,70,45,.07)}
-html[data-gb-palette]{background:var(--gb-bg)!important;color:var(--gb-text)!important}html[data-gb-palette] body{background:var(--gb-bg)!important;color:var(--gb-text)!important}
-html[data-gb-palette] body :is(header,.gb-header,.gb-topbar){background:linear-gradient(115deg,var(--gb-header),var(--gb-header2))!important;color:#fff!important;border-color:var(--gb-line)!important}
-html[data-gb-palette] body :is(.gb-brand,.gb-brand h1,.gb-tagline,.gb-motto){color:#fff!important}
-html[data-gb-palette] body :is(main,.gb-page,.gb-content,.gb-main-content,.gb-tab-content){background:transparent!important;color:var(--gb-text)!important}
-html[data-gb-palette] body :is(.card,.intro,.article-card,.article-full,.dict-wotd,.dict-alpha,.gb-card,.gb-panel,.gb-section,.gb-widget,.gb-settings-card,.gb-profile-card,.gb-feature-card,.gb-discovery-card,.gb-search-wrap,.gb-resource-panel,.gb-stat-card,.gb-goal-card,.gb-quiz-card,.gb-learning-card,.gb-modal-card,.gb-daily-quiz,.gb-discovery-strip,.no-articles,.gb-content-card,.gb-list-card,.gb-profile-panel,.gb-dashboard-card,.gb-tool-card,.gb-info-card,.gb-result-card,.gb-form-card,.gb-auth-card,.gb-reading-list-dialog,.gb-modal-content,.gb-settings-content,.gb-drawer-settings){background:var(--gb-surface)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important;box-shadow:0 7px 22px var(--gb-shadow)!important}
-html[data-gb-palette] body :is(.intro,.gb-discovery-strip,.gb-daily-quiz,.gb-search-wrap){background:linear-gradient(120deg,var(--gb-surface),var(--gb-soft))!important}
-html[data-gb-palette] body :is(h1,h2,h3,h4,h5,.section-heading h2,.library-toolbar h2,.article h3,.article-card h3,.dict-wotd h3,.dict-alpha h3,.gb-section-title,.gb-card-title,.gb-heading){color:var(--gb-primary)!important}
-html[data-gb-palette] body :is(p,small,.muted,.meta,.excerpt,.gb-muted,.gb-description,.helper-text){color:var(--gb-muted)}
-html[data-gb-palette] body :is(label,.gb-label){color:var(--gb-text)!important}
-html[data-gb-palette] body :is(input,textarea,select){background:var(--gb-surface)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important}
-html[data-gb-palette] body :is(input,textarea,select):focus{border-color:var(--gb-primary2)!important;box-shadow:0 0 0 3px var(--gb-soft)!important}
-html[data-gb-palette] body :is(#submitBtn,#askButton,#loginBtn,.gb-primary,.gb-auth-primary,.gb-submit-button){background:linear-gradient(120deg,var(--gb-primary),var(--gb-primary2))!important;color:#fff!important;border-color:var(--gb-primary)!important}
-html[data-gb-palette] body :is(.secondary,.back-btn,#refreshBtn,#pendingRefresh,.gb-secondary,.gb-back-button,.gb-path-buttons button,.dict-alpha-letters button,.dict-word-list button,.category-tile){background:var(--gb-soft)!important;color:var(--gb-primary)!important;border-color:var(--gb-line)!important}
-html[data-gb-palette] body nav button{background:#ffffff18!important;color:#fff!important;border-color:#ffffff45!important}html[data-gb-palette] body nav button.active{background:var(--gb-accent)!important;color:var(--gb-header)!important;border-color:var(--gb-accent)!important}
-html[data-gb-palette] body :is(.featured-card,.gb-daily-card,.gb-resource-card,.gb-hero-card,.gb-banner-card){background:linear-gradient(125deg,var(--gb-header),var(--gb-header2))!important;color:#fff!important;border-color:var(--gb-accent)!important}
-html[data-gb-palette] body :is(.featured-copy h2,.gb-daily-copy h2,.gb-resource-card b,.gb-resource-card i){color:#fff!important}html[data-gb-palette] body :is(.featured-copy p,.gb-daily-copy p,.gb-resource-card small){color:#ffffffdf!important}
-html[data-gb-palette] body :is(.featured-copy button,.gb-fact-refresh,.gb-daily-quiz-more){background:var(--gb-accent)!important;color:var(--gb-header)!important}
-html[data-gb-palette] body :is(.category-tile span,.gb-icon-tile,.gb-stat-icon){background:var(--gb-soft)!important;color:var(--gb-primary)!important}
-html[data-gb-palette] body footer{background:var(--gb-bg)!important;color:var(--gb-muted)!important;border-color:var(--gb-line)!important}
-html[data-gb-palette] body :is(.gb-menu-panel,.gb-drawer,.gb-settings-panel,.gb-modal,.gb-popover,.gb-reading-list-backdrop){background:var(--gb-surface)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important}
-html[data-gb-palette] body :is(.gb-menu-panel,.gb-drawer) a{color:var(--gb-text)}html[data-gb-palette] body :is(.gb-menu-panel,.gb-drawer) a:hover{background:var(--gb-soft)!important;color:var(--gb-primary)!important}
-html[data-gb-palette] body .gb-settings-toggle,html[data-gb-palette] body .gb-theme-toggle{background:var(--gb-soft)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important}html[data-gb-palette] body .gb-theme-toggle small{color:var(--gb-muted)!important}
-html[data-gb-palette] body :is(.gb-drawer-section-title,.eyebrow,.featured-label,.gb-kicker){color:var(--gb-primary2)!important}
-html[data-gb-palette] body .article-thumb{background:linear-gradient(135deg,var(--gb-header2),var(--gb-header))!important}
-html[data-gb-palette] body :is(.gb-entry-gate,.gb-login-panel,.gb-auth-panel){background:var(--gb-surface)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important}
-html[data-gb-palette] body main :is(section,article,aside)[class*="card"],html[data-gb-palette] body main [class*="panel"],html[data-gb-palette] body main [class*="widget"],html[data-gb-palette] body main [class*="modal"]{background-color:var(--gb-surface)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important}
-</style><style id="gb-classic-theme-tokens">
+<style id="gb-classic-theme-tokens">
 html[data-gb-palette="classic"]{color-scheme:light;--gb-bg:#f5f7f3;--gb-surface:#fffefa;--gb-soft:#edf3ed;--gb-header:#073b35;--gb-header2:#0f7664;--gb-accent:#e8c875;--gb-text:#263a33;--gb-muted:#718078;--gb-line:#dce7dd;--gb-primary:#315e50;--gb-primary2:#477764;--gb-shadow:rgba(37,79,69,.07)}
 </style></body>
  </html>`);
@@ -6071,9 +6031,7 @@ html.gb-gate-open,html.gb-gate-open body{
 @keyframes gbVoicePulseLive{50%{box-shadow:0 0 0 5px #e65b5b25}}
 @media(max-width:520px){#gbGlobalSearch .gb-voice-search{flex-basis:34px!important;width:34px!important;min-width:34px!important;height:34px!important;min-height:34px!important;padding:6px!important}}
 </style>
-<style id="gb-five-theme-system">
-.gb-theme-choices{display:grid;gap:8px;padding:6px 2px 10px}.gb-theme-choices[hidden]{display:none!important}.gb-theme-choice{display:flex;align-items:center;gap:11px;width:100%;min-height:58px;padding:9px 11px;border:1px solid var(--gb-line);border-radius:13px;background:var(--gb-surface);color:var(--gb-text);text-align:left;box-shadow:none}.gb-theme-choice>span:nth-child(2){display:grid;gap:2px;flex:1;min-width:0}.gb-theme-choice strong{font-size:13px}.gb-theme-choice small{font-size:11px;color:var(--gb-muted)}.gb-theme-swatch{width:46px;height:34px;flex:0 0 46px;border-radius:9px;border:1px solid var(--sw3);background:linear-gradient(135deg,var(--sw1) 0 48%,var(--sw2) 49% 78%,var(--sw3) 79%)}.gb-theme-check{opacity:0;color:var(--gb-accent);font-weight:900}.gb-theme-choice[aria-pressed="true"]{border-color:var(--gb-accent);background:var(--gb-soft)}.gb-theme-choice[aria-pressed="true"] .gb-theme-check{opacity:1}
-</style>
+
 <script id="gb-five-theme-system-script">
 (()=>{const init=()=>{const root=document.documentElement,wrap=document.getElementById("gbThemeChoices"),toggle=document.getElementById("gbChangeThemeToggle"),name=document.getElementById("gbCurrentPaletteName"),labels={classic:"GyanBhoomi Classic",sage:"Botanical Sage",coastal:"Coastal Mist",sand:"Warm Sand"};if(!wrap||!toggle||wrap.dataset.themeControllerReady==="1")return;wrap.dataset.themeControllerReady="1";const apply=value=>{const theme=Object.prototype.hasOwnProperty.call(labels,value)?value:"classic";root.setAttribute("data-gb-palette",theme);try{localStorage.setItem("gb_site_palette",theme)}catch(e){}wrap.querySelectorAll("[data-gb-palette]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.gbPalette===theme)));if(name)name.textContent=labels[theme];document.dispatchEvent(new CustomEvent("gb:themechange",{detail:{theme}}));};let saved="classic";try{saved=localStorage.getItem("gb_site_palette")||"classic"}catch(e){}apply(saved);toggle.addEventListener("click",()=>{const open=wrap.hidden;wrap.hidden=!open;toggle.setAttribute("aria-expanded",String(open));const c=document.getElementById("gbThemeChoicesChevron");if(c)c.textContent=open?"⌃":"⌄"});wrap.addEventListener("click",e=>{const b=e.target.closest("[data-gb-palette]");if(b&&wrap.contains(b)){e.preventDefault();apply(b.dataset.gbPalette)}});};if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();})();
 </script>
@@ -6097,121 +6055,7 @@ const observer=new MutationObserver(ensure);
 observer.observe(document.documentElement,{childList:true,subtree:true});
 setTimeout(()=>observer.disconnect(),10000);
 })();
-</script><style id="gb-theme-final-global-v4">
-/* Final theme layer: deliberately last so it wins over legacy component colours. */
-html[data-gb-palette="classic"]{--gb-bg:#f5f7f3;--gb-surface:#fffefa;--gb-soft:#edf3ed;--gb-header:#073b35;--gb-header2:#0f7664;--gb-accent:#e8c875;--gb-text:#263a33;--gb-muted:#718078;--gb-line:#dce7dd;--gb-primary:#315e50;--gb-primary2:#477764;--gb-shadow:rgba(7,59,53,.08)}
-html[data-gb-palette="sage"]{--gb-bg:#f4f7f2;--gb-surface:#fffefa;--gb-soft:#eaf1e9;--gb-header:#31594e;--gb-header2:#426d5e;--gb-accent:#b99a62;--gb-text:#293b34;--gb-muted:#718078;--gb-line:#dfe7df;--gb-primary:#386b59;--gb-primary2:#4e806c;--gb-shadow:rgba(39,72,58,.07)}
-html[data-gb-palette="coastal"]{--gb-bg:#f2f6f8;--gb-surface:#fff;--gb-soft:#e8f0f4;--gb-header:#36566b;--gb-header2:#52758a;--gb-accent:#b5c7c9;--gb-text:#293b45;--gb-muted:#71818a;--gb-line:#dce6eb;--gb-primary:#426d83;--gb-primary2:#5d879a;--gb-shadow:rgba(48,78,94,.07)}
-html[data-gb-palette="sand"]{--gb-bg:#f8f6f0;--gb-surface:#fffefa;--gb-soft:#f1ede3;--gb-header:#665640;--gb-header2:#897555;--gb-accent:#c4a979;--gb-text:#403a30;--gb-muted:#827969;--gb-line:#e8e1d4;--gb-primary:#806b49;--gb-primary2:#9a815b;--gb-shadow:rgba(87,70,45,.07)}
-html[data-gb-palette] body{background:var(--gb-bg)!important;color:var(--gb-text)!important}
-html[data-gb-palette] body header,html[data-gb-palette] body .gb-header,html[data-gb-palette] body .gb-topbar{background:linear-gradient(120deg,var(--gb-header),var(--gb-header2))!important;color:#fff!important}
-html[data-gb-palette] body main,html[data-gb-palette] body .gb-page,html[data-gb-palette] body .gb-content{background:transparent!important;color:var(--gb-text)!important}
-html[data-gb-palette] body :is(.intro,.card,.article-card,.article-full,.dict-wotd,.dict-alpha,.gb-card,.gb-panel,.gb-section,.gb-widget,.gb-settings-card,.gb-profile-card,.gb-feature-card,.gb-discovery-card,.gb-search-wrap,.gb-resource-panel,.gb-stat-card,.gb-goal-card,.gb-quiz-card,.gb-learning-card,.gb-modal-card,.gb-daily-quiz,.gb-discovery-strip,.gb-content-card,.gb-list-card,.gb-profile-panel,.gb-dashboard-card,.gb-tool-card,.gb-info-card,.gb-result-card,.gb-form-card,.gb-auth-card,[class*="panel"],[class*="widget"],[class*="content-card"]){background:var(--gb-surface)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important;box-shadow:0 7px 22px var(--gb-shadow)!important}
-html[data-gb-palette] body :is(h1,h2,h3,h4,h5,.section-heading h2,.gb-section-title,.gb-card-title,.gb-heading){color:var(--gb-primary)!important}
-html[data-gb-palette] body :is(p,small,.muted,.meta,.excerpt,.gb-muted,.gb-description,.helper-text){color:var(--gb-muted)}
-html[data-gb-palette] body :is(input,textarea,select){background:var(--gb-surface)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important}
-html[data-gb-palette] body :is(button,.btn,.gb-btn):not(.gb-theme-choice):not(nav button){border-color:var(--gb-line)}
-html[data-gb-palette] body :is(.gb-primary,.gb-auth-primary,.gb-submit-button,#submitBtn,#askButton,#loginBtn){background:linear-gradient(120deg,var(--gb-primary),var(--gb-primary2))!important;color:#fff!important}
-html[data-gb-palette] body nav button{background:#ffffff18!important;color:#fff!important;border-color:#ffffff45!important}
-html[data-gb-palette] body nav button.active{background:var(--gb-accent)!important;color:var(--gb-header)!important}
-html[data-gb-palette] body footer{background:var(--gb-bg)!important;color:var(--gb-muted)!important}
-html[data-gb-palette] body :is(.gb-menu-panel,.gb-drawer,.gb-settings-panel,.gb-modal,.gb-popover){background:var(--gb-surface)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important}
-html[data-gb-palette] body .gb-theme-choice{background:var(--gb-surface)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important}
-html[data-gb-palette] body .gb-theme-choice[aria-pressed="true"]{background:var(--gb-soft)!important;border-color:var(--gb-accent)!important}
-
-/* Readability repair: legacy pages hard-code pale text, which became invisible on light surfaces. */
-html[data-gb-palette] body main,
-html[data-gb-palette] body #content,
-html[data-gb-palette] body .tab-content,
-html[data-gb-palette] body .gb-tab-content,
-html[data-gb-palette] body .gb-page,
-html[data-gb-palette] body .gb-content,
-html[data-gb-palette] body .gb-menu-panel,
-html[data-gb-palette] body .gb-drawer,
-html[data-gb-palette] body .gb-modal,
-html[data-gb-palette] body .gb-settings-panel{color:var(--gb-text)!important}
-html[data-gb-palette] body main :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
-html[data-gb-palette] body #content :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
-html[data-gb-palette] body .tab-content :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
-html[data-gb-palette] body .gb-tab-content :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
-html[data-gb-palette] body .gb-menu-panel :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
-html[data-gb-palette] body .gb-drawer :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
-html[data-gb-palette] body .gb-modal :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
-html[data-gb-palette] body .gb-settings-panel :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use){color:var(--gb-text)!important}
-html[data-gb-palette] body main :is(h1,h2,h3,h4,h5,h6,.title,.heading,.section-title),
-html[data-gb-palette] body #content :is(h1,h2,h3,h4,h5,h6,.title,.heading,.section-title),
-html[data-gb-palette] body .tab-content :is(h1,h2,h3,h4,h5,h6,.title,.heading,.section-title){color:var(--gb-primary)!important}
-html[data-gb-palette] body main :is(p,small,.muted,.meta,.excerpt,.description,.helper-text),
-html[data-gb-palette] body #content :is(p,small,.muted,.meta,.excerpt,.description,.helper-text),
-html[data-gb-palette] body .tab-content :is(p,small,.muted,.meta,.excerpt,.description,.helper-text){color:var(--gb-muted)!important}
-html[data-gb-palette] body main :is(button,.btn,input[type=button],input[type=submit]){color:var(--gb-text)!important}
-html[data-gb-palette] body main :is(.primary,.gb-primary,.gb-auth-primary,.gb-submit-button,#submitBtn,#askButton,#loginBtn){color:#fff!important;background:linear-gradient(120deg,var(--gb-primary),var(--gb-primary2))!important}
-html[data-gb-palette] body header :is(*),html[data-gb-palette] body nav :is(*){color:inherit}
-html[data-gb-palette] body header,html[data-gb-palette] body nav{color:#fff!important}
-
-/* Theme contrast correction v5: retain dark feature surfaces and use light text on them. */
-html[data-gb-palette] body main .gb-home-hero,
-html[data-gb-palette] body main .gb-daily-card{
-  background:radial-gradient(circle at 82% 20%,color-mix(in srgb,var(--gb-header2) 78%,transparent),transparent 38%),linear-gradient(115deg,var(--gb-header),var(--gb-header2))!important;
-  color:#fff!important;border-color:var(--gb-accent)!important;
-}
-html[data-gb-palette] body main .gb-home-hero :is(*),
-html[data-gb-palette] body main .gb-daily-card :is(*){
-  color:#f8f6ed!important;
-}
-html[data-gb-palette] body main .gb-home-hero :is(h1,h2,h3,h4),
-html[data-gb-palette] body main .gb-daily-card :is(h1,h2,h3,h4){
-  color:#ffe2a0!important;
-}
-html[data-gb-palette] body main .gb-home-hero .gb-kicker,
-html[data-gb-palette] body main .gb-daily-card .gb-kicker,
-html[data-gb-palette] body main .gb-daily-card .gb-daily-copy small{
-  color:#f3d18a!important;
-}
-html[data-gb-palette] body main #gbGlobalSearch button[type="submit"],
-html[data-gb-palette] body main #gbBrowseLanguage,
-html[data-gb-palette] body main .gb-daily-quiz-more,
-html[data-gb-palette] body main .gb-discovery-strip .gb-path-buttons button{
-  color:#fff!important;
-}
-html[data-gb-palette] body main .gb-daily-card .gb-fact-refresh{
-  background:var(--gb-accent)!important;color:#24382f!important;border-color:var(--gb-accent)!important;
-}
-html[data-gb-palette] body .gb-settings-toggle{
-  background:var(--gb-soft)!important;color:var(--gb-text)!important;border:1px solid var(--gb-line)!important;
-}
-html[data-gb-palette] body .gb-settings-toggle :is(span,strong,small){
-  color:var(--gb-text)!important;
-}
-
-/* Explicit high-specificity contrast fixes for the elements visible in the reported mobile screenshots. */
-html[data-gb-palette] body header.gb-header .gb-brand-stack h1,
-html[data-gb-palette] body header.gb-header .gb-brand-stack h1 span,
-html[data-gb-palette] body header.gb-header .gb-tagline,
-html[data-gb-palette] body header.gb-header .gb-motto{color:#fff!important}
-html[data-gb-palette] body main #library .gb-home-hero .gb-hero-copy .gb-kicker{color:#f5d58e!important}
-html[data-gb-palette] body main #library .gb-home-hero .gb-hero-copy h2,
-html[data-gb-palette] body main #library .gb-home-hero .gb-hero-copy h2 em{color:#ffe2a0!important}
-html[data-gb-palette] body main #library .gb-home-hero .gb-hero-copy p{color:#f4f7f2!important}
-html[data-gb-palette] body main #library .gb-home-hero{
- background:linear-gradient(115deg,var(--gb-header),var(--gb-header2))!important;
-}
-html[data-gb-palette] body main #library .gb-daily-card .gb-daily-copy .gb-kicker,
-html[data-gb-palette] body main #library .gb-daily-card .gb-daily-copy h2{color:#ffe2a0!important}
-html[data-gb-palette] body main #library .gb-daily-card .gb-daily-copy p{color:#f4f7f2!important}
-html[data-gb-palette] body main #library .gb-daily-card .gb-daily-copy small{color:#f5d58e!important}
-html[data-gb-palette] body main #library .gb-daily-card{background:linear-gradient(115deg,var(--gb-header),var(--gb-header2))!important;color:#fff!important}
-html[data-gb-palette] body main #library #gbBrowseLanguage{background:linear-gradient(120deg,var(--gb-primary),var(--gb-primary2))!important;color:#fff!important}
-html[data-gb-palette] body main #library #gbGlobalSearch button[type="submit"]{background:linear-gradient(120deg,var(--gb-primary),var(--gb-primary2))!important;color:#fff!important}
-html[data-gb-palette] body #gbMenuPanel #gbSettingsToggle{
- background:linear-gradient(120deg,var(--gb-header),var(--gb-header2))!important;
- color:#fff!important;border-color:var(--gb-accent)!important;
-}
-html[data-gb-palette] body #gbMenuPanel #gbSettingsToggle span,
-html[data-gb-palette] body #gbMenuPanel #gbSettingsToggle strong{color:#fff!important}
-</style>
-<script id="gb-theme-final-controller-v4">
-(()=>{const boot=()=>{const root=document.documentElement,wrap=document.getElementById("gbThemeChoices"),toggle=document.getElementById("gbChangeThemeToggle"),name=document.getElementById("gbCurrentPaletteName"),labels={classic:"GyanBhoomi Classic",sage:"Botanical Sage",coastal:"Coastal Mist",sand:"Warm Sand"};if(!wrap||!toggle)return;const apply=v=>{const t=labels[v]?v:"classic";root.setAttribute("data-gb-palette",t);try{localStorage.setItem("gb_site_palette",t)}catch(e){}wrap.querySelectorAll("[data-gb-palette]").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.gbPalette===t)));if(name)name.textContent=labels[t];};let saved="classic";try{saved=localStorage.getItem("gb_site_palette")||"classic"}catch(e){}apply(saved);if(!toggle.dataset.gbBound){toggle.dataset.gbBound="1";toggle.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();const show=wrap.hidden;wrap.hidden=!show;toggle.setAttribute("aria-expanded",String(show));const c=document.getElementById("gbThemeChoicesChevron");if(c)c.textContent=show?"⌃":"⌄";},true);}if(!wrap.dataset.gbBound){wrap.dataset.gbBound="1";wrap.addEventListener("click",e=>{const b=e.target.closest("button[data-gb-palette]");if(!b)return;e.preventDefault();e.stopPropagation();apply(b.dataset.gbPalette);},true);}};if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot,{once:true});else boot();})();
 </script>
+
 </body>
 </html>
