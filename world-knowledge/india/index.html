@@ -65,7 +65,7 @@ a{color:#145b50}header{background:linear-gradient(125deg,#102f2b,#1d5148);color:
 .gb-photo-status{font-size:12px;color:#66736d;text-align:center;margin:12px 0 0}
 @media(max-width:800px){.gb-photo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:560px){.gb-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.gb-photo-card img{height:125px}.gb-photo-caption{padding:8px}.gb-photo-caption b{font-size:11px}}
-.gb-inline-photo-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:16px 0 22px}.gb-inline-photo{margin:0;min-width:0;background:#fff;border:1px solid #e5e8e2;border-radius:14px;overflow:hidden;box-shadow:0 5px 18px rgba(18,59,53,.07)}.gb-inline-photo img{display:block;width:100%;height:210px;object-fit:cover;background:#eef1ec}.gb-inline-photo figcaption{padding:9px 12px 11px;line-height:1.45}.gb-inline-photo figcaption b{display:block;color:#123b35;font-size:13px;margin-bottom:4px}.gb-inline-photo figcaption span{display:block;color:#66736d;font-size:11px}.gb-inline-photo figcaption a{color:#145b50}#gbPhotoLibrary{display:none!important}.gb-inline-photo-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0 24px;clear:both}.gb-inline-photo{margin:0;min-width:0;background:#fff;border:1px solid #e5e8e2;border-radius:14px;overflow:hidden;box-shadow:0 5px 18px rgba(18,59,53,.07)}.gb-inline-photo img{display:block;width:100%;height:220px;object-fit:cover;background:#eef1ec}.gb-inline-photo figcaption{padding:9px 12px 11px;line-height:1.45}.gb-inline-photo figcaption b{display:block;color:#123b35;font-size:13px;margin-bottom:4px}.gb-inline-photo figcaption span{display:block;color:#66736d;font-size:11px}.gb-inline-photo figcaption a{color:#145b50}</style>
+.gb-inline-photo-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:16px 0 22px}.gb-inline-photo{margin:0;min-width:0;background:#fff;border:1px solid #e5e8e2;border-radius:14px;overflow:hidden;box-shadow:0 5px 18px rgba(18,59,53,.07)}.gb-inline-photo img{display:block;width:100%;height:210px;object-fit:cover;background:#eef1ec}.gb-inline-photo figcaption{padding:9px 12px 11px;line-height:1.45}.gb-inline-photo figcaption b{display:block;color:#123b35;font-size:13px;margin-bottom:4px}.gb-inline-photo figcaption span{display:block;color:#66736d;font-size:11px}.gb-inline-photo figcaption a{color:#145b50}#gbPhotoLibrary{display:none!important}.gb-inline-photo{display:block;width:min(47%,390px);margin:12px 0 18px 20px;padding:0;background:#fff;border:1px solid #e5e8e2;border-radius:14px;overflow:hidden;box-shadow:0 5px 18px rgba(18,59,53,.07)}.gb-inline-photo[style*="left"]{margin:12px 20px 18px 0}.gb-inline-photo img{display:block;width:100%;height:210px;object-fit:cover;background:#eef1ec}@media(max-width:620px){.gb-inline-photo,.gb-inline-photo[style*="left"]{float:none!important;width:100%;max-width:100%;margin:14px 0 18px}}.gb-inline-photo figcaption{padding:9px 12px 11px;line-height:1.45}.gb-inline-photo figcaption b{display:block;color:#123b35;font-size:13px;margin-bottom:4px}.gb-inline-photo figcaption span{display:block;color:#66736d;font-size:11px}.gb-inline-photo figcaption a{color:#145b50}</style>
 </head>
 <body>
 <header><div class="top"><div class="brand">🌿 GyanBhoomi <small>KNOWLEDGE LIBRARY · ज्ञान की भूमि</small></div><a class="back" href="../">← World GK Directory</a></div>
@@ -2631,22 +2631,30 @@ function distributeTopicPhotos(){
 const article=document.getElementById("encyclopedia")||document.getElementById("article");
 if(!article||!article.querySelector("h2"))return false;
 if(article.dataset.photosPlaced)return true;
-const map=[["Taj Mahal","tourism|monuments|architecture|heritage"],["Hampi","early medieval|regional kingdoms|tourism"],["Ajanta","post-mauryan|classical|buddhist"],["Varanasi","urban centres|cities|culture|religion"],["Himalaya","mountain ranges|physical divisions"],["Kerala backwaters","lakes|wetlands|water bodies|coast"],["Rajasthan forts","tourism|monuments|heritage"],["Indian wildlife","biodiversity|wildlife|conservation"],["Indian temples","religion|architecture|culture"],["Sundarbans","biodiversity|wetlands|mangrove"],["Kaziranga","wildlife|national parks|biodiversity"],["Goa beaches","tourism|coast|culture"],["Sanchi","maurya|buddhist|heritage"],["Konark","architecture|heritage|tourism"],["Meenakshi","religion|temples|architecture"],["Darjeeling","agriculture|tea|tourism"],["Andaman","islands|physical divisions|geography"],["Indian festivals","culture|festivals|traditions"]];
-const used=new Set();
+const map=[["Taj Mahal","tourism|monuments|architecture|heritage"],["Hampi","early medieval|regional kingdoms|history"],["Ajanta","post-mauryan|classical|buddhist"],["Varanasi","urban centres|cities|population"],["Himalaya","mountain ranges|physical divisions|geography"],["Kerala backwaters","lakes|wetlands|water bodies|geography"],["Rajasthan forts","tourism|monuments|heritage"],["Indian wildlife","biodiversity|wildlife|conservation"],["Indian temples","religion|architecture|culture"],["Sundarbans","biodiversity|wetlands|mangrove"],["Kaziranga","wildlife|national parks|biodiversity"],["Goa beaches","tourism|coast|culture"],["Sanchi","maurya|buddhist|history"],["Konark","architecture|heritage|tourism"],["Meenakshi","religion|temples|architecture"],["Darjeeling","agriculture|tea|economy"],["Andaman","islands|physical divisions|geography"],["Indian festivals","culture|festivals|traditions"]];
+const sectionUse=new Map(),used=new Set();let placed=0;
 for(const [topic,headingPattern] of map){
-const candidates=images.filter(im=>im.topic.toLowerCase().includes(topic.toLowerCase())&&!used.has(im.page)).slice(0,2);
+const candidates=images.filter(im=>im.topic.toLowerCase().includes(topic.toLowerCase())&&!used.has(im.page)).slice(0,6);
 if(!candidates.length)continue;
 const re=new RegExp(headingPattern,"i");
-const heading=[...article.querySelectorAll("h2,h3")].find(h=>re.test(h.textContent));
+const heading=[...article.querySelectorAll("h2")].find(h=>re.test(h.textContent));
 if(!heading)continue;
-let anchor=heading.nextElementSibling;
-while(anchor&&anchor.tagName!=="P"&&anchor.tagName!=="H2"&&anchor.tagName!=="H3")anchor=anchor.nextElementSibling;
-if(!anchor||anchor.tagName!=="P")continue;
-const wrap=document.createElement("div");wrap.className="gb-inline-photo-row";
-wrap.innerHTML=candidates.map(im=>'<figure class="gb-inline-photo"><a href="'+esc(im.page)+'" target="_blank" rel="noopener noreferrer"><img src="'+esc(im.thumb)+'" alt="'+esc(im.title)+'" loading="lazy" decoding="async"></a><figcaption><b>'+esc(im.title)+'</b><span>'+esc(im.artist||"Creator credited on source page")+' · '+esc(im.license||"See source page for licence")+' · <a href="'+esc(im.page)+'" target="_blank" rel="noopener noreferrer">Source</a></span></figcaption></figure>').join("");
-anchor.insertAdjacentElement("afterend",wrap);candidates.forEach(im=>used.add(im.page));
+const paras=[];let node=heading.nextElementSibling;
+while(node&&node.tagName!=="H2"){if(node.tagName==="P"&&node.textContent.trim().length>80)paras.push(node);node=node.nextElementSibling;}
+if(!paras.length)continue;
+const key=heading.id||heading.textContent;
+let offset=sectionUse.get(key)||0;
+for(let n=0;n<candidates.length;n++){
+const im=candidates[n],para=paras[Math.min(paras.length-1,offset+n*2)];
+const fig=document.createElement("figure");fig.className="gb-inline-photo";
+fig.style.float=(placed%2===0?"right":"left");
+fig.innerHTML='<a href="'+esc(im.page)+'" target="_blank" rel="noopener noreferrer"><img src="'+esc(im.thumb)+'" alt="'+esc(im.title)+'" loading="lazy" decoding="async"></a><figcaption><b>'+esc(im.title)+'</b><span>'+esc(im.artist||"Creator credited on source page")+' · '+esc(im.license||"See source page for licence")+' · <a href="'+esc(im.page)+'" target="_blank" rel="noopener noreferrer">Source</a></span></figcaption>';
+para.insertAdjacentElement("afterend",fig);used.add(im.page);placed++;
 }
-article.dataset.photosPlaced="1";return true;
+sectionUse.set(key,offset+candidates.length*2);
+}
+article.dataset.photosPlaced="1";article.dataset.inlinePhotoCount=String(placed);
+return true;
 }
 if(!distributeTopicPhotos()){
 const article=document.getElementById("encyclopedia")||document.getElementById("article");
