@@ -2632,7 +2632,18 @@ for(const item of batch)if(item.status==="fulfilled")all.push(...item.value);
 }
 images=all;
 function placeTopicPhotos(){
-const article=document.getElementById("article");if(!article)return;
+const article=document.getElementById("article")||document.getElementById("encyclopedia");
+if(!article)return;
+if(!article.querySelector("h2")){
+if(!article.dataset.photoObserver){
+article.dataset.photoObserver="1";
+const observer=new MutationObserver(()=>{if(article.querySelector("h2")){observer.disconnect();delete article.dataset.photoObserver;placeTopicPhotos();}});
+observer.observe(article,{childList:true,subtree:true});
+}
+return;
+}
+if(article.dataset.photosPlaced)return;
+article.dataset.photosPlaced="1";
 const used=new Set();
 const groups=[{"name":"geography","heading":"geograph|landforms|climate|rivers|mountains","terms":["Himalaya","Kerala backwaters","Sundarbans","Andaman"]},{"name":"history","heading":"history|civilisation|ancient|medieval","terms":["Ajanta","Sanchi","Hampi"]},{"name":"culture","heading":"culture|heritage|religion|architecture","terms":["Taj Mahal","Indian temples","Konark","Meenakshi","Varanasi"]},{"name":"economy","heading":"economy|agriculture|industry","terms":["Darjeeling","Goa"]},{"name":"environment","heading":"environment|biodiversity|wildlife|conservation","terms":["Kaziranga","Indian wildlife"]},{"name":"tourism","heading":"tourism|travel|monuments|natural wonders","terms":["Rajasthan forts","Taj Mahal","Hampi","Goa"]}];
 for(const group of groups){
