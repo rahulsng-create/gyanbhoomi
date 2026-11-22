@@ -1,0 +1,23 @@
+{
+  "name": "GyanBhoomi — The Universal Knowledge Library",
+  "short_name": "GyanBhoomi",
+  "start_url": "/gyanbhoomi/",
+  "scope": "/gyanbhoomi/",
+  "display": "standalone",
+  "background_color": "#062f29",
+  "theme_color": "#103d36",
+  "icons": [
+    {
+      "src": "/gyanbhoomi/assets/gyanbhoomi-symbol.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/gyanbhoomi/assets/gyanbhoomi-favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
