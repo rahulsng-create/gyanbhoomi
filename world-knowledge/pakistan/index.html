@@ -39,7 +39,7 @@ header{background:linear-gradient(125deg,#102f2b,#1d5148);color:white;padding:15
 .gb-photo-status{font-size:12px;color:#66736d;text-align:center;margin:12px 0 0}
 @media(max-width:800px){.gb-photo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:560px){.gb-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.gb-photo-card img{height:125px}.gb-photo-caption{padding:8px}.gb-photo-caption b{font-size:11px}}
-.gb-inline-photo-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:16px 0 22px}.gb-inline-photo{margin:0;min-width:0;background:#fff;border:1px solid #e5e8e2;border-radius:14px;overflow:hidden;box-shadow:0 5px 18px rgba(18,59,53,.07)}.gb-inline-photo img{display:block;width:100%;height:210px;object-fit:cover;background:#eef1ec}.gb-inline-photo figcaption{padding:9px 12px 11px;line-height:1.45}.gb-inline-photo figcaption b{display:block;color:#123b35;font-size:13px;margin-bottom:4px}.gb-inline-photo figcaption span{display:block;color:#66736d;font-size:11px}.gb-inline-photo figcaption a{color:#145b50}</style>
+.gb-inline-photo-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:16px 0 22px}.gb-inline-photo{margin:0;min-width:0;background:#fff;border:1px solid #e5e8e2;border-radius:14px;overflow:hidden;box-shadow:0 5px 18px rgba(18,59,53,.07)}.gb-inline-photo img{display:block;width:100%;height:210px;object-fit:cover;background:#eef1ec}.gb-inline-photo figcaption{padding:9px 12px 11px;line-height:1.45}.gb-inline-photo figcaption b{display:block;color:#123b35;font-size:13px;margin-bottom:4px}.gb-inline-photo figcaption span{display:block;color:#66736d;font-size:11px}.gb-inline-photo figcaption a{color:#145b50}#gbPhotoLibrary{display:none!important}.gb-inline-photo-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0 24px;clear:both}.gb-inline-photo{margin:0;min-width:0;background:#fff;border:1px solid #e5e8e2;border-radius:14px;overflow:hidden;box-shadow:0 5px 18px rgba(18,59,53,.07)}.gb-inline-photo img{display:block;width:100%;height:220px;object-fit:cover;background:#eef1ec}.gb-inline-photo figcaption{padding:9px 12px 11px;line-height:1.45}.gb-inline-photo figcaption b{display:block;color:#123b35;font-size:13px;margin-bottom:4px}.gb-inline-photo figcaption span{display:block;color:#66736d;font-size:11px}.gb-inline-photo figcaption a{color:#145b50}</style>
 </head>
 <body>
 <header><div class="top"><div class="brand">GyanBhoomi <small>WORLD GENERAL KNOWLEDGE</small></div><a class="back" href="../">← World Knowledge</a></div>
@@ -117,14 +117,10 @@ const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&
 const plain=s=>{const d=document.createElement("div");d.innerHTML=String(s||"");return (d.textContent||d.innerText||"").replace(/\s+/g," ").trim();};
 const seen=new Set();let images=[],shown=0;const PAGE=24;
 function render(){
-const part=images.slice(shown,shown+PAGE);
-for(const im of part){
-const card=document.createElement("article");card.className="gb-photo-card";
-card.innerHTML='<a href="'+esc(im.page)+'" target="_blank" rel="noopener noreferrer" title="Open image source and licence"><img src="'+esc(im.thumb)+'" alt="'+esc(im.title)+'" loading="lazy" decoding="async"><div class="gb-photo-caption"><b>'+esc(im.title)+'</b><span>'+esc(im.artist||"Creator credited on source page")+'</span><span class="gb-photo-license">'+esc(im.license||"See source page for licence")+'</span></div></a>';
-grid.appendChild(card);
-}
-shown+=part.length;more.hidden=shown>=images.length;more.textContent="Show more photos ("+Math.max(0,images.length-shown)+" remaining)";
-count.textContent=images.length+"+ curated photos";status.textContent="Showing "+shown+" of "+images.length+" images. Open any image to see its original file page, creator and licence.";
+distributeTopicPhotos();
+shown=images.length;more.hidden=true;
+count.textContent=images.length+" relevant photos placed in the encyclopedia";
+status.textContent="Photos are placed within their related chapter discussions, with creator and licence credits.";
 }
 more.addEventListener("click",render);
 async function searchTopic(topic){
@@ -147,35 +143,31 @@ const batch=await Promise.allSettled(topics.slice(i,i+5).map(searchTopic));
 for(const item of batch)if(item.status==="fulfilled")all.push(...item.value);
 }
 images=all;
-function placeTopicPhotos(){
-const article=document.getElementById("article")||document.getElementById("encyclopedia");
-if(!article)return;
-if(!article.querySelector("h2")){
-if(!article.dataset.photoObserver){
-article.dataset.photoObserver="1";
-const observer=new MutationObserver(()=>{if(article.querySelector("h2")){observer.disconnect();delete article.dataset.photoObserver;placeTopicPhotos();}});
-observer.observe(article,{childList:true,subtree:true});
-}
-return;
-}
-if(article.dataset.photosPlaced)return;
-article.dataset.photosPlaced="1";
+function distributeTopicPhotos(){
+const article=document.getElementById("encyclopedia")||document.getElementById("article");
+if(!article||!article.querySelector("h2"))return false;
+if(article.dataset.photosPlaced)return true;
+const map=[["Badshahi Mosque","culture|religion|architecture|heritage"],["Mohenjo-daro","indus|harappan|ancient civilisation"],["K2","mountain ranges|physical divisions|geography"],["Hunza","tourism|mountain valleys|geography"],["Lahore Fort","culture|heritage|architecture"],["Taxila","gandhara|ancient|buddhist"],["Pakistan mountains","mountain ranges|physical divisions"],["Pakistan Indus River","rivers|indus|water resources"],["Pakistan cultural heritage","culture|heritage|traditions"],["Hingol","biodiversity|national parks|environment"],["Skardu","tourism|mountain valleys"],["Makli","heritage|necropolis|architecture"],["Rohtas Fort","history|forts|heritage"],["Swat Valley","tourism|buddhist|geography"],["Pakistan desert","deserts|climate|geography"],["Pakistan coast","coast|arabian sea|ports"],["traditional culture","culture|crafts|traditions"],["Shalimar Gardens","gardens|architecture|heritage"]];
 const used=new Set();
-const groups=[{"name":"geography","heading":"geograph|landforms|climate|rivers|mountains","terms":["K2","Hunza","Pakistan mountains","Skardu","Indus River"]},{"name":"history","heading":"history|civilisation|ancient|medieval","terms":["Mohenjo-daro","Taxila","Makli","Rohtas Fort"]},{"name":"culture","heading":"culture|heritage|religion|architecture","terms":["Badshahi Mosque","Lahore Fort","Shalimar Gardens","traditional culture"]},{"name":"economy","heading":"economy|agriculture|industry","terms":["Gwadar","Pakistan coast"]},{"name":"environment","heading":"environment|biodiversity|wildlife|conservation","terms":["Hingol","Pakistan desert"]},{"name":"tourism","heading":"tourism|travel|monuments|natural wonders","terms":["Hunza","Swat Valley","Deosai","Badshahi Mosque"]}];
-for(const group of groups){
-const heading=[...article.querySelectorAll("h2,h3")].find(h=>new RegExp(group.heading,"i").test(h.textContent));
+for(const [topic,headingPattern] of map){
+const candidates=images.filter(im=>im.topic.toLowerCase().includes(topic.toLowerCase())&&!used.has(im.page)).slice(0,2);
+if(!candidates.length)continue;
+const re=new RegExp(headingPattern,"i");
+const heading=[...article.querySelectorAll("h2,h3")].find(h=>re.test(h.textContent));
 if(!heading)continue;
-const matches=images.filter(im=>group.terms.some(term=>im.topic.toLowerCase().includes(term.toLowerCase()))&&!used.has(im.page)).slice(0,2);
-if(!matches.length)continue;
 let anchor=heading.nextElementSibling;
 while(anchor&&anchor.tagName!=="P"&&anchor.tagName!=="H2"&&anchor.tagName!=="H3")anchor=anchor.nextElementSibling;
-if(!anchor||anchor.tagName!=="P")anchor=heading;
+if(!anchor||anchor.tagName!=="P")continue;
 const wrap=document.createElement("div");wrap.className="gb-inline-photo-row";
-wrap.innerHTML=matches.map(im=>'<figure class="gb-inline-photo"><a href="'+esc(im.page)+'" target="_blank" rel="noopener noreferrer"><img src="'+esc(im.thumb)+'" alt="'+esc(im.title)+'" loading="lazy" decoding="async"></a><figcaption><b>'+esc(im.title)+'</b><span>'+esc(im.artist||"Creator credited on source page")+' · '+esc(im.license||"See source page for licence")+' · <a href="'+esc(im.page)+'" target="_blank" rel="noopener noreferrer">Source</a></span></figcaption></figure>').join("");
-anchor.insertAdjacentElement("afterend",wrap);matches.forEach(im=>used.add(im.page));
+wrap.innerHTML=candidates.map(im=>'<figure class="gb-inline-photo"><a href="'+esc(im.page)+'" target="_blank" rel="noopener noreferrer"><img src="'+esc(im.thumb)+'" alt="'+esc(im.title)+'" loading="lazy" decoding="async"></a><figcaption><b>'+esc(im.title)+'</b><span>'+esc(im.artist||"Creator credited on source page")+' · '+esc(im.license||"See source page for licence")+' · <a href="'+esc(im.page)+'" target="_blank" rel="noopener noreferrer">Source</a></span></figcaption></figure>').join("");
+anchor.insertAdjacentElement("afterend",wrap);candidates.forEach(im=>used.add(im.page));
 }
+article.dataset.photosPlaced="1";return true;
 }
-placeTopicPhotos();
+if(!distributeTopicPhotos()){
+const article=document.getElementById("encyclopedia")||document.getElementById("article");
+if(article){const observer=new MutationObserver(()=>{if(distributeTopicPhotos())observer.disconnect();});observer.observe(article,{childList:true,subtree:true});}
+}
 if(images.length<100){status.textContent="Found "+images.length+" licensed, relevant images. Some topics have fewer qualifying photographs; use the source links to explore more."; }
 if(!images.length){throw new Error("No qualifying images returned");}
 render();
