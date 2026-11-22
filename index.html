@@ -6118,6 +6118,36 @@ html[data-gb-palette] body footer{background:var(--gb-bg)!important;color:var(--
 html[data-gb-palette] body :is(.gb-menu-panel,.gb-drawer,.gb-settings-panel,.gb-modal,.gb-popover){background:var(--gb-surface)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important}
 html[data-gb-palette] body .gb-theme-choice{background:var(--gb-surface)!important;color:var(--gb-text)!important;border-color:var(--gb-line)!important}
 html[data-gb-palette] body .gb-theme-choice[aria-pressed="true"]{background:var(--gb-soft)!important;border-color:var(--gb-accent)!important}
+
+/* Readability repair: legacy pages hard-code pale text, which became invisible on light surfaces. */
+html[data-gb-palette] body main,
+html[data-gb-palette] body #content,
+html[data-gb-palette] body .tab-content,
+html[data-gb-palette] body .gb-tab-content,
+html[data-gb-palette] body .gb-page,
+html[data-gb-palette] body .gb-content,
+html[data-gb-palette] body .gb-menu-panel,
+html[data-gb-palette] body .gb-drawer,
+html[data-gb-palette] body .gb-modal,
+html[data-gb-palette] body .gb-settings-panel{color:var(--gb-text)!important}
+html[data-gb-palette] body main :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
+html[data-gb-palette] body #content :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
+html[data-gb-palette] body .tab-content :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
+html[data-gb-palette] body .gb-tab-content :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
+html[data-gb-palette] body .gb-menu-panel :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
+html[data-gb-palette] body .gb-drawer :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
+html[data-gb-palette] body .gb-modal :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use),
+html[data-gb-palette] body .gb-settings-panel :is(*):not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon):not(stop):not(use){color:var(--gb-text)!important}
+html[data-gb-palette] body main :is(h1,h2,h3,h4,h5,h6,.title,.heading,.section-title),
+html[data-gb-palette] body #content :is(h1,h2,h3,h4,h5,h6,.title,.heading,.section-title),
+html[data-gb-palette] body .tab-content :is(h1,h2,h3,h4,h5,h6,.title,.heading,.section-title){color:var(--gb-primary)!important}
+html[data-gb-palette] body main :is(p,small,.muted,.meta,.excerpt,.description,.helper-text),
+html[data-gb-palette] body #content :is(p,small,.muted,.meta,.excerpt,.description,.helper-text),
+html[data-gb-palette] body .tab-content :is(p,small,.muted,.meta,.excerpt,.description,.helper-text){color:var(--gb-muted)!important}
+html[data-gb-palette] body main :is(button,.btn,input[type=button],input[type=submit]){color:var(--gb-text)!important}
+html[data-gb-palette] body main :is(.primary,.gb-primary,.gb-auth-primary,.gb-submit-button,#submitBtn,#askButton,#loginBtn){color:#fff!important;background:linear-gradient(120deg,var(--gb-primary),var(--gb-primary2))!important}
+html[data-gb-palette] body header :is(*),html[data-gb-palette] body nav :is(*){color:inherit}
+html[data-gb-palette] body header,html[data-gb-palette] body nav{color:#fff!important}
 </style>
 <script id="gb-theme-final-controller-v4">
 (()=>{const boot=()=>{const root=document.documentElement,wrap=document.getElementById("gbThemeChoices"),toggle=document.getElementById("gbChangeThemeToggle"),name=document.getElementById("gbCurrentPaletteName"),labels={classic:"GyanBhoomi Classic",sage:"Botanical Sage",coastal:"Coastal Mist",sand:"Warm Sand"};if(!wrap||!toggle)return;const apply=v=>{const t=labels[v]?v:"classic";root.setAttribute("data-gb-palette",t);try{localStorage.setItem("gb_site_palette",t)}catch(e){}wrap.querySelectorAll("[data-gb-palette]").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.gbPalette===t)));if(name)name.textContent=labels[t];};let saved="classic";try{saved=localStorage.getItem("gb_site_palette")||"classic"}catch(e){}apply(saved);if(!toggle.dataset.gbBound){toggle.dataset.gbBound="1";toggle.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();const show=wrap.hidden;wrap.hidden=!show;toggle.setAttribute("aria-expanded",String(show));const c=document.getElementById("gbThemeChoicesChevron");if(c)c.textContent=show?"⌃":"⌄";},true);}if(!wrap.dataset.gbBound){wrap.dataset.gbBound="1";wrap.addEventListener("click",e=>{const b=e.target.closest("button[data-gb-palette]");if(!b)return;e.preventDefault();e.stopPropagation();apply(b.dataset.gbPalette);},true);}};if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot,{once:true});else boot();})();
