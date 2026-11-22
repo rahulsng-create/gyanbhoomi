@@ -1741,6 +1741,61 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
 @media(prefers-reduced-motion:reduce){#gbEntryWelcome .gb-entry-brand{backdrop-filter:none}}
 </style>
 
+
+<style id="gb-admin-globe-branding">
+/* Admin workspace visual identity. Existing controls, IDs and authentication logic remain unchanged. */
+#admin .gb-admin-brandbar{
+ display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+ margin:0 0 24px;padding:clamp(18px,3vw,28px);
+ border:1px solid #c69e55;border-radius:20px;
+ background:radial-gradient(ellipse at 8% 0%,#236b56 0%,transparent 52%),linear-gradient(125deg,#0b3a32,#062723 72%,#102f2b);
+ box-shadow:0 12px 30px #031c1830;color:#fff7df;
+}
+#admin .gb-admin-brand-lockup{display:flex;align-items:center;gap:16px;min-width:0}
+#admin .gb-admin-brand-lockup>img{
+ width:58px;height:58px;flex:none;object-fit:contain;padding:3px;
+ border:1px solid #e8c875;border-radius:16px;background:#06352f;
+ box-shadow:0 5px 16px #001a1680;
+}
+#admin .gb-admin-brand-lockup>div{min-width:0}
+#admin .gb-admin-eyebrow{display:block;margin-bottom:5px;color:#f0cd82;font-size:10px;font-weight:850;letter-spacing:1.7px}
+#admin .gb-admin-brand-lockup h1{margin:0;color:#fff5dc;font:700 clamp(23px,3vw,31px)/1.12 Georgia,serif;letter-spacing:-.3px}
+#admin .gb-admin-brand-lockup p{margin:7px 0 0;color:#c9ded3;font-size:13px;line-height:1.5}
+#admin .gb-admin-access-label{
+ display:inline-flex;align-items:center;gap:8px;padding:9px 13px;
+ border:1px solid #d9b96d88;border-radius:999px;background:#ffffff0c;
+ color:#f5d992;font-size:10px;font-weight:850;letter-spacing:1.1px;white-space:nowrap;
+}
+#admin .gb-admin-access-label span{font-size:15px}
+#admin>.grid{gap:18px}
+#admin>.grid>.card,#admin>#manageArticles,#admin>#knowledgeUpdateCentre{
+ border:1px solid #b995574d;border-radius:17px;
+ box-shadow:0 8px 24px #102b2010;
+}
+#admin>.grid>.card h2,#admin>#manageArticles h2,#admin>#knowledgeUpdateCentre h2{
+ color:#174b3e;font-weight:800;letter-spacing:-.2px;
+}
+#admin>.grid>.card h3,#admin>#manageArticles h3,#admin>#knowledgeUpdateCentre h3{color:#28614f}
+#admin #loginForm input,#admin #manageSearch{
+ border-radius:10px;border:1px solid #c8d4ca;padding:11px 12px;
+}
+#admin #loginForm button,#admin #pendingRefresh,#admin #manageRefresh,#admin #kuRefresh{
+ border-radius:10px;font-weight:750;
+}
+@media(max-width:600px){
+ #admin .gb-admin-brandbar{align-items:flex-start;padding:16px;border-radius:16px}
+ #admin .gb-admin-brand-lockup{gap:11px}
+ #admin .gb-admin-brand-lockup>img{width:46px;height:46px;border-radius:13px}
+ #admin .gb-admin-eyebrow{font-size:8px;letter-spacing:1.1px}
+ #admin .gb-admin-brand-lockup h1{font-size:23px}
+ #admin .gb-admin-brand-lockup p{font-size:12px}
+ #admin .gb-admin-access-label{font-size:9px;padding:7px 10px}
+}
+body.gb-night #admin .gb-admin-brandbar{border-color:#b89550}
+body.gb-night #admin>.grid>.card,body.gb-night #admin>#manageArticles,body.gb-night #admin>#knowledgeUpdateCentre{background:#102e2a!important;border-color:#31564c!important}
+body.gb-night #admin>.grid>.card h2,body.gb-night #admin>#manageArticles h2,body.gb-night #admin>#knowledgeUpdateCentre h2,body.gb-night #admin>.grid>.card h3,body.gb-night #admin>#knowledgeUpdateCentre h3{color:#f0cf82!important}
+</style>
+
 </head><body>
 <div id="gbNetProgress" aria-hidden="true"></div><div id="gbNetNotice" role="status" aria-live="polite"><span class="gb-net-dot" aria-hidden="true"></span><span id="gbNetNoticeText">Checking internet connection…</span></div>
 
@@ -2078,6 +2133,10 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
 <p class="muted">Use our professional article structure as a starting point. Add unlimited sections, detailed explanations, illustrations, diagrams, infographics and tables as your topic requires.</p>
 <textarea id="content" required minlength="30" placeholder="Write your article (at least 30 characters)…"></textarea><button id="submitBtn">Submit for review</button><div id="submitStatus" class="status"></div></form></div></section>
 <section id="admin" class="tab hidden">
+ <header class="gb-admin-brandbar">
+  <div class="gb-admin-brand-lockup"><img src="assets/gyanbhoomi-symbol.svg?v=6" alt="GyanBhoomi Gyan Globe" width="58" height="58"><div><span class="gb-admin-eyebrow">GYANBHOOMI · CONTROL CENTRE</span><h1>Admin Dashboard</h1><p>Manage knowledge, review contributions and oversee updates.</p></div></div>
+  <div class="gb-admin-access-label"><span aria-hidden="true">✦</span> ADMIN WORKSPACE</div>
+ </header>
  <div class="grid">
   <div class="card">
    <h2>Admin login</h2><p class="muted">Use the admin account created in Supabase Authentication.</p>
