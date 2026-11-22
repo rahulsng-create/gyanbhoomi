@@ -3421,7 +3421,7 @@ $("gbGoogleLogin").addEventListener("click",async()=>{
   try{
     const {error}=await db.auth.signInWithOAuth({
       provider:"google",
-      options:{redirectTo:window.location.href.split("#")[0]}
+      options:{redirectTo:"https://rahulsng-create.github.io/gyanbhoomi/"}
     });
     if(error)throw error;
   }catch(error){
@@ -4525,7 +4525,7 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
      setBusy(true,"Connecting…");
      const {error}=await requireAuth().signInWithOAuth({
        provider:"google",
-       options:{redirectTo:location.href.split("#")[0]}
+       options:{redirectTo:"https://rahulsng-create.github.io/gyanbhoomi/"}
      });
      if(error)throw error;
      message("Redirecting to Google…","success");
