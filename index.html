@@ -6531,7 +6531,7 @@ setTimeout(()=>observer.disconnect(),10000);
    if(!jobs.length&&!append)results.innerHTML='<div class="gb-jobs-empty"><strong>No matching live vacancies found.</strong><p>Try a broader job title, remove one filter or choose All India.</p></div>';
    const total=Number(data.total||data.count||0);
    const shown=seen.size;
-   setStatus(jobs.length?`Showing ${shown}${total?` of approximately ${total.toLocaleString("en-IN")}`:""} matching live vacancies. Listings are supplied by JobsForce India; confirm details before applying.`:"No more matching vacancies were returned.",jobs.length?"success":"info");
+   setStatus(jobs.length?`Showing ${shown}${total?` of approximately ${total.toLocaleString("en-IN")}`:""} matching live private-sector vacancies from JobsForce India. ${sector==="all"?"Government vacancy feed is not connected yet, so these results are private-sector only. ":""}Confirm details before applying.`:"No more matching vacancies were returned.",jobs.length?"success":"info");
    if(more){more.hidden=jobs.length<20||shown>=total&&total>0;more.disabled=false;more.textContent="Load more vacancies";}
   }catch(error){
    if(!append)results.innerHTML='<div class="gb-jobs-empty"><strong>Could not load live vacancies.</strong><p>'+esc(error.message||"Please try again shortly.")+'</p></div>';
