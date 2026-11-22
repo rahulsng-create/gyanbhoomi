@@ -18,6 +18,27 @@ header{background:linear-gradient(125deg,#102f2b,#1d5148);color:white;padding:15
 .region-hub{margin:24px 0;background:linear-gradient(145deg,#103a34,#1d5148);color:#f7f5ef;border-radius:22px;padding:clamp(18px,3vw,30px);box-shadow:0 18px 42px #123b3522}.region-hub h2,.region-hub h3{color:#fff;border:0}.region-hub p{color:#e0eee7}.region-top{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:end}.region-select{min-width:min(100%,340px)}.region-select label{display:block;font-weight:700;color:#f4d99f;font-size:12px;margin-bottom:6px}.region-select select{width:100%;padding:12px;border:1px solid #ffffff55;border-radius:10px;background:#fff;color:#123b35;font:inherit}.region-panel{margin-top:18px;background:#fff;color:#1d2926;border-radius:16px;padding:18px}.region-panel h3{color:#123b35;margin-top:0}.region-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.region-card{background:#ffffff12;border:1px solid #ffffff35;border-radius:12px;padding:12px}.region-card b{display:block;color:#ffe2a5}.region-card span{font-size:12px;color:#e0eee7}
 .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:24px}
 @media(max-width:700px){.hero{grid-template-columns:1fr;padding-top:15px}.hero img{max-height:190px}.facts{grid-template-columns:repeat(2,1fr)}.wrap{padding:15px 12px 40px}.top{align-items:flex-start}.back{font-size:12px}.content h2{font-size:22px}.visual-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}.visual-grid figure:first-child{grid-row:auto;grid-column:span 2}.visual-grid figure:first-child img{min-height:190px}.region-top{grid-template-columns:1fr}.region-grid{grid-template-columns:1fr 1fr}.content .chapter-guide ul{columns:1}}
+
+.gb-photo-library{margin:30px 0 24px;padding:clamp(16px,2.5vw,26px);border:1px solid #e2e7df;border-radius:18px;background:linear-gradient(145deg,#fff,#f8faf6)}
+.gb-photo-library-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.gb-photo-library-head h2{font:700 clamp(23px,3vw,31px)/1.2 Georgia,serif;color:#123b35;margin:4px 0}
+.gb-photo-library-head p{font-size:13px;color:#66736d;margin:0}
+.gb-photo-library-count{font-size:12px;font-weight:800;color:#174b40;background:#edf4ed;border:1px solid #d8e5d8;border-radius:99px;padding:7px 11px}
+.gb-photo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.gb-photo-card{min-width:0;background:white;border:1px solid #e1e7df;border-radius:12px;overflow:hidden;box-shadow:0 5px 15px #123b3508}
+.gb-photo-card[hidden]{display:none}
+.gb-photo-card a{display:block;color:inherit;text-decoration:none}
+.gb-photo-card img{display:block;width:100%;height:145px;object-fit:cover;background:#e8eee8}
+.gb-photo-caption{padding:9px 10px 10px}
+.gb-photo-caption b{display:block;color:#17483f;font-size:12px;line-height:1.35;max-height:2.7em;overflow:hidden}
+.gb-photo-caption span{display:block;color:#758078;font-size:10px;line-height:1.35;margin-top:4px;overflow-wrap:anywhere}
+.gb-photo-license{color:#8a6728!important}
+.gb-photo-controls{display:flex;justify-content:center;gap:10px;margin-top:16px}
+.gb-photo-more{border:0;border-radius:999px;background:#17483f;color:#fff;padding:11px 20px;font-weight:800;cursor:pointer}
+.gb-photo-more:disabled{opacity:.55;cursor:wait}
+.gb-photo-status{font-size:12px;color:#66736d;text-align:center;margin:12px 0 0}
+@media(max-width:800px){.gb-photo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){.gb-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.gb-photo-card img{height:125px}.gb-photo-caption{padding:8px}.gb-photo-caption b{font-size:11px}}
 </style>
 </head>
 <body>
@@ -35,6 +56,10 @@ header{background:linear-gradient(125deg,#102f2b,#1d5148);color:white;padding:15
 <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Mountains_-_Pakistan.jpg?width=900" alt="Hunza Valley landscape" loading="lazy"><figcaption>Hunza Valley · Gilgit-Baltistan</figcaption></figure>
 <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Princes_of_Hope%2C_Hingol_National_Park%2C_Pakistan.jpg?width=900" alt="Hingol National Park landscape" loading="lazy"><figcaption>Hingol National Park · Balochistan</figcaption></figure>
 </div><p class="visual-note">Photo credits and licences: Faisal Mosque — Fatimahanif303, CC BY-SA 4.0; Badshahi Mosque — jawad, CC BY-SA 4.0; K2 — Abbas pakistani, CC BY-SA 4.0; Mohenjo-daro — Saqib Qayyum, CC BY-SA 3.0; Karakoram mountains — Sallahuddin shah, CC BY-SA 3.0; Princess of Hope — see its Commons file page for current attribution and licence. <a href='https://creativecommons.org/licenses/by-sa/4.0/' target='_blank' rel='noopener'>CC BY-SA 4.0</a> · <a href='https://creativecommons.org/licenses/by-sa/3.0/' target='_blank' rel='noopener'>CC BY-SA 3.0</a>. Please check each file page before reuse.</p></section>
+<section class="gb-photo-library" id="gbPhotoLibrary" aria-label="Pakistan photo library">
+<div class="gb-photo-library-head"><div><div class="kicker">VISUAL ATLAS · PAKISTAN</div><h2>Explore Pakistan in 100+ photographs</h2><p>Landscapes, heritage, wildlife, cities, people and culture — with creator and licence details.</p></div><span class="gb-photo-library-count">Loading photo collection…</span></div>
+<div class="gb-photo-grid"></div><div class="gb-photo-controls"><button class="gb-photo-more" type="button" hidden>Show more photos</button></div><p class="gb-photo-status" role="status" aria-live="polite">Preparing the photo collection…</p>
+</section>
 <nav class="tabs"><a href="#encyclopedia">Encyclopedia</a><a href="#regions">Provinces & regions</a><a href="#sources">Sources</a><a href="../">All countries</a></nav>
 <section class="paper content" id="encyclopedia"><details class="chapter-guide" open><summary>Chapter guide · jump to any topic</summary><div id="toc"></div></details><div id="article"><p>Loading Pakistan Encyclopedia…</p></div></section>
 <section class="region-hub" id="regions"><div class="region-top"><div><div class="kicker">EXPLORE PAKISTAN · REGION BY REGION</div><h2 style="font:700 clamp(28px,4vw,40px)/1.15 Georgia,serif;margin:7px 0">Provinces & administered regions</h2><p style="margin:0">Explore the four provinces, the federal capital territory, and the separately administered regions. Their constitutional status is not identical.</p></div><div class="region-select"><label for="regionSelect">SELECT A REGION</label><select id="regionSelect"><option value="">Choose a province or region</option></select></div></div><div class="region-grid" id="regionCards"></div><div class="region-panel" id="regionPanel"><h3>Discover Pakistan region by region</h3><p>Select a province or region above to explore its geography, administrative centre, languages, heritage and economy.</p></div></section>
@@ -81,4 +106,53 @@ function showRegion(){const r=regions.find(x=>x.name===sel.value);if(!r){panel.i
 sel.addEventListener("change",showRegion);
 })();
 </script>
+<script>
+(async function(){
+"use strict";
+const root=document.getElementById("gbPhotoLibrary");
+if(!root)return;
+const grid=root.querySelector(".gb-photo-grid"),status=root.querySelector(".gb-photo-status"),more=root.querySelector(".gb-photo-more"),count=root.querySelector(".gb-photo-library-count");
+const topics=["Badshahi Mosque Lahore Pakistan","Mohenjo-daro Pakistan","K2 Karakoram Pakistan","Hunza Valley Pakistan","Lahore Fort Pakistan","Taxila Gandhara Pakistan","Pakistan mountains landscapes","Pakistan Indus River landscape","Pakistan cultural heritage architecture","Hingol National Park Pakistan","Skardu Deosai Pakistan","Makli Necropolis Thatta Pakistan","Rohtas Fort Pakistan","Swat Valley Pakistan","Pakistan desert Thar Cholistan","Pakistan coast Gwadar Makran","Pakistan traditional culture crafts","Shalimar Gardens Lahore Pakistan"];
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const plain=s=>{const d=document.createElement("div");d.innerHTML=String(s||"");return (d.textContent||d.innerText||"").replace(/\s+/g," ").trim();};
+const seen=new Set();let images=[],shown=0;const PAGE=24;
+function render(){
+const part=images.slice(shown,shown+PAGE);
+for(const im of part){
+const card=document.createElement("article");card.className="gb-photo-card";
+card.innerHTML='<a href="'+esc(im.page)+'" target="_blank" rel="noopener noreferrer" title="Open image source and licence"><img src="'+esc(im.thumb)+'" alt="'+esc(im.title)+'" loading="lazy" decoding="async"><div class="gb-photo-caption"><b>'+esc(im.title)+'</b><span>'+esc(im.artist||"Creator credited on source page")+'</span><span class="gb-photo-license">'+esc(im.license||"See source page for licence")+'</span></div></a>';
+grid.appendChild(card);
+}
+shown+=part.length;more.hidden=shown>=images.length;more.textContent="Show more photos ("+Math.max(0,images.length-shown)+" remaining)";
+count.textContent=images.length+"+ curated photos";status.textContent="Showing "+shown+" of "+images.length+" images. Open any image to see its original file page, creator and licence.";
+}
+more.addEventListener("click",render);
+async function searchTopic(topic){
+const u=new URL("https://commons.wikimedia.org/w/api.php");
+u.search=new URLSearchParams({action:"query",generator:"search",gsrsearch:topic,gsrnamespace:"6",gsrlimit:"12",prop:"imageinfo",iiprop:"url|extmetadata",iiurlwidth:"640",format:"json",origin:"*"}).toString();
+const r=await fetch(u.toString());if(!r.ok)throw new Error("Commons request failed");
+const j=await r.json();return Object.values(j.query?.pages||{}).map(p=>{
+const info=p.imageinfo?.[0],meta=info?.extmetadata||{};if(!info?.thumburl||!info?.descriptionurl)return null;
+const license=plain(meta.LicenseShortName?.value||meta.UsageTerms?.value||"");
+if(!/(CC\s*BY|CC0|public domain|GFDL|Free Art License)/i.test(license))return null;
+const key=p.title.toLowerCase();if(seen.has(key))return null;seen.add(key);
+return {title:p.title.replace(/^File:/,"").replace(/_/g," ").replace(/\.(jpe?g|png|webp|tiff?)$/i,""),thumb:info.thumburl,page:info.descriptionurl,artist:plain(meta.Artist?.value||meta.Credit?.value||""),license};
+}).filter(Boolean);
+}
+try{
+status.textContent="Finding and checking reusable "+"Pakistan"+" photographs from Wikimedia Commons…";
+const all=[];
+for(let i=0;i<topics.length;i+=5){
+const batch=await Promise.allSettled(topics.slice(i,i+5).map(searchTopic));
+for(const item of batch)if(item.status==="fulfilled")all.push(...item.value);
+}
+images=all;
+if(images.length<100){status.textContent="Found "+images.length+" licensed, relevant images. Some topics have fewer qualifying photographs; use the source links to explore more."; }
+if(!images.length){throw new Error("No qualifying images returned");}
+render();
+}catch(err){
+status.textContent="The photo library could not load right now. Please refresh later; the original introductory gallery above remains available.";
+more.hidden=true;
+}
+})();</script>
 </body></html>
