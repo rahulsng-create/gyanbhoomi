@@ -1,15 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="GyanBhoomi Gyan Globe">
-<defs><radialGradient id="bg" cx="38%" cy="24%" r="85%"><stop stop-color="#126b58"/><stop offset="1" stop-color="#042a25"/></radialGradient><radialGradient id="earth" cx="35%" cy="25%" r="80%"><stop stop-color="#2ec69c"/><stop offset=".62" stop-color="#087b67"/><stop offset="1" stop-color="#03483f"/></radialGradient><linearGradient id="gold" x2="0" y2="1"><stop stop-color="#fff0a8"/><stop offset=".48" stop-color="#f4c44f"/><stop offset="1" stop-color="#bd7d17"/></linearGradient><linearGradient id="page" x2="0" y2="1"><stop stop-color="#fffdf0"/><stop offset="1" stop-color="#e9d9a9"/></linearGradient></defs>
-<rect x="3" y="3" width="122" height="122" rx="27" fill="url(#bg)" stroke="url(#gold)" stroke-width="2"/>
-<circle cx="64" cy="52" r="38" fill="url(#earth)" stroke="#e9c45d" stroke-width="2.5"/>
-<g fill="none" stroke="#9cebd2" stroke-width="1.1" opacity=".65"><path d="M27 52h74M64 14v76M39 25c13 16 13 38 0 54M89 25c-13 16-13 38 0 54"/><ellipse cx="64" cy="52" rx="17" ry="38"/></g>
-<path d="M39 37l8-10 10 2 5 8-7 7-2 10-9-2-6-8zm31-15 10 4 3 8-8 5-8-7zm-7 34 10-6 9 5-3 12-10 4-7-8z" fill="#b7ef92"/>
-<path d="M45 30c8-9 27-13 41-6" fill="none" stroke="#eaffd6" stroke-width="2" opacity=".6"/>
-<path d="M48 38c-9 9-13 24-8 36 6 15 25 21 41 13 8-4 13-11 15-19" fill="none" stroke="url(#gold)" stroke-width="3.5" stroke-linecap="round"/>
-<path d="M49 38c-1-7 4-12 10-15" fill="none" stroke="url(#gold)" stroke-width="3.5" stroke-linecap="round"/>
-<path d="M54 39c-8 0-13 6-13 14v15c0 11 8 19 19 19h15c10 0 17-7 17-17V57H69v10h12v2c0 6-4 9-10 9H61c-6 0-10-4-10-10V53c0-6 4-10 10-10h15V33H61c-3 0-5 2-7 6z" fill="#fff8e8" stroke="#c99732" stroke-width="1.3"/>
-<path d="M18 67c23 4 61-1 89-22" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round"/>
-<path d="M106 34l2-8 2 8 8 2-8 2-2 8-2-8-8-2z" fill="#ffe28a" stroke="#bd861e" stroke-width="1"/>
-<path d="M20 100Q39 89 63 105Q87 89 108 100L105 112Q84 101 63 116Q41 101 23 112z" fill="url(#page)" stroke="#d4a53e" stroke-width="2"/>
-<path d="M63 105v11" stroke="#b98729" stroke-width="1.8"/>
+<defs>
+ <radialGradient id="bg" cx="34%" cy="20%" r="95%"><stop stop-color="#087b5b"/><stop offset=".55" stop-color="#064333"/><stop offset="1" stop-color="#021f1c"/></radialGradient>
+ <radialGradient id="earth" cx="30%" cy="18%" r="90%"><stop stop-color="#48e0ae"/><stop offset=".48" stop-color="#087d69"/><stop offset="1" stop-color="#022f2d"/></radialGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff5bd"/><stop offset=".32" stop-color="#ffdf72"/><stop offset=".68" stop-color="#e9a91f"/><stop offset="1" stop-color="#9f6410"/></linearGradient>
+ <linearGradient id="ivory" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fffef2"/><stop offset="1" stop-color="#e7d9b5"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="2.2"/><feOffset dy="2"/><feComponentTransfer><feFuncA type="linear" slope=".55"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <clipPath id="globeClip"><circle cx="64" cy="49" r="39"/></clipPath>
+</defs>
+<rect x="3" y="3" width="122" height="122" rx="25" fill="url(#bg)" stroke="url(#gold)" stroke-width="2.5"/>
+<rect x="7" y="7" width="114" height="114" rx="21" fill="none" stroke="#ffe9a0" stroke-opacity=".22"/>
+<circle cx="64" cy="49" r="40.5" fill="#022b27" stroke="url(#gold)" stroke-width="2.4" filter="url(#shadow)"/>
+<circle cx="64" cy="49" r="38" fill="url(#earth)"/>
+<g clip-path="url(#globeClip)">
+ <g fill="none" stroke="#a8f5dc" stroke-width="1" opacity=".55">
+  <path d="M25 49h78M64 10v78M30 29q34 19 0 40M98 29q-34 19 0 40"/>
+  <ellipse cx="64" cy="49" rx="17" ry="39"/><ellipse cx="64" cy="49" rx="30" ry="39"/>
+ </g>
+ <path d="M29 37l7-10 9-3 8 6-2 7-8 5-2 10-8 1-5-8zm23-19l8-8 9 3 2 8-7 5-8-3zm19 7l9-6 9 5-2 9-9 2-5-5zm-15 28l9-6 8 4 2 10-7 8-9-4-4-7zm23 8l10-6 10 4 2 8-8 7-10-2z" fill="#b7ef8d" stroke="#d9ffd0" stroke-width=".6"/>
+ <path d="M27 24q30-22 66-2" fill="none" stroke="#e6ffda" stroke-width="2" opacity=".45"/>
+</g>
+<!-- Large signature G -->
+<text x="64" y="79" text-anchor="middle" font-family="Georgia,serif" font-size="65" font-weight="bold" fill="url(#ivory)" stroke="#b98628" stroke-width="1.3" paint-order="stroke fill" filter="url(#shadow)">G</text>
+<!-- Golden orbit crossing the globe and G -->
+<path d="M14 66C34 77 82 66 112 35" fill="none" stroke="#8b5a10" stroke-width="8" stroke-linecap="round" opacity=".7"/>
+<path d="M14 64C36 75 83 63 112 33" fill="none" stroke="url(#gold)" stroke-width="5.2" stroke-linecap="round"/>
+<path d="M19 63C44 70 82 57 105 39" fill="none" stroke="#fff2b3" stroke-width="1.2" stroke-linecap="round" opacity=".9"/>
+<!-- Four-point knowledge sparkle -->
+<path d="M108 20l3.2 9.2 9.2 3.2-9.2 3.2-3.2 9.2-3.2-9.2-9.2-3.2 9.2-3.2z" fill="url(#gold)" stroke="#fff1a8" stroke-width=".8"/>
+<!-- Open book -->
+<path d="M15 91Q36 83 63 98Q90 83 113 91L109 111Q84 99 63 114Q41 99 19 111Z" fill="#062c27" stroke="#a56d16" stroke-width="2"/>
+<path d="M17 90Q39 82 63 97V109Q40 95 20 105Z" fill="url(#ivory)" stroke="url(#gold)" stroke-width="1.5"/>
+<path d="M110 90Q87 82 63 97V109Q86 95 107 105Z" fill="url(#ivory)" stroke="url(#gold)" stroke-width="1.5"/>
+<path d="M63 97v17" stroke="#bb8427" stroke-width="1.8"/>
+<path d="M24 94q16-5 31 4M102 94q-16-5-31 4" fill="none" stroke="#d9c99e" stroke-width="1" opacity=".8"/>
 </svg>
