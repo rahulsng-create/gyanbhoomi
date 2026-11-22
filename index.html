@@ -1637,6 +1637,81 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
 }
 </style>
 
+
+<style id="gb-auth-experience-polish-v1">
+/* Dedicated login/signup visual refinement. Keeps existing form IDs, events and auth flow intact. */
+#gbEntryLogin>.gb-auth-card{
+ width:min(100%,460px)!important;
+ padding:clamp(20px,2.5vw,32px)!important;
+ border:1px solid rgba(244,205,119,.9)!important;
+ border-radius:26px!important;
+ background:linear-gradient(155deg,rgba(7,57,48,.98),rgba(3,35,32,.98))!important;
+ box-shadow:0 22px 65px rgba(0,15,12,.52),inset 0 1px 0 rgba(255,244,205,.16)!important;
+ backdrop-filter:blur(18px)!important;
+}
+#gbEntryLogin .gb-auth-brand{justify-content:flex-start!important;gap:13px!important;margin:0 0 20px!important}
+#gbEntryLogin .gb-auth-mark{width:58px!important;height:58px!important;flex:0 0 58px!important;border-radius:17px!important;box-shadow:0 5px 18px #0005,0 0 0 4px #f0c86b16!important}
+#gbEntryLogin .gb-auth-brand strong{font-size:26px!important;letter-spacing:-.5px!important}
+#gbEntryLogin .gb-auth-brand small{margin-top:4px!important;font-size:11px!important;letter-spacing:1.1px!important;text-transform:uppercase!important}
+#gbEntryLogin .gb-auth-card h2{text-align:left!important;font-size:clamp(23px,2.4vw,29px)!important;letter-spacing:-.45px!important;margin:0 0 7px!important}
+#gbEntryLogin .gb-auth-sub{text-align:left!important;max-width:38em!important;font-size:13px!important;line-height:1.55!important;color:#c9ddd5!important;margin:0 0 20px!important}
+#gbEntryLogin .gb-auth-tabs{padding:4px!important;gap:5px!important;border:1px solid #c9a45b88!important;border-radius:13px!important;background:#021f1c88!important;margin:0 0 17px!important}
+#gbEntryLogin .gb-auth-tabs button{min-height:43px!important;border-radius:10px!important;font-weight:750!important;font-size:13px!important;letter-spacing:.1px!important;transition:background .18s ease,color .18s ease,transform .18s ease!important}
+#gbEntryLogin .gb-auth-tabs button.active{background:linear-gradient(120deg,#ffe6a1,#e8b64f)!important;color:#183b32!important;box-shadow:0 3px 10px #0003!important}
+#gbVisitorAuthForm label{color:#f2d58f!important;font-size:12px!important;font-weight:750!important;letter-spacing:.15px!important;margin:12px 0 6px!important}
+#gbVisitorAuthForm input:not([type=checkbox]),#gbVisitorAuthForm select{
+ min-height:46px!important;height:46px!important;width:100%!important;box-sizing:border-box!important;
+ border:1px solid #b9cec4!important;border-radius:11px!important;background:#f8faf6!important;
+ color:#183b32!important;font:500 15px/1.35 system-ui,-apple-system,"Segoe UI",sans-serif!important;
+ padding:10px 13px!important;box-shadow:inset 0 1px 2px #173a2b0d!important;
+}
+#gbVisitorAuthForm input::placeholder{color:#7c8b83!important;opacity:1!important}
+#gbVisitorAuthForm input:focus,#gbVisitorAuthForm select:focus{outline:3px solid #f0c66f55!important;border-color:#efc66f!important;box-shadow:0 0 0 1px #efc66f55!important}
+#gbVisitorAuthForm .gb-password-wrap{display:flex!important;align-items:center!important;gap:7px!important;padding:0 7px 0 0!important;border:1px solid #b9cec4!important;border-radius:11px!important;background:#f8faf6!important}
+#gbVisitorAuthForm .gb-password-wrap input{border:0!important;box-shadow:none!important;background:transparent!important;min-width:0!important}
+#gbVisitorAuthForm .gb-password-wrap input:focus{outline:0!important}
+#gbVisitorAuthForm .gb-password-toggle{flex:0 0 auto!important;padding:7px 9px!important;border-radius:8px!important;background:#e7eee8!important;color:#174438!important;font-size:12px!important}
+#gbEntryLogin .gb-auth-options{margin:13px 0 15px!important;font-size:12px!important}
+#gbEntryLogin .gb-remember{color:#dce9e2!important}
+#gbEntryLogin .gb-text-button{font-weight:750!important;color:#ffdc8b!important}
+#gbEntryLogin .gb-auth-primary,#gbEntryLogin .gb-auth-google,#gbEntryLogin .gb-auth-guest{
+ min-height:48px!important;border-radius:12px!important;font-size:14px!important;font-weight:800!important;letter-spacing:.1px!important;
+ transition:transform .16s ease,filter .16s ease,box-shadow .16s ease!important;
+}
+#gbEntryLogin .gb-auth-primary{background:linear-gradient(115deg,#ffe6a0,#e7ad3c)!important;color:#173b32!important;box-shadow:0 7px 18px #0003!important}
+#gbEntryLogin .gb-auth-google{border:1px solid #d8e2dc!important;background:#fff!important;color:#263b34!important}
+#gbEntryLogin .gb-auth-guest{border:1px solid #d8b76f!important;background:#ffffff08!important;color:#ffe4a4!important}
+#gbEntryLogin .gb-auth-primary:active,#gbEntryLogin .gb-auth-google:active,#gbEntryLogin .gb-auth-guest:active{transform:scale(.985)!important}
+#gbEntryLogin .gb-auth-divider{margin:17px 0 6px!important;color:#c9d9d1!important;font-weight:700!important;letter-spacing:.8px!important;text-transform:uppercase!important}
+#gbEntryLogin .gb-auth-divider:before,#gbEntryLogin .gb-auth-divider:after{background:#d4b66e77!important}
+#gbEntryLogin .gb-auth-message{padding:0 4px!important;line-height:1.45!important}
+#gbEntryLogin .gb-auth-foot{margin-top:17px!important;padding-top:14px!important;border-top:1px solid #ffffff20!important;color:#d9e7df!important}
+#gbEntryLogin .gb-auth-foot button{font-size:12px!important}
+#gbVisitorAuthForm .gb-address-fields{gap:0 10px!important}
+#gbVisitorAuthForm .gb-terms-row{align-items:flex-start!important;gap:9px!important;padding:11px 12px!important;border:1px solid #e5c47755!important;border-radius:11px!important;background:#ffffff08!important;color:#e9eee8!important;line-height:1.45!important}
+#gbVisitorAuthForm .gb-terms-row input{width:17px!important;height:17px!important;min-height:17px!important;flex:0 0 17px!important;margin:1px 0 0!important;accent-color:#e8b64f!important}
+#gbEntryLogin .gb-password-guidance{color:#c6dbd1!important;line-height:1.5!important}
+#gbEntryLogin .gb-password-meter{color:#f3d58f!important}
+@media(max-width:760px){
+ #gbEntryLogin{padding:16px 12px!important}
+ #gbEntryLogin>.gb-auth-card{width:min(100%,460px)!important;max-height:calc(100dvh - 32px)!important;padding:20px 18px!important;border-radius:22px!important}
+ #gbEntryLogin .gb-auth-brand{margin-bottom:16px!important}
+}
+@media(max-width:420px){
+ #gbEntryLogin>.gb-auth-card{padding:17px 15px!important}
+ #gbEntryLogin .gb-auth-mark{width:50px!important;height:50px!important;flex-basis:50px!important}
+ #gbEntryLogin .gb-auth-brand strong{font-size:23px!important}
+ #gbVisitorAuthForm .gb-address-fields{grid-template-columns:1fr!important}
+}
+@media(max-height:760px) and (max-width:760px){
+ #gbEntryLogin>.gb-auth-card{padding:14px 16px!important}
+ #gbEntryLogin .gb-auth-brand{margin-bottom:10px!important}
+ #gbEntryLogin .gb-auth-brand .gb-auth-mark{width:44px!important;height:44px!important;flex-basis:44px!important}
+ #gbEntryLogin .gb-auth-card h2{font-size:21px!important}
+ #gbEntryLogin .gb-auth-sub{margin-bottom:12px!important}
+ #gbEntryLogin .gb-auth-tabs{margin-bottom:10px!important}
+}
+</style>
 </head><body>
 <div id="gbNetProgress" aria-hidden="true"></div><div id="gbNetNotice" role="status" aria-live="polite"><span class="gb-net-dot" aria-hidden="true"></span><span id="gbNetNoticeText">Checking internet connection…</span></div>
 
