@@ -6183,6 +6183,32 @@ html[data-gb-palette] body .gb-settings-toggle{
 html[data-gb-palette] body .gb-settings-toggle :is(span,strong,small){
   color:var(--gb-text)!important;
 }
+
+/* Explicit high-specificity contrast fixes for the elements visible in the reported mobile screenshots. */
+html[data-gb-palette] body header.gb-header .gb-brand-stack h1,
+html[data-gb-palette] body header.gb-header .gb-brand-stack h1 span,
+html[data-gb-palette] body header.gb-header .gb-tagline,
+html[data-gb-palette] body header.gb-header .gb-motto{color:#fff!important}
+html[data-gb-palette] body main #library .gb-home-hero .gb-hero-copy .gb-kicker{color:#f5d58e!important}
+html[data-gb-palette] body main #library .gb-home-hero .gb-hero-copy h2,
+html[data-gb-palette] body main #library .gb-home-hero .gb-hero-copy h2 em{color:#ffe2a0!important}
+html[data-gb-palette] body main #library .gb-home-hero .gb-hero-copy p{color:#f4f7f2!important}
+html[data-gb-palette] body main #library .gb-home-hero{
+ background:linear-gradient(115deg,var(--gb-header),var(--gb-header2))!important;
+}
+html[data-gb-palette] body main #library .gb-daily-card .gb-daily-copy .gb-kicker,
+html[data-gb-palette] body main #library .gb-daily-card .gb-daily-copy h2{color:#ffe2a0!important}
+html[data-gb-palette] body main #library .gb-daily-card .gb-daily-copy p{color:#f4f7f2!important}
+html[data-gb-palette] body main #library .gb-daily-card .gb-daily-copy small{color:#f5d58e!important}
+html[data-gb-palette] body main #library .gb-daily-card{background:linear-gradient(115deg,var(--gb-header),var(--gb-header2))!important;color:#fff!important}
+html[data-gb-palette] body main #library #gbBrowseLanguage{background:linear-gradient(120deg,var(--gb-primary),var(--gb-primary2))!important;color:#fff!important}
+html[data-gb-palette] body main #library #gbGlobalSearch button[type="submit"]{background:linear-gradient(120deg,var(--gb-primary),var(--gb-primary2))!important;color:#fff!important}
+html[data-gb-palette] body #gbMenuPanel #gbSettingsToggle{
+ background:linear-gradient(120deg,var(--gb-header),var(--gb-header2))!important;
+ color:#fff!important;border-color:var(--gb-accent)!important;
+}
+html[data-gb-palette] body #gbMenuPanel #gbSettingsToggle span,
+html[data-gb-palette] body #gbMenuPanel #gbSettingsToggle strong{color:#fff!important}
 </style>
 <script id="gb-theme-final-controller-v4">
 (()=>{const boot=()=>{const root=document.documentElement,wrap=document.getElementById("gbThemeChoices"),toggle=document.getElementById("gbChangeThemeToggle"),name=document.getElementById("gbCurrentPaletteName"),labels={classic:"GyanBhoomi Classic",sage:"Botanical Sage",coastal:"Coastal Mist",sand:"Warm Sand"};if(!wrap||!toggle)return;const apply=v=>{const t=labels[v]?v:"classic";root.setAttribute("data-gb-palette",t);try{localStorage.setItem("gb_site_palette",t)}catch(e){}wrap.querySelectorAll("[data-gb-palette]").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.gbPalette===t)));if(name)name.textContent=labels[t];};let saved="classic";try{saved=localStorage.getItem("gb_site_palette")||"classic"}catch(e){}apply(saved);if(!toggle.dataset.gbBound){toggle.dataset.gbBound="1";toggle.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();const show=wrap.hidden;wrap.hidden=!show;toggle.setAttribute("aria-expanded",String(show));const c=document.getElementById("gbThemeChoicesChevron");if(c)c.textContent=show?"⌃":"⌄";},true);}if(!wrap.dataset.gbBound){wrap.dataset.gbBound="1";wrap.addEventListener("click",e=>{const b=e.target.closest("button[data-gb-palette]");if(!b)return;e.preventDefault();e.stopPropagation();apply(b.dataset.gbPalette);},true);}};if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot,{once:true});else boot();})();
