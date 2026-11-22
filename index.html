@@ -3281,31 +3281,7 @@ footer{background:#f5f7f3!important;color:#77847c!important;border-color:#e2e9e2
 </style>
 <style id="gb-classic-theme-tokens">
 html[data-gb-palette="classic"]{color-scheme:light;--gb-bg:#f5f7f3;--gb-surface:#fffefa;--gb-soft:#edf3ed;--gb-header:#073b35;--gb-header2:#0f7664;--gb-accent:#e8c875;--gb-text:#263a33;--gb-muted:#718078;--gb-line:#dce7dd;--gb-primary:#315e50;--gb-primary2:#477764;--gb-shadow:rgba(37,79,69,.07)}
-</style><script id="gb-job-seekers-search">
-(()=>{
- const button=document.getElementById("gbJobsSearchButton");
- if(!button)return;
- button.addEventListener("click",()=>{
-  const keyword=document.getElementById("gbJobsKeyword").value.trim();
-  const sector=document.getElementById("gbJobsSector").value;
-  const location=document.getElementById("gbJobsLocation").value;
-  const qualification=document.getElementById("gbJobsQualification").value;
-  const experience=document.getElementById("gbJobsExperience").value;
-  const terms=[keyword,location==="India"?"India":location,qualification,experience,"vacancy OR recruitment OR hiring"];
-  const query=terms.filter(Boolean).join(" ");
-  const domains=sector==="government"
-   ? "(site:gov.in OR site:ncs.gov.in OR site:upsc.gov.in OR site:ssc.gov.in OR site:rrbcdg.gov.in OR site:ibps.in)"
-   : sector==="private"
-    ? "(site:naukri.com OR site:linkedin.com/jobs OR site:in.indeed.com OR site:foundit.in OR site:careers.*)"
-    : "(site:gov.in OR site:ncs.gov.in OR site:upsc.gov.in OR site:ssc.gov.in OR site:rrbcdg.gov.in OR site:ibps.in OR site:naukri.com OR site:linkedin.com/jobs OR site:in.indeed.com OR site:foundit.in)";
-  const url="https://www.google.com/search?q="+encodeURIComponent(query+" "+domains);
-  const opened=window.open(url,"_blank","noopener,noreferrer");
-  const status=document.getElementById("gbJobsSearchStatus");
-  status.textContent=opened?"Search opened in a new tab. Check each listing on its original employer or recruitment website.":"Your browser blocked the search tab. Allow pop-ups or use the trusted source links below.";
- });
-})();
-</script>
-</body>
+</style></body>
  </html>`);
  printWindow.onload=()=>{
  printWindow.focus();
@@ -6373,5 +6349,29 @@ setTimeout(()=>observer.disconnect(),10000);
  }
 }
 </style>
+<script id="gb-job-seekers-search">
+(()=>{
+ const button=document.getElementById("gbJobsSearchButton");
+ if(!button)return;
+ button.addEventListener("click",()=>{
+  const keyword=document.getElementById("gbJobsKeyword").value.trim();
+  const sector=document.getElementById("gbJobsSector").value;
+  const location=document.getElementById("gbJobsLocation").value;
+  const qualification=document.getElementById("gbJobsQualification").value;
+  const experience=document.getElementById("gbJobsExperience").value;
+  const terms=[keyword,location==="India"?"India":location,qualification,experience,"vacancy OR recruitment OR hiring"];
+  const query=terms.filter(Boolean).join(" ");
+  const domains=sector==="government"
+   ? "(site:gov.in OR site:ncs.gov.in OR site:upsc.gov.in OR site:ssc.gov.in OR site:rrbcdg.gov.in OR site:ibps.in)"
+   : sector==="private"
+    ? "(site:naukri.com OR site:linkedin.com/jobs OR site:in.indeed.com OR site:foundit.in OR site:careers.*)"
+    : "(site:gov.in OR site:ncs.gov.in OR site:upsc.gov.in OR site:ssc.gov.in OR site:rrbcdg.gov.in OR site:ibps.in OR site:naukri.com OR site:linkedin.com/jobs OR site:in.indeed.com OR site:foundit.in)";
+  const url="https://www.google.com/search?q="+encodeURIComponent(query+" "+domains);
+  const opened=window.open(url,"_blank","noopener,noreferrer");
+  const status=document.getElementById("gbJobsSearchStatus");
+  status.textContent=opened?"Search opened in a new tab. Check each listing on its original employer or recruitment website.":"Your browser blocked the search tab. Allow pop-ups or use the trusted source links below.";
+ });
+})();
+</script>
 </body>
 </html>
