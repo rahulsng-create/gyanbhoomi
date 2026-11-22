@@ -1853,6 +1853,28 @@ body:has(#jobseekers:not(.hidden)) main{padding-top:12px!important}
  #jobseekers .gb-jobs-filter-grid{grid-template-columns:1fr!important;gap:2px!important}
  #jobseekers .gb-jobs-search-card select{appearance:auto!important;-webkit-appearance:menulist!important}
 }
+
+/* Refined compact header: icon-only home control and high-contrast title */
+#jobseekers .gb-jobs-pagebar{
+ position:relative!important;min-height:76px!important;margin:0 0 17px!important;padding:11px 15px!important;
+ border:1px solid #c6a45c!important;border-radius:17px!important;
+ background:linear-gradient(112deg,#082f2b 0%,#10483d 62%,#17604e 100%)!important;
+ box-shadow:0 8px 22px #082f2b22!important;overflow:hidden!important
+}
+#jobseekers .gb-jobs-pagebar:after{content:"";position:absolute;right:-22px;top:-55px;width:160px;height:160px;border:1px solid #e9c77f38;border-radius:50%;box-shadow:0 0 0 14px #e9c77f0b,0 0 0 30px #e9c77f08;pointer-events:none}
+#jobseekers .gb-jobs-home-link{
+ width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;
+ padding:0!important;border-radius:14px!important;font-size:0!important;flex:0 0 48px!important;
+}
+#jobseekers .gb-jobs-home-link span{font-size:25px!important;line-height:1!important}
+#jobseekers .gb-jobs-pagebar-heading{display:grid!important;gap:3px!important;min-width:0!important;position:relative!important;z-index:1!important}
+#jobseekers .gb-jobs-pagebar-eyebrow{font:800 9px/1.2 system-ui,sans-serif!important;letter-spacing:1.8px!important;color:#e9c77f!important}
+#jobseekers .gb-jobs-pagebar-title{font:700 20px/1.15 Georgia,serif!important;color:#fff0c8!important;text-shadow:0 1px 8px #001c18!important}
+#jobseekers .gb-jobs-pagebar-mark{margin-left:auto!important;position:relative!important;z-index:1!important;color:#f0d28d!important;font-size:24px!important}
+@media(max-width:600px){
+ #jobseekers .gb-jobs-pagebar{min-height:72px!important;padding:10px 12px!important;margin-bottom:14px!important}
+ #jobseekers .gb-jobs-pagebar-title{font-size:19px!important}
+}
 </style>
 </head><body>
 <div id="gbNetProgress" aria-hidden="true"></div><div id="gbNetNotice" role="status" aria-live="polite"><span class="gb-net-dot" aria-hidden="true"></span><span id="gbNetNoticeText">Checking internet connection…</span></div>
@@ -2130,8 +2152,9 @@ body:has(#jobseekers:not(.hidden)) main{padding-top:12px!important}
 
 <section id="jobseekers" class="tab hidden">
  <div class="gb-jobs-pagebar">
-  <button type="button" class="gb-jobs-home-link" data-open-tab="library" aria-label="Go to GyanBhoomi home"><span aria-hidden="true">⌂</span><span>Home</span></button>
-  <div><div class="gb-jobs-pagebar-title">Career Opportunities</div><span class="gb-jobs-pagebar-sub">GyanBhoomi · Job discovery</span></div>
+  <button type="button" class="gb-jobs-home-link" data-open-tab="library" aria-label="Go to GyanBhoomi home" title="Home"><span aria-hidden="true">⌂</span></button>
+  <div class="gb-jobs-pagebar-heading"><span class="gb-jobs-pagebar-eyebrow">GYANBHOOMI CAREERS</span><div class="gb-jobs-pagebar-title">Career Opportunities</div></div>
+  <span class="gb-jobs-pagebar-mark" aria-hidden="true">✦</span>
  </div>
  <div class="gb-jobs-hero">
   <span class="gb-jobs-kicker">GYANBHOOMI · CAREER DISCOVERY</span>
