@@ -1875,6 +1875,29 @@ body:has(#jobseekers:not(.hidden)) main{padding-top:12px!important}
  #jobseekers .gb-jobs-pagebar{min-height:72px!important;padding:10px 12px!important;margin-bottom:14px!important}
  #jobseekers .gb-jobs-pagebar-title{font-size:19px!important}
 }
+
+/* Live vacancy cards */
+#jobseekers .gb-jobs-results{display:grid!important;gap:13px!important;margin-top:17px!important}
+#jobseekers .gb-job-result{padding:17px!important;border:1px solid #d8e4da!important;border-radius:16px!important;background:#fffefa!important;box-shadow:0 6px 18px #163f300c!important;color:#254438!important}
+#jobseekers .gb-job-result-top{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:8px!important;flex-wrap:wrap!important}
+#jobseekers .gb-job-source-pill{padding:5px 8px!important;border-radius:20px!important;background:#e9f3e9!important;color:#275b46!important;font-size:10px!important;font-weight:800!important;letter-spacing:.5px!important}
+#jobseekers .gb-job-posted{font-size:11px!important;color:#718078!important}
+#jobseekers .gb-job-result h4{margin:10px 0 3px!important;color:#16483c!important;font-size:18px!important;line-height:1.3!important}
+#jobseekers .gb-job-company{margin:0 0 10px!important;color:#586d62!important;font-size:13px!important;font-weight:650!important}
+#jobseekers .gb-job-meta{display:flex!important;gap:7px!important;flex-wrap:wrap!important}
+#jobseekers .gb-job-meta span{padding:6px 8px!important;border-radius:8px!important;background:#f1f5ef!important;color:#365448!important;font-size:12px!important}
+#jobseekers .gb-job-details{margin-top:12px!important;border-top:1px solid #e5ece5!important;padding-top:10px!important}
+#jobseekers .gb-job-details summary{color:#1d5b49!important;font-size:13px!important;font-weight:750!important;cursor:pointer!important}
+#jobseekers .gb-job-description{white-space:pre-wrap!important;margin-top:9px!important;color:#4d6257!important;font-size:13px!important;line-height:1.6!important}
+#jobseekers .gb-job-result-actions{margin-top:13px!important}
+#jobseekers .gb-job-result-actions a{display:inline-flex!important;padding:10px 13px!important;border-radius:10px!important;background:#174c3e!important;color:#fff4d8!important;font-weight:750!important;font-size:13px!important;text-decoration:none!important}
+#jobseekers .gb-jobs-empty,#jobseekers .gb-jobs-loading{padding:18px!important;border:1px dashed #bdcfc1!important;border-radius:13px!important;background:#f7faf5!important;color:#365448!important}
+#jobseekers .gb-jobs-empty p{margin:5px 0 0!important;color:#64766b!important;font-size:13px!important}
+#jobseekers .gb-jobs-load-more{display:block!important;width:100%!important;margin-top:14px!important;min-height:46px!important;background:#174c3e!important;color:#fff4d8!important}
+#jobseekers .gb-jobs-load-more[hidden]{display:none!important}
+#jobseekers #gbJobsSearchButton:disabled,#jobseekers .gb-jobs-load-more:disabled{opacity:.65!important}
+#jobseekers #gbJobsSearchStatus[data-state="error"]{color:#a13a2d!important}
+#jobseekers #gbJobsSearchStatus[data-state="success"]{color:#246447!important}
 </style>
 </head><body>
 <div id="gbNetProgress" aria-hidden="true"></div><div id="gbNetNotice" role="status" aria-live="polite"><span class="gb-net-dot" aria-hidden="true"></span><span id="gbNetNoticeText">Checking internet connection…</span></div>
@@ -2171,8 +2194,10 @@ body:has(#jobseekers:not(.hidden)) main{padding-top:12px!important}
    <div><label for="gbJobsQualification">Qualification</label><select id="gbJobsQualification"><option value="">Any qualification</option><option>10th pass</option><option>12th pass</option><option>ITI</option><option>Diploma</option><option>Graduate</option><option>Postgraduate</option><option>Engineering</option><option>Any degree</option></select></div>
    <div><label for="gbJobsExperience">Experience</label><select id="gbJobsExperience"><option value="">Any experience</option><option>Fresher</option><option>0-2 years</option><option>2-5 years</option><option>5+ years</option></select></div>
   </div>
-  <button type="button" id="gbJobsSearchButton" class="gb-jobs-primary">Search jobs across the web ↗</button>
+  <button type="button" id="gbJobsSearchButton" class="gb-jobs-primary">Search jobs</button>
   <p class="gb-jobs-disclaimer" id="gbJobsSearchStatus" role="status" aria-live="polite">Searches use public web search results. Job listings are not independently verified by GyanBhoomi.</p>
+  <div id="gbJobsResults" class="gb-jobs-results" aria-live="polite"></div>
+  <button type="button" id="gbJobsLoadMore" class="gb-jobs-load-more" hidden>Load more vacancies</button>
  </div>
  <div class="gb-jobs-section-head"><div><span class="gb-jobs-kicker">DISCOVER BY SECTOR</span><h3>Explore job opportunities</h3></div></div>
  <div class="gb-jobs-sector-grid">
@@ -6415,25 +6440,109 @@ setTimeout(()=>observer.disconnect(),10000);
 <script id="gb-job-seekers-search">
 (()=>{
  const button=document.getElementById("gbJobsSearchButton");
- if(!button)return;
- button.addEventListener("click",()=>{
+ const status=document.getElementById("gbJobsSearchStatus");
+ if(!button||!status)return;
+ const results=document.getElementById("gbJobsResults");
+ const more=document.getElementById("gbJobsLoadMore");
+ const API="https://opqgrhfweyppcxvzkttp.supabase.co/functions/v1/jobs-search";
+ const PUBLIC_KEY="sb_publishable_M6SPrnOO7UFsBgG7qjlYHQ_d1tA1YAn";
+ let page=1,lastQuery="",seen=new Set(),loading=false;
+ const esc=value=>String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+ const safeUrl=value=>{try{const u=new URL(String(value||""));return u.protocol==="https:"?u.href:""}catch{return ""}};
+ const pick=(...values)=>values.find(v=>v!==undefined&&v!==null&&String(v).trim()!=="");
+ const posted=value=>{if(!value)return "";const n=Number(value);const d=new Date(Number.isFinite(n)&&n>1000000000?n*1000:value);return Number.isNaN(d.getTime())?"":d.toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"});};
+ function setStatus(text,kind="info"){status.textContent=text;status.dataset.state=kind;}
+ function renderJob(job){
+  const id=String(pick(job.job_id,job.id,job.slug,job.url,Math.random()));
+  if(seen.has(id))return "";seen.add(id);
+  const title=pick(job.title,job.job_title,job.role,"Job opportunity");
+  const company=pick(job.company,job.company_name,job.employer,job.hiring?.company,job.hiring?.name);
+  const confidential=job.hiring?.type==="agency"||String(company||"").toLowerCase().includes("confidential");
+  const companyText=confidential?"Recruiting agency · client employer":(company||"Employer not specified");
+  const location=pick(job.location,job.city,job.state,"India");
+  const salary=pick(job.salary_text,job.salary,job.pay,job.monthly_salary,job.salary_range);
+  const work=pick(job.work_mode,job.work_model,job.job_type,job.employment_type);
+  const experience=pick(job.experience,job.experience_level,job.experience_years);
+  const date=posted(pick(job.posted_at,job.created_at,job.posted_date,job.published_at));
+  const link=safeUrl(pick(job.apply_url,job.url,job.job_url));
+  const description=pick(job.summary,job.short_description,job.description,job.job_description);
+  return `<article class="gb-job-result" data-job-id="${esc(id)}">
+   <div class="gb-job-result-top"><span class="gb-job-source-pill">PRIVATE JOB · LIVE FEED</span>${date?`<span class="gb-job-posted">Posted ${esc(date)}</span>`:""}</div>
+   <h4>${esc(title)}</h4><p class="gb-job-company">${esc(companyText)}</p>
+   <div class="gb-job-meta">
+    <span>📍 ${esc(location)}</span>${salary?`<span>💰 ${esc(salary)}</span>`:""}${work?`<span>🕒 ${esc(work)}</span>`:""}${experience?`<span>🎓 ${esc(experience)}</span>`:""}
+   </div>
+   <details class="gb-job-details" data-loaded="${description?"yes":"no"}"><summary>View job details</summary><div class="gb-job-description">${description?esc(description):"Loading full job description…"}</div></details>
+   <div class="gb-job-result-actions">${link?`<a href="${esc(link)}" target="_blank" rel="noopener noreferrer">Apply / Original listing ↗</a>`:"<span>Application link not provided</span>"}</div>
+  </article>`;
+ }
+ async function loadDetail(details){
+  const card=details.closest(".gb-job-result"),id=card?.dataset.jobId;
+  if(!id||details.dataset.loaded==="yes"||details.dataset.loading==="yes")return;
+  details.dataset.loading="yes";
+  const box=details.querySelector(".gb-job-description");
+  try{
+   const response=await fetch(API+"?job_id="+encodeURIComponent(id),{headers:{"apikey":PUBLIC_KEY}});
+   const data=await response.json();if(!response.ok)throw new Error(data.error||"Details unavailable");
+   const job=data.job||data;
+   const lines=[];
+   const desc=pick(job.description,job.job_description,job.summary);
+   if(desc)lines.push(desc);
+   for(const [label,value] of [["Responsibilities",job.responsibilities],["Qualifications",job.minimum_qualifications||job.qualifications],["Skills",job.skills_required||job.skills],["Benefits",job.benefits]]){
+    if(Array.isArray(value)&&value.length)lines.push(label+": "+value.join(" · "));
+    else if(typeof value==="string"&&value)lines.push(label+": "+value);
+   }
+   box.textContent=lines.join("\n\n")||"The provider has not supplied further details. Use the original listing to confirm the full description.";
+   details.dataset.loaded="yes";
+  }catch(error){box.textContent=error.message||"Could not load details. Please try the original listing."; }
+  finally{details.dataset.loading="no";}
+ }
+ results?.addEventListener("toggle",event=>{const d=event.target;if(d.matches("details.gb-job-details")&&d.open)loadDetail(d);},true);
+ async function search(append=false){
+  if(loading)return;
   const keyword=document.getElementById("gbJobsKeyword").value.trim();
   const sector=document.getElementById("gbJobsSector").value;
   const location=document.getElementById("gbJobsLocation").value;
   const qualification=document.getElementById("gbJobsQualification").value;
   const experience=document.getElementById("gbJobsExperience").value;
-  const terms=[keyword,location==="India"?"India":location,qualification,experience,"vacancy OR recruitment OR hiring"];
-  const query=terms.filter(Boolean).join(" ");
-  const domains=sector==="government"
-   ? "(site:gov.in OR site:ncs.gov.in OR site:upsc.gov.in OR site:ssc.gov.in OR site:rrbcdg.gov.in OR site:ibps.in)"
-   : sector==="private"
-    ? "(site:naukri.com OR site:linkedin.com/jobs OR site:in.indeed.com OR site:foundit.in OR site:careers.*)"
-    : "(site:gov.in OR site:ncs.gov.in OR site:upsc.gov.in OR site:ssc.gov.in OR site:rrbcdg.gov.in OR site:ibps.in OR site:naukri.com OR site:linkedin.com/jobs OR site:in.indeed.com OR site:foundit.in)";
-  const url="https://www.google.com/search?q="+encodeURIComponent(query+" "+domains);
-  const opened=window.open(url,"_blank","noopener,noreferrer");
-  const status=document.getElementById("gbJobsSearchStatus");
-  status.textContent=opened?"Search opened in a new tab. Check each listing on its original employer or recruitment website.":"Your browser blocked the search tab. Allow pop-ups or use the trusted source links below.";
- });
+  if(sector==="government"){
+   results.innerHTML='<div class="gb-jobs-empty"><strong>Government vacancies feed is not connected yet.</strong><p>We are not going to show private vacancies as government jobs. You can still use the official recruitment portals listed below.</p></div>';
+   more.hidden=true;setStatus("Government recruitment notices need a separate official-source feed. This search currently has a verified live private-jobs provider.","info");return;
+  }
+  const q=[keyword,location!=="India"?location:"",qualification,experience].filter(Boolean).join(" ").trim();
+  if(!q&&location==="India"&&!qualification&&!experience){/* newest jobs across India */}
+  const params=new URLSearchParams({page:String(append?page:1),per_page:"20"});
+  if(q)params.set("q",q);
+  if(location==="Remote")params.set("work_mode","Remote");
+  if(experience==="Fresher")params.set("fresher","true");
+  lastQuery=params.toString();
+  loading=true;button.disabled=true;button.textContent="Searching live vacancies…";
+  if(more){more.disabled=true;more.textContent="Loading…";}
+  if(!append){page=1;seen.clear();results.innerHTML='<div class="gb-jobs-loading">Finding matching vacancies from the live job feed…</div>';}
+  setStatus("Searching live private-sector vacancies. Results will appear here.","info");
+  try{
+   const response=await fetch(API+"?"+params.toString(),{headers:{"apikey":PUBLIC_KEY,"Accept":"application/json"}});
+   const data=await response.json();
+   if(!response.ok)throw new Error(data.error||"The live jobs feed is temporarily unavailable.");
+   const jobs=Array.isArray(data.jobs)?data.jobs:(Array.isArray(data.results)?data.results:(Array.isArray(data.data)?data.data:[]));
+   const cards=jobs.map(renderJob).filter(Boolean).join("");
+   if(!append)results.innerHTML="";
+   if(cards)results.insertAdjacentHTML("beforeend",cards);
+   if(!jobs.length&&!append)results.innerHTML='<div class="gb-jobs-empty"><strong>No matching live vacancies found.</strong><p>Try a broader job title, remove one filter or choose All India.</p></div>';
+   const total=Number(data.total||data.count||0);
+   const shown=seen.size;
+   setStatus(jobs.length?`Showing ${shown}${total?` of approximately ${total.toLocaleString("en-IN")}`:""} matching live vacancies. Listings are supplied by JobsForce India; confirm details before applying.`:"No more matching vacancies were returned.",jobs.length?"success":"info");
+   if(more){more.hidden=jobs.length<20||shown>=total&&total>0;more.disabled=false;more.textContent="Load more vacancies";}
+  }catch(error){
+   if(!append)results.innerHTML='<div class="gb-jobs-empty"><strong>Could not load live vacancies.</strong><p>'+esc(error.message||"Please try again shortly.")+'</p></div>';
+   setStatus(error.message||"Could not load live vacancies. Please try again.","error");
+   if(more)more.hidden=true;
+  }finally{
+   loading=false;button.disabled=false;button.textContent="Search jobs";if(more)more.disabled=false;
+  }
+ }
+ button.addEventListener("click",()=>search(false));
+ more?.addEventListener("click",()=>{page+=1;search(true);});
 })();
 </script>
 </body>
