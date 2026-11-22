@@ -1808,6 +1808,16 @@ body.gb-night #admin>.grid>.card,body.gb-night #admin>#manageArticles,body.gb-ni
 body.gb-night #admin>.grid>.card h2,body.gb-night #admin>#manageArticles h2,body.gb-night #admin>#knowledgeUpdateCentre h2,body.gb-night #admin>.grid>.card h3,body.gb-night #admin>#knowledgeUpdateCentre h3{color:#f0cf82!important}
 </style>
 
+<style id="gb-job-seekers-styles">
+.gb-jobs-home-card{width:100%;display:flex;align-items:center;gap:15px;text-align:left;margin:0 0 22px;padding:19px 21px;border:1px solid #c99d50;border-radius:19px;background:radial-gradient(circle at 90% 0%,#286e5e 0,transparent 36%),linear-gradient(115deg,#092f2c,#12483e 68%,#082b29);color:#fff7e6;box-shadow:0 12px 28px #062e2920}
+.gb-jobs-home-card:hover{transform:translateY(-2px)}.gb-jobs-home-icon{width:54px;height:54px;flex:0 0 54px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(145deg,#ffe4a0,#d9a344);font-size:27px}
+.gb-jobs-home-copy{display:grid;gap:2px;flex:1}.gb-jobs-home-copy small,.gb-jobs-kicker{font-size:10px;letter-spacing:1.2px;color:#e9c77f;font-weight:800}.gb-jobs-home-copy strong{font:700 23px Georgia,serif;color:#ffe3a2}.gb-jobs-home-copy>span{font-size:13px;color:#e4eee8}.gb-jobs-home-cta{font-size:13px;color:#f4d58f;white-space:nowrap}
+#jobseekers{max-width:1000px;margin:auto}.gb-jobs-hero{padding:27px;border-radius:22px;background:radial-gradient(circle at 92% 12%,#2b6d5c 0,transparent 36%),linear-gradient(125deg,#092f2c,#164d42 68%,#0b342f);color:#fff7e6;box-shadow:0 13px 30px #062e2920}
+.gb-jobs-hero-row{display:flex;align-items:center;justify-content:space-between;gap:16px}.gb-jobs-hero h2{font:700 clamp(30px,5vw,40px) Georgia,serif;color:#ffe3a2;margin:8px 0}.gb-jobs-hero p{margin:0;max-width:670px;color:#e6eee9}.gb-jobs-hero-mark{font-size:52px}.gb-jobs-trust-note{margin-top:20px;padding:11px 13px;border:1px solid #e9c77f55;border-radius:12px;background:#ffffff0c;color:#f4e8c8;font-size:12px}.gb-jobs-trust-note span{color:#f4d58f;font-weight:900;margin-right:7px}
+.gb-jobs-search-card{margin:20px 0;padding:23px;border:1px solid var(--line);border-radius:19px;background:var(--paper);box-shadow:var(--shadow)}.gb-jobs-search-card h3,.gb-jobs-section-head h3{margin:0 0 10px;color:var(--g);font-size:21px}.gb-jobs-search-card label{display:block;margin:13px 0 6px;font-size:13px}.gb-jobs-search-card input,.gb-jobs-search-card select{width:100%;min-height:46px;border:1px solid #d4dfd7;border-radius:11px;padding:11px 13px;background:#fbfdfb;color:var(--ink);font:inherit}.gb-jobs-filter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}.gb-jobs-primary{margin-top:18px;width:100%;min-height:49px;background:linear-gradient(120deg,#103d36,#1d6253);font-size:15px}.gb-jobs-disclaimer,.gb-jobs-muted{color:var(--muted);font-size:12px;line-height:1.6;margin:10px 0 0}.gb-jobs-section-head{margin:25px 0 13px}.gb-jobs-section-head h3{margin:4px 0}
+.gb-jobs-sector-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.gb-jobs-sector{display:grid;gap:5px;padding:18px;border:1px solid #dfe8e1;border-radius:16px;background:linear-gradient(145deg,#fff,#f4f8f4);color:var(--ink);text-decoration:none;box-shadow:0 8px 22px #103d3608}.gb-jobs-sector>span{font-size:26px}.gb-jobs-sector strong{color:#164338;font-size:16px}.gb-jobs-sector small{color:#65756e}.gb-jobs-sector b{color:#9b7129;font-size:12px;margin-top:4px}.gb-jobs-sector.government{border-color:#d9c28f}.gb-jobs-source-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:15px}.gb-jobs-source-list a{display:grid;gap:3px;padding:12px;border:1px solid #e3eae4;border-radius:12px;text-decoration:none;color:var(--ink);background:#fbfdfb}.gb-jobs-source-list a b{color:#17483c;font-size:14px}.gb-jobs-source-list a span{color:var(--muted);font-size:11px}.gb-jobs-safety{padding:17px 19px;margin:18px 0;border-left:4px solid #d6a64c;border-radius:0 13px 13px 0;background:#f7f2e6;color:#3b433b}.gb-jobs-safety p{margin:5px 0 0;font-size:13px;line-height:1.6}
+@media(max-width:600px){.gb-jobs-home-card{padding:15px 13px;gap:10px}.gb-jobs-home-icon{width:45px;height:45px;flex-basis:45px;font-size:23px}.gb-jobs-home-copy strong{font-size:20px}.gb-jobs-home-copy>span{font-size:11px}.gb-jobs-home-cta{font-size:11px}.gb-jobs-hero{padding:21px 18px}.gb-jobs-filter-grid,.gb-jobs-sector-grid,.gb-jobs-source-list{grid-template-columns:1fr}.gb-jobs-search-card{padding:18px 15px}}
+</style>
 </head><body>
 <div id="gbNetProgress" aria-hidden="true"></div><div id="gbNetNotice" role="status" aria-live="polite"><span class="gb-net-dot" aria-hidden="true"></span><span id="gbNetNoticeText">Checking internet connection…</span></div>
 
@@ -1893,6 +1903,7 @@ body.gb-night #admin>.grid>.card h2,body.gb-night #admin>#manageArticles h2,body
    <button class="active" data-tab="library"><span class="gb-drawer-icon">⌂</span><span>Knowledge Library</span></button>
    <button data-tab="dictionary"><span class="gb-drawer-icon">▤</span><span>Universal Dictionary</span></button>
    <button data-tab="contribute"><span class="gb-drawer-icon">✎</span><span>Contribute</span></button>
+   <button data-tab="jobseekers"><span class="gb-drawer-icon">💼</span><span>Job Seekers</span><span class="gb-quiz-arrow">›</span></button>
    <a class="gb-quiz-menu-link gb-translator-menu-link" href="translator/"><span class="gb-drawer-icon">🌐</span><span>Translator</span><span class="gb-quiz-arrow">›</span></a>
    <a class="gb-quiz-menu-link gb-kids-menu-link" href="kids/"><span class="gb-drawer-icon">🧸</span><span>Kids Education</span><span class="gb-quiz-arrow">›</span></a>
    <a class="gb-quiz-menu-link" href="quiz-arena/"><span class="gb-drawer-icon">🏆</span><span>Quiz Arena</span><span class="gb-quiz-arrow">›</span></a>
@@ -2001,6 +2012,11 @@ body.gb-night #admin>.grid>.card h2,body.gb-night #admin>#manageArticles h2,body
   </div>
 
  </div>
+ <button type="button" class="gb-jobs-home-card" data-open-tab="jobseekers" aria-label="Open Job Seekers">
+  <span class="gb-jobs-home-icon" aria-hidden="true">💼</span>
+  <span class="gb-jobs-home-copy"><small>CAREER & OPPORTUNITY</small><strong>Job Seekers</strong><span>Explore government and private jobs across India.</span></span>
+  <span class="gb-jobs-home-cta">Explore jobs <b>→</b></span>
+ </button>
  <div class="gb-search-wrap">
   <form id="gbGlobalSearch" class="gb-global-search">
    <span aria-hidden="true">⌕</span><input id="gbGlobalSearchInput" type="search" placeholder="Search GyanBhoomi — articles, dictionary, books, topics…" aria-label="Search GyanBhoomi">
@@ -2075,6 +2091,48 @@ body.gb-night #admin>.grid>.card h2,body.gb-night #admin>#manageArticles h2,body
  </div>
 </section>
 <div class="card"><div class="library-toolbar"><div><span class="eyebrow">THE KNOWLEDGE LIBRARY</span><h2>Latest articles</h2></div><button id="refreshBtn">Refresh</button></div><div class="row"><h2>Published articles</h2><button id="refreshBtnSecondary" type="button">Refresh</button></div><label for="searchInput">Search the knowledge library</label><input id="searchInput" type="search" placeholder="Search by title, author, category or words in an article…"><label for="categoryFilter">Filter by category</label><select id="categoryFilter"><option value="">All categories</option><option value="Science">Science</option><option value="Technology">Technology</option><option value="History">History</option><option value="Education">Education</option><option value="Health & Lifestyle">Health & Lifestyle</option><option value="Arts & Culture">Arts & Culture</option><option value="Environment">Environment</option><option value="Other">Other</option></select><p id="searchCount" class="muted" aria-live="polite"></p><div id="articles" class="muted">Loading articles…</div></div></section>
+
+<section id="jobseekers" class="tab hidden">
+ <div class="gb-jobs-hero">
+  <span class="gb-jobs-kicker">GYANBHOOMI · CAREER DISCOVERY</span>
+  <div class="gb-jobs-hero-row"><div><h2>Job Seekers</h2><p>Explore government vacancies and private-sector opportunities from public job sources across India.</p></div><span class="gb-jobs-hero-mark">💼</span></div>
+  <div class="gb-jobs-trust-note"><span>✓</span> Search results open at their original source. Always verify eligibility, dates and fees on the employer's official website.</div>
+ </div>
+ <div class="gb-jobs-search-card">
+  <h3>Find opportunities</h3>
+  <label for="gbJobsKeyword">Job title, skill, company or department</label>
+  <input id="gbJobsKeyword" type="search" placeholder="e.g. Staff Nurse, Clerk, Software Engineer">
+  <div class="gb-jobs-filter-grid">
+   <div><label for="gbJobsSector">Job sector</label><select id="gbJobsSector"><option value="all">Government + Private</option><option value="government">Government jobs</option><option value="private">Private jobs</option></select></div>
+   <div><label for="gbJobsLocation">Location</label><select id="gbJobsLocation"><option value="India">All India</option><option>Uttar Pradesh</option><option>Delhi</option><option>Bihar</option><option>Maharashtra</option><option>Rajasthan</option><option>Madhya Pradesh</option><option>Haryana</option><option>Karnataka</option><option>Tamil Nadu</option><option>West Bengal</option><option>Telangana</option><option>Gujarat</option><option>Punjab</option><option>Remote</option></select></div>
+   <div><label for="gbJobsQualification">Qualification</label><select id="gbJobsQualification"><option value="">Any qualification</option><option>10th pass</option><option>12th pass</option><option>ITI</option><option>Diploma</option><option>Graduate</option><option>Postgraduate</option><option>Engineering</option><option>Any degree</option></select></div>
+   <div><label for="gbJobsExperience">Experience</label><select id="gbJobsExperience"><option value="">Any experience</option><option>Fresher</option><option>0-2 years</option><option>2-5 years</option><option>5+ years</option></select></div>
+  </div>
+  <button type="button" id="gbJobsSearchButton" class="gb-jobs-primary">Search jobs across the web ↗</button>
+  <p class="gb-jobs-disclaimer" id="gbJobsSearchStatus" role="status" aria-live="polite">Searches use public web search results. Job listings are not independently verified by GyanBhoomi.</p>
+ </div>
+ <div class="gb-jobs-section-head"><div><span class="gb-jobs-kicker">DISCOVER BY SECTOR</span><h3>Explore job opportunities</h3></div></div>
+ <div class="gb-jobs-sector-grid">
+  <a href="https://www.google.com/search?q=government+job+vacancies+India+official+notification" target="_blank" rel="noopener noreferrer" class="gb-jobs-sector government"><span>🏛️</span><strong>Government Jobs</strong><small>Central & State recruitment</small><b>Explore ↗</b></a>
+  <a href="https://www.google.com/search?q=private+company+jobs+India+careers+vacancies" target="_blank" rel="noopener noreferrer" class="gb-jobs-sector private"><span>🏢</span><strong>Private Jobs</strong><small>Companies & industries</small><b>Explore ↗</b></a>
+  <a href="https://www.google.com/search?q=fresher+jobs+India+2026" target="_blank" rel="noopener noreferrer" class="gb-jobs-sector"><span>🎓</span><strong>Fresher Jobs</strong><small>Entry-level opportunities</small><b>Explore ↗</b></a>
+  <a href="https://www.google.com/search?q=remote+work+jobs+India" target="_blank" rel="noopener noreferrer" class="gb-jobs-sector"><span>🌐</span><strong>Remote Jobs</strong><small>Work from anywhere</small><b>Explore ↗</b></a>
+ </div>
+ <div class="gb-jobs-search-card">
+  <h3>Trusted job sources</h3><p class="gb-jobs-muted">Open official recruitment portals and established career platforms.</p>
+  <div class="gb-jobs-source-list">
+   <a href="https://www.ncs.gov.in/" target="_blank" rel="noopener noreferrer"><b>National Career Service</b><span>Government employment portal ↗</span></a>
+   <a href="https://upsc.gov.in/" target="_blank" rel="noopener noreferrer"><b>UPSC</b><span>Central civil services recruitment ↗</span></a>
+   <a href="https://ssc.gov.in/" target="_blank" rel="noopener noreferrer"><b>SSC</b><span>Staff Selection Commission ↗</span></a>
+   <a href="https://www.rrbcdg.gov.in/" target="_blank" rel="noopener noreferrer"><b>Railway Recruitment</b><span>Railway recruitment board ↗</span></a>
+   <a href="https://ibps.in/" target="_blank" rel="noopener noreferrer"><b>IBPS</b><span>Banking recruitment ↗</span></a>
+   <a href="https://www.naukri.com/" target="_blank" rel="noopener noreferrer"><b>Naukri</b><span>Private-sector vacancies ↗</span></a>
+   <a href="https://www.linkedin.com/jobs/" target="_blank" rel="noopener noreferrer"><b>LinkedIn Jobs</b><span>Company and professional roles ↗</span></a>
+   <a href="https://in.indeed.com/" target="_blank" rel="noopener noreferrer"><b>Indeed India</b><span>Private and local jobs ↗</span></a>
+  </div>
+ </div>
+ <div class="gb-jobs-safety"><b>Stay safe while applying</b><p>GyanBhoomi will never ask you to pay a recruitment fee. Check the employer's domain, official notification, eligibility and application deadline before sharing personal information or making any payment.</p></div>
+</section>
 
 <section id="dictionary" class="tab hidden">
  <div class="dict-hero">
@@ -3223,7 +3281,31 @@ footer{background:#f5f7f3!important;color:#77847c!important;border-color:#e2e9e2
 </style>
 <style id="gb-classic-theme-tokens">
 html[data-gb-palette="classic"]{color-scheme:light;--gb-bg:#f5f7f3;--gb-surface:#fffefa;--gb-soft:#edf3ed;--gb-header:#073b35;--gb-header2:#0f7664;--gb-accent:#e8c875;--gb-text:#263a33;--gb-muted:#718078;--gb-line:#dce7dd;--gb-primary:#315e50;--gb-primary2:#477764;--gb-shadow:rgba(37,79,69,.07)}
-</style></body>
+</style><script id="gb-job-seekers-search">
+(()=>{
+ const button=document.getElementById("gbJobsSearchButton");
+ if(!button)return;
+ button.addEventListener("click",()=>{
+  const keyword=document.getElementById("gbJobsKeyword").value.trim();
+  const sector=document.getElementById("gbJobsSector").value;
+  const location=document.getElementById("gbJobsLocation").value;
+  const qualification=document.getElementById("gbJobsQualification").value;
+  const experience=document.getElementById("gbJobsExperience").value;
+  const terms=[keyword,location==="India"?"India":location,qualification,experience,"vacancy OR recruitment OR hiring"];
+  const query=terms.filter(Boolean).join(" ");
+  const domains=sector==="government"
+   ? "(site:gov.in OR site:ncs.gov.in OR site:upsc.gov.in OR site:ssc.gov.in OR site:rrbcdg.gov.in OR site:ibps.in)"
+   : sector==="private"
+    ? "(site:naukri.com OR site:linkedin.com/jobs OR site:in.indeed.com OR site:foundit.in OR site:careers.*)"
+    : "(site:gov.in OR site:ncs.gov.in OR site:upsc.gov.in OR site:ssc.gov.in OR site:rrbcdg.gov.in OR site:ibps.in OR site:naukri.com OR site:linkedin.com/jobs OR site:in.indeed.com OR site:foundit.in)";
+  const url="https://www.google.com/search?q="+encodeURIComponent(query+" "+domains);
+  const opened=window.open(url,"_blank","noopener,noreferrer");
+  const status=document.getElementById("gbJobsSearchStatus");
+  status.textContent=opened?"Search opened in a new tab. Check each listing on its original employer or recruitment website.":"Your browser blocked the search tab. Allow pop-ups or use the trusted source links below.";
+ });
+})();
+</script>
+</body>
  </html>`);
  printWindow.onload=()=>{
  printWindow.focus();
@@ -4126,7 +4208,7 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
    The URL hash is the source of truth, so refresh/back/forward restore the section. */
 (function () {
   "use strict";
-  const allowedTabs = new Set(["library", "dictionary", "ask", "contribute", "admin"]);
+  const allowedTabs = new Set(["library", "dictionary", "ask", "contribute", "jobseekers", "admin"]);
   const menu = document.getElementById("gbMenuPanel");
   const menuToggle = document.getElementById("gbMenuToggle");
 
