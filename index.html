@@ -2742,7 +2742,7 @@ function articleImage(value){
  if(!raw.startsWith(HTML_MARKER))return "";
  try{
   const doc=new DOMParser().parseFromString(raw.slice(HTML_MARKER.length),"text/html");
-  const img=doc.querySelector("img[src^='data:image/']");
+  const img=doc.querySelector("img[src^='data:image/'],img[src^='https://']");
   return img?img.getAttribute("src"):"";
  }catch(e){return ""}
 }
