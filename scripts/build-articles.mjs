@@ -415,6 +415,20 @@ h1{color:var(--green);font-size:clamp(30px,5vw,44px);line-height:1.2;margin:8px 
 .body blockquote{margin:1.5em 0;padding:1em 1.2em;border-left:4px solid #e9b85f;border-radius:0 10px 10px 0;background:#17483f;line-height:1.8}
 .body strong,.body b{color:#f5d58d}
 .body a{color:#f0cf82;text-underline-offset:3px}
+/* Contents lists generated as adjacent anchors must read as a real vertical index. */
+.body h2+div:has(>a){display:grid;grid-template-columns:1fr;gap:7px;margin:14px 0 28px}
+.body h2+div:has(>a)>a{display:block;padding:9px 13px;border:1px solid #397269;border-radius:9px;background:#123c3b;line-height:1.5;text-decoration:none}
+.body h2+div:has(>a)>a:hover{border-color:#e9b85f;background:#17483f}
+/* Chapter sections are grouped by the chapter marker in the content below. */
+.gb-chapter{display:flow-root;margin:34px 0 42px;padding:clamp(16px,3vw,28px);border:1px solid #397269;border-radius:16px;background:linear-gradient(160deg,#103a36,#0c302d);box-shadow:0 8px 24px #001c1930}
+.gb-chapter+.gb-chapter{margin-top:42px}
+.gb-chapter> :first-child{margin-top:0}
+.gb-chapter h2{margin-top:14px!important;padding-bottom:12px;border-bottom:1px solid #527267}
+.gb-chapter h3{margin-top:28px!important}
+.gb-chapter p{margin:0 0 1.25em;line-height:1.9}
+.gb-chapter figure{margin:26px auto}
+.gb-chapter img{margin:20px auto}
+@media(max-width:600px){.gb-chapter{margin:24px 0 30px;padding:16px;border-radius:13px}.gb-chapter h3{margin-top:22px!important}}
 @media(max-width:600px){
  .body{line-height:1.85}
  .body>p{margin-bottom:1.1em}
@@ -585,6 +599,35 @@ body.gb-night .meta,body.gb-night footer{color:#b3c8bd}
  const title=document.querySelector("h1")?.textContent.trim()||"GyanBhoomi article";
  const url=location.href;
  const body=document.querySelector(".body");
+ // Convert the article's chapter-marker blocks into real semantic reading sections.
+ // This repairs legacy GBHTML1 content without changing its wording or image nodes.
+ (function organizeChapters(){
+  if(!body) return;
+  const markers=[...body.querySelectorAll("div")].filter(el=>
+   el.children.length===0 && /^Chapter\\s+\\d+\\s+of\\s+\\d+$/i.test(el.textContent.trim())
+  );
+  const starts=[];
+  for(const marker of markers){
+   let top=marker;
+   while(top.parentElement && top.parentElement!==body) top=top.parentElement;
+   if(top.parentElement===body && !starts.some(item=>item.node===top)) starts.push({node:top,marker});
+  }
+  starts.sort((a,b)=>{
+   const nodes=[...body.children];
+   return nodes.indexOf(a.node)-nodes.indexOf(b.node);
+  });
+  const direct=[...body.childNodes];
+  for(let i=0;i<starts.length;i++){
+   const start=direct.indexOf(starts[i].node);
+   const end=i+1<starts.length?direct.indexOf(starts[i+1].node):direct.length;
+   if(start<0||end<=start) continue;
+   const section=document.createElement("section");
+   section.className="gb-chapter";
+   section.setAttribute("aria-label",starts[i].marker.textContent.trim());
+   body.insertBefore(section,starts[i].node);
+   for(const node of direct.slice(start,end)) section.appendChild(node);
+  }
+ })();
  // GyanBhoomi multilingual translation
 const translateButton=$("gbTranslate");
 const originalButton=$("gbOriginal");
