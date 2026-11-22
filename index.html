@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#123b35"><meta name="google-site-verification" content="oNzy5yi2S9UbYH8VEnuh-GYYScsWCFL5yz_VZqXy31c" /><title>GyanBhoomi</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#103d36"><link rel="icon" type="image/svg+xml" href="assets/gyanbhoomi-favicon.svg?v=1"><link rel="manifest" href="site.webmanifest"><meta name="google-site-verification" content="oNzy5yi2S9UbYH8VEnuh-GYYScsWCFL5yz_VZqXy31c" /><title>GyanBhoomi</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
 // Backup loader: if jsDelivr is blocked or unavailable, load Supabase from unpkg.
@@ -237,7 +237,7 @@ footer{text-align:center;padding:28px 16px;color:#738078;font-size:13px;border-t
 .gb-topbar{max-width:1240px;margin:auto;display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:12px}
 .gb-menu-toggle{width:48px;height:44px;padding:0;border:1px solid #e8c87988;background:#ffffff12;color:#fff;font-size:25px;border-radius:13px;box-shadow:none}
 .gb-brand{display:flex;align-items:center;justify-content:center;gap:13px;text-align:center}
-.gb-globe-mark{width:66px;height:66px;position:relative;flex:none}.gb-globe-mark svg{width:100%;height:100%;filter:drop-shadow(0 5px 12px #0008)}.gb-globe-mark span{position:absolute;top:-7px;right:1px;color:#ffe29a;font-size:20px}
+.gb-globe-mark{width:66px;height:66px;position:relative;flex:none}.gb-globe-mark svg,.gb-globe-mark img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 5px 12px #0008)}
 .gb-brand h1{font:800 clamp(31px,5vw,48px)/1 Georgia,serif;letter-spacing:-1.5px;color:#fff8e7;text-shadow:0 3px 14px #0008}.gb-brand h1 span{color:#f0c66f}
 .gb-tagline{font:600 14px/1.5 system-ui;color:#f8e3b4;letter-spacing:.8px;margin-top:5px}.gb-motto{font-size:12px;color:#c8e5d9;letter-spacing:1.1px}
 .gb-actions{display:flex;gap:8px;align-items:center}.gb-actions button{white-space:nowrap;padding:10px 13px;border-radius:99px;box-shadow:none}.gb-ai-btn{background:linear-gradient(120deg,#6651bc,#49348e);border:1px solid #c8baff}.gb-help-btn{background:#fff7e8;color:#254b40;border:1px solid #eacb7b}.gb-lang-toggle{background:#e8f4ed;color:#174b40;border:1px solid #d6c17d}
@@ -1700,10 +1700,7 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
   <button class="gb-menu-toggle" id="gbMenuToggle" type="button" aria-expanded="false" aria-controls="gbMenuPanel" aria-label="Open main menu">☰</button>
   <div class="gb-brand">
    <div class="gb-brand-stack">
-    <div class="gb-globe-mark" aria-hidden="true">
-     <svg viewBox="0 0 120 120"><defs><radialGradient id="gbEarth"><stop stop-color="#65d7c0"/><stop offset="1" stop-color="#087c70"/></radialGradient></defs><circle cx="60" cy="60" r="43" fill="url(#gbEarth)" stroke="#f4d18a" stroke-width="2.5"/><path d="M24 53l14-14 13 4 7 14-9 8-2 19-13-5-8-16zm43-31l13 7 2 12-11 7-9-9zm7 48l17-8 12 9-8 18-17 4-9-11z" fill="#c8efc5"/><path d="M17 60h86M60 17v86M29 29q31 31 0 62M91 29q-31 31 0 62" fill="none" stroke="#e4fff3" opacity=".6"/></svg>
-     <span>✦</span>
-    </div>
+    <div class="gb-globe-mark" aria-hidden="true"><img src="assets/gyanbhoomi-symbol.svg?v=1" alt="" width="66" height="66"></div>
     <div><h1>Gyan<span>Bhoomi</span></h1><div class="gb-tagline">The Universal Knowledge Library</div><div class="gb-motto">Learn · Explore · Discover · In Your Language</div></div>
    </div>
   </div><div class="gb-actions">
