@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="GyanBhoomi Gyan Globe">
+<defs><radialGradient id="bg" cx="38%" cy="24%" r="85%"><stop stop-color="#126b58"/><stop offset="1" stop-color="#042a25"/></radialGradient><radialGradient id="earth" cx="35%" cy="25%" r="80%"><stop stop-color="#2ec69c"/><stop offset=".62" stop-color="#087b67"/><stop offset="1" stop-color="#03483f"/></radialGradient><linearGradient id="gold" x2="0" y2="1"><stop stop-color="#fff0a8"/><stop offset=".48" stop-color="#f4c44f"/><stop offset="1" stop-color="#bd7d17"/></linearGradient><linearGradient id="page" x2="0" y2="1"><stop stop-color="#fffdf0"/><stop offset="1" stop-color="#e9d9a9"/></linearGradient></defs>
+<rect x="3" y="3" width="122" height="122" rx="27" fill="url(#bg)" stroke="url(#gold)" stroke-width="2"/>
+<circle cx="64" cy="52" r="38" fill="url(#earth)" stroke="#e9c45d" stroke-width="2.5"/>
+<g fill="none" stroke="#9cebd2" stroke-width="1.1" opacity=".65"><path d="M27 52h74M64 14v76M39 25c13 16 13 38 0 54M89 25c-13 16-13 38 0 54"/><ellipse cx="64" cy="52" rx="17" ry="38"/></g>
+<path d="M39 37l8-10 10 2 5 8-7 7-2 10-9-2-6-8zm31-15 10 4 3 8-8 5-8-7zm-7 34 10-6 9 5-3 12-10 4-7-8z" fill="#b7ef92"/>
+<path d="M45 30c8-9 27-13 41-6" fill="none" stroke="#eaffd6" stroke-width="2" opacity=".6"/>
+<path d="M48 38c-9 9-13 24-8 36 6 15 25 21 41 13 8-4 13-11 15-19" fill="none" stroke="url(#gold)" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M49 38c-1-7 4-12 10-15" fill="none" stroke="url(#gold)" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M54 39c-8 0-13 6-13 14v15c0 11 8 19 19 19h15c10 0 17-7 17-17V57H69v10h12v2c0 6-4 9-10 9H61c-6 0-10-4-10-10V53c0-6 4-10 10-10h15V33H61c-3 0-5 2-7 6z" fill="#fff8e8" stroke="#c99732" stroke-width="1.3"/>
+<path d="M18 67c23 4 61-1 89-22" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round"/>
+<path d="M106 34l2-8 2 8 8 2-8 2-2 8-2-8-8-2z" fill="#ffe28a" stroke="#bd861e" stroke-width="1"/>
+<path d="M20 100Q39 89 63 105Q87 89 108 100L105 112Q84 101 63 116Q41 101 23 112z" fill="url(#page)" stroke="#d4a53e" stroke-width="2"/>
+<path d="M63 105v11" stroke="#b98729" stroke-width="1.8"/>
+</svg>
