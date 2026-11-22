@@ -49,16 +49,16 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:12px;border-t
  <div class="section-head"><div><span class="kicker">START YOUR JOURNEY</span><h2>Explore Countries</h2><p>India is the first published country. More detailed country encyclopedias will be added progressively.</p></div></div>
  <div class="controls"><div class="search"><input id="search" type="search" placeholder="Search a country… e.g. India, France, Brazil" aria-label="Search country name"></div><select class="select" id="sort" aria-label="Sort countries"><option value="az">Sort: A–Z</option><option value="za">Sort: Z–A</option></select></div>
  <div class="regions" id="regions"></div>
- <div class="countline"><span id="resultCount">Showing 195 countries</span><strong>India 🇮🇳 · Now available</strong></div>
+ <div class="countline"><span id="resultCount">Showing 195 countries</span><strong>India 🇮🇳 & Pakistan 🇵🇰 · Now available</strong></div>
  <div class="grid" id="countryGrid"></div><div class="empty" id="empty">No countries match your search. Try another name or region.</div>
- <section class="cta"><div><h3>Begin with India 🇮🇳</h3><p>Explore the first GyanBhoomi country encyclopedia, including expanded state and Union Territory annexures.</p></div><a href="india/">Explore India Encyclopedia →</a></section>
+ <section class="cta"><div><h3>Explore India 🇮🇳 and Pakistan 🇵🇰</h3><p>Two detailed GyanBhoomi country encyclopedias are now available, with regional references, facts and quizzes.</p></div><div><a href="india/">India →</a> <a href="pakistan/">Pakistan →</a></div></section>
 </main>
-<footer>GyanBhoomi · Learn · Explore · Discover<br>World GK directory · 195 country entries · India published first</footer>
+<footer>GyanBhoomi · Learn · Explore · Discover<br>World GK directory · 195 country entries · India and Pakistan published</footer>
 <script>
 (()=>{'use strict';
 const REGIONS=['All','Africa','Asia','Europe','North America','South America','Oceania'];
 const DATA_URL='countries.json';
-const INDIA_SLUG='india';
+const PUBLISHED_SLUGS=new Set(['india','pakistan']);
 let countries=[],region='All';
 const $=id=>document.getElementById(id);
 const initialQuery=new URLSearchParams(location.search).get('q')||'';
@@ -70,20 +70,20 @@ function draw(){
  let list=countries.filter(c=>(region==='All'||c.region===region)&&(!q||c.name.toLowerCase().includes(q)||String(c.nativeName||'').toLowerCase().includes(q)));
  list.sort((a,b)=>sort==='az'?a.name.localeCompare(b.name):b.name.localeCompare(a.name));
  // Keep India first only in default all/A-Z view.
- if(!q&&region==='All'&&sort==='az') list.sort((a,b)=>(a.slug===INDIA_SLUG?-1:b.slug===INDIA_SLUG?1:a.name.localeCompare(b.name)));
+ if(!q&&region==='All'&&sort==='az') list.sort((a,b)=>(PUBLISHED_SLUGS.has(a.slug)!==PUBLISHED_SLUGS.has(b.slug)?(PUBLISHED_SLUGS.has(a.slug)?-1:1):a.name.localeCompare(b.name)));
  $('resultCount').textContent=`Showing ${list.length} of ${countries.length} countries`;
  $('countryGrid').innerHTML=list.map(c=>{
-  const available=c.slug===INDIA_SLUG;
+  const available=PUBLISHED_SLUGS.has(c.slug);
   return `<article class="country ${available?'available':''}">
    <div class="country-top"><span class="flag" aria-hidden="true">${flag(c.iso2)}</span><span class="status ${available?'live':''}">${available?'✓ Available':'Coming soon'}</span></div>
    <div class="country-body"><h3>${esc(c.name)}</h3><div class="native">${esc(c.nativeName||'')}</div><div class="meta">${esc(c.region)}${c.capital?' · Capital: '+esc(Array.isArray(c.capital)?c.capital.join(', '):c.capital):''}</div>
-   ${available?'<a class="open" href="india/">Open India Encyclopedia →</a>':'<div class="soon">🔒 Detailed profile coming soon</div>'}</div></article>`;
+   ${available?'<a class="open" href="'+esc(c.slug)+'/">Open '+esc(c.name)+' Encyclopedia →</a>':'<div class="soon">🔒 Detailed profile coming soon</div>'}</div></article>`;
  }).join('');
  $('empty').style.display=list.length?'none':'block';
 }
 $('search').addEventListener('input',draw);$('sort').addEventListener('change',draw);
 $('regions').addEventListener('click',e=>{const b=e.target.closest('[data-region]');if(!b)return;region=b.dataset.region;drawRegions();draw();});
-fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('Country directory could not be loaded');return r.json();}).then(d=>{countries=d;$('publishedCount').textContent='1';$('comingCount').textContent=String(countries.length-1);if(initialQuery)$('search').value=initialQuery;drawRegions();draw();}).catch(()=>{$('countryGrid').innerHTML='<div class="empty" style="display:block">The country directory could not be loaded. Please refresh the page.</div>';});
+fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('Country directory could not be loaded');return r.json();}).then(d=>{countries=d;$('publishedCount').textContent=String(PUBLISHED_SLUGS.size);$('comingCount').textContent=String(countries.length-PUBLISHED_SLUGS.size);if(initialQuery)$('search').value=initialQuery;drawRegions();draw();}).catch(()=>{$('countryGrid').innerHTML='<div class="empty" style="display:block">The country directory could not be loaded. Please refresh the page.</div>';});
 })();
 </script>
 </body></html>
