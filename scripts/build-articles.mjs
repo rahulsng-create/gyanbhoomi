@@ -604,7 +604,7 @@ body.gb-night .meta,body.gb-night footer{color:#b3c8bd}
  (function organizeChapters(){
   if(!body) return;
   const markers=[...body.querySelectorAll("div")].filter(el=>
-   el.children.length===0 && /^Chapter\\s+\\d+\\s+of\\s+\\d+$/i.test(el.textContent.trim())
+   el.children.length===0 && /^Chapter\s+\d+\s+of\s+\d+$/i.test(el.textContent.trim())
   );
   const starts=[];
   for(const marker of markers){
