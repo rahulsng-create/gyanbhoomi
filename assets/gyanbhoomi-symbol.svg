@@ -6,11 +6,16 @@
  <linearGradient id="ivory" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fffef2"/><stop offset="1" stop-color="#e7d9b5"/></linearGradient>
  <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="2.2"/><feOffset dy="2"/><feComponentTransfer><feFuncA type="linear" slope=".55"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
  <clipPath id="globeClip"><circle cx="64" cy="49" r="39"/></clipPath>
+
+ <filter id="goldGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="2.1" result="blur"/><feColorMatrix in="blur" type="matrix" values="1 0 0 0 .9 0 1 0 0 .55 0 0 1 0 .05 0 0 0 1 0" result="warm"/><feMerge><feMergeNode in="warm"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <filter id="tealGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".8"/><stop offset=".35" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+ <linearGradient id="goldSheen" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fffde1"/><stop offset=".2" stop-color="#fff0a0"/><stop offset=".48" stop-color="#f5c84e"/><stop offset=".7" stop-color="#e39a16"/><stop offset="1" stop-color="#fff0a0"/></linearGradient>
 </defs>
-<rect x="3" y="3" width="122" height="122" rx="25" fill="url(#bg)" stroke="url(#gold)" stroke-width="2.5"/>
-<rect x="7" y="7" width="114" height="114" rx="21" fill="none" stroke="#ffe9a0" stroke-opacity=".22"/>
-<circle cx="64" cy="49" r="40.5" fill="#022b27" stroke="url(#gold)" stroke-width="2.4" filter="url(#shadow)"/>
-<circle cx="64" cy="49" r="38" fill="url(#earth)"/>
+<rect x="3" y="3" width="122" height="122" rx="25" fill="url(#bg)" stroke="url(#goldSheen)" stroke-width="3" filter="url(#goldGlow)"/>
+<rect x="7" y="7" width="114" height="114" rx="21" fill="none" stroke="#fff4c2" stroke-opacity=".55" stroke-width=".8"/><path d="M13 27Q20 9 43 8H85" fill="none" stroke="#fff" stroke-width="1.5" opacity=".42"/>
+<circle cx="64" cy="49" r="40.5" fill="#022b27" stroke="url(#goldSheen)" stroke-width="2.8" filter="url(#goldGlow)"/>
+<circle cx="64" cy="49" r="38" fill="url(#earth)" filter="url(#tealGlow)"/>
 <g clip-path="url(#globeClip)">
  <g fill="none" stroke="#a8f5dc" stroke-width="1" opacity=".55">
   <path d="M25 49h78M64 10v78M30 29q34 19 0 40M98 29q-34 19 0 40"/>
@@ -20,17 +25,17 @@
  <path d="M27 24q30-22 66-2" fill="none" stroke="#e6ffda" stroke-width="2" opacity=".45"/>
 </g>
 <!-- Large signature G -->
-<text x="64" y="79" text-anchor="middle" font-family="Georgia,serif" font-size="65" font-weight="bold" fill="url(#ivory)" stroke="#b98628" stroke-width="1.3" paint-order="stroke fill" filter="url(#shadow)">G</text>
+<text x="64" y="79" text-anchor="middle" font-family="Georgia,serif" font-size="65" font-weight="bold" fill="url(#ivory)" stroke="#b98628" stroke-width="1.3" paint-order="stroke fill" filter="url(#goldGlow)">G</text>
 <!-- Golden orbit crossing the globe and G -->
 <path d="M14 66C34 77 82 66 112 35" fill="none" stroke="#8b5a10" stroke-width="8" stroke-linecap="round" opacity=".7"/>
-<path d="M14 64C36 75 83 63 112 33" fill="none" stroke="url(#gold)" stroke-width="5.2" stroke-linecap="round"/>
+<path d="M14 64C36 75 83 63 112 33" fill="none" stroke="url(#goldSheen)" stroke-width="5.8" stroke-linecap="round" filter="url(#goldGlow)"/>
 <path d="M19 63C44 70 82 57 105 39" fill="none" stroke="#fff2b3" stroke-width="1.2" stroke-linecap="round" opacity=".9"/>
 <!-- Four-point knowledge sparkle -->
-<path d="M108 20l3.2 9.2 9.2 3.2-9.2 3.2-3.2 9.2-3.2-9.2-9.2-3.2 9.2-3.2z" fill="url(#gold)" stroke="#fff1a8" stroke-width=".8"/>
+<path d="M108 20l3.2 9.2 9.2 3.2-9.2 3.2-3.2 9.2-3.2-9.2-9.2-3.2 9.2-3.2z" fill="url(#goldSheen)" stroke="#fffbe0" stroke-width="1.2" filter="url(#goldGlow)"/>
 <!-- Open book -->
 <path d="M15 91Q36 83 63 98Q90 83 113 91L109 111Q84 99 63 114Q41 99 19 111Z" fill="#062c27" stroke="#a56d16" stroke-width="2"/>
 <path d="M17 90Q39 82 63 97V109Q40 95 20 105Z" fill="url(#ivory)" stroke="url(#gold)" stroke-width="1.5"/>
 <path d="M110 90Q87 82 63 97V109Q86 95 107 105Z" fill="url(#ivory)" stroke="url(#gold)" stroke-width="1.5"/>
 <path d="M63 97v17" stroke="#bb8427" stroke-width="1.8"/>
-<path d="M24 94q16-5 31 4M102 94q-16-5-31 4" fill="none" stroke="#d9c99e" stroke-width="1" opacity=".8"/>
+<path d="M24 94q16-5 31 4M102 94q-16-5-31 4" fill="none" stroke="#fff7d8" stroke-width="1.4" opacity=".95"/><path d="M20 91Q39 84 60 97" fill="none" stroke="#fff" stroke-width="1.5" opacity=".65"/>
 </svg>
