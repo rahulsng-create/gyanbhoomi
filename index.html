@@ -1712,12 +1712,45 @@ body.gb-night .gb-profile-panel{background:#172a25;color:#e8eee8;border-color:#3
  #gbEntryLogin .gb-auth-tabs{margin-bottom:10px!important}
 }
 </style>
+
+<style id="gb-entry-globe-branding">
+/* Active welcome/loading cover branding — overlay only; artwork and entry flow stay intact. */
+#gbEntryWelcome .gb-entry-brand{
+  position:absolute;top:clamp(14px,2.4vw,28px);left:clamp(14px,2.4vw,28px);
+  z-index:5;display:flex;align-items:center;gap:11px;
+  padding:8px 14px 8px 8px;border:1px solid rgba(240,200,112,.78);
+  border-radius:16px;background:rgba(3,35,31,.78);
+  box-shadow:0 8px 26px rgba(0,15,12,.35),inset 0 1px 0 rgba(255,255,255,.12);
+  color:#fff5dc;backdrop-filter:blur(9px);pointer-events:none;
+}
+#gbEntryWelcome .gb-entry-brand img{
+  position:static!important;inset:auto!important;display:block!important;
+  width:42px!important;height:42px!important;max-width:42px!important;max-height:42px!important;
+  object-fit:contain!important;padding:0!important;border:1px solid #e8c875;
+  border-radius:11px;background:#06352f;filter:drop-shadow(0 3px 7px #0007);
+}
+#gbEntryWelcome .gb-entry-brand span{display:flex;flex-direction:column;gap:3px}
+#gbEntryWelcome .gb-entry-brand strong{font:700 19px/1.05 Georgia,serif;letter-spacing:-.2px}
+#gbEntryWelcome .gb-entry-brand small{font:800 8px/1.2 system-ui,sans-serif;letter-spacing:1.1px;color:#f1d18a}
+@media(max-width:760px),(pointer:coarse){
+  #gbEntryWelcome .gb-entry-brand{top:9px;left:10px;gap:7px;padding:5px 9px 5px 5px;border-radius:12px}
+  #gbEntryWelcome .gb-entry-brand img{width:32px!important;height:32px!important;max-width:32px!important;max-height:32px!important;border-radius:8px}
+  #gbEntryWelcome .gb-entry-brand strong{font-size:15px}
+  #gbEntryWelcome .gb-entry-brand small{font-size:6px;letter-spacing:.75px}
+}
+@media(prefers-reduced-motion:reduce){#gbEntryWelcome .gb-entry-brand{backdrop-filter:none}}
+</style>
+
 </head><body>
 <div id="gbNetProgress" aria-hidden="true"></div><div id="gbNetNotice" role="status" aria-live="polite"><span class="gb-net-dot" aria-hidden="true"></span><span id="gbNetNoticeText">Checking internet connection…</span></div>
 
 <div id="gbEntryGate" class="gb-entry-gate gb-entry-closed" aria-modal="true" role="dialog" aria-label="Welcome to GyanBhoomi">
   <section id="gbEntryWelcome" class="gb-entry-welcome" style="--entry-bg:url(assets/gb-welcome-cover.webp)" aria-label="GyanBhoomi welcome cover">
     <img src="assets/gb-welcome-cover.webp" alt="Illustrated world of knowledge for GyanBhoomi">
+    <div class="gb-entry-brand" aria-label="GyanBhoomi">
+      <img src="assets/gyanbhoomi-symbol.svg?v=5" alt="" width="42" height="42">
+      <span><strong>GyanBhoomi</strong><small>THE UNIVERSAL KNOWLEDGE LIBRARY</small></span>
+    </div>
     <div class="gb-mobile-welcome-copy">
       <span>THE UNIVERSAL KNOWLEDGE LIBRARY</span>
       <h1>Knowledge has no boundaries.</h1>
