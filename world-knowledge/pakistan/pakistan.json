@@ -1,0 +1,58 @@
+{
+  "slug": "pakistan",
+  "name": "Pakistan",
+  "official_name": "Islamic Republic of Pakistan",
+  "batch": 2,
+  "article_file": "PAKISTAN-Country-Encyclopedia.md",
+  "cover": "images/pakistan-illustrative-cover.jpg",
+  "research_edition": "2026-11-22",
+  "status": "Detailed country encyclopedia draft; regional gazetteers and claim-level source audit require continued expansion",
+  "sections": [
+    "Country overview and identity",
+    "Geography",
+    "Population, people and languages",
+    "History",
+    "Government, Constitution and administration",
+    "Economy",
+    "Culture, heritage and everyday life",
+    "Education, science and technology",
+    "Tourism, monuments and natural wonders",
+    "National identity, institutions and international relations",
+    "Environment, biodiversity and conservation",
+    "Public health, transport and infrastructure",
+    "Important records and achievements",
+    "60-fact GK bank",
+    "30-question quiz with explanations",
+    "Glossary",
+    "Sources and update policy"
+  ],
+  "quiz_count": 30,
+  "gk_fact_count": 60,
+  "key_data": {
+    "capital": "Islamabad",
+    "largest_city": "Karachi",
+    "population_census_2023": 241499431,
+    "area_km2_pbs_2023": 796096,
+    "currency": "Pakistani rupee",
+    "currency_code": "PKR",
+    "time_zone": "UTC+05:00",
+    "provinces": 4,
+    "administered_regions": 2,
+    "unesco_inscribed_properties": 6,
+    "UN_membership_date": "1947-09-30"
+  },
+  "official_links": {
+    "census": "https://www.pbs.gov.pk/sites/default/files/population/2023/Press%20Release.pdf",
+    "unesco": "https://whc.unesco.org/en/statesparties/PK",
+    "constitution": "https://na.gov.pk/en/downloads.php"
+  },
+  "editorial_flags": [
+    "2023 population is a census count, not a current estimate.",
+    "Area totals differ by territorial coverage and source convention; PBS census geography figure is used and explained.",
+    "AJK and Gilgit-Baltistan are not described as provinces.",
+    "UNESCO Tentative List entries are not counted as inscribed World Heritage properties.",
+    "Current officeholders intentionally not hard-coded.",
+    "Political boundaries and disputed territorial status must be represented neutrally.",
+    "Image reuse terms must be checked on each Wikimedia Commons file page."
+  ]
+}
