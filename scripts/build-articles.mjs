@@ -123,7 +123,7 @@ async function rasterizeLocalSvgAssets(html, articleId) {
   return { html: output, imageCount: index };
 }
 
-const STOP_WORDS = new Set((
+const STOP_WORDS = new Set((`
   a an the and or but if then than so of in on at to for from by with without about into over under
   is are was were be been being it its this that these those as we you your our their they them he she
   his her i me my us can could should would may might will just also very more most some any each all
