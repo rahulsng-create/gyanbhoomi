@@ -43,22 +43,22 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:12px;border-t
  <div class="world-map-art"><img src="assets/world-political-map.png" alt="World political map showing country boundaries, major countries and oceans"></div>
 </div></section>
 <section class="stats">
- <div class="stat"><b>195</b><span>Countries in this directory</span></div><div class="stat"><b id="publishedCount">1</b><span>Country encyclopedia published</span></div><div class="stat"><b id="comingCount">194</b><span>Country profiles coming soon</span></div><div class="stat"><b>6</b><span>World regions</span></div>
+ <div class="stat"><b>195</b><span>Countries in this directory</span></div><div class="stat"><b id="publishedCount">3</b><span>Country encyclopedias published</span></div><div class="stat"><b id="comingCount">192</b><span>Country profiles coming soon</span></div><div class="stat"><b>6</b><span>World regions</span></div>
 </section>
 <main class="main">
- <div class="section-head"><div><span class="kicker">START YOUR JOURNEY</span><h2>Explore Countries</h2><p>India is the first published country. More detailed country encyclopedias will be added progressively.</p></div></div>
+ <div class="section-head"><div><span class="kicker">START YOUR JOURNEY</span><h2>Explore Countries</h2><p>Explore our detailed country encyclopedias, beginning with India, Pakistan and Russia. More countries will be added progressively.</p></div></div>
  <div class="controls"><div class="search"><input id="search" type="search" placeholder="Search a country… e.g. India, France, Brazil" aria-label="Search country name"></div><select class="select" id="sort" aria-label="Sort countries"><option value="az">Sort: A–Z</option><option value="za">Sort: Z–A</option></select></div>
  <div class="regions" id="regions"></div>
- <div class="countline"><span id="resultCount">Showing 195 countries</span><strong>India 🇮🇳 & Pakistan 🇵🇰 · Now available</strong></div>
+ <div class="countline"><span id="resultCount">Showing 195 countries</span><strong>India 🇮🇳 · Pakistan 🇵🇰 · Russia 🇷🇺 · Now available</strong></div>
  <div class="grid" id="countryGrid"></div><div class="empty" id="empty">No countries match your search. Try another name or region.</div>
- <section class="cta"><div><h3>Explore India 🇮🇳 and Pakistan 🇵🇰</h3><p>Two detailed GyanBhoomi country encyclopedias are now available, with regional references, facts and quizzes.</p></div><div><a href="india/">India →</a> <a href="pakistan/">Pakistan →</a></div></section>
+ <section class="cta"><div><h3>Explore our published country encyclopedias</h3><p>Detailed GyanBhoomi editions with regional references, photographs, maps, facts and quizzes.</p></div><div><a href="india/">India →</a> <a href="pakistan/">Pakistan →</a> <a href="russia/">Russia →</a></div></section>
 </main>
-<footer>GyanBhoomi · Learn · Explore · Discover<br>World GK directory · 195 country entries · India and Pakistan published</footer>
+<footer>GyanBhoomi · Learn · Explore · Discover<br>World GK directory · 195 country entries · India, Pakistan and Russia published</footer>
 <script>
 (()=>{'use strict';
 const REGIONS=['All','Africa','Asia','Europe','North America','South America','Oceania'];
 const DATA_URL='countries.json';
-const PUBLISHED_SLUGS=new Set(['india','pakistan']);
+const PUBLISHED_SLUGS=new Set(['india','pakistan','russia']);
 let countries=[],region='All';
 const $=id=>document.getElementById(id);
 const initialQuery=new URLSearchParams(location.search).get('q')||'';
