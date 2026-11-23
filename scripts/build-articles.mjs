@@ -88,7 +88,42 @@ async function materializeInlineImages(html, articleId) {
   return { html: output, imageCount: index };
 }
 
-const STOP_WORDS = new Set((`
+// Convert locally hosted SVG artwork to raster WEBP files before publishing.
+async function rasterizeLocalSvgAssets(html, articleId) {
+  let index = 0;
+  const imageDir = path.join(OUT, "assets", "article-images", slugify(articleId));
+  const imageUrlBase = SITE_URL + "/assets/article-images/" + slugify(articleId);
+  const cache = new Map();
+  const pattern = /\b(src|poster)=(["'])(https:\/\/rahulsng-create\.github\.io\/gyanbhoomi\/[^"']+?\.svg(?:\?[^"']*)?)\2/gi;
+  let output = "", last = 0;
+  for (const match of html.matchAll(pattern)) {
+    const sourceUrl = match[3].split("?")[0];
+    const relativePath = decodeURIComponent(sourceUrl.slice((SITE_URL + "/").length));
+    const sourcePath = path.resolve(ROOT, relativePath);
+    if (!sourcePath.startsWith(path.resolve(ROOT) + path.sep)) continue;
+    let filename = cache.get(sourcePath);
+    if (!filename) {
+      try {
+        const svgBytes = await fs.readFile(sourcePath);
+        const rasterBytes = await sharp(svgBytes, { density: 160, limitInputPixels: 40000000 })
+          .webp({ quality: 90, effort: 5 }).toBuffer();
+        await fs.mkdir(imageDir, { recursive: true });
+        filename = "svg-image-" + String(++index).padStart(3, "0") + ".webp";
+        await fs.writeFile(path.join(imageDir, filename), rasterBytes);
+        cache.set(sourcePath, filename);
+      } catch (error) {
+        console.warn("Could not rasterize article SVG " + relativePath + ":", error.message);
+        continue;
+      }
+    }
+    output += html.slice(last, match.index) + match[1] + "=\"" + imageUrlBase + "/" + filename + "\"";
+    last = match.index + match[0].length;
+  }
+  output += html.slice(last);
+  return { html: output, imageCount: index };
+}
+
+const STOP_WORDS = new Set((
   a an the and or but if then than so of in on at to for from by with without about into over under
   is are was were be been being it its this that these those as we you your our their they them he she
   his her i me my us can could should would may might will just also very more most some any each all
@@ -274,13 +309,14 @@ for (const article of articles) {
   const fullText = plainText(article.content);
   const description = shortDescription(article.content, title);
   const materialized = await materializeInlineImages(cleanContent(article.content), id);
+  const rasterized = await rasterizeLocalSvgAssets(materialized.html, id);
   // Repair compact chapter indexes from older submissions where chapter numbers
   // were concatenated to the previous title (for example, "Environment02. Earth's Formation").
   // Only run inside articles that explicitly contain a chapter index; wording is preserved.
   const hasChapterIndex = /(?:explore all\s+\d+\s+chapters|table of contents)/i.test(materialized.html);
   const body = hasChapterIndex
-    ? materialized.html.replace(/(?<=[\p{L}\)])(0[2-9]|1\d|2[0-3])\.\s*/gu, "<br><strong>$1.</strong> ")
-    : materialized.html;
+    ? rasterized.html.replace(/(?<=[\p{L}\)])(0[2-9]|1\d|2[0-3])\.\s*/gu, "<br><strong>$1.</strong> ")
+    : rasterized.html;
   const coverImage = body.match(/<img\b[^>]*src=["']([^"']+)["']/i)?.[1] || "";
   const keywords = extractKeywords(title, String(article.content || ""), article.category);
   articleIndex.push({ id, title, author: article.author_name || "GyanBhoomi", category: article.category || "Knowledge", url: pageUrl, description, keywords });
