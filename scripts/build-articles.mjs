@@ -952,3 +952,5 @@ console.log(`Generated ${articleIndex.length} approved article pages and ${dicti
 // Rebuild trigger: restore pre-Health-article rendering and publish Sleep Science with image elements.
 
 // Rebuild trigger: publish photographic article media and matching image captions.
+
+// Rebuild trigger: publish the expanded BRICS article with 100+ country photographs, GIFs and short clips.
