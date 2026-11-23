@@ -3408,6 +3408,36 @@ html[data-gb-palette="classic"]{color-scheme:light;--gb-bg:#f5f7f3;--gb-surface:
 #gbMenuPanel .gb-drawer-foot{margin-top:18px!important}
 #gbMenuPanel #gbDrawerLogout{position:static!important;inset:auto!important;margin:12px 0 0!important;align-self:stretch!important;flex:0 0 auto!important}
 </style>
+
+<style id="gb-drawer-collapsed-footer-layout">
+/* Keep the drawer footer and Logout visible when Settings is collapsed.
+   When Settings expands, let the footer follow the expanded content naturally. */
+#gbMenuPanel{
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+}
+#gbMenuPanel .gb-drawer-settings{
+  flex:0 0 auto!important;
+  margin-bottom:0!important;
+}
+#gbMenuPanel.gb-settings-collapsed .gb-drawer-foot{
+  margin-top:auto!important;
+}
+#gbMenuPanel.gb-settings-collapsed #gbDrawerLogout{
+  flex:0 0 auto!important;
+  margin-top:12px!important;
+  margin-bottom:0!important;
+}
+#gbMenuPanel:not(.gb-settings-collapsed) .gb-drawer-foot{
+  margin-top:18px!important;
+}
+#gbMenuPanel:not(.gb-settings-collapsed) #gbDrawerLogout{
+  flex:0 0 auto!important;
+  margin-top:12px!important;
+}
+</style>
+
 </body>
  </html>`);
  printWindow.onload=()=>{
