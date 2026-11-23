@@ -33,10 +33,10 @@ const cleanContent = value => {
     allowedTags: [
       "p","h1","h2","h3","h4","h5","h6","ul","ol","li","strong","b","em","i",
       "u","blockquote","br","hr","pre","code","a","table","thead","tbody",
-      "tfoot","tr","th","td","div","span","sub","sup","figure","figcaption","img"
+      "tfoot","tr","th","td","div","span","sub","sup","figure","figcaption","img","video","source"
     ],
     allowedAttributes: {
-      a: ["href","title"], img: ["src","alt","title","width","height"],
+      a: ["href","title"], img: ["src","alt","title","width","height"], video: ["controls","preload","poster","width","height","playsinline"], source: ["src","type"],
       "*": ["class"]
     },
     allowedSchemes: ["http","https","mailto","data"],
@@ -410,6 +410,7 @@ h1{color:var(--green);font-size:clamp(30px,5vw,44px);line-height:1.2;margin:8px 
 .body figure img{margin:0 auto .65em}
 .body figcaption{display:block;max-width:680px;margin:.6em auto 0;color:#b3c8bd;font-size:.88em;line-height:1.6;text-align:center}
 .body img{display:block;max-width:min(100%,780px);width:auto;height:auto;max-height:650px;object-fit:contain;margin:1.8em auto;border-radius:12px}
+.body video{display:block;width:100%;max-width:780px;height:auto;max-height:520px;margin:1.8em auto;border-radius:14px;background:#020b0a;box-shadow:0 12px 30px #0005}.body figure.inline-visual img{width:100%;max-width:780px;height:auto;max-height:520px;object-fit:contain;background:#102f2b}
 .body table{border-collapse:collapse;display:block;max-width:100%;overflow-x:auto;margin:1.5em 0}
 .body th,.body td{border:1px solid var(--line);padding:10px 12px;vertical-align:top}
 .body blockquote{margin:1.5em 0;padding:1em 1.2em;border-left:4px solid #e9b85f;border-radius:0 10px 10px 0;background:#17483f;line-height:1.8}
