@@ -912,6 +912,7 @@ for (const entry of dictionaryIndex) urls.push(entry.url);
 
 // Add every standalone public HTML page copied into the build, not only generated articles.
 const excludedPath = /(?:^|\/)(?:admin|login|logout|private|drafts|preview|_site|node_modules)(?:\/|$)/i;
+const downloadPath = /^downloads\//i;
 async function addPublicHtmlPages(directory, relative = "") {
   const children = await fs.readdir(directory, { withFileTypes: true });
   for (const child of children) {
@@ -925,13 +926,53 @@ async function addPublicHtmlPages(directory, relative = "") {
       : normalized.toLowerCase().endsWith("/index.html")
         ? `${SITE_URL}/${normalized.slice(0, -"index.html".length)}`
         : `${SITE_URL}/${normalized}`;
+
+    let html = await fs.readFile(absolute, "utf8");
+    const headClose = html.search(/<\/head\s*>/i);
+    if (headClose >= 0) {
+      // Download/export copies are useful files, but should not compete with the
+      // canonical article pages in Search. Keep them crawlable so Google can see noindex.
+      if (downloadPath.test(normalized)) {
+        if (!/<meta\b[^>]*name=["']robots["'][^>]*>/i.test(html)) {
+          html = html.replace(/<\/head\s*>/i, '<meta name="robots" content="noindex,follow">\n</head>');
+        } else if (!/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)) {
+          html = html.replace(/(<meta\b[^>]*name=["']robots["'][^>]*content=["'])([^"']*)(["'][^>]*>)/i,
+            (_, a, value, z) => a + (value + ",noindex").replace(/^,|,,/g, "") + z);
+        }
+        await fs.writeFile(absolute, html, "utf8");
+        continue;
+      }
+
+      const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()
+        || html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]?.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()
+        || "GyanBhoomi Knowledge Library";
+      const tags = [];
+      if (!/<link\b[^>]*rel=["']canonical["']/i.test(html)) {
+        tags.push(`<link rel="canonical" href="${esc(url)}">`);
+      }
+      if (!/<meta\b[^>]*name=["']robots["']/i.test(html)) {
+        tags.push('<meta name="robots" content="index,follow,max-image-preview:large">');
+      }
+      if (!/<meta\b[^>]*name=["']description["']/i.test(html)) {
+        const description = shortDescription(html, title);
+        tags.push(`<meta name="description" content="${esc(description)}">`);
+      }
+      if (!/<title\b/i.test(html)) tags.push(`<title>${esc(title)} | GyanBhoomi</title>`);
+      if (tags.length) {
+        html = html.replace(/<\/head\s*>/i, tags.join("\n") + "\n</head>");
+        await fs.writeFile(absolute, html, "utf8");
+      }
+      const robots = html.match(/<meta\b[^>]*name=["']robots["'][^>]*content=["']([^"']*)["'][^>]*>/i)?.[1] || "";
+      if (/noindex/i.test(robots)) continue;
+    }
     urls.push(url);
   }
 }
 await addPublicHtmlPages(OUT);
 const publicUrls = [...new Set(urls)];
 
-// Keep the sitemap restricted to real, publicly published URLs.
+// Keep the sitemap restricted to real, publicly indexable URLs. Generated article
+// and dictionary pages already receive their own canonical and index directives.
 const xml = `<?xml version="1.0" encoding="UTF-8"?>\n` +
   `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
   publicUrls.map(url => `  <url><loc>${esc(url)}</loc></url>`).join("\n") +
