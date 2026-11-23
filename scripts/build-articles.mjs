@@ -947,3 +947,5 @@ await fs.writeFile(homePath, home, "utf8");
 console.log(`Generated ${articleIndex.length} approved article pages and ${dictionaryIndex.length} dictionary pages; sitemap contains ${publicUrls.length} URLs.`);
 
 // Rebuild trigger: restore pre-Health-article rendering and publish Sleep Science with image elements.
+
+// Rebuild trigger: refresh approved article media from the current database content.
