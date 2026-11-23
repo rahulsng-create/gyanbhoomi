@@ -6622,5 +6622,37 @@ setTimeout(()=>observer.disconnect(),10000);
  more?.addEventListener("click",()=>{page+=1;search(true);});
 })();
 </script>
+
+<style id="gb-drawer-footer-flex-restore-v2">
+/* Restore the flex column required by the collapsed-footer layout.
+   The later Android scrolling rule changed the panel to display:block,
+   which disabled margin-top:auto and pushed the footer/Logout out of view. */
+#gbMenuPanel{
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  min-height:0!important;
+}
+#gbMenuPanel .gb-drawer-head,
+#gbMenuPanel .gb-drawer-links,
+#gbMenuPanel .gb-drawer-settings{
+  flex:0 0 auto!important;
+}
+#gbMenuPanel.gb-settings-collapsed .gb-drawer-foot{
+  margin-top:auto!important;
+  flex:0 0 auto!important;
+}
+#gbMenuPanel #gbDrawerLogout{
+  position:static!important;
+  flex:0 0 auto!important;
+  align-self:stretch!important;
+  margin:12px 0 max(0px,env(safe-area-inset-bottom))!important;
+}
+#gbMenuPanel:not(.gb-settings-collapsed) .gb-drawer-foot{
+  margin-top:18px!important;
+}
+</style>
 </body>
 </html>
