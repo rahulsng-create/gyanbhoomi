@@ -431,6 +431,9 @@ h1{color:var(--green);font-size:clamp(30px,5vw,44px);line-height:1.2;margin:8px 
 .body ul ul,.body ol ol,.body ul ol,.body ol ul{margin:.45em 0 .7em}
 .body hr{display:block;border:0;border-top:1px solid #397269;margin:2.2em 0}
 .body figure{display:block;margin:2em auto;text-align:center;max-width:100%}
+.body figure.article-cover{margin:0 auto 2em;max-width:100%;overflow:hidden;border-radius:16px;background:#103d36;box-shadow:0 12px 30px #103d3620}
+.body figure.article-cover img{display:block;width:100%;max-width:100%;height:clamp(220px,48vw,460px);max-height:460px;object-fit:cover;object-position:center;margin:0 auto;border-radius:0}
+@media(max-width:600px){.body figure.article-cover img{height:260px;max-height:260px}}
 .body figure img{margin:0 auto .65em}
 .body figcaption{display:block;max-width:680px;margin:.6em auto 0;color:#b3c8bd;font-size:.88em;line-height:1.6;text-align:center}
 .body img{display:block;max-width:min(100%,780px);width:auto;height:auto;max-height:650px;object-fit:contain;margin:1.8em auto;border-radius:12px}
