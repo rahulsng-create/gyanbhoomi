@@ -12,6 +12,61 @@
 <meta name="twitter:description" content="Explore knowledge, world facts, learning tools, quizzes and educational resources.">
 <meta name="twitter:image" content="https://rahulsng-create.github.io/gyanbhoomi/assets/gb-welcome-cover.webp">
 <title>GyanBhoomi</title>
+<script id="gb-global-golden-loader-v1">
+(()=> {
+  if(window.__gbGlobalLoaderInstalled)return;
+  window.__gbGlobalLoaderInstalled=true;
+  let pending=0,showTimer=0,hideTimer=0,startedAt=0;
+  const getOverlay=()=>document.getElementById("gbGlobalLoadingOverlay");
+  const paint=()=>{
+    const overlay=getOverlay();
+    if(!overlay)return;
+    overlay.classList.toggle("gb-loading-visible",pending>0);
+    overlay.setAttribute("aria-hidden",String(pending===0));
+  };
+  const begin=()=>{
+    pending++;
+    clearTimeout(hideTimer);
+    if(!startedAt)startedAt=Date.now();
+    if(!showTimer)showTimer=setTimeout(()=>{showTimer=0;if(pending>0)paint()},180);
+  };
+  const end=()=>{
+    pending=Math.max(0,pending-1);
+    if(pending===0){
+      clearTimeout(showTimer);showTimer=0;
+      const elapsed=startedAt?Date.now()-startedAt:0;
+      const wait=Math.max(0,260-elapsed);
+      hideTimer=setTimeout(()=>{startedAt=0;paint()},wait);
+    }
+  };
+  window.__gbLoadingBegin=begin;
+  window.__gbLoadingEnd=end;
+  if(document.readyState!=="complete"){
+    begin();
+    window.addEventListener("load",end,{once:true});
+  }
+  if(typeof window.fetch==="function"){
+    const nativeFetch=window.fetch;
+    window.fetch=function(...args){
+      begin();
+      let result;
+      try{result=nativeFetch.apply(this,args)}catch(error){end();throw error}
+      return Promise.resolve(result).finally(end);
+    };
+  }
+  if(window.XMLHttpRequest){
+    const nativeSend=XMLHttpRequest.prototype.send;
+    XMLHttpRequest.prototype.send=function(...args){
+      begin();
+      let finished=false;
+      const finish=()=>{if(!finished){finished=true;end()}};
+      this.addEventListener("loadend",finish,{once:true});
+      try{return nativeSend.apply(this,args)}catch(error){finish();throw error}
+    };
+  }
+  document.addEventListener("DOMContentLoaded",paint,{once:true});
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
 // Backup loader: if jsDelivr is blocked or unavailable, load Supabase from unpkg.
@@ -1932,7 +1987,38 @@ body:has(#jobseekers:not(.hidden)) main{padding-top:12px!important}
 #gbLegalFooter a{color:#f2d28b;text-decoration:underline;text-underline-offset:3px}
 .gb-terms-row a{color:#ffdc8b!important;text-decoration:underline;text-underline-offset:2px}
 </style>
-</head><body>
+<style id="gb-global-golden-loader-styles">
+#gbGlobalLoadingOverlay{
+ position:fixed!important;inset:0!important;z-index:2147483646!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ background:rgba(5,24,21,.34)!important;
+ opacity:0!important;visibility:hidden!important;pointer-events:none!important;
+ transition:opacity .22s ease,visibility .22s ease!important;
+ -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+}
+#gbGlobalLoadingOverlay.gb-loading-visible{opacity:1!important;visibility:visible!important}
+#gbGlobalLoadingOverlay .gb-global-loader-mark{
+ position:relative!important;width:88px!important;height:88px!important;
+ display:grid!important;place-items:center!important;
+ filter:drop-shadow(0 8px 18px rgba(0,0,0,.28));
+}
+#gbGlobalLoadingOverlay .gb-global-loader-mark img{
+ width:54px!important;height:54px!important;object-fit:contain!important;
+ display:block!important;position:relative!important;z-index:1!important;
+}
+#gbGlobalLoadingOverlay .gb-global-loader-ring{
+ position:absolute!important;inset:0!important;border-radius:50%!important;
+ border:3px solid rgba(233,196,116,.18)!important;
+ border-top-color:#e8bd68!important;border-right-color:#f4d995!important;
+ animation:gbGlobalGoldenSpin .9s linear infinite!important;
+}
+@keyframes gbGlobalGoldenSpin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){
+ #gbGlobalLoadingOverlay .gb-global-loader-ring{animation-duration:2.8s!important}
+ #gbGlobalLoadingOverlay{transition:none!important}
+}
+</style>
+</head><body>\n<div id="gbGlobalLoadingOverlay" aria-hidden="true"><div class="gb-global-loader-mark" role="status" aria-label="GyanBhoomi is loading"><span class="gb-global-loader-ring" aria-hidden="true"></span><img src="assets/gyanbhoomi-symbol.svg?v=5" alt=""></div></div>
 <div id="gbNetProgress" aria-hidden="true"></div><div id="gbNetNotice" role="status" aria-live="polite"><span class="gb-net-dot" aria-hidden="true"></span><span id="gbNetNoticeText">Checking internet connection…</span></div>
 
 <div id="gbEntryGate" class="gb-entry-gate gb-entry-closed" aria-modal="true" role="dialog" aria-label="Welcome to GyanBhoomi">
