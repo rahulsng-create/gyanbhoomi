@@ -948,4 +948,4 @@ console.log(`Generated ${articleIndex.length} approved article pages and ${dicti
 
 // Rebuild trigger: restore pre-Health-article rendering and publish Sleep Science with image elements.
 
-// Rebuild trigger: refresh approved article media from the current database content.
+// Rebuild trigger: publish photographic article media and matching image captions.
