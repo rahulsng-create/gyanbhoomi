@@ -4909,7 +4909,8 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
            city,state,country,postal_code:pincode,
            phone:$("gbVisitorPhone").value.trim(),
            preferred_language:$("gbVisitorLanguage").value,
-           terms_accepted_at:new Date().toISOString()
+           terms_accepted_at:new Date().toISOString(),
+           privacy_notice_version:"2026-11-23"
          }}
        });
        if(error)throw error;
