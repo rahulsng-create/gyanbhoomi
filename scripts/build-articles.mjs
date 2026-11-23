@@ -912,7 +912,7 @@ for (const entry of dictionaryIndex) urls.push(entry.url);
 
 // Add every standalone public HTML page copied into the build, not only generated articles.
 const excludedPath = /(?:^|\/)(?:admin|login|logout|private|drafts|preview|_site|node_modules)(?:\/|$)/i;
-const downloadPath = /^downloads\//i;
+const duplicateExportPath = /^downloads\/sleep-science-(?:contribute-ready|original)\.html$/i;
 async function addPublicHtmlPages(directory, relative = "") {
   const children = await fs.readdir(directory, { withFileTypes: true });
   for (const child of children) {
@@ -932,7 +932,7 @@ async function addPublicHtmlPages(directory, relative = "") {
     if (headClose >= 0) {
       // Download/export copies are useful files, but should not compete with the
       // canonical article pages in Search. Keep them crawlable so Google can see noindex.
-      if (downloadPath.test(normalized)) {
+      if (duplicateExportPath.test(normalized)) {
         if (!/<meta\b[^>]*name=["']robots["'][^>]*>/i.test(html)) {
           html = html.replace(/<\/head\s*>/i, '<meta name="robots" content="noindex,follow">\n</head>');
         } else if (!/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)) {
