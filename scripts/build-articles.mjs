@@ -595,7 +595,8 @@ body.gb-night .meta,body.gb-night footer{color:#b3c8bd}
 <div class="meta">By <a class="gb-author-link" href="${SITE_URL}/contributors/${slugify(article.author_name || "GyanBhoomi")}/">${esc(article.author_name || "GyanBhoomi")}</a></div>
 <div class="gb-translate-bar" role="group" aria-label="Article language translation">
 <label for="gbLanguage">Translate article:</label>
-<select id="gbLanguage">
+<select id="gbLanguage" aria-label="Choose translation language">
+<option value="" selected disabled>Choose language</option>
 <option value="hi">Hindi</option>
 <option value="kn">Kannada (ಕನ್ನಡ)</option>
 <option value="gu">Gujarati</option>
@@ -954,3 +955,5 @@ console.log(`Generated ${articleIndex.length} approved article pages and ${dicti
 // Rebuild trigger: publish photographic article media and matching image captions.
 
 // Rebuild trigger: publish the expanded BRICS article with 100+ country photographs, GIFs and short clips.
+
+// Article pages use English as the source language; translation is opt-in.
