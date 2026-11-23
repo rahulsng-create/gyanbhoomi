@@ -66,16 +66,7 @@ a{color:#145b50}header{background:linear-gradient(125deg,#102f2b,#1d5148);color:
 @media(max-width:800px){.gb-photo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:560px){.gb-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.gb-photo-card img{height:125px}.gb-photo-caption{padding:8px}.gb-photo-caption b{font-size:11px}}
 .gb-inline-photo-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:16px 0 22px}.gb-inline-photo{margin:0;min-width:0;background:#fff;border:1px solid #e5e8e2;border-radius:14px;overflow:hidden;box-shadow:0 5px 18px rgba(18,59,53,.07)}.gb-inline-photo img{display:block;width:100%;height:210px;object-fit:cover;background:#eef1ec}.gb-inline-photo figcaption{padding:9px 12px 11px;line-height:1.45}.gb-inline-photo figcaption b{display:block;color:#123b35;font-size:13px;margin-bottom:4px}.gb-inline-photo figcaption span{display:block;color:#66736d;font-size:11px}.gb-inline-photo figcaption a{color:#145b50}#gbPhotoLibrary{display:none!important}.gb-inline-photo{display:block;width:min(47%,390px);margin:12px 0 18px 20px;padding:0;background:#fff;border:1px solid #e5e8e2;border-radius:14px;overflow:hidden;box-shadow:0 5px 18px rgba(18,59,53,.07)}.gb-inline-photo[style*="left"]{margin:12px 20px 18px 0}.gb-inline-photo img{display:block;width:100%;height:210px;object-fit:cover;background:#eef1ec}@media(max-width:620px){.gb-inline-photo,.gb-inline-photo[style*="left"]{float:none!important;width:100%;max-width:100%;margin:14px 0 18px}}.gb-inline-photo figcaption{padding:9px 12px 11px;line-height:1.45}.gb-inline-photo figcaption b{display:block;color:#123b35;font-size:13px;margin-bottom:4px}.gb-inline-photo figcaption span{display:block;color:#66736d;font-size:11px}.gb-inline-photo figcaption a{color:#145b50}
-/* GyanBhoomi country encyclopedia language selector */
-.gb-language-bar{max-width:1120px;margin:18px auto 0;padding:0 18px}
-.gb-language-panel{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:linear-gradient(120deg,#123b35,#1d5148);border:1px solid #d6b15d;border-radius:15px;padding:14px 16px;color:#fff;box-shadow:0 8px 24px #123b3514}
-.gb-language-copy{min-width:180px;flex:1}.gb-language-copy strong{display:block;color:#f0cd7b;font-size:15px;letter-spacing:.2px}.gb-language-copy span{display:block;color:#e0eee7;font-size:12px;margin-top:2px}
-.gb-language-controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-.gb-language-select{min-width:min(280px,70vw);max-width:100%;height:42px;padding:0 36px 0 12px;border:1px solid #d8bd7b;border-radius:9px;background:#fffdf7;color:#173d35;font:600 14px Arial,sans-serif}
-.gb-language-button{height:42px;padding:0 18px;border:1px solid #f3d58e;border-radius:9px;background:linear-gradient(135deg,#f4d58b,#dfb75f);color:#173d35;font-weight:800;font-size:14px;cursor:pointer}
-.gb-language-button:hover{filter:brightness(1.04)}.gb-language-button:focus-visible,.gb-language-select:focus-visible{outline:3px solid #e8b65b;outline-offset:2px}
-.gb-language-note{width:100%;font-size:11px;color:#d9e9e2;margin-top:-5px}
-@media(max-width:620px){.gb-language-panel{align-items:stretch}.gb-language-controls{width:100%}.gb-language-select{flex:1;min-width:0;width:100%}.gb-language-button{width:100%}}
+.gb-language-controls{width:100%}.gb-language-select{flex:1;min-width:0;width:100%}.gb-language-button{width:100%}}
 </style>
 </head>
 <body>
@@ -2680,24 +2671,4 @@ more.hidden=true;
 }
 })();</script>
 
-<script id="gb-country-language-translation">
-(()=>{'use strict';
-const country=document.title.toLowerCase().includes('india')?'india':document.title.toLowerCase().includes('pakistan')?'pakistan':'russia';
-const india=[['Assamese','as'],['Bengali','bn'],['Bodo','brx'],['Dogri','doi'],['Gujarati','gu'],['Hindi','hi'],['Kannada','kn'],['Kashmiri','ks'],['Konkani','kok'],['Maithili','mai'],['Malayalam','ml'],['Manipuri (Meitei)','mni'],['Marathi','mr'],['Nepali','ne'],['Odia','or'],['Punjabi','pa'],['Sanskrit','sa'],['Santali','sat'],['Sindhi','sd'],['Tamil','ta'],['Telugu','te'],['Urdu','ur'],['English','en']];
-const pakistan=[['Urdu','ur'],['English','en'],['Punjabi','pa'],['Pashto','ps'],['Sindhi','sd'],['Saraiki','skr'],['Balochi','bal'],['Brahui','brh'],['Kashmiri','ks'],['Shina','scl']];
-const russia=[['Russian','ru'],['Tatar','tt'],['Bashkir','ba'],['Chechen','ce'],['Chuvash','cv'],['Sakha (Yakut)','sah'],['Buryat','bua'],['Avar','av'],['Ossetian','os'],['Tuvan','tyv'],['Komi','kv'],['Udmurt','udm'],['Mari','chm'],['Kalmyk','xal'],['Nenets','yrk'],['Evenki','evn'],['Chukchi','ckt']];
-const world=[['Afrikaans','af'],['Albanian','sq'],['Amharic','am'],['Arabic','ar'],['Armenian','hy'],['Azerbaijani','az'],['Basque','eu'],['Belarusian','be'],['Bosnian','bs'],['Bulgarian','bg'],['Burmese','my'],['Catalan','ca'],['Chinese (Simplified)','zh-CN'],['Chinese (Traditional)','zh-TW'],['Croatian','hr'],['Czech','cs'],['Danish','da'],['Dutch','nl'],['Estonian','et'],['Filipino','tl'],['Finnish','fi'],['French','fr'],['Galician','gl'],['Georgian','ka'],['German','de'],['Greek','el'],['Hausa','ha'],['Hebrew','iw'],['Hungarian','hu'],['Icelandic','is'],['Igbo','ig'],['Indonesian','id'],['Irish','ga'],['Italian','it'],['Japanese','ja'],['Javanese','jv'],['Kazakh','kk'],['Khmer','km'],['Kinyarwanda','rw'],['Korean','ko'],['Kurdish (Kurmanji)','ku'],['Kyrgyz','ky'],['Lao','lo'],['Latin','la'],['Latvian','lv'],['Lithuanian','lt'],['Luxembourgish','lb'],['Macedonian','mk'],['Malagasy','mg'],['Malay','ms'],['Maltese','mt'],['Mongolian','mn'],['Oromo','om'],['Persian','fa'],['Polish','pl'],['Portuguese','pt'],['Romanian','ro'],['Serbian','sr'],['Sesotho','st'],['Shona','sn'],['Sinhala','si'],['Slovak','sk'],['Slovenian','sl'],['Somali','so'],['Spanish','es'],['Sundanese','su'],['Swahili','sw'],['Swedish','sv'],['Tajik','tg'],['Thai','th'],['Turkish','tr'],['Turkmen','tk'],['Ukrainian','uk'],['Uzbek','uz'],['Vietnamese','vi'],['Welsh','cy'],['Xhosa','xh'],['Yoruba','yo'],['Zulu','zu'],['Haitian Creole','ht'],['Hmong','hmn'],['Esperanto','eo'],['Pashto','ps'],['Māori','mi'],['Hawaiian','haw'],['Tibetan','bo'],['Uyghur','ug'],['Yiddish','yi'],['Luxembourgish','lb']];
-const groups=[['india','Indian languages',india],['pakistan','Languages of Pakistan',pakistan],['russia','Languages of Russia',russia]];
-const local=groups.find(g=>g[0]===country);
-const bar=document.createElement('section');bar.className='gb-language-bar';bar.setAttribute('aria-label','Translate encyclopedia');
-bar.innerHTML='<div class="gb-language-panel"><div class="gb-language-copy"><strong>🌐 Read in your language</strong><span>Choose a language to translate this country encyclopedia</span></div><div class="gb-language-controls"><select class="gb-language-select" id="gbCountryLanguage" aria-label="Choose translation language"><option value="">Select a language…</option></select><button class="gb-language-button" id="gbTranslateCountry" type="button">Translate encyclopedia →</button></div><div class="gb-language-note">Country languages and 80+ languages from around the world · Translation powered by Google Translate</div></div>';
-const select=bar.querySelector('select');
-if(local){const opt=document.createElement('optgroup');opt.label=local[1];local[2].forEach(([n,c])=>{const o=document.createElement('option');o.value=c;o.textContent=n;opt.append(o)});select.append(opt)}
-const global=document.createElement('optgroup');global.label='More languages from around the world';
-const seen=new Set(local?local[2].map(x=>x[1]):[]);
-world.forEach(([n,c])=>{if(seen.has(c))return;seen.add(c);const o=document.createElement('option');o.value=c;o.textContent=n;global.append(o)});select.append(global);
-const anchor=document.querySelector('header');if(anchor)anchor.insertAdjacentElement('afterend',bar);
-bar.querySelector('button').addEventListener('click',()=>{const lang=select.value;if(!lang){select.focus();select.setCustomValidity('Please choose a language first.');select.reportValidity();select.addEventListener('change',()=>select.setCustomValidity(''),{once:true});return;}const target='https://translate.google.com/translate?sl=auto&tl='+encodeURIComponent(lang)+'&u='+encodeURIComponent(location.href);window.open(target,'_blank','noopener,noreferrer');});
-})();
-</script>
 </body></html>
