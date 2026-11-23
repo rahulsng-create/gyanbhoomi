@@ -1899,6 +1899,39 @@ body:has(#jobseekers:not(.hidden)) main{padding-top:12px!important}
 #jobseekers #gbJobsSearchStatus[data-state="error"]{color:#a13a2d!important}
 #jobseekers #gbJobsSearchStatus[data-state="success"]{color:#246447!important}
 </style>
+<style id="gb-password-and-legal-fix">
+/* Password visibility and caret repair */
+#gbVisitorAuthForm #gbVisitorPassword,
+#gbAccountForm #gbAccountPassword,
+#loginForm #password{
+ color:#183b32!important;
+ -webkit-text-fill-color:#183b32!important;
+ caret-color:#123b35!important;
+ opacity:1!important;
+ text-shadow:none!important;
+ font-variant-ligatures:none!important;
+}
+#gbVisitorAuthForm .gb-password-wrap{width:100%;min-width:0}
+#gbVisitorAuthForm .gb-password-wrap input{
+ flex:1 1 auto!important;width:1%!important;min-width:0!important;
+ color:#183b32!important;-webkit-text-fill-color:#183b32!important;
+ caret-color:#123b35!important;opacity:1!important;
+}
+#gbVisitorAuthForm .gb-password-toggle{min-width:58px!important;min-height:38px!important;touch-action:manipulation!important}
+.gb-login-image-stage .gb-image-form input.gb-image-password{
+ color:#183b32!important;-webkit-text-fill-color:#183b32!important;
+ caret-color:#123b35!important;opacity:1!important;
+}
+.gb-login-image-stage .gb-image-eye{
+ display:grid!important;place-items:center!important;
+ color:#123b35!important;font:700 11px Arial,sans-serif!important;
+ background:#e9f0ec!important;border:1px solid #a9bdb2!important;
+ border-radius:7px!important;min-height:26px!important;
+}
+#gbLegalFooter{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:14px 12px;background:#082e29;color:#dbe9e1;font-size:12px}
+#gbLegalFooter a{color:#f2d28b;text-decoration:underline;text-underline-offset:3px}
+.gb-terms-row a{color:#ffdc8b!important;text-decoration:underline;text-underline-offset:2px}
+</style>
 </head><body>
 <div id="gbNetProgress" aria-hidden="true"></div><div id="gbNetNotice" role="status" aria-live="polite"><span class="gb-net-dot" aria-hidden="true"></span><span id="gbNetNoticeText">Checking internet connection…</span></div>
 
@@ -1947,7 +1980,7 @@ body:has(#jobseekers:not(.hidden)) main{padding-top:12px!important}
           <div class="gb-password-meter-track"><span id="gbPasswordMeterFill"></span></div>
           <span id="gbPasswordMeterText">Password strength: enter a password</span>
         </div>
-        <label id="gbTermsRow" class="gb-terms-row hidden"><input type="checkbox" id="gbTermsAgree"> I agree to the Terms of Service and Privacy Policy.</label>
+        <label id="gbTermsRow" class="gb-terms-row hidden"><input type="checkbox" id="gbTermsAgree"> I agree to the <a href="terms-of-service.html" target="_blank" rel="noopener">Terms of Service</a> and acknowledge the <a href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</label>
         <div class="gb-auth-options" id="gbAuthOptions"><label class="gb-remember"><input type="checkbox" id="gbRemember"> Remember me</label><button type="button" id="gbForgot" class="gb-text-button">Forgot Password?</button></div>
         <button type="submit" id="gbVisitorSubmit" class="gb-auth-primary">Log In</button>
       </form>
@@ -2329,7 +2362,7 @@ body:has(#jobseekers:not(.hidden)) main{padding-top:12px!important}
   <p class="muted">Approval records your review decision only. Publishing will remain a separate step.</p>
 </div>
 </section>
-</main><footer>© <span id="year"></span> GyanBhoomi · ज्ञान सबके लिए</footer>
+</main><footer>© <span id="year"></span> GyanBhoomi · ज्ञान सबके लिए</footer><nav id="gbLegalFooter" aria-label="Legal information"><a href="terms-of-service.html">Terms of Service</a><a href="privacy-policy.html">Privacy Policy</a><a href="privacy-policy.html#your-choices">Privacy & Personalisation Choices</a></nav>
 
 <script>
 (()=>{
@@ -6036,7 +6069,7 @@ html.gb-gate-open,html.gb-gate-open body{
 
 <div id="gbPrivacyChoice" class="hidden" role="dialog" aria-label="Personalisation privacy choice">
  <strong>Make GyanBhoomi feel more personal?</strong>
- <p>With your permission, GyanBhoomi can remember your preferred language, saved/favourite articles, reading activity and search topics to recommend relevant content when you return. It does not record passwords, private messages or keystrokes. You can turn this off or clear the data at any time in this browser.</p>
+ <p>With your permission, GyanBhoomi can remember your preferred language, saved/favourite articles, reading activity and search topics to recommend relevant content when you return. It does not record passwords, private messages or keystrokes. You can turn this off or clear the data at any time in this browser. <a href="privacy-policy.html" style="color:#f2d28b;text-decoration:underline">Read the Privacy Policy</a>.</p>
  <div class="gb-privacy-actions"><button type="button" id="gbPrivacyAccept">Allow personalisation</button><button type="button" id="gbPrivacyDecline">Not now</button></div>
 </div>
 <script id="gb-personalisation-memory">
