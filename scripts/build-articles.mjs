@@ -66,7 +66,7 @@ async function materializeInlineImages(html, articleId) {
     let extension = header.includes("image/png") ? "png" : header.includes("image/webp") ? "webp" : header.includes("image/gif") ? "gif" : header.includes("image/avif") ? "avif" : header.includes("image/bmp") ? "bmp" : header.includes("image/tiff") ? "tiff" : header.includes("icon") ? "ico" : "jpg";
     if (isSvg) {
       const svg = bytes.toString("utf8");
-      if (!/<svg\\b/i.test(svg)) continue;
+      if (!/<svg\b/i.test(svg)) continue;
       bytes = await sharp(Buffer.from(svg), { density: 144, limitInputPixels: 40000000 })
         .webp({ quality: 88, effort: 5 }).toBuffer();
       extension = "webp";
@@ -123,19 +123,7 @@ async function rasterizeLocalSvgAssets(html, articleId) {
   return { html: output, imageCount: index };
 }
 
-const STOP_WORDS = new Set((`
-  a an the and or but if then than so of in on at to for from by with without about into over under
-  is are was were be been being it its this that these those as we you your our their they them he she
-  his her i me my us can could should would may might will just also very more most some any each all
-  not no do does did have has had what when where why how who which while during across after before
-  between through up down out off again new one two first second third use using used page article
-  content knowledge gyanbhoomi hindi english introduction conclusion summary references bibliography
-  contents table figure image click read explore learn welcome home menu search category categories
-  div span section strong em nbsp html body head title script style footer header nav aside button
-  source sources wikipedia licence license copyright author administrator dictionary education
-  hai hain tha thi the ka ki ke ko se mein me par aur ek yah yeh is us un iska iski ke liye dwara
-  parantu lekin bhi ya tak aur anek kuch sab ve vah kya kaise kab kahan kyun
-`).split(/\s+/).filter(Boolean));
+const STOP_WORDS = new Set("a an the and or but if then than so of in on at to for from by with without about into over under is are was were be been being it its this that these those as we you your our their they them he she his her i me my us can could should would may might will just also very more most some any each all not no do does did have has had what when where why how who which while during across after before between through up down out off again new one two first second third use using used page article content knowledge gyanbhoomi hindi english introduction conclusion summary references bibliography contents table figure image click read explore learn welcome home menu search category categories div span section strong em nbsp html body head title script style footer header nav aside button source sources wikipedia licence license copyright author administrator dictionary education hai hain tha thi the ka ki ke ko se mein me par aur ek yah yeh is us un iska iski ke liye dwara parantu lekin bhi ya tak aur anek kuch sab ve vah kya kaise kab kahan kyun".split(/\s+/));
 
 const GENERIC_PHRASES = new Set([
   "table of contents", "further reading", "references and sources", "about the author",
