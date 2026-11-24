@@ -245,6 +245,84 @@ const dateText = value => {
   return Number.isNaN(d.getTime()) ? "" : d.toISOString().slice(0, 10);
 };
 
+const BUILD_CACHE = path.join(ROOT, ".build-cache");
+const ARTICLE_CACHE_FILE = path.join(BUILD_CACHE, "approved-articles.json");
+const DICTIONARY_CACHE_FILE = path.join(BUILD_CACHE, "dictionary-entries.json");
+const CACHE_META_FILE = path.join(BUILD_CACHE, "snapshot-meta.json");
+const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
+
+async function readDatabaseSnapshot() {
+  try {
+    const [articleText, dictionaryText, metaText] = await Promise.all([
+      fs.readFile(ARTICLE_CACHE_FILE, "utf8"),
+      fs.readFile(DICTIONARY_CACHE_FILE, "utf8"),
+      fs.readFile(CACHE_META_FILE, "utf8")
+    ]);
+    const articles = JSON.parse(articleText);
+    const dictionaryEntries = JSON.parse(dictionaryText);
+    const meta = JSON.parse(metaText);
+    if (!Array.isArray(articles) || !Array.isArray(dictionaryEntries) || !meta.savedAt) return null;
+    return { articles, dictionaryEntries, meta };
+  } catch {
+    return null;
+  }
+}
+
+async function fetchDatabaseSnapshot() {
+  const headers = { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` };
+  const articleUrl = `${SUPABASE_URL}/rest/v1/articles?select=id,title,author_name,category,content,created_at&status=eq.approved&order=created_at.desc`;
+  const articleResponse = await fetch(articleUrl, { headers });
+  if (!articleResponse.ok) {
+    throw new Error(`Supabase article fetch failed (${articleResponse.status}): ${await articleResponse.text()}`);
+  }
+  const articles = await articleResponse.json();
+  if (!Array.isArray(articles)) throw new Error("Supabase returned an unexpected article response.");
+
+  const dictionaryEntries = [];
+  const pageSize = 1000;
+  for (let offset = 0; ; offset += pageSize) {
+    const dictionaryUrl = `${SUPABASE_URL}/rest/v1/dictionary_entries?select=id,word,language,translation,meaning,part_of_speech,example,pronunciation&order=word.asc&limit=${pageSize}&offset=${offset}`;
+    const response = await fetch(dictionaryUrl, { headers });
+    if (!response.ok) {
+      throw new Error(`Supabase dictionary fetch failed (${response.status}): ${await response.text()}`);
+    }
+    const page = await response.json();
+    if (!Array.isArray(page)) throw new Error("Supabase returned an unexpected dictionary response.");
+    dictionaryEntries.push(...page);
+    if (page.length < pageSize) break;
+  }
+
+  await fs.mkdir(BUILD_CACHE, { recursive: true });
+  const savedAt = new Date().toISOString();
+  const articleTemp = ARTICLE_CACHE_FILE + ".tmp";
+  const dictionaryTemp = DICTIONARY_CACHE_FILE + ".tmp";
+  const metaTemp = CACHE_META_FILE + ".tmp";
+  await fs.writeFile(articleTemp, JSON.stringify(articles), "utf8");
+  await fs.writeFile(dictionaryTemp, JSON.stringify(dictionaryEntries), "utf8");
+  await fs.writeFile(metaTemp, JSON.stringify({ savedAt, articleCount: articles.length, dictionaryCount: dictionaryEntries.length }), "utf8");
+  await fs.rename(articleTemp, ARTICLE_CACHE_FILE);
+  await fs.rename(dictionaryTemp, DICTIONARY_CACHE_FILE);
+  await fs.rename(metaTemp, CACHE_META_FILE);
+  return { articles, dictionaryEntries, meta: { savedAt } };
+}
+
+async function loadDatabaseSnapshot() {
+  const cached = await readDatabaseSnapshot();
+  if (cached && Date.now() - Date.parse(cached.meta.savedAt) < CACHE_TTL_MS) {
+    console.log(`Using recent Supabase snapshot (${cached.articles.length} articles, ${cached.dictionaryEntries.length} dictionary entries).`);
+    return cached;
+  }
+  try {
+    const fresh = await fetchDatabaseSnapshot();
+    console.log(`Refreshed Supabase snapshot (${fresh.articles.length} articles, ${fresh.dictionaryEntries.length} dictionary entries).`);
+    return fresh;
+  } catch (error) {
+    if (!cached) throw error;
+    console.warn("Supabase refresh failed; using the last complete cached database snapshot:", error.message);
+    return cached;
+  }
+}
+
 await fs.rm(OUT, { recursive: true, force: true });
 await fs.mkdir(OUT, { recursive: true });
 
@@ -258,6 +336,7 @@ for (const entry of entries) {
     ".git",
     ".github",
     "scripts",
+    ".build-cache",
     "package.json",
     "package-lock.json"
   ].includes(name)) continue;
@@ -275,15 +354,7 @@ const outputHome = path.join(OUT, "index.html");
 await fs.access(sourceHome);
 await fs.copyFile(sourceHome, outputHome);
 
-const endpoint = `${SUPABASE_URL}/rest/v1/articles?select=id,title,author_name,category,content,created_at&status=eq.approved&order=created_at.desc`;
-const response = await fetch(endpoint, {
-  headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
-});
-if (!response.ok) {
-  throw new Error(`Supabase article fetch failed (${response.status}): ${await response.text()}`);
-}
-const articles = await response.json();
-if (!Array.isArray(articles)) throw new Error("Supabase returned an unexpected article response.");
+const { articles, dictionaryEntries } = await loadDatabaseSnapshot();
 
 const urls = [`${SITE_URL}/`];
 const articleIndex = [];
@@ -877,11 +948,7 @@ const dictionaryIndex = [];
 let dictionaryOffset = 0;
 const dictionaryPageSize = 1000;
 while (true) {
-  const dictionaryUrl = `${SUPABASE_URL}/rest/v1/dictionary_entries?select=id,word,language,translation,meaning,part_of_speech,example,pronunciation&order=word.asc&limit=${dictionaryPageSize}&offset=${dictionaryOffset}`;
-  const dictionaryResponse = await fetch(dictionaryUrl, { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } });
-  if (!dictionaryResponse.ok) throw new Error(`Supabase dictionary fetch failed (${dictionaryResponse.status}): ${await dictionaryResponse.text()}`);
-  const words = await dictionaryResponse.json();
-  if (!Array.isArray(words)) throw new Error("Supabase returned an unexpected dictionary response.");
+  const words = dictionaryEntries.slice(dictionaryOffset, dictionaryOffset + dictionaryPageSize);
   for (const entry of words) {
     if (!entry.word) continue;
     const wordId = String(entry.id ?? `${entry.language || "word"}-${entry.word}`);
