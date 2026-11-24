@@ -4139,8 +4139,20 @@ if(window.gbApplyLanguage)window.gbApplyLanguage();
  // Daily word and alphabet explorer: combines published database entries with the starter collection.
  const explorerEntries=Object.entries(pairs).filter(([word])=>/^[a-z]/i.test(word)).map(([word,v])=>({word,translation:v[0],meaning:v[1]}));
  async function loadDictionaryExplorer(){
+  // Use the build-generated public index instead of downloading 500 database rows
+  // on every homepage visit. This keeps the explorer available during DB outages.
   let entries=[...explorerEntries];
-  if(db){try{const {data,error}=await db.from("dictionary_entries").select("word,translation,meaning,language").eq("language","en").order("word",{ascending:true}).limit(500);if(!error&&data)entries=entries.concat(data);}catch(e){console.warn("Explorer database load:",e);}}
+  try{
+   const indexUrl=new URL("keyword-index.json",document.baseURI);
+   const response=await fetch(indexUrl,{cache:"force-cache"});
+   if(response.ok){
+    const index=await response.json();
+    if(Array.isArray(index.dictionary)){
+     entries=entries.concat(index.dictionary.filter(x=>!x.language||x.language==="en")
+      .map(x=>({word:x.word,translation:x.translation,meaning:x.meaning})));
+    }
+   }
+  }catch(e){console.warn("Static dictionary index unavailable; using starter words:",e);}
   const unique=[...new Map(entries.filter(x=>x.word).map(x=>[norm(x.word),x])).values()].sort((a,b)=>a.word.localeCompare(b.word));
   if(!unique.length){$("dictWotd").innerHTML='<p class="muted">Daily word will appear when entries are available.</p>';return;}
   const day=Math.floor(Date.now()/86400000),today=unique[day%unique.length];
