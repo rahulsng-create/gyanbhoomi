@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 
@@ -28,9 +29,46 @@ jobs:
         run: npm install --no-audit --no-fund
 
       - name: Build static article pages
+        id: build
+        continue-on-error: true
         run: npm run build
 
+      - name: Find last successful Pages build
+        id: last-good
+        if: steps.build.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          run_id="$(gh api -H 'Accept: application/vnd.github+json' "/repos/$GITHUB_REPOSITORY/actions/workflows/pages.yml/runs?status=success&per_page=20" --jq '[.workflow_runs[] | select(.head_branch == "main")] | .[0].id')"
+          if [ -z "$run_id" ] || [ "$run_id" = "null" ]; then
+            echo "No previous successful Pages run is available; refusing to deploy an incomplete build."
+            exit 1
+          fi
+          echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
+
+      - name: Download last successful website artifact
+        if: steps.build.outcome == 'failure'
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          run-id: ${{ steps.last-good.outputs.run_id }}
+          github-token: ${{ github.token }}
+          path: ./_last_good
+
+      - name: Restore last successful website
+        if: steps.build.outcome == 'failure'
+        run: |
+          set -euo pipefail
+          test -s ./_last_good/artifact.tar
+          rm -rf ./_site
+          mkdir -p ./_site
+          tar -xf ./_last_good/artifact.tar -C ./_site
+          test -n "$(find ./_site -type f -print -quit)"
+          echo "Restored the complete last successful website. No partial build will be deployed."
+
       - name: Notify IndexNow about new and changed public pages
+        if: steps.build.outcome == 'success'
         env:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         run: node scripts/submit-indexnow.mjs
@@ -56,4 +94,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-# Rebuild requested after BRICS article image reflow.
+# If Supabase is unavailable, only a complete last-successful Pages artifact may be deployed.
