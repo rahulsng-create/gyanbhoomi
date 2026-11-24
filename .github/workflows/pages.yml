@@ -28,6 +28,14 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
+      - name: Restore Supabase content snapshot cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .build-cache
+          key: gyanbhoomi-db-snapshot-main-${{ github.run_id }}
+          restore-keys: |
+            gyanbhoomi-db-snapshot-main-
+
       - name: Build static article pages
         id: build
         continue-on-error: true
@@ -66,6 +74,13 @@ jobs:
           tar -xf ./_last_good/artifact.tar -C ./_site
           test -n "$(find ./_site -type f -print -quit)"
           echo "Restored the complete last successful website. No partial build will be deployed."
+
+      - name: Save refreshed Supabase content snapshot
+        if: steps.build.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: .build-cache
+          key: gyanbhoomi-db-snapshot-main-${{ github.run_id }}
 
       - name: Notify IndexNow about new and changed public pages
         if: steps.build.outcome == 'success'
